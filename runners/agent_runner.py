@@ -1,5 +1,5 @@
-from react_agent.main_agent import MainAgent
+from agents.react_agent import ReActAgent
+from testdata.email import EMAIL
 
-
-agent = MainAgent()
-agent.run_agent()
+agent = ReActAgent()
+agent.run_agent(EMAIL)
