@@ -3,9 +3,9 @@ from dotenv import load_dotenv
 
 from langchain_google_genai import ChatGoogleGenerativeAI
 
-from prompts import TRIAGE_SYSTEM_PROMPT, TRIAGE_USER_PROMPT
+from prompts.intial_prompts import TRIAGE_SYSTEM_PROMPT, TRIAGE_USER_PROMPT
 
-from models import router_model
+from models.router import Router
 
 
 # Example incoming email
@@ -53,7 +53,7 @@ class MainAgent:
             model="gemini-1.5-pro", google_api_key=self.api_key
         )
 
-        self.llm_router = self.llm.with_structured_output(router_model.RouterModel)
+        self.llm_router = self.llm.with_structured_output(Router)
 
     def run_agent(self):
         system_prompt = TRIAGE_SYSTEM_PROMPT.format(
@@ -81,7 +81,3 @@ class MainAgent:
         )
 
         print(result)
-
-
-agent = MainAgent()
-agent.run_agent()

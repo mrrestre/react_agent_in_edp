@@ -3,7 +3,7 @@ from typing import Literal
 from pydantic import BaseModel, Field
 
 
-class RouterModel(BaseModel):
+class Router(BaseModel):
     """Analyze the unread email and route it according to its content."""
 
     reasoning: str = Field(
