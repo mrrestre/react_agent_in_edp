@@ -21,7 +21,7 @@ from agent_tools.meeting_scheduling import MeetingScheduler
 class ReActAgent:
 
     def __init__(self):
-        self.last_input = None
+        self.input_object = None
         self.response = None
 
         self.tools = [
@@ -61,27 +61,20 @@ class ReActAgent:
         ] + state["messages"]
 
     def run_agent(self, email):
-        """result = self.llm_router.invoke(
-            [
-                {"role": "system", "content": self.system_prompt},
-                {"role": "user", "content": self.user_prompt},
-            ]
-        )
+        self.input_object = {"messages": [("user", str(email))]}
 
-        print(result)"""
-
-        self.last_input = {"messages": [("user", str(email))]}
-
-        self.response = self.agent.invoke(self.last_input)
+        self.response = self.agent.invoke(self.input_object)
 
     def print_agent_stream(self):
-        for s in self.agent.stream(self.last_input, stream_mode="values"):
+        for s in self.agent.stream(self.input_object, stream_mode="values"):
             message = s["messages"][-1]
             if isinstance(message, tuple):
                 print(message)
             else:
                 message.pretty_print()
-        print(f"Final response: {self.response}")
 
     def get_agent_graph(self):
         return self.agent.get_graph().draw_mermaid_png()
+
+    def print_agent_response(self) -> None:
+        self.response["messages"][-1].pretty_print()
