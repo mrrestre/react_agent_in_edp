@@ -1,17 +1,15 @@
-# Example incoming email
 EMAIL = {
-    "from": "Alice Smith <alice.smith@company.com>",
-    "to": "John Doe <john.doe@company.com>",
-    "subject": "Quick question about API documentation",
+    "from": "Your Name <your.email@company.com>",
+    "to": "Joe <joe.email@company.com>",
+    "subject": "Availability for a Meeting Next Thursday",
     "body": """
-Hi John,
+Hi Joe,
 
-I was reviewing the API documentation for the new authentication service and noticed a few endpoints seem to be missing from the specs. Could you help clarify if this was intentional or if we should update the docs?
+Hope you're doing well. I wanted to check if you’re available next Thursday for a meeting. If so, let me know what time works best for you, and we can get something scheduled.
 
-Specifically, I'm looking at:
-- /auth/refresh
-- /auth/validate
+Looking forward to your reply.
 
-Thanks!
-Alice""",
+Best,  
+[Your Name]
+""",
 }

@@ -1,52 +1,82 @@
 import os
 from dotenv import load_dotenv
 
-from langchain_google_genai import ChatGoogleGenerativeAI
+from langgraph.prebuilt import create_react_agent
 
-from agents.prompts.prompts import TRIAGE_SYSTEM_PROMPT, TRIAGE_USER_PROMPT
+from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain.tools import Tool
+
+from agents.prompts.prompts import AGENT_SYSTEM_PROMPT
+
 from agents.config.agent_configs import PROFILE, PROMP_INSTRUCTIONS
+
 from models.router import Router
+
+from agent_tools.i_agent_tool import IAgentTool
+from agent_tools.availability_checker import AvailabilityChecker
+from agent_tools.email_writing import EmailWriter
+from agent_tools.meeting_scheduling import MeetingScheduler
 
 
 class ReActAgent:
 
     def __init__(self):
-        self.user_prompt = None
-
-        self.prepare_system_prompt()
+        self.tools = [
+            self.define_tool(AvailabilityChecker),
+            self.define_tool(EmailWriter),
+            self.define_tool(MeetingScheduler),
+        ]
 
         _ = load_dotenv()
+
         self.llm = ChatGoogleGenerativeAI(
-            model="gemini-1.5-pro", google_api_key=os.getenv("GOOGLE_API_KEY")
+            model="gemini-1.5-flash", google_api_key=os.getenv("GOOGLE_API_KEY")
         )
+
         self.llm_router = self.llm.with_structured_output(Router)
 
-    def prepare_system_prompt(self):
-        self.system_prompt = TRIAGE_SYSTEM_PROMPT.format(
-            full_name=PROFILE["full_name"],
-            name=PROFILE["name"],
-            examples=None,
-            user_profile_background=PROFILE["user_profile_background"],
-            triage_no=PROMP_INSTRUCTIONS["triage_rules"]["ignore"],
-            triage_notify=PROMP_INSTRUCTIONS["triage_rules"]["notify"],
-            triage_email=PROMP_INSTRUCTIONS["triage_rules"]["respond"],
+        self.agent = create_react_agent(
+            model=self.llm, tools=self.tools, prompt=self.create_prompt
         )
 
-    def prepare_user_prompt(self, email):
-        self.user_prompt = TRIAGE_USER_PROMPT.format(
-            author=email["from"],
-            to=email["to"],
-            subject=email["subject"],
-            email_thread=email["body"],
+    def define_tool(self, tool: IAgentTool):
+        return Tool.from_function(
+            func=tool.method,
+            name=tool.name,
+            description=tool.description,
+            args_schema=tool.args_schema,
         )
+
+    def create_prompt(self, state):
+        return [
+            {
+                "role": "system",
+                "content": AGENT_SYSTEM_PROMPT.format(
+                    instructions=PROMP_INSTRUCTIONS["agent_instructions"], **PROFILE
+                ),
+            }
+        ] + state["messages"]
 
     def run_agent(self, email):
-        self.prepare_user_prompt(email)
-        result = self.llm_router.invoke(
+        """result = self.llm_router.invoke(
             [
                 {"role": "system", "content": self.system_prompt},
                 {"role": "user", "content": self.user_prompt},
             ]
         )
 
-        print(result)
+        print(result)"""
+
+        inputs = {"messages": [("user", str(email))]}
+
+        response = self.agent.invoke(inputs)
+
+        self.print_stream(self.agent.stream(inputs, stream_mode="values"))
+
+    def print_stream(self, stream):
+        for s in stream:
+            message = s["messages"][-1]
+            if isinstance(message, tuple):
+                print(message)
+            else:
+                message.pretty_print()
