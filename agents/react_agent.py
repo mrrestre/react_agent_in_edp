@@ -21,6 +21,9 @@ from agent_tools.meeting_scheduling import MeetingScheduler
 class ReActAgent:
 
     def __init__(self):
+        self.last_input = None
+        self.response = None
+
         self.tools = [
             self.define_tool(AvailabilityChecker),
             self.define_tool(EmailWriter),
@@ -67,16 +70,18 @@ class ReActAgent:
 
         print(result)"""
 
-        inputs = {"messages": [("user", str(email))]}
+        self.last_input = {"messages": [("user", str(email))]}
 
-        response = self.agent.invoke(inputs)
+        self.response = self.agent.invoke(self.last_input)
 
-        self.print_stream(self.agent.stream(inputs, stream_mode="values"))
-
-    def print_stream(self, stream):
-        for s in stream:
+    def print_agent_stream(self):
+        for s in self.agent.stream(self.last_input, stream_mode="values"):
             message = s["messages"][-1]
             if isinstance(message, tuple):
                 print(message)
             else:
                 message.pretty_print()
+        print(f"Final response: {self.response}")
+
+    def get_agent_graph(self):
+        return self.agent.get_graph().draw_mermaid_png()
