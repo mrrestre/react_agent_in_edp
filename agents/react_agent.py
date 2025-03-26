@@ -1,16 +1,14 @@
-import os
-from dotenv import load_dotenv
+"""Description: ReAct Agent class to manage the React Agent and its tools."""
 
 from langgraph.prebuilt import create_react_agent
 
-from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain.tools import Tool
 
 from agents.prompts.prompts import AGENT_SYSTEM_PROMPT
 
-from config import agent_configs, LLM_configs
+from config import agent_configs, supported_llms
 
-from models.router import Router
+from util.llm_proxy import LLMProxy
 
 from agent_tools.i_agent_tool import IAgentTool
 from agent_tools.availability_checker import AvailabilityChecker
@@ -19,8 +17,9 @@ from agent_tools.meeting_scheduling import MeetingScheduler
 
 
 class ReActAgent:
+    """ReAct Agent class to manage the React Agent and its tools."""
 
-    def __init__(self, llm_to_use: LLM_configs.SupportedLLMs):
+    def __init__(self, llm_to_use: supported_llms.SupportedLLMs):
         self.input_object = None
         self.response = None
 
@@ -30,29 +29,15 @@ class ReActAgent:
             self.define_tool(MeetingScheduler),
         ]
 
-        _ = load_dotenv()
+        llm_proxy = LLMProxy(model=llm_to_use, max_tokens=10000)
 
-        try:
-            self.configure_llm(llm_to_use)
-            self.agent = create_react_agent(
-                model=self.llm, tools=self.tools, prompt=self.create_prompt
-            )
-        except ValueError as e:
-            print(e)
-
-    def configure_llm(self, llm: str) -> None:
-        """Configure the LLM model to use, set up an environment variable to store the model name"""
-        if llm == LLM_configs.SupportedLLMs.GEMINI_15_FLASH:
-            used_model = LLM_configs.GEMINI_15_FLASH
-            os.environ["LLM_IN_USE"] = used_model["name"]
-            self.llm = ChatGoogleGenerativeAI(
-                model=used_model["name"],
-                google_api_key=os.getenv(used_model["key_name"]),
-            )
-        else:
-            raise ValueError("Invalid LLM model")
+        self.agent = create_react_agent(
+            model=llm_proxy.get_llm(), tools=self.tools, prompt=self.create_prompt
+        )
 
     def define_tool(self, tool: IAgentTool) -> Tool:
+        """Define a tool from an IAgentTool instance.
+        Uses the method, name, description, and args_schema attributes."""
         return Tool.from_function(
             func=tool.method,
             name=tool.name,
@@ -61,6 +46,7 @@ class ReActAgent:
         )
 
     def create_prompt(self, state: dict) -> list:
+        """Create the prompt for the agent based on AGENT_SYSTEM_PROMPT and the state."""
         return [
             {
                 "role": "system",
@@ -72,14 +58,17 @@ class ReActAgent:
         ] + state["messages"]
 
     def run_agent(self, email: str) -> None:
+        """Run the agent with the ..."""
         self.input_object = {"messages": [("user", str(email))]}
 
         self.response = self.agent.invoke(self.input_object)
 
     def get_agent_graph(self) -> str:
+        """Get the agent's graph in Mermaid format."""
         return self.agent.get_graph().draw_mermaid_png()
 
     def print_agent_stream(self) -> None:
+        """Print the agent's stream of messages."""
         for s in self.agent.stream(self.input_object, stream_mode="values"):
             message = s["messages"][-1]
             if isinstance(message, tuple):
@@ -88,4 +77,5 @@ class ReActAgent:
                 message.pretty_print()
 
     def print_agent_response(self) -> None:
+        """Print the agent's final response"""
         self.response["messages"][-1].pretty_print()

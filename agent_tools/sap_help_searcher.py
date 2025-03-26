@@ -1,35 +1,46 @@
-import requests
-import urllib.parse
 from typing import Type
+import urllib.parse
+
+import requests
+
 
 from pydantic import BaseModel
 from markdownify import markdownify as md
 
 from agent_tools.i_agent_tool import IAgentTool
-from util.llm_proxy import LlmProxy
+from util.llm_proxy import LLMProxy
 
 
 class SearchInputModel(BaseModel):
+    """Input schema for the search_sap_help tool."""
+
     query: str
 
 
 class MockSapHelpSearcher(IAgentTool):
+    """Mock tool for searching articles from SAP Help at help.sap.com."""
+
     name: str = "search_sap_help"
     description: str = "Search articles from SAP Help at help.sap.com"
     args_schema: Type[BaseModel] = SearchInputModel
 
     @staticmethod
     def method(query: str) -> str:
+        """Mock method for searching articles from SAP Help at help.sap.com."""
         return f"Search SAP Help for '{query}'"
 
 
 class SapHelpSearcher(IAgentTool):
+    """Tool for searching articles from SAP Help at help.sap.com."""
+
     name: str = "search_sap_help"
     description: str = "Search articles from SAP Help at help.sap.com"
     args_schema: Type[BaseModel] = SearchInputModel
 
     @staticmethod
     def shorten_text(text, max_words=17000):
+        """Shorten the text to a maximum number of words and add '...' at the end."""
+
         # Split the text into words
         words = text.split()
 
@@ -76,9 +87,9 @@ class SapHelpSearcher(IAgentTool):
             new_response = requests.get(new_url, timeout=10)
             # Ensure the request was successful
             new_response.raise_for_status()
-
             # Load the JSON response
             deliverable_metadata = new_response.json()
+
             try:
                 id_value = deliverable_metadata["data"]["deliverable"]["id"]
                 build_no = deliverable_metadata["data"]["deliverable"]["buildNo"]
@@ -94,7 +105,7 @@ class SapHelpSearcher(IAgentTool):
             except KeyError:
                 continue
 
-            llm_proxy = LlmProxy()
+            llm_proxy = LLMProxy()
             markdown = llm_proxy.invoke(
                 "Summarize and join sections that are similar to each other:\n"
                 + SapHelpSearcher.shorten_text(text=str(markdown))
