@@ -4,6 +4,7 @@ from typing import Optional
 from gen_ai_hub.proxy.langchain import init_llm
 
 from langchain_core.language_models import BaseLanguageModel
+
 from pydantic import BaseModel
 
 from config.supported_llms import SupportedLLMs
@@ -20,17 +21,19 @@ class LLMProxy:
 
     _instance = None
 
-    def __new__(cls, model, max_tokens):
-        if cls._instance is None:
-            cls._instance = super(LLMProxy, cls).__new__(cls)
-            cls._instance._initialize(model, max_tokens)
-        return cls._instance
-
-    def _initialize(
-        self,
+    def __new__(
+        cls,
         model: Optional[SupportedLLMs] = DEFAULT_LLM,
         max_tokens: Optional[int] = DEFAULT_MAX_TOKENS,
     ):
+        if cls._instance is None:
+            cls._instance = super(LLMProxy, cls).__new__(cls)
+            cls._instance._initialize(
+                model or DEFAULT_LLM, max_tokens or DEFAULT_MAX_TOKENS
+            )
+        return cls._instance
+
+    def _initialize(self, model: SupportedLLMs, max_tokens: int):
         """Initialize the model only once."""
         if SupportedLLMs.has_value(model.value):
             self.llm = init_llm(model.value, max_tokens)
@@ -51,10 +54,10 @@ class LLMProxy:
         else:
             return self.llm
 
-    def invoke_with_model(self, prompt, output_model: BaseModel):
-
+    def invoke_with_output_model(self, output_model: BaseModel, prompt):
+        """Invoke the LLM with the given text and return the structured output."""
         if self.llm is None:
             raise RuntimeError("LLM proxy is not initialized")
         else:
             structured_llm = self.llm.with_structured_output(output_model)
-            return structured_llm.invoke(prompt, BaseModel)
+            return structured_llm.invoke(prompt)

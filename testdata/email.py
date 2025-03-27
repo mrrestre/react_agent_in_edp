@@ -10,6 +10,6 @@ Hope you're doing well. I wanted to check if you’re available next Thursday fo
 Looking forward to your reply.
 
 Best,  
-[Your Name]
+Bertha
 """,
 }

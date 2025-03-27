@@ -2,47 +2,26 @@
 
 from langgraph.prebuilt import create_react_agent
 
-from langchain.tools import Tool
-
 from agents.prompts.prompts import AGENT_SYSTEM_PROMPT
 
-from config import agent_configs, supported_llms
+from config import agent_configs
 
 from util.llm_proxy import LLMProxy
 
 from agent_tools.i_agent_tool import IAgentTool
-from agent_tools.availability_checker import AvailabilityChecker
-from agent_tools.email_writing import EmailWriter
-from agent_tools.meeting_scheduling import MeetingScheduler
 
 
 class ReActAgent:
     """ReAct Agent class to manage the React Agent and its tools."""
 
-    def __init__(self, llm_to_use: supported_llms.SupportedLLMs):
+    def __init__(self, llm_proxy: LLMProxy, tool_list: list[IAgentTool]):
         self.input_object = None
         self.response = None
 
-        self.tools = [
-            self.define_tool(AvailabilityChecker),
-            self.define_tool(EmailWriter),
-            self.define_tool(MeetingScheduler),
-        ]
-
-        llm_proxy = LLMProxy(model=llm_to_use, max_tokens=10000)
+        self.tools = tool_list
 
         self.agent = create_react_agent(
             model=llm_proxy.get_llm(), tools=self.tools, prompt=self.create_prompt
-        )
-
-    def define_tool(self, tool: IAgentTool) -> Tool:
-        """Define a tool from an IAgentTool instance.
-        Uses the method, name, description, and args_schema attributes."""
-        return Tool.from_function(
-            func=tool.method,
-            name=tool.name,
-            description=tool.description,
-            args_schema=tool.args_schema,
         )
 
     def create_prompt(self, state: dict) -> list:

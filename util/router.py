@@ -8,7 +8,7 @@ from config import router_config, agent_configs
 from config.supported_llms import SupportedLLMs
 
 
-class RouterModel(BaseModel):
+class RouterOutputModel(BaseModel):
     """Analyze the unread email and route it according to its content."""
 
     reasoning: str = Field(
@@ -23,7 +23,12 @@ class RouterModel(BaseModel):
 
 class Router:
 
-    def route_input(self, initial_email) -> RouterModel:
+    def __init__(
+        self, model: SupportedLLMs = SupportedLLMs.GPT_4o, max_tokens: int = 1024
+    ):
+        self.llm_proxy = LLMProxy(model, max_tokens)
+
+    def route_input(self, initial_email) -> RouterOutputModel:
         """Route the input email to the appropriate category
         based on its relevance and urgency."""
 
@@ -44,11 +49,10 @@ class Router:
             email_thread=initial_email["body"],
         )
 
-        llm_proxy = LLMProxy(model=SupportedLLMs.GPT_4o, max_tokens=10000)
-        return llm_proxy.invoke_with_model(
+        return self.llm_proxy.invoke_with_output_model(
+            output_model=RouterOutputModel,
             prompt=[
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": user_prompt},
             ],
-            output_model=RouterModel,
         )
