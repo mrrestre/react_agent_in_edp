@@ -3,42 +3,47 @@ import urllib.parse
 
 import requests
 
-
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from markdownify import markdownify as md
 
-from agent_tools.i_agent_tool import IAgentTool
+from langchain.tools.base import BaseTool
+
 from util.llm_proxy import LLMProxy
 
 
 class SearchInputModel(BaseModel):
     """Input schema for the search_sap_help tool."""
 
-    query: str
+    query: str = Field(..., description="Query to search within help.sap.com")
 
 
-class MockSapHelpSearcher(IAgentTool):
+class MockSapHelpSearcher(BaseTool):
     """Mock tool for searching articles from SAP Help at help.sap.com."""
 
     name: str = "search_sap_help"
     description: str = "Search articles from SAP Help at help.sap.com"
     args_schema: Type[BaseModel] = SearchInputModel
 
-    @staticmethod
-    def method(query: str) -> str:
+    def _run(self, query: str) -> str:
         """Mock method for searching articles from SAP Help at help.sap.com."""
         return f"Search SAP Help for '{query}'"
 
+    async def _arun(
+        self,
+        query: str,
+    ) -> str:
+        """Use the tool asynchronously."""
+        raise NotImplementedError("search_sap_help does not support async")
 
-class SapHelpSearcher(IAgentTool):
+
+class SapHelpSearcher(BaseTool):
     """Tool for searching articles from SAP Help at help.sap.com."""
 
     name: str = "search_sap_help"
     description: str = "Search articles from SAP Help at help.sap.com"
     args_schema: Type[BaseModel] = SearchInputModel
 
-    @staticmethod
-    def shorten_text(text, max_words=17000):
+    def shorten_text(self, text, max_words=17000):
         """Shorten the text to a maximum number of words and add '...' at the end."""
 
         # Split the text into words
@@ -53,8 +58,7 @@ class SapHelpSearcher(IAgentTool):
 
         return shortened_text
 
-    @staticmethod
-    def method(query: str) -> str:
+    def _run(self, query: str) -> str:
         markdown = ""
         url = f"https://help.sap.com/http.svc/elasticsearch?area=content&version=&language=en-US&state=PRODUCTION&q={query}&transtype=standard,html,pdf,others&product=SAP_S4HANA_ON-PREMISE&to=19&advancedSearch=0&excludeNotSearchable=1"
 
@@ -108,6 +112,13 @@ class SapHelpSearcher(IAgentTool):
             llm_proxy = LLMProxy()
             markdown = llm_proxy.invoke(
                 "Summarize and join sections that are similar to each other:\n"
-                + SapHelpSearcher.shorten_text(text=str(markdown))
+                + self.shorten_text(text=str(markdown))
             )
         return markdown
+
+    async def _arun(
+        self,
+        query: str,
+    ) -> str:
+        """Use the tool asynchronously."""
+        raise NotImplementedError("search_sap_help does not support async")

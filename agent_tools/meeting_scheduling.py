@@ -1,7 +1,7 @@
 from pydantic import BaseModel, Field
 from typing import List, Type
 
-from agent_tools.i_agent_tool import IAgentTool
+from langchain.tools.base import BaseTool
 
 
 class MeetingDetails(BaseModel):
@@ -11,13 +11,13 @@ class MeetingDetails(BaseModel):
     preferred_day: str = Field(..., description="Preferred day for the meeting")
 
 
-class MeetingScheduler(IAgentTool):
+class MeetingScheduler(BaseTool):
     name: str = "schedule_meeting"
     description: str = "Schedule calendar meetings"
     args_schema: Type[BaseModel] = MeetingDetails
 
-    @staticmethod
-    def method(
+    def _run(
+        self,
         attendees: list[str],
         subject: str,
         duration_minutes: int,
@@ -26,3 +26,13 @@ class MeetingScheduler(IAgentTool):
         """Schedule a calendar meeting."""
         # Placeholder response - in real app would check calendar and schedule
         return f"Meeting '{subject}' scheduled for {preferred_day} with {len(attendees)} attendees for {duration_minutes} minutes"
+
+    async def _arun(
+        self,
+        attendees: list[str],
+        subject: str,
+        duration_minutes: int,
+        preferred_day: str,
+    ) -> str:
+        """Use the tool asynchronously."""
+        raise NotImplementedError("schedule_meeting does not support async")

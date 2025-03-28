@@ -6,8 +6,13 @@ __pycache__/
 # C extensions
 *.so
 
+# AI Core
 .aicore
 .aicore/*
+
+# REST Collections
+.collections
+.collections/*
 
 # Distribution / packaging
 .Python

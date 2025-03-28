@@ -1,6 +1,7 @@
 """Description: ReAct Agent class to manage the React Agent and its tools."""
 
 from langgraph.prebuilt import create_react_agent
+from langchain.tools.base import BaseTool
 
 from agents.prompts.prompts import AGENT_SYSTEM_PROMPT
 
@@ -8,13 +9,11 @@ from config import agent_configs
 
 from util.llm_proxy import LLMProxy
 
-from agent_tools.i_agent_tool import IAgentTool
-
 
 class ReActAgent:
     """ReAct Agent class to manage the React Agent and its tools."""
 
-    def __init__(self, llm_proxy: LLMProxy, tool_list: list[IAgentTool]):
+    def __init__(self, llm_proxy: LLMProxy, tool_list: list[BaseTool]):
         self.input_object = None
         self.response = None
 

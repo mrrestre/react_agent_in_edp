@@ -1,6 +1,6 @@
 EMAIL = {
-    "from": "Your Name <your.email@company.com>",
-    "to": "Joe <joe.email@company.com>",
+    "from": "Bertha <laBertrix@company.com>",
+    "to": "Joe Doe <joe.doe@company.com>",
     "subject": "Availability for a Meeting Next Thursday",
     "body": """
 Hi Joe,
