@@ -26,13 +26,3 @@ class MeetingScheduler(BaseTool):
         """Schedule a calendar meeting."""
         # Placeholder response - in real app would check calendar and schedule
         return f"Meeting '{subject}' scheduled for {preferred_day} with {len(attendees)} attendees for {duration_minutes} minutes"
-
-    async def _arun(
-        self,
-        attendees: list[str],
-        subject: str,
-        duration_minutes: int,
-        preferred_day: str,
-    ) -> str:
-        """Use the tool asynchronously."""
-        raise NotImplementedError("schedule_meeting does not support async")

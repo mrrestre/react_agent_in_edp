@@ -1,5 +1,6 @@
 # from dotenv import load_dotenv
 from typing import Optional
+from enum import Enum
 
 from gen_ai_hub.proxy.langchain import init_llm
 
@@ -7,7 +8,16 @@ from langchain_core.language_models import BaseLanguageModel
 
 from pydantic import BaseModel
 
-from config.supported_llms import SupportedLLMs
+
+class SupportedLLMs(Enum):
+    """LLMs that are supported by the LLMProxy"""
+
+    GPT_4o = "gpt-4o"
+
+    @classmethod
+    def has_value(cls, value):
+        """Helper method to ensure LLM is supoorted"""
+        return value in cls._value2member_map_
 
 
 DEFAULT_LLM = SupportedLLMs.GPT_4o

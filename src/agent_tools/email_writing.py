@@ -24,12 +24,3 @@ class EmailWriter(BaseTool):
     ) -> str:
         """Write and send an email."""
         return f"Email sent to {to} with subject '{subject}' and content '{content}'"
-
-    async def _arun(
-        self,
-        o: str,
-        subject: str,
-        content: str,
-    ) -> str:
-        """Use the tool asynchronously."""
-        raise NotImplementedError("write_email does not support async")

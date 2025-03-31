@@ -3,11 +3,11 @@
 from langgraph.prebuilt import create_react_agent
 from langchain.tools.base import BaseTool
 
-from config.prompts.prompts import AGENT_SYSTEM_PROMPT
+from src.config.prompts.prompts import AGENT_SYSTEM_PROMPT
 
-from config import agent_configs
+from src.config import agent_configs
 
-from util.llm_proxy import LLMProxy
+from src.util.llm_proxy import LLMProxy
 
 
 class ReActAgent:

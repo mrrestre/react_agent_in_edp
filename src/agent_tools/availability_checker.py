@@ -25,12 +25,3 @@ class AvailabilityChecker(BaseTool):
         """Check calendar availability for a given day."""
         # Placeholder response - in real app would check actual calendar
         return f"Available times on {day}/{month}/{year}: 9:00 AM, 2:00 PM, 4:00 PM"
-
-    async def _arun(
-        self,
-        year: str,
-        month: str,
-        day: str,
-    ) -> str:
-        """Use the tool asynchronously."""
-        raise NotImplementedError("check_calendar_availability does not support async")

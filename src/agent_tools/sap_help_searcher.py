@@ -9,7 +9,7 @@ from markdownify import markdownify as md
 from langchain.tools.base import BaseTool
 from langchain.prompts import PromptTemplate
 
-from util.llm_proxy import LLMProxy
+from src.util.llm_proxy import LLMProxy
 
 SUMMARIZATION_PROMPT = """
 Given the user's query: "{query}"
