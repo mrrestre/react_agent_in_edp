@@ -11,15 +11,17 @@ from langchain.prompts import PromptTemplate
 
 from util.llm_proxy import LLMProxy
 
-# Create a prompt for summarizing markdown articles
-SUMM_PROMPT = """
-You are given a markdown text which contains knowledge articles as markdown. Your task is to extract key information and provide a concise summary from all the articles:
+SUMMARIZATION_PROMPT = """
+Given the user's query: "{query}"
 
+Summarize the following markdown articles in no more than 200 words, focusing on how they directly explain and provide context to the user's query. Extract key information from the articles that helps to understand the query better.
+
+Markdown Articles:
 ---
 {markdown_content}
 ---
 
-Provide a concise summary below:
+Query-Focused Summary:
 """
 
 
@@ -52,15 +54,15 @@ class SapHelpSearcher(BaseTool):
     )
     args_schema: Type[BaseModel] = SearchInputModel
 
-    def summarize_markdown(self, markdown_content: str) -> str:
+    def summarize_markdown(self, markdown_content: str, query: str) -> str:
         """Summarization method for articles found."""
         llm_proxy = LLMProxy()
 
         # Create a PromptTemplate object
-        prompt_template = PromptTemplate.from_template(SUMM_PROMPT)
+        prompt_template = PromptTemplate.from_template(SUMMARIZATION_PROMPT)
 
         # Format the prompt with your markdown content
-        prompt = prompt_template.format(markdown_content=markdown_content)
+        prompt = prompt_template.format(markdown_content=markdown_content, query=query)
 
         return llm_proxy.invoke(prompt=prompt).content
 
@@ -131,4 +133,6 @@ class SapHelpSearcher(BaseTool):
             # Add article to markdown containing all article content
             all_articles_markdown += self.fetch_article(topic_loio=result["loio"])
 
-        return self.summarize_markdown(all_articles_markdown)
+        return self.summarize_markdown(
+            markdown_content=all_articles_markdown, query=query
+        )
