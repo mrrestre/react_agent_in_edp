@@ -11,8 +11,7 @@ __pycache__/
 .aicore/*
 
 # REST Collections
-.collections
-.collections/*
+req_collections/deploy_model.rest
 
 # ML Flow files
 mlartifacts

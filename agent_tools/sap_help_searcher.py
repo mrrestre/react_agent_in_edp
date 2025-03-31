@@ -1,5 +1,5 @@
 from typing import Type
-import urllib.parse
+from urllib.parse import urlencode
 
 import requests
 
@@ -7,118 +7,128 @@ from pydantic import BaseModel, Field
 from markdownify import markdownify as md
 
 from langchain.tools.base import BaseTool
+from langchain.prompts import PromptTemplate
 
 from util.llm_proxy import LLMProxy
+
+# Create a prompt for summarizing markdown articles
+SUMM_PROMPT = """
+You are given a markdown text which contains knowledge articles as markdown. Your task is to extract key information and provide a concise summary from all the articles:
+
+---
+{markdown_content}
+---
+
+Provide a concise summary below:
+"""
 
 
 class SearchInputModel(BaseModel):
     """Input schema for the search_sap_help tool."""
 
-    query: str = Field(..., description="Query to search within help.sap.com")
+    query: str = Field(..., description="Query to search articles within help.sap.com")
 
 
 class MockSapHelpSearcher(BaseTool):
     """Mock tool for searching articles from SAP Help at help.sap.com."""
 
     name: str = "search_sap_help"
-    description: str = "Search articles from SAP Help at help.sap.com"
+    description: str = (
+        "Get a summary from knowledge articles with a given query from SAP Help at help.sap.com"
+    )
     args_schema: Type[BaseModel] = SearchInputModel
 
     def _run(self, query: str) -> str:
         """Mock method for searching articles from SAP Help at help.sap.com."""
         return f"Search SAP Help for '{query}'"
 
-    async def _arun(
-        self,
-        query: str,
-    ) -> str:
-        """Use the tool asynchronously."""
-        raise NotImplementedError("search_sap_help does not support async")
-
 
 class SapHelpSearcher(BaseTool):
     """Tool for searching articles from SAP Help at help.sap.com."""
 
     name: str = "search_sap_help"
-    description: str = "Search articles from SAP Help at help.sap.com"
+    description: str = (
+        "Get a summary from knowledge articles with a given query from SAP Help at help.sap.com"
+    )
     args_schema: Type[BaseModel] = SearchInputModel
 
-    def shorten_text(self, text, max_words=17000):
-        """Shorten the text to a maximum number of words and add '...' at the end."""
+    def summarize_markdown(self, markdown_content: str) -> str:
+        """Summarization method for articles found."""
+        llm_proxy = LLMProxy()
 
-        # Split the text into words
-        words = text.split()
+        # Create a PromptTemplate object
+        prompt_template = PromptTemplate.from_template(SUMM_PROMPT)
 
-        # Check if the number of words is less than or equal to the maximum allowed words
-        if len(words) <= max_words:
-            return text
+        # Format the prompt with your markdown content
+        prompt = prompt_template.format(markdown_content=markdown_content)
 
-        # Shorten the text by joining the first max_words words and adding an ellipsis
-        shortened_text = " ".join(words[:max_words]) + "..."
+        return llm_proxy.invoke(prompt=prompt).content
 
-        return shortened_text
+    def fetch_articles_with_query(self, query: str, top_n: int) -> list:
+        """Return top n articles for query in sap.help"""
+        search_query_params_dic = {
+            "area": "content",
+            "language": "en-US",
+            "state": "PRODUCTION",
+            "q": query,
+            "transtype": "standard,html,pdf,others",
+            "product": "SAP_S4HANA_ON-PREMISE",
+            "to": "19&advancedSearch=0",
+            "excludeNotSearchable": "1",
+        }
+        search_query_str = urlencode(search_query_params_dic)
+        search_url = f"https://help.sap.com/http.svc/elasticsearch?{search_query_str}"
 
-    def _run(self, query: str) -> str:
-        markdown = ""
-        url = f"https://help.sap.com/http.svc/elasticsearch?area=content&version=&language=en-US&state=PRODUCTION&q={query}&transtype=standard,html,pdf,others&product=SAP_S4HANA_ON-PREMISE&to=19&advancedSearch=0&excludeNotSearchable=1"
+        # Make a GET request to the new URL
+        server_response = requests.get(search_url, timeout=10)
+        # Ensure the request was successful
+        server_response.raise_for_status()
+        # Load the JSON response
+        response_json = server_response.json()
 
-        response = requests.get(url, timeout=10)
+        # Get the first n results (Most relevant articles on top)
+        search_results = response_json["data"]["results"][:top_n]
+
+        return search_results
+
+    def fetch_article(self, topic_loio: str) -> str:
+        """Fetch the content of an article for a given topic loio."""
+        topic_query_params_dic = {
+            "version": "LATEST",
+            "language": "en-US",
+            "state": "PRODUCTION",
+            "product": "SAP_S4HANA_ON-PREMISE",
+            "topic": topic_loio,
+        }
+        topic_query_str = urlencode(topic_query_params_dic)
+
+        # Create new URL with the extracted data
+        article_content_url = (
+            f"https://help.sap.com/http.svc/getcontent?{topic_query_str}"
+        )
+        # Make a GET request to the new URL
+        server_response = requests.get(article_content_url, timeout=10)
 
         # Ensure the request was successful
-        response.raise_for_status()
+        server_response.raise_for_status()
+
         # Load the JSON response
-        data = response.json()
-        # Get the results
-        results = data["data"]["results"]
-        # Limit to the first 10 results
-        results = results[:10]
+        response_json = server_response.json()
 
-        for result in results:
-            # Get the URL
-            url = result["url"]
-            # Parse the URL
-            parsed = urllib.parse.urlparse(url)
-            # Split the path into segments
-            segments = parsed.path.split("/")
-            # Extract the desired segments
-            product = segments[2]
-            deliverable_loio = segments[3]
-            topic_loio = segments[4]
+        # Transform content to markdown (from HTML)
+        return md(
+            response_json["data"]["content"]["content"],
+            escape_underscores=False,
+        )
 
-            # Create new URL with the extracted data
-            new_url = f"https://help.sap.com/http.svc/deliverableMetadata?deliverableInfo=1&toc=1&topic_url={topic_loio}&product_url={product}&deliverable_url={deliverable_loio}&version=LATEST&loadlandingpageontopicnotfound=true"
-            # Make a GET request to the new URL
-            new_response = requests.get(new_url, timeout=10)
-            # Ensure the request was successful
-            new_response.raise_for_status()
-            # Load the JSON response
-            deliverable_metadata = new_response.json()
+    def _run(self, query: str) -> str:
+        """Method for searching articles from SAP Help at help.sap.com with a given query."""
+        all_articles_markdown = ""
 
-            try:
-                id_value = deliverable_metadata["data"]["deliverable"]["id"]
-                build_no = deliverable_metadata["data"]["deliverable"]["buildNo"]
-                file_path = deliverable_metadata["data"]["filePath"]
-                url = f"https://help.sap.com/http.svc/pagecontent?deliverableInfo=1&deliverable_id={id_value}&file_path={file_path}&buildNo={build_no}"
+        search_results = self.fetch_articles_with_query(query=query, top_n=10)
 
-                response = requests.get(url, timeout=10)
-                response_data = response.json()
-                markdown += "\n------\n" + md(
-                    response_data.get("data", {}).get("body", {}),
-                    escape_underscores=False,
-                )
-            except KeyError:
-                continue
+        for result in search_results:
+            # Add article to markdown containing all article content
+            all_articles_markdown += self.fetch_article(topic_loio=result["loio"])
 
-            llm_proxy = LLMProxy()
-            markdown = llm_proxy.invoke(
-                "Summarize and join sections that are similar to each other:\n"
-                + self.shorten_text(text=str(markdown))
-            )
-        return markdown
-
-    async def _arun(
-        self,
-        query: str,
-    ) -> str:
-        """Use the tool asynchronously."""
-        raise NotImplementedError("search_sap_help does not support async")
+        return self.summarize_markdown(all_articles_markdown)

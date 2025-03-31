@@ -3,7 +3,7 @@
 from langgraph.prebuilt import create_react_agent
 from langchain.tools.base import BaseTool
 
-from agents.prompts.prompts import AGENT_SYSTEM_PROMPT
+from config.prompts.prompts import AGENT_SYSTEM_PROMPT
 
 from config import agent_configs
 

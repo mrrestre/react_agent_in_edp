@@ -1,0 +1,28 @@
+@QUERY=EDP
+@PRODUCT=SAP_S4HANA_ON-PREMISE
+
+# @name GetSAPHelpArticles
+GET https://help.sap.com/http.svc/elasticsearch
+    ?area=content
+    &version=
+    &language=en-US
+    &state=PRODUCTION
+    &q={{QUERY}}
+    &transtype=standard,html,pdf,others
+    &product={{PRODUCT}}
+    &to=19&advancedSearch=0
+    &excludeNotSearchable=1 HTTP/1.1
+Content-Type: application/json
+
+@TOPIC_LOIO = {{GetSAPHelpArticles.response.body.data.results[:0].loio}}
+
+###
+
+# @name GetArticleContent
+GET https://help.sap.com/http.svc/getcontent
+    ?version=LATEST
+    &language=en-US
+    &state=PRODUCTION
+    &product={{PRODUCT}}
+    &topic={{TOPIC_LOIO}}
+Content-Type: application/json
