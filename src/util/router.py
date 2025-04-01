@@ -82,9 +82,9 @@ class Router:
             name=system_configs.PROFILE["name"],
             examples=None,
             user_profile_background=system_configs.PROFILE["user_profile_background"],
-            triage_no=system_configs.PROMP_INSTRUCTIONS["triage_rules"]["ignore"],
-            triage_notify=system_configs.PROMP_INSTRUCTIONS["triage_rules"]["notify"],
-            triage_email=system_configs.PROMP_INSTRUCTIONS["triage_rules"]["respond"],
+            triage_no=system_configs.TRIAGE_INSTRUCTIONS["triage_rules"]["ignore"],
+            triage_notify=system_configs.TRIAGE_INSTRUCTIONS["triage_rules"]["notify"],
+            triage_email=system_configs.TRIAGE_INSTRUCTIONS["triage_rules"]["respond"],
         )
 
         user_prompt = ROUTER_USER_PROMPT.format(

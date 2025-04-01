@@ -9,34 +9,23 @@ from src.config import system_configs
 
 from src.util.llm_proxy import LLMProxy
 
-AGENT_SYSTEM_PROMPT = """
-< Role >
-You are {full_name}'s executive assistant. You are a top-notch executive assistant who cares about {name} performing as well as possible. 
-</ Role >
+AGENT_SYSTEM_PROMPT_QA = """
+    < Role >
+        You are an expert on Electronic Document Processing.
+    </ Role >
 
-< Instructions >
+    < Instructions >
+        Context: Peppol, UBL, eInvoicing.
+        Solve a question answering task with interleaving Thought, Action, Observation steps.
+        {react_instructions}
+        Avoid bias based on physical appearance, ethnicity, or race.
+        Replace inappropriate language with inclusive language; politely refuse results, if that is not possible.
+    </ Instructions >
 
-{name} gets lots of emails. Your job is to categorize each email into one of three categories:
-
-1. IGNORE - Emails that are not worth responding to or tracking
-2. NOTIFY - Important information that {name} should know about but doesn't require a response
-3. RESPOND - Emails that need a direct response from {name}
-
-Classify the below email into one of these categories and then use your tools if the content of the email requires you to take action.
-
-</ Instructions >
-
-< Tools >
-You have access to the following tools to help manage {name}'s communications and schedule:
-
-1. write_email(to, subject, content) - Send emails to specified recipients
-2. schedule_meeting(attendees, subject, duration_minutes, preferred_day) - Schedule calendar meetings
-3. check_calendar_availability(day) - Check available time slots for a given day
-</ Tools >
-
-< Instructions >
-{instructions}
-</ Instructions >
+    < Tools >
+        You have access to the following tools in order to resolve the incoming questions:
+        1. search_sap_help(query) - Returns documentation, including specific information on setup and configuration for eDocuments
+    </ Tools >
 """
 
 
@@ -55,12 +44,10 @@ class ReActAgent:
 
     def create_sys_prompt(self) -> str:
         """Create the prompt for the agent based on AGENT_SYSTEM_PROMPT and the system config."""
-        sys_prompt_template = PromptTemplate.from_template(AGENT_SYSTEM_PROMPT)
+        sys_prompt_template = PromptTemplate.from_template(AGENT_SYSTEM_PROMPT_QA)
 
         return sys_prompt_template.format(
-            full_name=system_configs.PROFILE["full_name"],
-            name=system_configs.PROFILE["name"],
-            instructions=system_configs.PROMP_INSTRUCTIONS["agent_instructions"],
+            react_instructions=system_configs.REACT_INSTRUCTIONS["instructions"],
         )
 
     def get_agent_graph(self) -> str:

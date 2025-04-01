@@ -3,18 +3,28 @@ from urllib.parse import urlencode
 
 import requests
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 from markdownify import markdownify as md
 
 from langchain.tools.base import BaseTool
 from langchain.prompts import PromptTemplate
+from langchain_core.tools import ToolException
+
 
 from src.util.llm_proxy import LLMProxy
+
+TOOL_NAME = "search_sap_help"
+TOOL_DESCR = "Returns documentation, including specific information on setup and configuration for eDocuments"
+
+TOP_N_ARTICLES = 10
 
 SUMMARIZATION_PROMPT = """
 Given the user's query: "{query}"
 
-Summarize the following markdown articles in no more than 200 words, focusing on how they directly explain and provide context to the user's query. Extract key information from the articles that helps to understand the query better.
+Summarize the following markdown articles in no more than 200 words, 
+focusing on how they directly explain and provide context to the user's query. 
+Extract key information from the articles that helps to understand the query better.
+Include all relevant technical information and technical objects.
 
 Markdown Articles:
 ---
@@ -28,16 +38,17 @@ Query-Focused Summary:
 class SearchInputModel(BaseModel):
     """Input schema for the search_sap_help tool."""
 
-    query: str = Field(..., description="Query to search articles within help.sap.com")
+    query: str = Field(
+        ...,
+        description="Query strings delimited by space. Provide one or more technical object names, if possible",
+    )
 
 
 class MockSapHelpSearcher(BaseTool):
     """Mock tool for searching articles from SAP Help at help.sap.com."""
 
-    name: str = "search_sap_help"
-    description: str = (
-        "Get a summary from knowledge articles with a given query from SAP Help at help.sap.com"
-    )
+    name: str = TOOL_NAME
+    description: str = TOOL_DESCR
     args_schema: Type[BaseModel] = SearchInputModel
 
     def _run(self, query: str) -> str:
@@ -48,10 +59,8 @@ class MockSapHelpSearcher(BaseTool):
 class SapHelpSearcher(BaseTool):
     """Tool for searching articles from SAP Help at help.sap.com."""
 
-    name: str = "search_sap_help"
-    description: str = (
-        "Get a summary from knowledge articles with a given query from SAP Help at help.sap.com"
-    )
+    name: str = TOOL_NAME
+    description: str = TOOL_DESCR
     args_schema: Type[BaseModel] = SearchInputModel
 
     def summarize_markdown(self, markdown_content: str, query: str) -> str:
@@ -64,7 +73,7 @@ class SapHelpSearcher(BaseTool):
         # Format the prompt with your markdown content
         prompt = prompt_template.format(markdown_content=markdown_content, query=query)
 
-        return llm_proxy.invoke(prompt=prompt).content
+        return llm_proxy.invoke(input_prompt=prompt)
 
     def fetch_articles_with_query(self, query: str, top_n: int) -> list:
         """Return top n articles for query in sap.help"""
@@ -127,11 +136,24 @@ class SapHelpSearcher(BaseTool):
         """Method for searching articles from SAP Help at help.sap.com with a given query."""
         all_articles_markdown = ""
 
-        search_results = self.fetch_articles_with_query(query=query, top_n=10)
+        search_results = self.fetch_articles_with_query(
+            query=query, top_n=TOP_N_ARTICLES
+        )
 
-        for result in search_results:
-            # Add article to markdown containing all article content
-            all_articles_markdown += self.fetch_article(topic_loio=result["loio"])
+        if search_results:
+            for result in search_results:
+                # Only check articles where loio is present
+                if result.get("loio"):
+                    # Add article to markdown containing all article content
+                    all_articles_markdown += self.fetch_article(
+                        topic_loio=result["loio"]
+                    )
+                else:
+                    continue
+        else:
+            raise ToolException(
+                "No articles found for query, try again with broader query."
+            )
 
         return self.summarize_markdown(
             markdown_content=all_articles_markdown, query=query
