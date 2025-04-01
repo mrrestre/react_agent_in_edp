@@ -19,6 +19,9 @@ mlartifacts/*
 mlruns
 mlruns/*
 
+# Certificates
+certificates/*
+
 # Distribution / packaging
 .Python
 build/
