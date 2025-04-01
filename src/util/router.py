@@ -4,7 +4,7 @@ from pydantic import BaseModel, Field
 
 from llm_proxy import LLMProxy, SupportedLLMs
 
-from src.config import agent_configs
+from src.config import system_configs
 
 # Triage prompt
 ROUTER_SYSTEM_PROMPT = """
@@ -78,13 +78,13 @@ class Router:
         based on its relevance and urgency."""
 
         system_prompt = ROUTER_SYSTEM_PROMPT.format(
-            full_name=agent_configs.PROFILE["full_name"],
-            name=agent_configs.PROFILE["name"],
+            full_name=system_configs.PROFILE["full_name"],
+            name=system_configs.PROFILE["name"],
             examples=None,
-            user_profile_background=agent_configs.PROFILE["user_profile_background"],
-            triage_no=agent_configs.PROMP_INSTRUCTIONS["triage_rules"]["ignore"],
-            triage_notify=agent_configs.PROMP_INSTRUCTIONS["triage_rules"]["notify"],
-            triage_email=agent_configs.PROMP_INSTRUCTIONS["triage_rules"]["respond"],
+            user_profile_background=system_configs.PROFILE["user_profile_background"],
+            triage_no=system_configs.PROMP_INSTRUCTIONS["triage_rules"]["ignore"],
+            triage_notify=system_configs.PROMP_INSTRUCTIONS["triage_rules"]["notify"],
+            triage_email=system_configs.PROMP_INSTRUCTIONS["triage_rules"]["respond"],
         )
 
         user_prompt = ROUTER_USER_PROMPT.format(
