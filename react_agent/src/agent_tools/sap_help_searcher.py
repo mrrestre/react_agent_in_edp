@@ -137,8 +137,8 @@ class SapHelpSearcher(BaseTool):
         """Method for searching articles from SAP Help at help.sap.com with a given query."""
         all_articles_markdown = ""
 
-        if query == "":
-            raise ToolException("Cannot perform search, whitout a query")
+        if query == "" or not isinstance(query, str):
+            raise ToolException("Cannot perform search, whitout a valid query")
 
         search_results = self.fetch_articles_with_query(
             query=query, top_n=TOP_N_ARTICLES
