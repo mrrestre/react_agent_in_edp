@@ -4,7 +4,7 @@ from pydantic import BaseModel, Field
 
 from llm_proxy import LLMProxy, SupportedLLMs
 
-from src.config import system_configs
+from react_agent.src.config import system_configs
 
 # Triage prompt
 ROUTER_SYSTEM_PROMPT = """

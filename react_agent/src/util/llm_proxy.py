@@ -1,5 +1,5 @@
 # from dotenv import load_dotenv
-from typing import Any, Optional, Dict, Type, Union
+from typing import Any, Optional, Dict, Type
 from enum import Enum
 
 from gen_ai_hub.proxy.langchain import init_llm

@@ -5,9 +5,9 @@ from langgraph.prebuilt import create_react_agent
 from langchain.tools.base import BaseTool
 from langchain.prompts import PromptTemplate
 
-from src.config import system_configs
+from react_agent.src.config import system_configs
 
-from src.util.llm_proxy import LLMProxy
+from react_agent.src.util.llm_proxy import LLMProxy
 
 AGENT_SYSTEM_PROMPT_QA = """
     < Role >

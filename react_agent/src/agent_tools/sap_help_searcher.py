@@ -3,7 +3,7 @@ from urllib.parse import urlencode
 
 import requests
 
-from pydantic import BaseModel, Field, field_validator
+from pydantic import BaseModel, Field
 from markdownify import markdownify as md
 
 from langchain.tools.base import BaseTool
@@ -11,10 +11,11 @@ from langchain.prompts import PromptTemplate
 from langchain_core.tools import ToolException
 
 
-from src.util.llm_proxy import LLMProxy
+from react_agent.src.util.llm_proxy import LLMProxy
 
 TOOL_NAME = "search_sap_help"
-TOOL_DESCR = "Returns documentation, including specific information on setup and configuration for eDocuments"
+TOOL_DESCR = """Returns documentation, including specific information on setup and
+                configuration for eDocuments"""
 
 TOP_N_ARTICLES = 10
 
@@ -24,7 +25,7 @@ Given the user's query: "{query}"
 Summarize the following markdown articles in no more than 200 words, 
 focusing on how they directly explain and provide context to the user's query. 
 Extract key information from the articles that helps to understand the query better.
-Include all relevant technical information and technical objects.
+Include all relevant technical information and technical objects in bullet points.
 
 Markdown Articles:
 ---
@@ -135,6 +136,9 @@ class SapHelpSearcher(BaseTool):
     def _run(self, query: str) -> str:
         """Method for searching articles from SAP Help at help.sap.com with a given query."""
         all_articles_markdown = ""
+
+        if query == "":
+            raise ToolException("Cannot perform search, whitout a query")
 
         search_results = self.fetch_articles_with_query(
             query=query, top_n=TOP_N_ARTICLES

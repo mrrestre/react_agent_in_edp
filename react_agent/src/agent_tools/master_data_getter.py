@@ -1,6 +1,6 @@
 from langchain.tools.base import BaseTool
 
-from src.util.sap_system_proxy import SAPSystemProxy
+from react_agent.src.util.sap_system_proxy import SAPSystemProxy
 
 TOOL_NAME = "get_master_data"
 TOOL_DESCR = "Returns master data and configuration that may be related to the source document. This information may be mapped directly or indirectly via Value Mappings into the XML, or control the way those values are mapped."
