@@ -1,0 +1,323 @@
+{
+    "articles": [
+        {
+            "title": "C1 - Tax exemption reason code identifier scheme identifier MUST belong to the CEF VATEX code list",
+            "text": "The VATEX code is case sensitive and all codes are lower case. This can be fixed in the AIF value mapping TAX_EXEMPT_CODE. For more details, follow the Peppol information, check SAP Note 2440686 (eDoc Peppol AIF Customizing), and check the topic Configuring Tax Exemption Reason Code CEF VATEX (TAX_EXEMPT_CODE) as an example of eDocument Austria in S/4HANA documentation."
+        },
+        {
+            "title": "C4 - Invoice line period end date shall be later or equal to the invoice line period start date",
+            "text": "The complete message is '[BR-30] If both invoice line period start date (BT-134) and invoice line period end date (BT-135) are given then the invoice line period end date (BT-135) shall be later or equal to the invoice line period start date (BT-134). To correct this problem, create an invoice with flag Billing/Invoice Creation in Advance set and the dates will be corrected."
+        },
+        {
+            "title": "C6 - No BAdI is Implemented",
+            "text": "The complete message is 'java.lang.IllegalStateException: DCP-GEN-ERR-001:-No BAdI is Implemented@ line 33 in script1.groovy / DCP-GEN-ERR-001:-No BAdI is Implemented@ line 27 in PushProcessing.groovy'. To correct this problem, read and implement the SAP Note 2869525 (eDoc Peppol Correction to BAdI Implementation)."
+        },
+        {
+            "title": "C7 - Display authorization only for namespace /EDUBL",
+            "text": "To solve this problem, follow the instructions from the topic C3.1 in the SAP Note 2530509 (eDoc Framework Troubleshooting Guide)."
+        },
+        {
+            "title": "C10 - Formal parameter ES_EDODCSDOCTYPE does not exist",
+            "text": "Usually this issue is displayed together with the error 'The data object LS_EDODCSDOCTYPE does not have a component called DETER_BY_SENDER'. To correct both problems, ensure that the SAP Notes 2850733 (eDoc Inbound Message Handler Push Check Participant from Sender or Receiver Id) and 2805246 (eDoc Peppol AIF Implementation Correction) were correctly implemented before the SAP Note 2839436 (eDoc Peppol Corrections). Also ensure that all prerequisites of the SAP Note 2839436 were correctly implemented."
+        },
+        {
+            "title": "C11 - Digital signature in Peppol solution",
+            "text": "Electronic documents exchanged through the Peppol network do not require digital signature of the XML files by the organization."
+        },
+        {
+            "title": "C12 - User is not authorised to perform this action",
+            "text": "The error codes related to this message are DCP-GOR-ERR-001 and AUTHORIZATION_FAILED. Notice that the sender and the receiver participant ID in the payload file must be registered in the Peppol network. It is necessary to register the receiver participant ID using the Master Data Management app of the Peppol Exchange service. If the error is displayed when using the E-mail process, you must implement the SAP Note 2932677 (eDoc Peppol eInvoice Email Corrections). In addition, the back end user (SAP ERP or SAP S4/HANA) mentioned in Connection Management app of the Peppol Exchange service must have the correct authorization objects to process incoming responses and invoices. See the User parameter name in Connecting System to Service."
+        },
+        {
+            "text": "C12 - Error 'User is not authorised to perform this action; Please contact DCS support with Id ###': The error codes related to this message are DCP-GOR-ERR-001 and AUTHORIZATION_FAILED. Notice that the sender and the receiver participant ID in the payload file must be registered in the Peppol network. It is necessary to register the receiver participant ID using the Master Data Management app of the Peppol Exchange service. If the error is displayed when using the E-mail process, you must implement the SAP Note 2932677 (eDoc Peppol eInvoice Email Corrections). In addition, the back end user (SAP ERP or SAP S4/HANA) mentioned in Connection Management app of the Peppol Exchange service must have the correct authorization objects to process incoming responses and invoices. See the User parameter name in Connecting System to Service."
+        },
+        {
+            "title": "C13 - Type BPTAXNUMXL is unknown",
+            "text": "This message is displayed in class CL_EDOC_MAP_UBL. The object is delivered in the support package SAPKA70216 (ABA SP 16 for 7.02) and it is not available for implementation via SAP Notes. This data type is required to handle tax data for business partners. If you can't upgrade your system, you can alternatively create the type BPTAXNUMXL manually. Check the information from the attached image C13. After this, you will be able to implement the SAP Note in which the problem occurred."
+        },
+        {
+            "title": "C14 - UBL mapping information cannot be determined (EDOCUMENT_EU_CII016)",
+            "text": "This message is displayed when the business partner, for which the invoice is to be sent, is not flagged as the recipient of email invoices in table view EDOEUBUPAV. Adjust it and the processing should be able to proceed. See Assigning Party ID Types to Business Partner."
+        },
+        {
+            "title": "C15 - The item net price (BT-146) shall not be negative",
+            "text": "This is a regulation from Peppol. In case of negative prices, it is necessary to adapt these data via method SET_OUTPUT_DATA from BAdI EDOC_ADAPTOR to pass the Schematron checks."
+        },
+        {
+            "title": "C16 - Package GLO-EDO-EI-CII does not exist with SAP Note 2705230",
+            "text": "There was an issue in the S4CORE104 content of the SAP Note 2705230 (eDoc EU eInvoice Email Implementation) that caused this error in SNOTE. If you see this error in the SNOTE, download the last version of this SAP Note, as it has been updated and the problem has been solved."
+        },
+        {
+            "title": "C17 - CurrencyID must be coded using ISO Code list 4217 alpha-3",
+            "text": "All valid price conditions must have a currency code associated and configured correctly. If this information is not filled for the condition, the currency code is not filled in the XML files. It is necessary to set up an invoice with the correct price conditions that have currency code. For more details, review the entries in table KONV (Conditions Transaction Data)."
+        },
+        {
+            "title": "C18 - Unit code MUST be coded according to the UN/ECE Recommendation 20 with Rec 21 extension",
+            "text": "If your invoice has items using the unit of measurement 'PC', the ISO Code for it may be incorrectly defined in the system. To solve this issue, follow the manual instructions of the SAP Note 2868097 (Wrong ISO Code PCE is maintained for Unit of Measurement PC). You must change the customizing for the ISO Code manually using the transaction CUNI. If you can't find the entry for H87, you can create it in the table view V_T006I using the SM30 transaction. Check Peppol's list for Unit Of Measure."
+        },
+        {
+            "title": "C19 - Not possible to determine Company Code for Party / Determination of Company Code for Party failed",
+            "text": "These errors can be displayed for three different causes. The same VAT ID is used for more than one Company Code. You must have one tax ID per Company Code otherwise the system can't recognize the appropriate Company Code to process acknowledgements. There is no workaround, you must avoid this configuration. You configure the tax ID in transaction OBY6. See Maintaining VAT Registration Number for Company Code. The second cause is due to missing authorizations. The user maintained in cloud service must have the following authorizations to push messages: EDO_BUK, EDO_PROC, S_PROGNAM (Program Name EDOC_MESSAGE_HANDLING), along with role SAP_BC_WEBSERVICE_SERVICE_USER. See Connecting Service to System. The third cause is the entry Response from table EDODCSDOCTYPEV does not have checked the option 'BySender'. If this option is not checked, it is because the program NOTE_2839436_POST_IMPL was not executed in the system during the manual steps of the SAP Note 2839436 (eDoc EU Corrections)."
+        },
+        {
+            "title": "C20 - Errors OUTBOUND_PROCESSING_FAILED and DCP-EU-ERROR-GEN",
+            "text": "This is a generic error that can be displayed due to missing customizing. Review the implementation and manual steps of all SAP Notes listed in the topic 'Solution' from the SAP Note 2783795 (eDoc Peppol Installation Overview), and also from the overview installation SAP Note of the country/region-specific part. For example, it is suggested to review the price condition customizing in the AIF fix value /EDUBL PRICE to ensure that the price condition for billing documents is correctly set. See Configuring Price Conditions (PRICE). Ensure you have a condition for the item net price in the pricing procedures of your billing documents."
+        },
+        {
+            "title": "C21 - 417 An authorization problem occurred when downloading the configuration",
+            "text": "Ensure that you have assigned the role to the S-User using the button 'Manage Subaccount User', inside the 'Connection Management' of the Peppol Exchange service. When you add the user to the list under Manage Subaccount User > Add User, the user is assigned to the 'Cloud Connector Access' role. A 'Cloud Connector Admin' role is not required to connect using the Cloud Connector. See Creating Subaccount in Cloud Connector and Connecting Service to System."
+        },
+        {
+            "title": "C22 - Method GET_FILE_FOR_HTML does not exist in class CL_EDOC_MAP_UBL",
+            "text": "The method is delivered by the subsequentlySAP Note 2853195 (eDoc Framework 24). Implement this SAP Note and subsequently implement the SAP Note 2905102 (eDoc EU Corrections)."
+        },
+        {
+            "title": "C23 - Connection to ### can not be established",
+            "text": "This generic error can be displayed due to incorrect or invalid user name or password in the configuration of the connections. Review all credentials and connections customizing in your back end system, Cloud Connector and Peppol Exchange dashboard. Check the password field, as there is a restriction of 200 characters in the field in the UI. Sometimes this error is related to missing authorization (HTTP response '401: Unauthorized'), as for example, the user and password set up in the Connection Management app in the Peppol Exchange dasboard are not valid in the back end system; Another suggestion is to check if the subaccount user has been maintained according to the documentation. In the subaccount user field, enter your user. Do not enter the user configured in User Management app of the Peppol Exchange dashboard. To establish a connection with the source system, you must configure the Cloud Connector. While configuring the Cloud Connector, enter the subaccount user ID created in this step in the subaccount user ID field. It is important to confirm that the host name informed in Connection Management app from the Peppol Exchange dashboard is the same as the host name in the Cloud Connector configuration. In addition, the LocationID should match between Cloud Connector setup and Connection Management app setup."
+        },
+        {
+            "title": "C24 - Proforma invoices via Free Of Goods scenario",
+            "text": "The proforma invoices can be sent to specific customers, when there is an agreement to temporarily not pay specific bills. For Peppol countries, the electronic invoice process is enabled for SD invoices with FI accounting document only. In this case, you can post Free Of Goods with 100% discount, which will not influence ledger book anyway. Or you can include Free Of Goods in another invoice line, whose amount must be posted to customer GL. The solution supports Free Of Goods with 100% discount and inactive conditions, but the document should be posted to FI. See Assigning eDocument Type to Billing Document Type."
+        },
+        {
+            "title": "C25 - Invoice line net amount MUST equal (...) (PEPPOL-EN16931-R120)",
+            "text": "This validation error is caused due to calculation problems in decimal places that affect the unit price. To solve this issue, implement the SAP Notes 2839436 (eDoc EU Corrections) and 2968006 (eDoc EU Corrections). For batch split scenarios, the SAP Note 3042934 (eDoc EU Corrections) must be implemented too. After that, test the same scenario with new source documents. Also confirm that all SAP Notes listed in SAP Note 2783795 (eDoc Peppol Installation Overview) and in the country/region specific SAP Note are implemented. The complete message is 'FATAL_ERROR Invoice line net amount MUST equal (Invoiced quantity * (Item net price/item price base quantity) + Sum of invoice line charge amount - sum of invoice line allowance amount'."
+        },
+        {
+            "title": "C29 - The Seller VAT identifier, (...) and the Buyer VAT identifier shall have a prefix",
+            "text": "The complete message is '[BR-CO-09] The Seller VAT identifier (BT-31), the Seller tax representative VAT identifier (BT-63) and the Buyer VAT identifier (BT-48) shall have a prefix in accordance with ISO code ISO 3166-1 alpha-2 by which the country of issue may be identified. Nevertheless, [country] may use the prefix '[ISO Code]'. To solve this issue, it is necessary to maintain the VAT number with a prefix that is the ISO Code of the country and a suffix which is the VAT ID of the country, like '##123456789###'."
+        },
+        {
+            "title": "C30 - User already exists for the provided email ID / ERR_CONNECTION_RESET",
+            "text": "Both error messages can be displayed in the Peppol Exchange dashboard. These errors are displayed when there are intermittent connectivity issues when the user is executing specific action inside the dashboard. In the past, this error was displayed during the user creation process in the dashboard. You can try to log off the dashboard, wait for 2 hours and then try to access the page again or try to use a different internet browser. In case the problem remains for more than 2 hours, you need to create an case for the component LOD-LH-DCS, informing the steps performed and the URL of your dashboard."
+        },
+        {
+            "title": "C31 - Attribute @name is missing for PaymentMeanscode",
+            "text": "Currently the attribute @name in PaymentMeansCode is optional in the Peppol guidelines, and it is not mandatory for country-specific legal requirements. The solution fills this information with the codes from the identifier UNCL4461. In other words, this attribute is not supported and there are no plans to modify the system to adapt it. In case this approach affects your business, it is possible to submit your suggestion to change this behavior through the Customer Influence program. This is the channel for SAP customers to influence the development decisions. For more details, see the content of SAP Note 11 (Shape and influence releases of products)."
+        },
+        {
+            "title": "C33 - Message 'Not subject to VAT' when using Category Code as 'O'",
+            "text": "To solve this issue, review the mapping of the tax category ID. The CategoryCode 'O' is used for services which are exempt of taxes and it implies that the whole invoice is exempt of taxes. It means that no other tax categories can be used at all in the same invoice, and that the VAT registration numbers can't be entered in the invoice for the involved parties. For similar scenarios, it is necessary to use the Category Code 'E', which means for example that the invoice is exempt from tax, for example. The errors related to this case are 'In a VAT breakdown (BG-23) where the VAT category code (BT-118) is \"Not subject to VAT\" the VAT category taxable amount (BT-116) (...)', 'An Invoice that contains an Invoice line (BG-25) where the Invoiced item VAT category code (BT-151) is “Not subject to VAT” shall not contain the Seller VAT identifier (BT-31) (...)' and 'An Invoice line (BG-25) where the VAT category code (BT-151) is \"Not subject to VAT\" shall not contain an Invoiced item VAT rate (BT-152)'."
+        },
+        {
+            "title": "C34 - Data loss occurred when converting (CX_SY_CONVERSION_DATA_LOSS ALT_PARTNER_ID)",
+            "text": "This error happens with the messages 'PUSH FAILED', 'Error at PUSH operation' and 'Web service processing error; more details in the web service error log on provider side' in Peppol Exchange dashboard. To solve this issue, implement SAP Note 2914302 (Increase the length of Alternate Partner ID and Organization ID fields to 60 characters). This correction contains the adjustment to the affected field length."
+        },
+        {
+            "title": "C35 - Proxy error SoapFaultCode:5 An internal error occurred during (/AIF/MES091)",
+            "text": "The complete message is 'Proxy error SoapFaultCode:5 An internal error occurred during: message processing. For error details check the System Logs Monitor in http://(...)', and it may include the error codes 'Proxy-Fehler SoapFaultCode:5' and 'Meldungsnr. /AIF/MES091'. To solve this issue, implement the last version of the SAP Note 2440686 (eDoc EU AIF Customizing), and upload and activate the latest version of the BC Set in your system. The BC Set is attached to the SAP Note. After this, review all the configuration inside the topic Integrating Peppol Exchange with SAP S/4HANA and SAP ERP. It is important to ensure that a certificate was correctly uploaded to the Connection Management app in the Peppol dashboard, and that client certificate is valid in SOAMANAGER. As an alternative, remove the certificate in Connection Management app and upload it again. After that, test the same scenario again. See Creating Logical Ports in SOA Management. If this error happens only with specific XML files, check the format of the field receiverId."
+        },
+        {
+            "title": "C36 - Down Payment configuration in Peppol",
+            "text": "The mapping for invoice and credit note type codes for SD is performed via INVOICE_TYPE_CODE_SD. It is necessary to map the entries from table TVFK in the system to the external value codes defined by the Peppol standard code list (UNCL1001 subset) for Invoice Type Codes and Credit Note Type Codes. The mapping for invoice and credit note type codes for FI is performed via INVOICE_TYPE_CODE_FI. For more details, review the manual steps related to the AIF configuration in the SAP Notes listed in the content of SAP Note 2783795 (eDoc Peppol Installation Overview) and in the country/region specific SAP Notes of Peppol."
+        },
+        {
+            "title": "C37 - No ID found for the Company Code / Endpoint is empty",
+            "text": "These error messages are related to incorrect customizing of the Organization Number. To solve this issue, review all instructions in the attachment of the country/region specific overview SAP Note. The Organization Number must be correctly set in VAT Registration (T001-STCEG) for the Company Code. In addition, all table views mentioned in that attachment must be correctly set and the Company Code needs to be from the respective country. Also, review the master data configuration for the Company Code. The VAT Number usually starts with the country code prefix. Alternatively, you can remove the country code from the beginning of the string and remove the tax identification from the end of the string as well. See Master Data."
+        },
+        {
+            "title": "C38 - The content ### of element ### does not match the required simple type",
+            "text": "To solve this issue, implement the SAP Notes 2984154 (Update validations for the Document ID, Document Name and File Name fields), 2968006 (eDoc EU Corrections) and 2992171 (eDoc EU Corrections). If this error is related to Germany, also check the instructions from the topic DE15. The complete message is 'Validation failed for: /xsd/generic-push-service.xsd errors: [ org.xml.sax.SAXParseException: The content \"###\" of element &gt;documentId&lt; does not match the required simple type. Value \"###\" contravenes the pattern facet \"###\" of the type ###, Line : ###, Column : ###]. Exchange[ID-###]', or 'No document available for download', or 'Error at VALIDATION operation, MPL: ###', and the document displays the status 'PUSH FAILED' in Peppol Exchange dashboard."
+        },
+        {
+            "title": "C39 - HTTP Status 403 - Forbidden",
+            "text": "Usually this error is displayed when the user tries to access an URL similar to 'https://[NUMBER]-tmn.hci.eu1.hana.ondemand.com', but the correct format of URL is 'https://dcseupeppola[NUMBER].hana.ondemand.com/dcseupeppol/dashboard'. The correct procedure is explained in the Onboarding of Peppol Exchange service in the topics 1 (Access the Service) and 2 (Configure the Service)."
+        },
+        {
+            "title": "C40 - TOBJ EDOEUDOCTYPEV Screen number is already assigned / Table/view EDOEUDOCTYPEV generation errors",
+            "text": "These errors can be displayed when following the manual steps of SAP Note 2618098, and running the program NOTE_2618098. To solve this issue, follow the steps of the topic C1.29 from the SAP Note 2530509 (eDoc Framework Troubleshooting Guide)."
+        },
+        {
+            "title": "C41 - Cancellation of eDocuments with status 'Acknowl. by Rec. Acc. Point'",
+            "text": "In the transaction EDOC_COCKPIT, you can use the option 'Cancel eDocument' when the eDocument was created but not yet submitted or when it was rejected. If you are cancelling it with one of those scenarios, ensure that you reverse the corresponding source document manually. When you try to cancel an eDocument that was already sent to your partner, the messages 'Unable to cancel document; Cancel related eDocument first' and/or 'The action is not allowed for any of the selected eDocuments' will be displayed. Check the documentation directly in the eDocument Cockpit for this process. According to Peppol guidelines, it is not possible to cancel an electronic document once it is acknowledged by receiving party, using transaction VF11 or another way. Once the document is acknowledged, it exists not only in your system but also in your customer's system. And for the purpose of consistency and audit, it is required to have the original document. Also there are country/region specific legal requirements to not allow cancelling acknowledged documents. Based on that, SAP defined rules to secure a better consistency and transparency. Therefore, you are free to cancel the eDocument before it has been sent. After that, you can cancel the original document. However, if the eDocument was sent, there is only one way to issue a credit memo or a debit memo. See Cancelling Electronic Documents."
+        },
+        {
+            "title": "C42 - Type IF_DCS_INTERFACE_CONNECTOR is unknown",
+            "text": "To solve this issue, follow the instructions of the topic C2.2 from the SAP Note 2530509 (eDoc Framework Troubleshooting Guide)."
+        },
+        {
+            "title": "C44 - The content \"\" of element ServiceExpirationDate does not match the required simple type",
+            "text": "Usually this issue is related to participant IDs that are wrongly registered in the Service Metadata Publishers (SMP) of the Peppol network. You must check the Participant Information of this participant ID. In this case, contact the receiver and ask them to check their registration in the Peppol network. Otherwise, they will not be able to receive any documents."
+        },
+        {
+            "title": "C45 - The document type code MUST be coded by the invoice and credit note related code lists of UNTDID 1001",
+            "text": "This error happens when there is a definition problem with invoices and credit memos. Review the customizing inside table view T003EDOCV (transaction SM30). This is where the system determines whether to create a document as DE_INV or DE_CRE. Note that for credit memos you can use the DocumentTypeCode as '381', and then the system fills the invoice reference based on the number of the previous invoices. For SD side, the mapping for invoice and credit memo type codes is performed via INVOICE_TYPE_CODE_SD. It is necessary to map the entries from the table TVFK in the system to the external value codes defined by the Peppol standard code list (UNCL1001 subset) for invoice type codes and credit memo type codes. The mapping for invoice and credit memo type codes for FI is performed via INVOICE_TYPE_CODE_FI. Also, notice that the table view T003EDOCV is used for SD billing documents with FI accounting document, which is the standard process. The eDocument is created when the SD billing document is released to accounting (FI). The table view TVFKEDOCV is used for SD billing documents without FI accounting document, and the eDocument type is assigned directly to the SD billing type. Another suggestion is to confirm that all correction SAP Notes listed in the content of SAP Note 2783795 (eDoc Peppol Installation Overview) and in the country/region specific SAP Notes of Peppol were correctly installed in your system."
+        },
+        {
+            "title": "C47 - iFlow Exception at Main iFlow: ADAPTER_CALL_FAILED / Could not send Message / EU-PEPPOL-AS4-ERROR",
+            "text": "Usually this error happens when the participant ID you are trying to reach is using an instance of the Peppol network which is facing temporary technical issues and cannot be reached by your Peppol access point. You should wait for a couple of hours and then try to submit the eDocument again."
+        },
+        {
+            "title": "C48 - Null object loaded from local variable soapMsg",
+            "text": "If this issue is related to Germany, check the topic DE2. If it is for other countries, ensure that all correction SAP Notes listed in the content of SAP Note 2783795 (eDoc Peppol Installation Overview) and in the country/region specific SAP Notes of Peppol were correctly implemented in your system. The complete error message is 'Main iFlow: ADAPTER_CALL_FAILED / java.lang.NullPointerException: while trying to invoke the method javax.xml.soap.SOAPMessage.getSOAPPart() of a null object loaded from local variable 'soapMsg' / EU-PEPPOL-AS4-ERROR / iFlow EXCEPTION'."
+        },
+        {
+            "title": "C49 - SSSLERR_PEER_CERT_UNTRUSTED / SSL_readSSL API error / Failed to verify peer certificate",
+            "text": "Usually this error is displayed in the Interface Log from EDOC_COCKPIT. To solve this issue, review the certificate settings of the STRUST to confirm that the certificates are correctly configured. After that, follow the instructions informed in the page Creating Logical Ports in SOA Management from SAP Help. In this page, you must review these steps and check whether the certificate which was chosen is correct. Also, you can find more information about this error in the blog post How to Setup Secure HTTP Inbound Connection with Client Certificates and in the content of the SAP Note 2728600 (Error SSSLERR_ when accessing CPI)."
+        },
+        {
+            "title": "C50 - Participant ID does not exist in the Master Data Management app",
+            "text": "It is necessary to register the receiver participant ID using the Master Data Management app in Peppol Exchange dashboard. For more details, see Enabling Your Company to Send Electronic Documents in the Peppol Network."
+        },
+        {
+            "title": "C51 - Missing translation in eDocument Cockpit",
+            "text": "The button labels are blank in logon language different than English (EN). This issue happens due to missing translations for languages. The translations are delivered only with support packages. As a workaround, the instructions informed in the SAP Note 2731171 (Cockpit button labels are blank due to translations) could help you to translate manually the main buttons of eDocument Cockpit to the desired language."
+        },
+        {
+            "title": "C52 - Due Date shall occur maximum once (CEN-EN16931-UBL)",
+            "text": "To solve this issue, implement the SAP Note 2992171 (eDoc EU Corrections)."
+        },
+        {
+            "title": "C53 - Payment means code 58 (SEPA Credit Transfer) with wrong mapping of bank details",
+            "text": "The view EDOEUBANKACCV is used to control the bank details displaying in the XML files. If you are facing issues with PAYMENT_MEANS_CODE as '58', you must maintain the entries with '0' (Credit Transfer SEPA/Non-SEPA) in this view. For the bank details for different payment means in invoices or credit memos, the value mapping configuration is provided for direct debit option, which is for non-Europe customers. This cannot be extended for other payment means. The suggestion is to adjust bank details via method SET_OUTPUT_DATA from the EDOC_ADAPTOR BAdI."
+        },
+        {
+            "title": "C54 - The value # is not in the value range of the XML schema type decimal (...)",
+            "text": "In German it says 'Der Wert # liegt nicht im Wertebereich des XML-Schema-Typs decimal oder verletzt eine der angegeben Einschränkungen'. This is a transformation problem in the code of method FILL_DCS_REQUEST from class CL_EDOC_MAP_CII. To correct this problem, implement the SAP Note 2932677 (eDoc Peppol eInvoice Email Corrections)."
+        },
+        {
+            "title": "C56 - Proxy error SOAP:1.007 SRT: Unsupported xstream found: (\"HTTP: Code 500 : \")",
+            "text": "Check in your back end system if the logical port for the client proxy has been correctly configured, for example CO_EDO_UBL_SEND_CRED_NOTE_V1_0. Compare, for example, the logical port of the credit memos with the logical port from client proxy for invoices. If the issue persists, review the implementation and manual steps of all SAP Notes listed in the topic 'Solution' from the SAP Note 2783795 (eDoc Peppol Installation Overview), as well as also from the overview installation SAP Note of the country/region-specific part."
+        },
+        {
+            "title": "C60 - Buyer's name is incomplete in the XML file",
+            "text": "As the legal name of the buyer can be distributed to four fields (NAME1, NAME2, NAME3 and NAME4), the solution must consider all these fields. To solve it, implement the SAP Note 2968006 (eDoc EU Corrections)."
+        },
+        {
+            "title": "C61 - Embed are not allowed on PDFA Input / Error during the attaching of the XML to the PDF",
+            "text": "This error is displayed with message 'com.adobe.ProcessingException: Operations : Embed are not allowed on PDFA Input'. The mechanism behind it is that you upload the PDF file to the respective eDocument. Then the system calls Adobe Document Services (ADS) to transform the PDF file together with the XML file into a PDF/A-3 file. In the eDocument Cockpit, you send the eDocument by e-mail to your customer. The invoice is attached as PDF/A-3 with the XML file embedded. And as described in the SAP Note 2384544 (ZUGFeRD converter), the source PDF file must fulfill the following technical prerequisites for ADS to be able to convert it to PDF/A-3: all non native Adobe fonts must be embedded; the PDF version is 1.3 or above; the PDF is not interactive and not dynamic; the minimum required version of ADS is NW750 ADS SP-5 as stated in the SAP Note 2290852 (Support for PDF/A-2 and -3). Remember to read the content of th SAP Note 2674350 (ADS raises exception during converting PDF to PDF/A) and test PDF with the report FP_PDF_TEST_33 by downloading XML from the eDocument history. For more details, check the page Converting PDF Documents to PDF/A or ZUGFeRD-PDF/A from SAP Help."
+        },
+        {
+            "title": "C62 - No Tax Exemption Reason Code Found (EDOCUMENT_EU_69) / Field ID is empty in TaxCategory of TaxSubtotal (EDOCUMENT_EU_89)",
+            "text": "These errors are displayed when the used condition types are having condition class as D (taxes), but the field tax code is not maintained. You must maintain the tax code for condition types and maintain the corresponding AIF value mapping for the tax code. See Configuring UCNL5305 (TAX_CATEGORY)."
+        },
+        {
+            "title": "C63 - Invoice List support (VF23)",
+            "text": "The Invoice List functionality is not in the scope of electronic documents for countries using Peppol. You must generate electronic documents based in separate invoices. Note that you can submit this idea and/or improvement requests via Customer Influence program. This is the channel where customers can influence the development. See the SAP Note 11 (Shape and influence releases of products)."
+        },
+        {
+            "title": "C64 - Scheme identifier shall only be used for invoiced object (document type code with value 130)",
+            "text": "Review the implementation and manual steps of all SAP Notes listed in the topic 'Solution' from the SAP Note 2783795 (eDoc Peppol Installation Overview), and also from the overview installation SAP Note of the country/region-specific part."
+        },
+        {
+            "title": "C65 - The allowed maximum number of decimals for the Invoice total VAT amount (...) is 2",
+            "text": "To solve this issue, implement the SAP Notes 2974315 (eDoc EU eInvoice Email ABAP Proxy Objects Changes) and 2947961 (eDoc EU eInvoice Email Corrections)."
+        },
+        {
+            "title": "C66 - If the VAT accounting currency code (BT-6) is present, then the Invoice total VAT amount in accounting currency (BT-111) shall be provided",
+            "text": "To fix this issue, implement the SAP Notes 2974315 (eDoc EU eInvoice Email ABAP Proxy Objects Changes) and 2947961 (eDoc EU eInvoice Email Corrections)."
+        },
+        {
+            "title": "C67 - SSSLERR_PEER_CERT_UNTRUSTED SSL_readSSL API error / Failed to verify peer certificate. Peer not trusted",
+            "text": "To solve this issue, see Configuring Connections to Service. In addition, ensure that you have implemented the last version of the SAP Note 2010697 (eDoc AIF Customizing)."
+        },
+        {
+            "title": "C69 - VAT registration number is invalid (AR190)",
+            "text": "To solve this situation, implement the SAP Note 2857555 (Company VAT Reg Number and VAT ID self-employed person validations). Note that for Company VAT Number, you must enter the information in the field VAT Reg Number (STCEG), and Self-Employed Person VAT ID must be entered in Tax Number 5 field (STCD5). If the issue persists, open an case for the CRM-BF-TAX component."
+        },
+        {
+            "title": "C70 - Buyer Reference and Order Reference are empty. Please fill one of them",
+            "text": "The error codes display as 'S:EDOCUMENT_EU:041', 'EDOCUMENT_EU041' or 'EDOCUMENT_EU 041'. The OrderReference field in the XML file must be the reference from the customer side, for example, the text from the field XBLNR."
+        },
+        {
+            "title": "C71 - Each invoice line allowance shall have an invoice line allowance reason or an invoice line allowance reason code",
+            "text": "The complete messages are '[BR-42] Each invoice line allowance (BG-27) shall have an invoice line allowance reason (BT-139) or an invoice line allowance reason code (BT-140)' and '[BR-CO-23] Each invoice line allowance (BG-27) shall contain an invoice line allowance reason (BT-139) or an invoice line allowance reason code (BT-140), or both'. The allowance reason is filled from the text for the condition type, taken with the language of the company code. You need to check the condition of the document, if it has the text maintained in the correct language. Maintaining the condition texts, the allowance reason will be correctly filled in the XML file. See Configuring Allowance / Charge (ALLOWANCE_CHARGE)."
+        },
+        {
+            "title": "C73 - Status button not available in eDoc Cockpit for Peppol",
+            "text": "No all actions in the eDocument Cockpit are available for all countries. The Status action is not available for countries/regions that exchange electronic documents using thhe Peppol network."
+        },
+        {
+            "title": "C74 - Onboarding and access to Peppol service",
+            "text": "The onboarding steps are described in the Onboarding for Peppol Exchange. The onboarding to start working with the Peppol Exchange service is usually assisted by the Account Executive. If you don't know who your Account Executive is, follow the instructions in the content of the SAP Note 2626344 (Who is the SAP Account Executive for my company). You need to contact this person to see the next steps on how to subscribe the service. After the Account Executive actions, you receive two emails for each account type (test and production) with a request for you to create credentials that you sue to access the service."
+        },
+        {
+            "title": "C75 - Format of correction instructions (...), unable to read corr. Instruct",
+            "text": "If this error displays during the implementation of thhe SAP Note 2992171 (eDoc EU Corrections), remove this SAP Note. Then implement the SAP Note 3006946 (Error SCWN409 or SCWN 409 during installation when it contains MESS/SMAD object). Subsequently, download and implement the last version of the SAP Note 2992171 (eDoc EU Corrections). For both SAP Notes, read the content to confirm if there are prerequisites and manual steps."
+        },
+        {
+            "title": "C76 - Ping fails with error 403 while testing logical port EDO_UBL_SEND_INVOICE_SERV_PORT",
+            "text": "Review the implementation of all SAP Notes listed in the topic 'Solution' from SAP Note 2783795 (eDoc Peppol Installation Overview), and also from the overview installation SAP Note of the country/region-specific part. After this, check if the roles and authorizations were correctly set, as mentioned in the Connecting Service to System."
+        },
+        {
+            "title": "C77 - Incorrect GLN identification when the field is filled with 0 (zero)",
+            "text": "When the user tries to maintain the GLN identification in 'Customer Master' > tab 'Control', if the 'Check Digit' is filled only with 0 (zeros) after saving the data, the information is removed and not displayed in this section. To solve this issue, implement the SAP Note 2817272 (Int Location Number check digit fields do not retain 0 on save). For SAP S/4HANA, see Maintaining Global Location Number for Business Partners. For SAP ERP, see Maintaining VAT Number for Customers."
+        },
+        {
+            "title": "C78 - Issues in EDOC_RESUBMIT while creating a new eDocument",
+            "text": "Follow the instructions from topic E13 from the SAP Note 2530509 (eDoc Framework Troubleshooting Guide)."
+        },
+        {
+            "title": "C79 - IP addresses range and port for firewall configuration",
+            "text": "The IP addresses are listed in the content of the SAP Help, region Europe (Rot). The port is 443."
+        },
+        {
+            "title": "C80 - E-mail notifications about Peppol service maintenance and downtimes",
+            "text": "To add another contact for receiving notifications about planned or unplanned downtimes, see Subscribing to Notifications."
+        },
+        {
+            "title": "C81 - Sending invoices via Peppol Network to companies located in countries not supported by eDocument Peppol",
+            "text": "You can exchange invoices among with companies in countries/region that use the Peppol network. Additionally, if you want to send an electronic document to a company in another country/region that accepts the XML files in the format BIS 3, you can use the Party ID Type 'GLN'. For example, a company in Sweden sends invoices to a company in Spain. The receiver companies for cross-border invoicing can use VAT ID as Peppol participant ID and the details are in the SAP Note 3013311 (eDoc EU Corrections). For more information, see Party ID Types for Receivers by Country/Region."
+        },
+        {
+            "title": "C82 - Mapping of the tags inside AllowanceCharge",
+            "text": "You find this content in the XML file inside the path InvoiceLine > Price > AllowanceCharge. The main tags inside this node are Amount and BaseAmount. Allowance and charges are customer-specific and often customized, sometimes even within the PDF subtools. Currently, SAP does not support these fields in the standard mapping."
+        },
+        {
+            "title": "C83 - Please contact SAP support with MPL Id ###",
+            "text": "If this error is shown without any clear instructions for resolving the issue, open an case for LOD-LH-DCS-PAP component informing the steps to reproduce the issue or see the error message and the URL of your dashboard."
+        },
+        {
+            "title": "C84 - RABAX occurred on server side",
+            "text": "This error is displayed when the user is missing the authorization objects. Both the back end system (SAP ERP or SAP S/4HANA) and the Peppol Exchange must have the correct authorization objects to process incoming responses and invoices. See Connecting System to Service, check the Parameter Name 'User' in the connection details table. After that, ensure that all manual implementation steps from the SAP Note 2949379 (eDoc Peppol Configuration and Customizing) are correctly followed in your system."
+        },
+        {
+            "title": "C85 - Invoices stuck with status 'Received by Send Access Point'",
+            "text": "This issue can happen due to different configuration issues. First, go to the Monitor Documents app of the Peppol Exchange dashboard, select the document, and click on reprocess to push the document again. Also check the communication between the back end system and the service, by checking if the production system is not sending the invoices to a test tenant or vice-versa. If the issue persists, follow the instructions from the topic C19."
+        },
+        {
+            "title": "C87 - Scheme for 'Directorates of the European Commission' (EU:NAL)",
+            "text": "After you implement the SAP Notes 3042934 (eDoc EU Corrections) and 3057837 (BP customizing for generic Peppol Participant ID), the scheme 'EU:NAL' is supported for all Peppol countries/regions."
+        },
+        {
+            "title": "C88 - Deliver to Address is incomplete when trying to submit invoices",
+            "text": "This field has been delivered by the BC Set attached to the SAP Note 2440686 (eDocument EU: AIF Customizing). Review and activate this BC Set and proceed with the invoice resubmission afterwards."
+        },
+        {
+            "title": "C89 - Cannot find the declaration of element StandardBusinessDocument",
+            "text": "This issue is seen in validation tools when the SAP customers decide to send an XML file outside Peppol network. The validation tools accept the XML files without the header StandardBusinessDocument, which is an envelope to send documents via Peppol network. The document itself is inside this envelope. When sending the XML file via e-mail, you need to extract the document and validate it against XSD and Schematron rules. To pass this validation, edit the XML file correctly by placing namespace to the correct tag. The complete error message is: Error message: [SAX] cvc-elt.1.a: Cannot find the declaration of element 'n0:StandardBusinessDocument'. / Technical details: cvc-elt.1.a: Cannot find the declaration of element 'n0:StandardBusinessDocument'."
+        },
+        {
+            "title": "C90 - Error changing passport data (/AIF/ENABLER_BASE043)",
+            "text": "See the AIF instructions from Defining Error Handling Applications and ensure that the manual instructions from the SAP Note 2010697 (eDoc AIF Customizing) are correctly implemented. After this, review the instructions from the topic C35 and follow the steps of the topic C3.3 from the SAP Note 2530509 (eDoc Framework Troubleshooting Guide). The complete message is 'Error changing passport data. Message no. /AIF/ENABLER_BASE043'."
+        },
+        {
+            "title": "C91 - Text ID's PKVK, POIN, PRID and FRCS without description",
+            "text": "After implementing the SAP Notes for Peppol such as SAP Note 2783795 (eDocument Peppol Installation Overview) and/or upgrading Support Package containing such corrections, you noticed the new text IDs PKVK, POIN, PRID and FRCS without description. Follow the instructions from the documents attached to the SAP Notes 3071425 (eDoc Peppol Corrections) and 3079278 (eDoc France eInvoice for adding the missing descriptions)."
+        },
+        {
+            "title": "C92 - Interface could not be determined for structure DCS_SEND_REQUEST_RESPONSE (/AIF/ENGINE_XML004)",
+            "text": "To solve this issue, run the transaction /N/AIF/CUST and choose the entry System Configuration > Interface Determination > Define Interface Determination for Proxy Interfaces. Make a new entry with a Proxy Class Name 'CO_DCS_DCP_GENERIC_WEBSERVICE', Proxy Method 'SEND_REQUEST' and Check Function Module 'EDOC_AIF_INTERFACE_DETERM' and save the changes."
+        },
+        {
+            "title": "C93 - In an Invoice line (BG-25) where the Invoiced item VAT category code (BT-151) is \"Standard rated\" the Invoiced item VAT rate (BT-152) shall be greater than zero",
+            "text": "For SD invoices or credit notes, map the tax code of your VAT condition in transaction /n/AIF/VMAP > Namespace /EDUBL > Value Mapping 'TAX_CATEGORY' (or <Country Key>_TAX_CATEGORY for more specific settings) to 'O' or one of the valid codes in list Peppol BIS Billing 3.0 | Rules. For FI invoices or Credit Notes, on the same path, map the value from item field 'Tax Code' to 'O' or one of the valid codes in list Peppol BIS Billing 3.0 | Rules."
+        },
+        {
+            "title": "C94 - PUSH FAILED on peppol's dashboard Document Monitor",
+            "text": "Specific documents may indicate error 'PUSH FAILED' with detailed error messages such as: Error at PUSH operation, MPL: '...' and/or: 'java.io.IOException: Server returned HTTP response code: ...for URL: http://... line ... in script3.groovy\". Review the sections Configuring Provider Service and Setting Up Conectivity on the Help Portal, making sure that the path to your webservice is correctly maintained and the Technical User has the required authorization."
+        },
+        {
+            "title": "C95 - HTML could not be retrieved. Display failed",
+            "text": "For the \"HTML Display\" feature, you will need to set up the proxy and logical port in the SOAManager. These proxies are named 'CO_DCS_DCP_GENERIC_WEBSERVICE' and 'EDO_UBL_GENERIC_WEBSERVICE'. For a step-by-step guide on how to create these logical ports, please refer to the detailed description provided in the following link: Creating Logical Ports in SOA Management."
+        },
+        {
+            "title": "C96 - An invoice has been posted but eDocument is not getting created",
+            "text": "Ensure following customisations & configurations are maintained:\n\n* Activating Source Type Documents for Company Code (EDOCOMPANYACTIV)\n* Defining Interface Type for eDocument (EDOINTTYPEV)\n* Assigning eDocument Type to Accounting Document Type (T003EDOC)\n* Assigning eDocument Type to Billing Document Type (TVFKEDOCV)\n* Assigning Party ID Types to Business Partner (EDOEUBUPAV)"
+        },
+        {
+            "title": "C97 - Invoice Responses",
+            "text": "# BIS Invoice Response 3.2\nThe Peppol Business Interoperability Specification, “BIS” from here on after, has been developed by the OpenPeppol AISBL Post Award Coordinating Community and is published as part of the Peppol specifications."
+        }
+    ]
+}
