@@ -5,27 +5,11 @@ from langgraph.prebuilt import create_react_agent
 from langchain.tools.base import BaseTool
 from langchain.prompts import PromptTemplate
 
-from react_agent.src.config import system_configs
+from react_agent.src.config import promps_snippets
 
 from react_agent.src.util.llm_proxy import LLMProxy
 
-AGENT_SYSTEM_PROMPT_QA = """
-< Role >
-You are an expert on Electronic Document Processing.
-</ Role >
-
-< Instructions >
-Context: Peppol, UBL, eInvoicing.
-{react_instructions}
-Avoid bias based on physical appearance, ethnicity, or race.
-Replace inappropriate language with inclusive language; politely refuse results, if that is not possible.
-</ Instructions >
-
-< Tools >
-You have access to the following tools in order to resolve the incoming questions:
-{tools}
-</ Tools >
-"""
+from react_agent.src.config.system_parameters import MAIN_AGENT
 
 
 class ReActAgent:
@@ -33,27 +17,26 @@ class ReActAgent:
 
     def __init__(
         self,
-        llm_proxy: LLMProxy,
         tool_list: list[BaseTool],
-        max_iter: int,
     ):
         self.response = None
 
         self.tools = tool_list
-        self.max_iter = max_iter
 
         self.agent = create_react_agent(
-            model=llm_proxy.get_llm(),
+            model=LLMProxy().get_llm(),
             tools=self.tools,
             prompt=self.create_sys_prompt(),
         )
 
     def create_sys_prompt(self) -> str:
-        """Create the prompt for the agent based on AGENT_SYSTEM_PROMPT and the system config."""
-        sys_prompt_template = PromptTemplate.from_template(AGENT_SYSTEM_PROMPT_QA)
+        """Create the prompt for the agent based on AGENT_SYSTEM_PROMPT."""
+        sys_prompt_template = PromptTemplate.from_template(
+            MAIN_AGENT.get("AGENT_SYSTEM_PROMPT")
+        )
 
         return sys_prompt_template.format(
-            react_instructions=system_configs.REACT_INSTRUCTIONS["instructions"],
+            react_instructions=promps_snippets.REACT_INSTRUCTIONS["instructions"],
             tools=self.generate_tool_info_string(),
         )
 
@@ -79,7 +62,7 @@ class ReActAgent:
         """Evaluates user input and print the agent's stream of messages."""
         input_object = {"messages": [("user", user_message)]}
 
-        config_object = {"recursion_limit": self.max_iter}
+        config_object = {"recursion_limit": MAIN_AGENT.get("MAX_ITERATIONS")}
 
         for s in self.agent.stream(
             input=input_object, stream_mode="values", config=config_object

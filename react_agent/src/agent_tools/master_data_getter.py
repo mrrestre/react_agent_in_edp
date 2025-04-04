@@ -2,14 +2,12 @@ from langchain.tools.base import BaseTool
 
 from react_agent.src.util.sap_system_proxy import SAPSystemProxy
 
-TOOL_NAME = "get_master_data"
-TOOL_DESCR = "Returns master data and configuration that may be related to the source document. This information may be mapped directly or indirectly via Value Mappings into the XML, or control the way those values are mapped."
-TOOL_ENDPOINT = "/eDocument/master-data"
+from react_agent.src.config.system_parameters import MASTER_DATA_GET
 
 
 class MockMasterDataGetter(BaseTool):
-    name: str = TOOL_NAME
-    description: str = TOOL_DESCR
+    name: str = MASTER_DATA_GET.get("NAME")
+    description: str = MASTER_DATA_GET.get("DESCRIPTION")
 
     def _run(self) -> str:
         """Mock method returning the master data"""
@@ -17,10 +15,12 @@ class MockMasterDataGetter(BaseTool):
 
 
 class MasterDataGetter(BaseTool):
-    name: str = TOOL_NAME
-    description: str = TOOL_DESCR
+    name: str = MASTER_DATA_GET.get("NAME")
+    description: str = MASTER_DATA_GET.get("DESCRIPTION")
 
     def _run(self) -> str:
         """Fetch the master data from sap system"""
-        fetched_master_data = SAPSystemProxy.get_endpoint(endpoint=TOOL_ENDPOINT)
+        fetched_master_data = SAPSystemProxy.get_endpoint(
+            endpoint=MASTER_DATA_GET.get("ENDPOINT")
+        )
         return f"Master data: {fetched_master_data}"

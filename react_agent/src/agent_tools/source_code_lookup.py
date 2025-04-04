@@ -7,9 +7,7 @@ from langchain_core.tools import ToolException
 from pydantic import BaseModel, Field, field_validator
 
 from react_agent.src.util.abap_repository import ABAPClassRepository
-
-TOOL_NAME = "source_code_lookup"
-TOOL_DESCR = "Returns a specific method or class implementation that matches the specified input parameter."
+from react_agent.src.config.system_parameters import SOURCE_CODE_LOOKUP
 
 
 class LookupInputModel(BaseModel):
@@ -28,7 +26,7 @@ class LookupInputModel(BaseModel):
     @field_validator("class_name", "method_name")
     @classmethod
     def check_either_or_both(cls, value, values):
-        """Check that Either class_name or method_name (or both) is provided."""
+        """Check that either class_name or method_name (or both) is provided."""
         if values.get("class_name") is None and values.get("method_name") is None:
             raise ToolException(
                 "Either class_name or method_name (or both) must be provided."
@@ -37,8 +35,8 @@ class LookupInputModel(BaseModel):
 
 
 class MockSourceCodeMethodLookup(BaseTool):
-    name: str = TOOL_NAME
-    description: str = TOOL_DESCR
+    name: str = SOURCE_CODE_LOOKUP.get("NAME")
+    description: str = SOURCE_CODE_LOOKUP.get("DESCRIPTION")
     args_schema: Type[BaseModel] = LookupInputModel
 
     def _run(

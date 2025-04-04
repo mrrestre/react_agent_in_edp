@@ -12,22 +12,7 @@ from pydantic import BaseModel
 
 from tiktoken import encoding_for_model
 
-
-class SupportedLLMs(Enum):
-    """LLMs that are supported by the LLMProxy"""
-
-    GPT_4o = "gpt-4o"
-
-    @classmethod
-    def has_value(cls, value):
-        """Helper method to ensure LLM is supoorted"""
-        return value in cls._value2member_map_
-
-
-DEFAULT_LLM = SupportedLLMs.GPT_4o
-DEFAULT_MAX_TOKENS = 1024
-DEFAULT_TEMPERATURE = 0.05
-MAX_INPUT_TOKENS = 10000
+from react_agent.src.config.system_parameters import LLM_PROXY
 
 
 class LLMProxy:
@@ -42,22 +27,17 @@ class LLMProxy:
             cls._instance = super().__new__(cls)
         return cls._instance
 
-    def __init__(
-        self,
-        model: Optional[str] = DEFAULT_LLM,
-        max_tokens: Optional[int] = DEFAULT_MAX_TOKENS,
-        temperature: Optional[float] = DEFAULT_TEMPERATURE,
-    ):
+    def __init__(self):
         if hasattr(self, "_initialized"):  # prevent re-init
             return
 
-        if SupportedLLMs.has_value(model.value):
-            self.llm = init_llm(
-                model.value, max_tokens=max_tokens, temperature=temperature
-            )
-            self.used_model = model.value
-        else:
-            raise ValueError("Invalid LLM model")
+        self.used_model = LLM_PROXY.get("MODEL")
+
+        self.llm = init_llm(
+            self.used_model,
+            max_tokens=LLM_PROXY.get("MAX_OUTPUT_TOKENS"),
+            temperature=LLM_PROXY.get("TEMPERATURE"),
+        )
 
         self.token_usage: Dict[str, int] = {
             "input_tokens": 0,
@@ -73,21 +53,15 @@ class LLMProxy:
             raise RuntimeError("LLM proxy is not initialized")
         else:
             input_tokens_count = self.num_tokens_from_string(input_prompt)
-            if input_tokens_count < MAX_INPUT_TOKENS:
+            if input_tokens_count < LLM_PROXY.get("MAX_INPUT_TOKENS"):
                 self.call_count += 1
                 result = self.llm.invoke(input_prompt, config=config)
                 self._update_token_usage(result)
                 return result.content
             else:
                 raise RuntimeError(
-                    f"Too many input tokens, input tokens: {input_tokens_count}, max allowed: {MAX_INPUT_TOKENS}"
+                    f"Too many input tokens, input tokens: {input_tokens_count}, max allowed: {LLM_PROXY.get("MAX_INPUT_TOKENS")}"
                 )
-
-    def num_tokens_from_string(self, string: str) -> int:
-        """Returns the number of tokens in a text string."""
-        encoding = encoding_for_model(self.used_model)
-        num_tokens = len(encoding.encode(string))
-        return num_tokens
 
     def invoke_with_structured_output(
         self,
@@ -99,13 +73,24 @@ class LLMProxy:
         if self.llm is None:
             raise RuntimeError("LLM proxy is not initialized")
         else:
+            input_tokens_count = self.num_tokens_from_string(input_prompt)
+            if input_tokens_count < LLM_PROXY.get("MAX_INPUT_TOKENS"):
+                self.call_count += 1
+                result = self.llm.invoke_with_structured_output(
+                    input_prompt, output_type, config=config
+                )
+                self._update_token_usage(result)
+                return result.content
+            else:
+                raise RuntimeError(
+                    f"Too many input tokens, input tokens: {input_tokens_count}, max allowed: {LLM_PROXY.get("MAX_INPUT_TOKENS")}"
+                )
 
-            self.call_count += 1
-            result = self.llm.invoke(input_prompt, config=config)
-            self._update_token_usage(result)
-            return self.llm.invoke_with_structured_output(
-                input_prompt, output_type, config=config
-            )
+    def num_tokens_from_string(self, string: str) -> int:
+        """Returns the number of tokens in a text string."""
+        encoding = encoding_for_model(self.used_model)
+        num_tokens = len(encoding.encode(string))
+        return num_tokens
 
     def _update_token_usage(self, result: AIMessage) -> None:
         """Updates the token usage metrics based on the LLM result."""

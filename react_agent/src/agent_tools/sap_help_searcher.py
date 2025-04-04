@@ -10,33 +10,8 @@ from langchain.tools.base import BaseTool
 from langchain.prompts import PromptTemplate
 from langchain_core.tools import ToolException
 
-
 from react_agent.src.util.llm_proxy import LLMProxy
-
-TOOL_NAME = "search_sap_help"
-TOOL_DESCR = """Returns documentation, including specific information on setup and
-configuration for eDocuments"""
-
-TOP_N_ARTICLES = 5
-
-# Define the maximum size (in bytes) for the JSON response
-MAX_ARTICLE_SIZE = 500 * 1024  # 500 KB
-
-SUMMARIZATION_PROMPT = """
-Given the user's query: "{query}"
-
-Summarize the following markdown articles in no more than 200 words, 
-focusing on how they directly explain and provide context to the user's query. 
-Extract key information from the articles that helps to understand the query better.
-Include all relevant technical information and technical objects in bullet points.
-
-Markdown Articles:
----
-{markdown_content}
----
-
-Query-Focused Summary:
-"""
+from react_agent.src.config.system_parameters import SAP_HELP_TOOL
 
 
 class SAPHelpInputModel(BaseModel):
@@ -50,6 +25,7 @@ class SAPHelpInputModel(BaseModel):
     @field_validator("query", mode="before")
     @classmethod
     def validate_query_word_count(cls, value):
+        """Validation that input query does not have more than 5 words"""
         words = value.split()
         if len(words) > 5:
             raise ToolException("Query must contain at most 5 words.")
@@ -59,8 +35,8 @@ class SAPHelpInputModel(BaseModel):
 class MockSapHelpSearcher(BaseTool):
     """Mock tool for searching articles from SAP Help at help.sap.com."""
 
-    name: str = TOOL_NAME
-    description: str = TOOL_DESCR
+    name: str = SAP_HELP_TOOL.get("NAME")
+    description: str = SAP_HELP_TOOL.get("DESCRIPTION")
     args_schema: Type[BaseModel] = SAPHelpInputModel
 
     def _run(self, query: str) -> str:
@@ -71,8 +47,8 @@ class MockSapHelpSearcher(BaseTool):
 class SapHelpSearcher(BaseTool):
     """Tool for searching articles from SAP Help at help.sap.com."""
 
-    name: str = TOOL_NAME
-    description: str = TOOL_DESCR
+    name: str = SAP_HELP_TOOL.get("NAME")
+    description: str = SAP_HELP_TOOL.get("DESCRIPTION")
     args_schema: Type[BaseModel] = SAPHelpInputModel
 
     def _run(self, query: str) -> str:
@@ -83,7 +59,7 @@ class SapHelpSearcher(BaseTool):
             raise ToolException("Cannot perform search, whitout a valid query")
 
         search_results = self.fetch_articles_with_query(
-            query=query, top_n=TOP_N_ARTICLES
+            query=query, top_n=SAP_HELP_TOOL.get("TOP_N_ARTICLES")
         )
 
         if search_results:
@@ -110,7 +86,9 @@ class SapHelpSearcher(BaseTool):
         llm_proxy = LLMProxy()
 
         # Create a PromptTemplate object
-        prompt_template = PromptTemplate.from_template(SUMMARIZATION_PROMPT)
+        prompt_template = PromptTemplate.from_template(
+            SAP_HELP_TOOL.get("SUMMARIZATION_PROMPT")
+        )
 
         # Format the prompt with your markdown content
         prompt = prompt_template.format(markdown_content=markdown_content, query=query)
@@ -177,9 +155,9 @@ class SapHelpSearcher(BaseTool):
         # Check the size of the response content and if the content is contained
         response_content_size = len(server_response.content)
 
-        if response_content_size < MAX_ARTICLE_SIZE and response_json["data"][
-            "content"
-        ].get("content"):
+        if response_content_size < SAP_HELP_TOOL.get(
+            "MAX_ARTICLE_SIZE"
+        ) and response_json["data"]["content"].get("content"):
 
             # Transform content to markdown (from HTML)
             return md(

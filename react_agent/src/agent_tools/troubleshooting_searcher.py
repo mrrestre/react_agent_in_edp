@@ -13,12 +13,7 @@ from react_agent.src.scripts import (
     load_troubleshooting_memory,
 )
 
-USE_IN_MEMORY_STORE = False
-MEMORIES_LIMIT = 2
-TOOL_NAME = "search_troubleshooting_memories"
-TOOL_DESCR = """Returns eInvoicing domain specific knowledge related to the query string,
-such as troubleshooting information, or details on Application Responses, 
-Invoice Responses, Message Level Responses"""
+from react_agent.src.config.system_parameters import TROUBLESHOOTING_SEARCH
 
 
 class TroubleshootingInputModel(BaseModel):
@@ -33,17 +28,19 @@ class TroubleshootingInputModel(BaseModel):
 class TroubleshootingSearcher(BaseTool):
     """Tool for searching domain specific knowledge from long term memory"""
 
-    name: str = TOOL_NAME
-    description: str = TOOL_DESCR
+    name: str = TROUBLESHOOTING_SEARCH.get("NAME")
+    description: str = TROUBLESHOOTING_SEARCH.get("DESCRIPTION")
     args_schema: Type[BaseModel] = TroubleshootingInputModel
 
     def _run(self, query: str) -> str:
         """Search for most fitting memories to query in memory store"""
-        if USE_IN_MEMORY_STORE:
+        if TROUBLESHOOTING_SEARCH.get("USE_IN_MEMORY_STORE"):
             mem_manager = InMemoryManager()
             load_troubleshooting_memory.load_memories(mem_manager)
         else:
             mem_manager = PostgresMemoryManager()
             load_troubleshooting_postgres.load_memories(mem_manager)
 
-        return mem_manager.search_memories(query=query, limit=MEMORIES_LIMIT)
+        return mem_manager.search_memories(
+            query=query, limit=TROUBLESHOOTING_SEARCH.get("MEMORIES_LIMIT")
+        )
