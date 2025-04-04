@@ -3,7 +3,7 @@ from urllib.parse import urlencode
 
 import requests
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 from markdownify import markdownify as md
 
 from langchain.tools.base import BaseTool
@@ -15,9 +15,9 @@ from react_agent.src.util.llm_proxy import LLMProxy
 
 TOOL_NAME = "search_sap_help"
 TOOL_DESCR = """Returns documentation, including specific information on setup and
-                configuration for eDocuments"""
+configuration for eDocuments"""
 
-TOP_N_ARTICLES = 10
+TOP_N_ARTICLES = 5
 
 SUMMARIZATION_PROMPT = """
 Given the user's query: "{query}"
@@ -36,7 +36,7 @@ Query-Focused Summary:
 """
 
 
-class SearchInputModel(BaseModel):
+class SAPHelpInputModel(BaseModel):
     """Input schema for the search_sap_help tool."""
 
     query: str = Field(
@@ -44,13 +44,21 @@ class SearchInputModel(BaseModel):
         description="Query strings delimited by space. Provide one or more technical object names, if possible",
     )
 
+    @classmethod
+    @field_validator("query")
+    def validate_query_word_count(cls, value):
+        words = value.split()
+        if len(words) > 5:
+            raise ToolException("Query must contain at most 5 words.")
+        return value
+
 
 class MockSapHelpSearcher(BaseTool):
     """Mock tool for searching articles from SAP Help at help.sap.com."""
 
     name: str = TOOL_NAME
     description: str = TOOL_DESCR
-    args_schema: Type[BaseModel] = SearchInputModel
+    args_schema: Type[BaseModel] = SAPHelpInputModel
 
     def _run(self, query: str) -> str:
         """Mock method for searching articles from SAP Help at help.sap.com."""
@@ -62,7 +70,7 @@ class SapHelpSearcher(BaseTool):
 
     name: str = TOOL_NAME
     description: str = TOOL_DESCR
-    args_schema: Type[BaseModel] = SearchInputModel
+    args_schema: Type[BaseModel] = SAPHelpInputModel
 
     def summarize_markdown(self, markdown_content: str, query: str) -> str:
         """Summarization method for articles found."""

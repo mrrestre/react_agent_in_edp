@@ -9,7 +9,7 @@ from react_agent.src.agent_tools.sap_help_searcher import (
     SapHelpSearcher,
     TOOL_NAME,
     TOOL_DESCR,
-    SearchInputModel,
+    SAPHelpInputModel,
 )
 from react_agent.src.util.llm_proxy import LLMProxy
 
@@ -19,7 +19,7 @@ def test_tool_attributes():
     assert tool.name == TOOL_NAME
     assert tool.description == TOOL_DESCR
     assert issubclass(tool.args_schema, BaseModel)
-    assert isinstance(tool.args_schema, SearchInputModel)
+    assert isinstance(tool.args_schema, SAPHelpInputModel)
 
     assert issubclass(tool.__class__, BaseTool)
 
