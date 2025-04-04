@@ -1,10 +1,12 @@
 REACT_INSTRUCTIONS = {
-    "instructions": """If parameters are required, they are defined by placeholder pattern in curly braces. 
-Parameter placeholders need to be replaced by the actual action input.
-- Thoughts can reason about the current situation.
-- Actions will provide you with further external observations as result of this action.
-- When you found an Answer, stop and return this Answer.
-- Call directly the available tools according to the action with the coresponding parameters"""
+    "instructions": """1.Begin with an observation that outlines the primary task or question you want the agent to address.
+2. Analyze the observation to generate exactly one thought that leads to an actionable step using one of the available tools.
+3. Log the generated thought and corresponding action pair for transparency and future reference.
+4. Execute the exactly one action using the choosen tool and specify the parameters needed.
+5. Collect the new observation or insights generated from the tool's output.
+6. Is further analysis or action needed, think how other possible tools may help to improve the output?
+- If yes, create new thought and action pairs.
+- If no, provide a concise conclusion."""
 }
 
 TRIAGE_INSTRUCTIONS = {

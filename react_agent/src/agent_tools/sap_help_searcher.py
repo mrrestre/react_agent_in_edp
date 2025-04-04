@@ -17,7 +17,10 @@ TOOL_NAME = "search_sap_help"
 TOOL_DESCR = """Returns documentation, including specific information on setup and
 configuration for eDocuments"""
 
-TOP_N_ARTICLES = 5
+TOP_N_ARTICLES = 10
+
+# Define the maximum size (in bytes) for the JSON response
+MAX_ARTICLE_SIZE = 400 * 1024  # 400 KB
 
 SUMMARIZATION_PROMPT = """
 Given the user's query: "{query}"
@@ -71,6 +74,36 @@ class SapHelpSearcher(BaseTool):
     name: str = TOOL_NAME
     description: str = TOOL_DESCR
     args_schema: Type[BaseModel] = SAPHelpInputModel
+
+    def _run(self, query: str) -> str:
+        """Method for searching articles from SAP Help at help.sap.com with a given query."""
+        all_articles_markdown = ""
+
+        if query == "" or not isinstance(query, str):
+            raise ToolException("Cannot perform search, whitout a valid query")
+
+        search_results = self.fetch_articles_with_query(
+            query=query, top_n=TOP_N_ARTICLES
+        )
+
+        if search_results:
+            for result in search_results:
+                # Only check articles where loio is present
+                if result.get("loio"):
+                    # Add article to markdown containing all article content
+                    all_articles_markdown += self.fetch_article(
+                        topic_loio=result["loio"]
+                    )
+                else:
+                    continue
+        else:
+            raise ToolException(
+                "No articles found for query, try again with broader query."
+            )
+
+        return self.summarize_markdown(
+            markdown_content=all_articles_markdown, query=query
+        )
 
     def summarize_markdown(self, markdown_content: str, query: str) -> str:
         """Summarization method for articles found."""
@@ -135,38 +168,14 @@ class SapHelpSearcher(BaseTool):
         # Load the JSON response
         response_json = server_response.json()
 
-        # Transform content to markdown (from HTML)
-        return md(
-            response_json["data"]["content"]["content"],
-            escape_underscores=False,
-        )
-
-    def _run(self, query: str) -> str:
-        """Method for searching articles from SAP Help at help.sap.com with a given query."""
-        all_articles_markdown = ""
-
-        if query == "" or not isinstance(query, str):
-            raise ToolException("Cannot perform search, whitout a valid query")
-
-        search_results = self.fetch_articles_with_query(
-            query=query, top_n=TOP_N_ARTICLES
-        )
-
-        if search_results:
-            for result in search_results:
-                # Only check articles where loio is present
-                if result.get("loio"):
-                    # Add article to markdown containing all article content
-                    all_articles_markdown += self.fetch_article(
-                        topic_loio=result["loio"]
-                    )
-                else:
-                    continue
+        # Check the size of the response content
+        response_content_size = len(server_response.content)
+        if response_content_size > MAX_ARTICLE_SIZE:
+            # If the article is bigger than a certain size, skip it
+            return ""
         else:
-            raise ToolException(
-                "No articles found for query, try again with broader query."
+            # Transform content to markdown (from HTML)
+            return md(
+                response_json["data"]["content"]["content"],
+                escape_underscores=False,
             )
-
-        return self.summarize_markdown(
-            markdown_content=all_articles_markdown, query=query
-        )

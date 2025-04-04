@@ -1,4 +1,4 @@
-@QUERY=EDP
+@QUERY=SAP S/4HANA Cloud Peppol Exchange client certificate upload format
 @PRODUCT=SAP_S4HANA_ON-PREMISE
 
 # @name GetSAPHelpArticles
