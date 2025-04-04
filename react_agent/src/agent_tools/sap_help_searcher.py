@@ -17,10 +17,10 @@ TOOL_NAME = "search_sap_help"
 TOOL_DESCR = """Returns documentation, including specific information on setup and
 configuration for eDocuments"""
 
-TOP_N_ARTICLES = 10
+TOP_N_ARTICLES = 5
 
 # Define the maximum size (in bytes) for the JSON response
-MAX_ARTICLE_SIZE = 400 * 1024  # 400 KB
+MAX_ARTICLE_SIZE = 500 * 1024  # 500 KB
 
 SUMMARIZATION_PROMPT = """
 Given the user's query: "{query}"
@@ -47,8 +47,8 @@ class SAPHelpInputModel(BaseModel):
         description="Query strings delimited by space. Provide one or more technical object names, if possible",
     )
 
+    @field_validator("query", mode="before")
     @classmethod
-    @field_validator("query")
     def validate_query_word_count(cls, value):
         words = value.split()
         if len(words) > 5:
@@ -92,7 +92,7 @@ class SapHelpSearcher(BaseTool):
                 if result.get("loio"):
                     # Add article to markdown containing all article content
                     all_articles_markdown += self.fetch_article(
-                        topic_loio=result["loio"]
+                        topic_loio=result.get("loio")
                     )
                 else:
                     continue
@@ -115,7 +115,13 @@ class SapHelpSearcher(BaseTool):
         # Format the prompt with your markdown content
         prompt = prompt_template.format(markdown_content=markdown_content, query=query)
 
-        return llm_proxy.invoke(input_prompt=prompt)
+        # Try using the information from all articles, if it fails, try using the half of the information
+        try:
+            return llm_proxy.invoke(input_prompt=prompt)
+        except RuntimeError:
+            words = prompt.split()
+            prompt = "".join(words[: int(len(words) / 2)])
+            return llm_proxy.invoke(input_prompt=prompt)
 
     def fetch_articles_with_query(self, query: str, top_n: int) -> list:
         """Return top n articles for query in sap.help"""
@@ -168,14 +174,18 @@ class SapHelpSearcher(BaseTool):
         # Load the JSON response
         response_json = server_response.json()
 
-        # Check the size of the response content
+        # Check the size of the response content and if the content is contained
         response_content_size = len(server_response.content)
-        if response_content_size > MAX_ARTICLE_SIZE:
-            # If the article is bigger than a certain size, skip it
-            return ""
-        else:
+
+        if response_content_size < MAX_ARTICLE_SIZE and response_json["data"][
+            "content"
+        ].get("content"):
+
             # Transform content to markdown (from HTML)
             return md(
                 response_json["data"]["content"]["content"],
                 escape_underscores=False,
             )
+        else:
+            # If the article is bigger than a certain size or does not contain content, skip it
+            return ""

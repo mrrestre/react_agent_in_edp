@@ -1,12 +1,9 @@
 """Description: ReAct Agent class to manage the React Agent and its tools."""
 
-import json
-
 from langgraph.prebuilt import create_react_agent
 
 from langchain.tools.base import BaseTool
 from langchain.prompts import PromptTemplate
-
 
 from react_agent.src.config import system_configs
 

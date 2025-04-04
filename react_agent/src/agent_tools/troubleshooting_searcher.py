@@ -4,13 +4,18 @@ from pydantic import BaseModel, Field
 
 from langchain.tools.base import BaseTool
 
-from react_agent.src.util.long_term_mem_manager import LongTermMemoryManager
-from react_agent.src.scripts.load_troubleshooting import (
-    load_memories,
+from react_agent.src.util.long_term_mem_manager import (
+    PostgresMemoryManager,
+    InMemoryManager,
+)
+from react_agent.src.scripts import (
+    load_troubleshooting_postgres,
+    load_troubleshooting_memory,
 )
 
+USE_IN_MEMORY_STORE = False
 MEMORIES_LIMIT = 2
-TOOL_NAME = "search_memories"
+TOOL_NAME = "search_troubleshooting_memories"
 TOOL_DESCR = """Returns eInvoicing domain specific knowledge related to the query string,
 such as troubleshooting information, or details on Application Responses, 
 Invoice Responses, Message Level Responses"""
@@ -34,8 +39,11 @@ class TroubleshootingSearcher(BaseTool):
 
     def _run(self, query: str) -> str:
         """Search for most fitting memories to query in memory store"""
-        mem_manager = LongTermMemoryManager()
-
-        load_memories(mem_manager)
+        if USE_IN_MEMORY_STORE:
+            mem_manager = InMemoryManager()
+            load_troubleshooting_memory.load_memories(mem_manager)
+        else:
+            mem_manager = PostgresMemoryManager()
+            load_troubleshooting_postgres.load_memories(mem_manager)
 
         return mem_manager.search_memories(query=query, limit=MEMORIES_LIMIT)

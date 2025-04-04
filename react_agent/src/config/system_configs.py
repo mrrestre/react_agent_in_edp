@@ -6,7 +6,8 @@ REACT_INSTRUCTIONS = {
 5. Collect the new observation or insights generated from the tool's output.
 6. Is further analysis or action needed, think how other possible tools may help to improve the output?
 - If yes, create new thought and action pairs.
-- If no, provide a concise conclusion."""
+- If no, provide a concise conclusion.
+Use tools that relly on memory first"""
 }
 
 TRIAGE_INSTRUCTIONS = {

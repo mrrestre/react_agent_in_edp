@@ -1,4 +1,4 @@
-from typing import Any, Optional, Dict, Type
+from typing import Any, Optional
 from enum import Enum
 
 from gen_ai_hub.proxy.langchain.openai import OpenAIEmbeddings
