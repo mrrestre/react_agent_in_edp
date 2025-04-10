@@ -5,11 +5,9 @@ from langgraph.prebuilt import create_react_agent
 from langchain.tools.base import BaseTool
 from langchain.prompts import PromptTemplate
 
-from react_agent.src.config import promps_snippets
-
 from react_agent.src.util.llm_proxy import LLMProxy
 
-from react_agent.src.config.system_parameters import MAIN_AGENT
+from react_agent.src.config.system_parameters import MAIN_AGENT, REACT_INSTRUCTIONS
 
 
 class ReActAgent:
@@ -36,7 +34,7 @@ class ReActAgent:
         )
 
         return sys_prompt_template.format(
-            react_instructions=promps_snippets.REACT_INSTRUCTIONS["instructions"],
+            react_instructions=REACT_INSTRUCTIONS["instructions"],
             tools=self.generate_tool_info_string(),
         )
 
