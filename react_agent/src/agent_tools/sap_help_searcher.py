@@ -19,7 +19,7 @@ class SAPHelpInputModel(BaseModel):
 
     query: str = Field(
         ...,
-        description="Query strings delimited by space. Provide one or more technical object names, if possible",
+        description=SAP_HELP_TOOL.get("QUERY_FIELD_DESCR"),
     )
 
     @field_validator("query", mode="before")

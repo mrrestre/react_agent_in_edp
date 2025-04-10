@@ -7,7 +7,11 @@ from langchain.prompts import PromptTemplate
 
 from react_agent.src.util.llm_proxy import LLMProxy
 
-from react_agent.src.config.system_parameters import MAIN_AGENT, REACT_INSTRUCTIONS
+from react_agent.src.config.system_parameters import (
+    MAIN_AGENT,
+    REACT_INSTRUCTIONS,
+    AGENT_RULES,
+)
 
 
 class ReActAgent:
@@ -34,8 +38,9 @@ class ReActAgent:
         )
 
         return sys_prompt_template.format(
-            react_instructions=REACT_INSTRUCTIONS["instructions"],
+            react_instructions=("\n").join(REACT_INSTRUCTIONS),
             tools=self.generate_tool_info_string(),
+            rules=("\n").join(AGENT_RULES),
         )
 
     def generate_tool_info_string(self) -> str:

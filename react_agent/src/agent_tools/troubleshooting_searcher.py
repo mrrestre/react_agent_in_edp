@@ -21,7 +21,7 @@ class TroubleshootingInputModel(BaseModel):
 
     query: str = Field(
         ...,
-        description="Query strings delimited by space. Provide one or more technical object names, if possible",
+        description=TROUBLESHOOTING_SEARCH.get("QUERY_FIELD_DESCR"),
     )
 
 
@@ -41,6 +41,4 @@ class TroubleshootingSearcher(BaseTool):
             mem_manager = PostgresMemoryManager()
             load_troubleshooting_postgres.load_memories(mem_manager)
 
-        return mem_manager.search_memories(
-            query=query, limit=TROUBLESHOOTING_SEARCH.get("MEMORIES_LIMIT")
-        )
+        return mem_manager.search_memories(query=query)
