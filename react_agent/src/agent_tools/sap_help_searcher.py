@@ -14,7 +14,7 @@ from react_agent.src.util.llm_proxy import LLMProxy
 from react_agent.src.config.system_parameters import SAP_HELP_TOOL
 
 
-class SAPHelpInputModel(BaseModel):
+class SapHelpInputModel(BaseModel):
     """Input schema for the search_sap_help tool."""
 
     query: str = Field(
@@ -37,7 +37,7 @@ class MockSapHelpSearcher(BaseTool):
 
     name: str = SAP_HELP_TOOL.get("NAME")
     description: str = SAP_HELP_TOOL.get("DESCRIPTION")
-    args_schema: Type[BaseModel] = SAPHelpInputModel
+    args_schema: Type[BaseModel] = SapHelpInputModel
 
     def _run(self, query: str) -> str:
         """Mock method for searching articles from SAP Help at help.sap.com."""
@@ -49,7 +49,7 @@ class SapHelpSearcher(BaseTool):
 
     name: str = SAP_HELP_TOOL.get("NAME")
     description: str = SAP_HELP_TOOL.get("DESCRIPTION")
-    args_schema: Type[BaseModel] = SAPHelpInputModel
+    args_schema: Type[BaseModel] = SapHelpInputModel
 
     def _run(self, query: str) -> str:
         """Method for searching articles from SAP Help at help.sap.com with a given query."""

@@ -118,3 +118,7 @@ class LLMProxy:
         """Prints the current call count and token usage."""
         print(f"Call Count: {self.call_count}")
         print(f"Token Usage: {self.token_usage}")
+
+    def reset_call_count(self) -> None:
+        """USE ONLY FOR UNIT TESTING - Resets the call count"""
+        self.call_count = 0
