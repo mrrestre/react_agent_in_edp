@@ -2,9 +2,12 @@
 @SAP_CLIENT={{$dotenv SAP_CLIENT}}
 @SAP_USER={{$dotenv SAP_USER}}
 @SAP_PASSWORD={{$dotenv SAP_PASSWORD}}
+
 @CLASSNAME=ZPS_CL_EX_MB_MIGO_BADI
 
 # @name GetClassSource
-GET {{SAP_BACKEND_URL}}/classes?$filter=class_name eq '{{CLASSNAME}}' HTTP/1.1
+GET {{SAP_BACKEND_URL}}classes
+    ?$filter=class_name eq '{{CLASSNAME}}' HTTP/1.1
 Content-Type: application/json
 Authorization: Basic {{SAP_USER}} {{SAP_PASSWORD}}
+
