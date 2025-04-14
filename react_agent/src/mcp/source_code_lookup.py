@@ -6,8 +6,17 @@ from mcp.server.fastmcp import FastMCP
 from langchain_core.tools import ToolException
 
 from react_agent.src.util.abap_repository import ABAPClassRepository
+from react_agent.src.mcp.sap_help_searcher import SapHelpSearcher
 
 mcp = FastMCP("SourceCodeLookup")
+
+sap_search_tool = SapHelpSearcher()
+
+mcp.add_tool(
+    sap_search_tool._run,
+    name=sap_search_tool.name,
+    description=sap_search_tool.description,
+)
 
 
 class LookupInputModel(BaseModel):
@@ -78,4 +87,5 @@ def source_code_lookup(input_model: LookupInputModel) -> str:
 
 
 if __name__ == "__main__":
-    mcp.run(transport="stdio")
+    mcp.run(transport="sse")
+    # mcp.run(transport="stdio")

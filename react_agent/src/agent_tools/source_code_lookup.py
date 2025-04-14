@@ -34,7 +34,7 @@ class LookupInputModel(BaseModel):
         return value
 
 
-class MockSourceCodeMethodLookup(BaseTool):
+class SourceCodeMethodLookup(BaseTool):
     name: str = SOURCE_CODE_LOOKUP.get("NAME")
     description: str = SOURCE_CODE_LOOKUP.get("DESCRIPTION")
     args_schema: Type[BaseModel] = LookupInputModel

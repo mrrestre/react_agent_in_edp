@@ -39,23 +39,24 @@ class ReActAgent:
 
         return sys_prompt_template.format(
             react_instructions=("\n").join(REACT_INSTRUCTIONS),
-            tools=self.generate_tool_info_string(),
+            # tools=self.generate_tool_info_string(),
+            tools="documentation_retriever, source_code_lookup, troubleshooting_memories_retriever",
             rules=("\n").join(AGENT_RULES),
         )
 
-    def generate_tool_info_string(self) -> str:
-        """Generates a string containing tool names, arg schemas, and descriptions."""
-        tool_strings = []
-        for tool in self.tools:
-            schema_props = tool.args_schema.model_json_schema().get("properties", {})
-            arg_components = ", ".join(
-                f"{name}: {prop['type']}" for name, prop in schema_props.items()
-            )
+    # def generate_tool_info_string(self) -> str:
+    #     """Generates a string containing tool names, arg schemas, and descriptions."""
+    #     tool_strings = []
+    #     for tool in self.tools:
+    #         schema_props = tool.args_schema.model_json_schema().get("properties", {})
+    #         arg_components = ", ".join(
+    #             f"{name}: {prop['type']}" for name, prop in schema_props.items()
+    #         )
 
-            tool_strings.append(
-                f"- Tool Name: {tool.name}, Description: {tool.description}, Args: {arg_components}"
-            )
-        return "\n".join(tool_strings)
+    #         tool_strings.append(
+    #             f"- Tool Name: {tool.name}, Description: {tool.description}, Args: {arg_components}"
+    #         )
+    #     return "\n".join(tool_strings)
 
     def get_agent_graph(self) -> str:
         """Get the agent's graph in Mermaid format."""
@@ -71,6 +72,21 @@ class ReActAgent:
             input=input_object, stream_mode="values", config=config_object
         ):
             message = s["messages"][-1]
+            if isinstance(message, tuple):
+                print(message)
+            else:
+                message.pretty_print()
+
+    async def arun_and_print_agent_stream(self, user_message: str) -> None:
+        """Evaluates user input and print the agent's stream of messages in an asynchronus manner."""
+        input_object = {"messages": [("user", user_message)]}
+
+        config_object = {"recursion_limit": MAIN_AGENT.get("MAX_ITERATIONS")}
+
+        async for output in self.agent.astream(
+            input=input_object, stream_mode="values", config=config_object
+        ):
+            message = output["messages"][-1]
             if isinstance(message, tuple):
                 print(message)
             else:
