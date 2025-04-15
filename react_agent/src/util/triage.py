@@ -1,3 +1,5 @@
+"""Helper class for triaging the incoming question before configuring the agent"""
+
 import os
 import json
 
@@ -12,7 +14,10 @@ from langchain.prompts import PromptTemplate
 
 from dotenv import load_dotenv
 
-from react_agent.src.config.system_parameters import TRIAGE, LLM_PROXY
+from react_agent.src.config.system_parameters import TriageSettings, LlmProxySettings
+
+triage_settings = TriageSettings()
+llm_proxy_settings = LlmProxySettings()
 
 
 class Triage:
@@ -20,11 +25,11 @@ class Triage:
 
     def __init__(self):
         self.llm = LLM(
-            name=LLM_PROXY.get("MODEL"),
+            name=llm_proxy_settings.model,
             version="latest",
             parameters={
-                "max_tokens": LLM_PROXY.get("MAX_OUTPUT_TOKENS"),
-                "temperature": LLM_PROXY.get("TEMPERATURE"),
+                "max_tokens": llm_proxy_settings.max_output_tokens,
+                "temperature": llm_proxy_settings.temperature,
             },
         )
 
@@ -62,18 +67,18 @@ class Triage:
         """Prepare the promp for the orchestration api call"""
 
         categories = "\n".join(
-            instruction.get("category") for instruction in TRIAGE.get("INSTRUCTIONS")
+            instruction.get("category") for instruction in triage_settings.instructions
         )
         triage_rules = "\n".join(
             f"Category: {instruction.get("category")}\tDescription: {instruction.get("description")}"
-            for instruction in TRIAGE.get("INSTRUCTIONS")
+            for instruction in triage_settings.instructions
         )
         examples = "\n".join(
             f"Question: {example.get("question")}\tCategory{example.get("category")}"
-            for example in TRIAGE.get("EXAMPLES")
+            for example in triage_settings.examples
         )
 
-        sys_prompt_template = PromptTemplate.from_template(TRIAGE.get("SYS_PROMPT"))
+        sys_prompt_template = PromptTemplate.from_template(triage_settings.sys_prompt)
 
         sys_message = sys_prompt_template.format(
             categories=categories, triage_rules=triage_rules, examples=examples
@@ -87,6 +92,6 @@ class Triage:
             response_format=ResponseFormatJsonSchema(
                 name="response",
                 description="triage output",
-                schema=TRIAGE.get("RESPONSE_SCHEMA"),
+                schema=triage_settings.response_schema,
             ),
         )

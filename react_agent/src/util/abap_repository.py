@@ -1,3 +1,5 @@
+"""Class for indexing and accessing methods and class from a txt file"""
+
 import re
 from typing import Dict
 

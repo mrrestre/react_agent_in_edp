@@ -1,6 +1,6 @@
-# from dotenv import load_dotenv
+"""Utility functions for proxying LLMs"""
+
 from typing import Any, Optional, Dict, Type
-from enum import Enum
 
 from gen_ai_hub.proxy.langchain import init_llm
 
@@ -12,7 +12,9 @@ from pydantic import BaseModel
 
 from tiktoken import encoding_for_model
 
-from react_agent.src.config.system_parameters import LLM_PROXY
+from react_agent.src.config.system_parameters import LlmProxySettings
+
+llm_proxy_settings = LlmProxySettings()
 
 
 class LLMProxy:
@@ -31,12 +33,12 @@ class LLMProxy:
         if hasattr(self, "_initialized"):  # prevent re-init
             return
 
-        self.used_model = LLM_PROXY.get("MODEL")
+        self.used_model = llm_proxy_settings.model
 
         self.llm = init_llm(
             self.used_model,
-            max_tokens=LLM_PROXY.get("MAX_OUTPUT_TOKENS"),
-            temperature=LLM_PROXY.get("TEMPERATURE"),
+            max_tokens=llm_proxy_settings.max_output_tokens,
+            temperature=llm_proxy_settings.temperature,
         )
 
         self.token_usage: Dict[str, int] = {
@@ -53,14 +55,14 @@ class LLMProxy:
             raise RuntimeError("LLM proxy is not initialized")
         else:
             input_tokens_count = self.num_tokens_from_string(input_prompt)
-            if input_tokens_count < LLM_PROXY.get("MAX_INPUT_TOKENS"):
+            if input_tokens_count < llm_proxy_settings.max_input_tokens:
                 self.call_count += 1
                 result = self.llm.invoke(input_prompt, config=config)
                 self._update_token_usage(result)
                 return result.content
             else:
                 raise RuntimeError(
-                    f"Too many input tokens, input tokens: {input_tokens_count}, max allowed: {LLM_PROXY.get("MAX_INPUT_TOKENS")}"
+                    f"Too many input tokens, input tokens: {input_tokens_count}, max allowed: {llm_proxy_settings.max_input_tokens}"
                 )
 
     def invoke_with_structured_output(
@@ -74,7 +76,7 @@ class LLMProxy:
             raise RuntimeError("LLM proxy is not initialized")
         else:
             input_tokens_count = self.num_tokens_from_string(input_prompt)
-            if input_tokens_count < LLM_PROXY.get("MAX_INPUT_TOKENS"):
+            if input_tokens_count < llm_proxy_settings.max_input_tokens:
                 self.call_count += 1
                 result = self.llm.invoke_with_structured_output(
                     input_prompt, output_type, config=config
@@ -83,7 +85,7 @@ class LLMProxy:
                 return result.content
             else:
                 raise RuntimeError(
-                    f"Too many input tokens, input tokens: {input_tokens_count}, max allowed: {LLM_PROXY.get("MAX_INPUT_TOKENS")}"
+                    f"Too many input tokens, input tokens: {input_tokens_count}, max allowed: {llm_proxy_settings.max_input_tokens}"
                 )
 
     def num_tokens_from_string(self, string: str) -> int:
