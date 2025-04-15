@@ -1,3 +1,5 @@
+"""Tool for searching source code in ABAP system"""
+
 import os
 from typing import Type, Optional
 
@@ -7,7 +9,9 @@ from langchain_core.tools import ToolException
 from pydantic import BaseModel, Field, field_validator
 
 from react_agent.src.util.abap_repository import ABAPClassRepository
-from react_agent.src.config.system_parameters import SOURCE_CODE_LOOKUP
+from react_agent.src.config.system_parameters import SourceCodeLookupSettings
+
+TOOL_SETTINGS = SourceCodeLookupSettings()
 
 
 class LookupInputModel(BaseModel):
@@ -35,8 +39,10 @@ class LookupInputModel(BaseModel):
 
 
 class SourceCodeMethodLookup(BaseTool):
-    name: str = SOURCE_CODE_LOOKUP.get("NAME")
-    description: str = SOURCE_CODE_LOOKUP.get("DESCRIPTION")
+    """Tool for searching source code in ABAP system"""
+
+    name: str = TOOL_SETTINGS.name
+    description: str = TOOL_SETTINGS.description
     args_schema: Type[BaseModel] = LookupInputModel
 
     def _run(

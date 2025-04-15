@@ -1,3 +1,5 @@
+"""Tool for searching articles from SAP Help at help.sap.com."""
+
 from typing import Type
 from urllib.parse import urlencode
 
@@ -11,7 +13,9 @@ from langchain.prompts import PromptTemplate
 from langchain_core.tools import ToolException
 
 from react_agent.src.util.llm_proxy import LLMProxy
-from react_agent.src.config.system_parameters import SAP_HELP_TOOL
+from react_agent.src.config.system_parameters import SapHelpToolSettings
+
+TOOL_SETTINGS = SapHelpToolSettings()
 
 
 class SapHelpInputModel(BaseModel):
@@ -19,7 +23,7 @@ class SapHelpInputModel(BaseModel):
 
     query: str = Field(
         ...,
-        description=SAP_HELP_TOOL.get("QUERY_FIELD_DESCR"),
+        description=TOOL_SETTINGS.query_field_descr,
     )
 
     @field_validator("query", mode="before")
@@ -32,23 +36,11 @@ class SapHelpInputModel(BaseModel):
         return value
 
 
-class MockSapHelpSearcher(BaseTool):
-    """Mock tool for searching articles from SAP Help at help.sap.com."""
-
-    name: str = SAP_HELP_TOOL.get("NAME")
-    description: str = SAP_HELP_TOOL.get("DESCRIPTION")
-    args_schema: Type[BaseModel] = SapHelpInputModel
-
-    def _run(self, query: str) -> str:
-        """Mock method for searching articles from SAP Help at help.sap.com."""
-        return f"Search SAP Help for '{query}'"
-
-
 class SapHelpSearcher(BaseTool):
     """Tool for searching articles from SAP Help at help.sap.com."""
 
-    name: str = SAP_HELP_TOOL.get("NAME")
-    description: str = SAP_HELP_TOOL.get("DESCRIPTION")
+    name: str = TOOL_SETTINGS.name
+    description: str = TOOL_SETTINGS.description
     args_schema: Type[BaseModel] = SapHelpInputModel
 
     def _run(self, query: str) -> str:
@@ -59,7 +51,7 @@ class SapHelpSearcher(BaseTool):
             raise ToolException("Cannot perform search, whitout a valid query")
 
         search_results = self.fetch_articles_with_query(
-            query=query, top_n=SAP_HELP_TOOL.get("TOP_N_ARTICLES")
+            query=query, top_n=TOOL_SETTINGS.top_n_articles
         )
 
         if search_results:
@@ -87,13 +79,13 @@ class SapHelpSearcher(BaseTool):
 
         # Create a PromptTemplate object
         prompt_template = PromptTemplate.from_template(
-            SAP_HELP_TOOL.get("SUMMARIZATION_PROMPT")
+            TOOL_SETTINGS.summarization_prompt
         )
 
         # Format the prompt with your markdown content
         prompt = prompt_template.format(markdown_content=markdown_content, query=query)
 
-        # Try using the information from all articles, if it fails, try using the half of the information
+        # Try using the information from all articles, if it fails, try using the half of it
         try:
             return llm_proxy.invoke(input_prompt=prompt)
         except RuntimeError:
@@ -155,9 +147,9 @@ class SapHelpSearcher(BaseTool):
         # Check the size of the response content and if the content is contained
         response_content_size = len(server_response.content)
 
-        if response_content_size < SAP_HELP_TOOL.get(
-            "MAX_ARTICLE_SIZE"
-        ) and response_json["data"]["content"].get("content"):
+        if response_content_size < TOOL_SETTINGS.max_article_size and response_json[
+            "data"
+        ]["content"].get("content"):
 
             # Transform content to markdown (from HTML)
             return md(

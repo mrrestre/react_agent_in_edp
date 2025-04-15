@@ -7,11 +7,9 @@ from langchain.prompts import PromptTemplate
 
 from react_agent.src.util.llm_proxy import LLMProxy
 
-from react_agent.src.config.system_parameters import (
-    MAIN_AGENT,
-    REACT_INSTRUCTIONS,
-    AGENT_RULES,
-)
+from react_agent.src.config.system_parameters import AgentSettings
+
+AGENT_SETTINGS = AgentSettings()
 
 
 class ReActAgent:
@@ -33,15 +31,13 @@ class ReActAgent:
 
     def create_sys_prompt(self) -> str:
         """Create the prompt for the agent based on AGENT_SYSTEM_PROMPT."""
-        sys_prompt_template = PromptTemplate.from_template(
-            MAIN_AGENT.get("AGENT_SYSTEM_PROMPT")
-        )
+        sys_prompt_template = PromptTemplate.from_template(AGENT_SETTINGS.system_prompt)
 
         return sys_prompt_template.format(
-            react_instructions=("\n").join(REACT_INSTRUCTIONS),
+            react_instructions=("\n").join(AGENT_SETTINGS.instructions),
             # tools=self.generate_tool_info_string(),
             tools="documentation_retriever, source_code_lookup, troubleshooting_memories_retriever",
-            rules=("\n").join(AGENT_RULES),
+            rules=("\n").join(AGENT_SETTINGS.rules),
         )
 
     # def generate_tool_info_string(self) -> str:
@@ -66,7 +62,7 @@ class ReActAgent:
         """Evaluates user input and print the agent's stream of messages."""
         input_object = {"messages": [("user", user_message)]}
 
-        config_object = {"recursion_limit": MAIN_AGENT.get("MAX_ITERATIONS")}
+        config_object = {"recursion_limit": AGENT_SETTINGS.max_iterations}
 
         for s in self.agent.stream(
             input=input_object, stream_mode="values", config=config_object
@@ -78,10 +74,10 @@ class ReActAgent:
                 message.pretty_print()
 
     async def arun_and_print_agent_stream(self, user_message: str) -> None:
-        """Evaluates user input and print the agent's stream of messages in an asynchronus manner."""
+        """Evaluates user input and print stream of messages in an asynchronus manner."""
         input_object = {"messages": [("user", user_message)]}
 
-        config_object = {"recursion_limit": MAIN_AGENT.get("MAX_ITERATIONS")}
+        config_object = {"recursion_limit": AGENT_SETTINGS.max_iterations}
 
         async for output in self.agent.astream(
             input=input_object, stream_mode="values", config=config_object

@@ -1,3 +1,5 @@
+"""Tool for searching domain specific knowledge from long term memory"""
+
 from typing import Type
 
 from pydantic import BaseModel, Field
@@ -13,7 +15,9 @@ from react_agent.src.scripts import (
     load_troubleshooting_memory,
 )
 
-from react_agent.src.config.system_parameters import TROUBLESHOOTING_SEARCH
+from react_agent.src.config.system_parameters import TroubleshootingSearchSettings
+
+TOOL_SETTINGS = TroubleshootingSearchSettings()
 
 
 class TroubleshootingInputModel(BaseModel):
@@ -21,20 +25,20 @@ class TroubleshootingInputModel(BaseModel):
 
     query: str = Field(
         ...,
-        description=TROUBLESHOOTING_SEARCH.get("QUERY_FIELD_DESCR"),
+        description=TOOL_SETTINGS.query_field_descr,
     )
 
 
 class TroubleshootingSearcher(BaseTool):
     """Tool for searching domain specific knowledge from long term memory"""
 
-    name: str = TROUBLESHOOTING_SEARCH.get("NAME")
-    description: str = TROUBLESHOOTING_SEARCH.get("DESCRIPTION")
+    name: str = TOOL_SETTINGS.name
+    description: str = TOOL_SETTINGS.description
     args_schema: Type[BaseModel] = TroubleshootingInputModel
 
     def _run(self, query: str) -> str:
         """Search for most fitting memories to query in memory store"""
-        if TROUBLESHOOTING_SEARCH.get("USE_IN_MEMORY_STORE"):
+        if TOOL_SETTINGS.use_in_memory_store:
             mem_manager = InMemoryManager()
             load_troubleshooting_memory.load_memories(mem_manager)
         else:
