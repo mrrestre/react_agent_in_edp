@@ -6,22 +6,33 @@ from langchain_core.tools import ToolException
 from langchain.tools.base import BaseTool
 
 from react_agent.src.agent_tools.sap_help_searcher import SapHelpSearcher
-from react_agent.src.config.system_parameters import SAP_HELP_TOOL
+from react_agent.src.config.system_parameters import SapHelpToolSettings
 from react_agent.src.util.llm_proxy import LLMProxy
+
+SETTINGS = SapHelpToolSettings()
 
 
 def test_tool_attributes():
+    """Test that SapHelpSearcher tool has correct attributes.
+
+    Ensures that the tool's name and description match the settings.
+    Verifies that the tool's argument schema is a subclass of BaseModel
+    and that the tool itself is a subclass of BaseTool.
+    """
     # When
     tool = SapHelpSearcher()
     # Then
-    assert tool.name == SAP_HELP_TOOL.get("NAME")
-    assert tool.description == SAP_HELP_TOOL.get("DESCRIPTION")
+    assert tool.name == SETTINGS.name
+    assert tool.description == SETTINGS.description
     assert issubclass(tool.args_schema, BaseModel)
 
     assert issubclass(tool.__class__, BaseTool)
 
 
 def test_no_query_shall_throw_exception():
+    """Test that a query with no content throws an exception.
+    Verifies that the method _run raises a ToolException if the query is an empty string.
+    """
     # Given
     tool = SapHelpSearcher()
 
@@ -30,6 +41,10 @@ def test_no_query_shall_throw_exception():
 
 
 def test_query_with_wrong_datatype_throw_exception():
+    """
+    Test that a query with an incorrect data type throws an exception.
+    Verifies that the method _run raises a ToolException if the query is not a string.
+    """
     # Given
     int_query: int = 42
     float_query: float = 42.42
@@ -45,6 +60,10 @@ def test_query_with_wrong_datatype_throw_exception():
 
 
 def test_query_with_no_articles_shall_throw_exception():
+    """
+    Test that a query with no articles throws an exception.
+    Verifies that the method _run raises a ToolException if the query does not return any articles.
+    """
     # Given
     tool = SapHelpSearcher()
 
@@ -53,6 +72,12 @@ def test_query_with_no_articles_shall_throw_exception():
 
 
 def test_articles_fetch_with_query():
+    """
+    Test that the method fetch_articles_with_query returns a list of articles
+    when given a valid query and a positive top_n.
+    Verifies that the method returns a list of articles and that the length of
+    the list is equal to top_n.
+    """
     # Given
     query: str = "unit testing"
     top_n: int = 5
@@ -66,6 +91,13 @@ def test_articles_fetch_with_query():
 
 
 def test_fetched_articles_sorted_by_score():
+    """
+    Test that the method fetch_articles_with_query returns a list of articles
+    sorted by their score when given a valid query and a positive top_n.
+    Verifies that the method returns a sorted list of articles and that the
+    score of each article is higher than the score of the next article in the
+    list.
+    """
     # Given
     query: str = "unit testing"
     top_n: int = 3
@@ -96,6 +128,10 @@ def test_llm_proxy_called_exactly_once_by_summarization():
 
 
 def test_non_empty_string_should_be_generated_from_query():
+    """Test that a non-empty string is generated from a valid query.
+    Verifies that the method _run returns a non-empty string when provided with
+    a valid query, ensuring that the response is of type string and is not empty.
+    """
     # Given
     tool = SapHelpSearcher()
     # When

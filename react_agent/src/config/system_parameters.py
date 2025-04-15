@@ -58,6 +58,9 @@ including troubleshooting guides and details on Application, Invoice, and Messag
 class AgentSettings(BaseSettings):
     """Settings for the Main Agent"""
 
+    final_output_description: str = "The final output of the agent"
+    reasoning_description: str = "The reasoning behind the final output"
+    tools_used_description: str = "The tools used by the agent to achieve the result"
     max_iterations: int = 10
     system_prompt: str = """
 < Role >
@@ -72,9 +75,9 @@ Replace inappropriate language with inclusive language; politely refuse results,
 </ Instructions >
 
 < Tools >
+Refer always to the tools using memory as a first resort.
 You have access to the following tools in order to resolve the incoming questions:
 {tools}
-Refer always to the tools using memory as a first resort.
 </ Tools >
 
 < Rules >
@@ -84,7 +87,7 @@ Refer always to the tools using memory as a first resort.
         "Always use tools that relly in memory first, before looking for new information",
         "Do not call more than one tool at the same time",
         "Excecute the tools in synchron manner",
-        "Cross validate the facts with different sources",
+        "Always cross validate your outputs using different sources",
         "Before expressing the answer, ensure that the original question is answered",
     ]
     instructions: list[str] = [
@@ -94,8 +97,8 @@ Refer always to the tools using memory as a first resort.
         "4. Execute the exactly one action using the choosen tool and specify the parameters needed.",
         "5. Collect the new observation or insights generated from the tool's output.",
         """6. Is further analysis or action needed, think how other possible tools may help to improve the output?
-            - If yes, create new thought and action pairs.
-            - If no, provide a concise conclusion.""",
+        - If yes, create new thought and action pairs.
+        - If no, provide a concise conclusion.""",
     ]
 
 
@@ -106,7 +109,7 @@ class QAToolsServerSettings(BaseSettings):
     """Settings for QuestionAnsweringToolsServer"""
 
     name: str = "QuestionAnsweringTools"
-    port: int = 8080
+    port: int = 8000
     host: str = "0.0.0.0"
 
 
@@ -114,7 +117,7 @@ class CodingsToolsServerSettings(BaseSettings):
     """Settings for CodingToolsServer"""
 
     name: str = "CodingTools"
-    port: int = 8081
+    port: int = 8001
     host: str = "0.0.0.0"
 
 

@@ -87,11 +87,11 @@ class SapHelpSearcher(BaseTool):
 
         # Try using the information from all articles, if it fails, try using the half of it
         try:
-            return llm_proxy.invoke(input_prompt=prompt)
+            return llm_proxy.invoke(input=prompt)
         except RuntimeError:
             words = prompt.split()
             prompt = "".join(words[: int(len(words) / 2)])
-            return llm_proxy.invoke(input_prompt=prompt)
+            return llm_proxy.invoke(input=prompt)
 
     def fetch_articles_with_query(self, query: str, top_n: int) -> list:
         """Return top n articles for query in sap.help"""

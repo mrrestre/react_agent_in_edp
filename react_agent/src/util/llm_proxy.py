@@ -49,15 +49,15 @@ class LLMProxy:
         self.call_count: int = 0
         self._initialized = True
 
-    def invoke(self, input_prompt: str, config: Optional[RunnableConfig] = None) -> str:
+    def invoke(self, input: str, config: Optional[RunnableConfig] = None) -> str:
         """Invokes the underlying LLM and monitors token usage and call count."""
         if self.llm is None:
             raise RuntimeError("LLM proxy is not initialized")
         else:
-            input_tokens_count = self.num_tokens_from_string(input_prompt)
+            input_tokens_count = self.num_tokens_from_string(input)
             if input_tokens_count < llm_proxy_settings.max_input_tokens:
                 self.call_count += 1
-                result = self.llm.invoke(input_prompt, config=config)
+                result = self.llm.invoke(input, config=config)
                 self._update_token_usage(result)
                 return result.content
             else:
@@ -67,7 +67,7 @@ class LLMProxy:
 
     def invoke_with_structured_output(
         self,
-        input_prompt: str,
+        input: str,
         output_type: Type[BaseModel],
         config: Optional[RunnableConfig] = None,
     ) -> BaseModel:
@@ -75,11 +75,11 @@ class LLMProxy:
         if self.llm is None:
             raise RuntimeError("LLM proxy is not initialized")
         else:
-            input_tokens_count = self.num_tokens_from_string(input_prompt)
+            input_tokens_count = self.num_tokens_from_string(input)
             if input_tokens_count < llm_proxy_settings.max_input_tokens:
                 self.call_count += 1
                 result = self.llm.invoke_with_structured_output(
-                    input_prompt, output_type, config=config
+                    input, output_type, config=config
                 )
                 self._update_token_usage(result)
                 return result.content

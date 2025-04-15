@@ -1,15 +1,27 @@
 """Description: ReAct Agent class to manage the React Agent and its tools."""
 
-from langgraph.prebuilt import create_react_agent
-
+from langchain_core.tools import StructuredTool
 from langchain.tools.base import BaseTool
 from langchain.prompts import PromptTemplate
+from langgraph.prebuilt import create_react_agent
+from pydantic import BaseModel, Field
+
 
 from react_agent.src.util.llm_proxy import LLMProxy
 
 from react_agent.src.config.system_parameters import AgentSettings
 
 AGENT_SETTINGS = AgentSettings()
+
+
+class AgentResponseSchema(BaseModel):
+    """Schema for the agent's response."""
+
+    final_output: str = Field(..., description=AGENT_SETTINGS.final_output_description)
+    reasoning: str = Field(..., description=AGENT_SETTINGS.reasoning_description)
+    tools_used: list[str] = Field(
+        ..., description=AGENT_SETTINGS.tools_used_description
+    )
 
 
 class ReActAgent:
@@ -25,6 +37,7 @@ class ReActAgent:
 
         self.agent = create_react_agent(
             model=LLMProxy().get_llm(),
+            # response_format=AgentResponseSchema,
             tools=self.tools,
             prompt=self.create_sys_prompt(),
         )
@@ -35,24 +48,26 @@ class ReActAgent:
 
         return sys_prompt_template.format(
             react_instructions=("\n").join(AGENT_SETTINGS.instructions),
-            # tools=self.generate_tool_info_string(),
-            tools="documentation_retriever, source_code_lookup, troubleshooting_memories_retriever",
+            tools=self.generate_tool_info_string(),
             rules=("\n").join(AGENT_SETTINGS.rules),
         )
 
-    # def generate_tool_info_string(self) -> str:
-    #     """Generates a string containing tool names, arg schemas, and descriptions."""
-    #     tool_strings = []
-    #     for tool in self.tools:
-    #         schema_props = tool.args_schema.model_json_schema().get("properties", {})
-    #         arg_components = ", ".join(
-    #             f"{name}: {prop['type']}" for name, prop in schema_props.items()
-    #         )
+    def generate_tool_info_string(self) -> str:
+        """Generates a string containing tool names, arg schemas, and descriptions."""
+        tool_strings = []
+        for tool in self.tools:
+            if isinstance(tool, StructuredTool):
+                schema_props = tool.args_schema.get("properties")
+            else:
+                schema_props = tool.args_schema.model_json_schema().get("properties")
 
-    #         tool_strings.append(
-    #             f"- Tool Name: {tool.name}, Description: {tool.description}, Args: {arg_components}"
-    #         )
-    #     return "\n".join(tool_strings)
+            arg_components = ", ".join(
+                f"{name}: {prop['type']}" for name, prop in schema_props.items()
+            )
+            tool_strings.append(
+                f"- Tool Name: {tool.name}, Description: {tool.description}, Args: {arg_components}"
+            )
+        return "\n".join(tool_strings)
 
     def get_agent_graph(self) -> str:
         """Get the agent's graph in Mermaid format."""
@@ -73,6 +88,8 @@ class ReActAgent:
             else:
                 message.pretty_print()
 
+            self.response = s
+
     async def arun_and_print_agent_stream(self, user_message: str) -> None:
         """Evaluates user input and print stream of messages in an asynchronus manner."""
         input_object = {"messages": [("user", user_message)]}
@@ -87,3 +104,5 @@ class ReActAgent:
                 print(message)
             else:
                 message.pretty_print()
+
+            self.response = output
