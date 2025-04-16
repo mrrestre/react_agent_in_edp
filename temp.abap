@@ -1,0 +1,59 @@
+class ZPS_CL_EX_MB_MIGO_BADI 
+definition  public  final  create public .
+public section.  
+interfaces IF_BADI_INTERFACE .  
+interfaces IF_EX_MB_MIGO_BADI .
+protected section.
+private section.  
+data GT_GOITEM type GOITEM_T .
+ENDCLASS.
+CLASS ZPS_CL_EX_MB_MIGO_BADI IMPLEMENTATION.
+    METHOD if_ex_mb_migo_badi~check_header.    
+    DATA: ls_goitem  TYPE goitem,          
+    lv_country TYPE land1,          
+    ls_bapiret TYPE bapiret2,          
+    lt_subcon  TYPE TABLE OF j_1ig_subcon.    
+    CLEAR: ls_goitem, lv_country, ls_bapiret, lt_subcon.    
+    READ TABLE gt_goitem 
+    INTO ls_goitem 
+    WITH KEY global_counter = 1.    
+    IF sy-subrc <> 0.      
+    RETURN.    
+    ENDIF.    
+    CALL FUNCTION 'J_1BSA_COMPONENT_ACTIVE'      
+    EXPORTING        
+    bukrs                = ls_goitem-bukrs_for_stock        
+    component            = '**'      
+    IMPORTING        
+    active_component     = lv_country      
+    EXCEPTIONS        
+    component_not_active = 1        
+    OTHERS               = 2.    
+    IF sy-subrc <> 0.      
+    \" Handle exception if necessary    ENDIF.    
+    IF lv_country = 'IN'.      
+    \" Check for cancellation movement types      
+    IF ls_goitem-mblnr IS NOT INITIAL AND         
+    ( ls_goitem-bwart = '123' OR ls_goitem-bwart = '162' OR           
+    ls_goitem-bwart = '302' OR ls_goitem-bwart = '304' OR           
+    ls_goitem-bwart = '312' OR ls_goitem-bwart = '314' ).        
+    \" Retrieve subcontracting documents linked to the original goods issue        
+    SELECT * FROM j_1ig_subcon          
+    INTO TABLE lt_subcon          
+    WHERE mblnr = ls_goitem-mblnr            
+    AND mjahr = ls_goitem-mjahr            
+    AND zeile = ls_goitem-zeile.        
+    LOOP AT lt_subcon INTO DATA(ls_subcon).          
+    \" Check if the subcontracting document is partially or fully reconciled          
+    IF ls_subcon-status CA 'PF'.  \" Assuming 'P' = Partial, 'F' = Full            
+    ls_bapiret-type = 'E'.            
+    ls_bapiret-id = 'J_1IG_MSGS'.            
+    ls_bapiret-number = '068'.  \" Message: Cancellation not allowed            
+    APPEND ls_bapiret TO et_bapiret2.            
+    EXIT.  \" Exit loop after first error          
+    ENDIF.        
+    ENDLOOP.      
+    ENDIF.    
+    ENDIF.  
+    ENDMETHOD.
+ENDCLASS.

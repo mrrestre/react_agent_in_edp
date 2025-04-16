@@ -6,7 +6,7 @@
 @CLASSNAME=ZPS_CL_EX_MB_MIGO_BADI
 
 # @name GetClassSource
-GET {{SAP_BACKEND_URL}}classes('{{CLASSNAME}}')
+GET {{SAP_BACKEND_URL}}/classes('{{CLASSNAME}}')
     ?sap-client={{SAP_CLIENT}} HTTP/1.1
 Content-Type: application/json
 Authorization: Basic {{SAP_USER}} {{SAP_PASSWORD}}

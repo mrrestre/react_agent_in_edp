@@ -4,11 +4,11 @@ from mcp.server.fastmcp import FastMCP
 
 from react_agent.src.agent_tools.troubleshooting_searcher import TroubleshootingSearcher
 
-from react_agent.src.config.system_parameters import CodingsToolsServerSettings
+from react_agent.src.config.system_parameters import CodingToolsServerSettings
 from react_agent.src.util.logger import LoggerSingleton
 
 if __name__ == "__main__":
-    settings = CodingsToolsServerSettings()
+    settings = CodingToolsServerSettings()
     logger = LoggerSingleton.get_logger(settings.name)
 
     mcp = FastMCP(

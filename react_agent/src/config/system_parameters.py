@@ -36,6 +36,16 @@ class SourceCodeLookupSettings(BaseSettings):
     """Settings for Source Code Lookup"""
 
     logger_name: str = "Source Code Lookup Tool"
+
+    # Input model description
+    class_name_field_descr: str = (
+        "Exisiting ABAP class name to query. No trailing or leading whitespaces."
+    )
+    method_name_field_descr: str = (
+        "Exisiting ABAP method name to query. No trailing or leading whitespaces."
+    )
+
+    # Tool Description
     name: str = "source_code_lookup"
     description: str = (
         "Returns a specific method or class implementation that matches the specified input parameter."
@@ -118,7 +128,7 @@ class QAToolsServerSettings(BaseSettings):
     host: str = "0.0.0.0"
 
 
-class CodingsToolsServerSettings(BaseSettings):
+class CodingToolsServerSettings(BaseSettings):
     """Settings for CodingToolsServer"""
 
     name: str = "CodingTools"

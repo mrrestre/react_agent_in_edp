@@ -1,6 +1,5 @@
 """Tool for searching source code in ABAP system"""
 
-import os
 from typing import Type, Optional
 
 from langchain.tools.base import BaseTool
@@ -20,13 +19,12 @@ class LookupInputModel(BaseModel):
     """Input schema for source_code_lookup"""
 
     class_name: Optional[str] = Field(
-        None,
-        description="Name of the class without trailing or leading whitespaces",
+        None, description=TOOL_SETTINGS.class_name_field_descr
     )
 
     method_name: Optional[str] = Field(
         None,
-        description="Name of the method without trailing or leading whitespaces",
+        description=TOOL_SETTINGS.method_name_field_descr,
     )
 
     @field_validator("class_name", "method_name")
@@ -40,7 +38,7 @@ class LookupInputModel(BaseModel):
         return value
 
 
-class SourceCodeMethodLookup(BaseTool):
+class SourceCodeLookup(BaseTool):
     """Tool for searching source code in ABAP system"""
 
     name: str = TOOL_SETTINGS.name
@@ -56,15 +54,7 @@ class SourceCodeMethodLookup(BaseTool):
             class_name,
             method_name,
         )
-        code_repository = ABAPClassRepository()
-        try:
-            script_dir = os.path.dirname(os.path.abspath(__file__))
-            file_path = os.path.join(script_dir, "resources", "abap_source.txt")
-            code_repository.index_source(file_path=file_path)
-
-        except Exception as exc:
-            LOGGER.error("Error indexing abap source code: %s", exc)
-            raise ToolException(exc) from exc
+        code_repository = ABAPClassRepository(class_name=class_name)
 
         if class_name and method_name:
             try:
@@ -86,9 +76,8 @@ class SourceCodeMethodLookup(BaseTool):
             except KeyError as error:
                 raise ToolException(error) from error
 
-        LOGGER.error(
-            "Without class and or method name, not source code lookup possible"
-        )
-        raise ToolException(
-            "Without class and or method name, not source code lookup possible"
-        )
+        # If no class_name or method_name is provided
+        error = "Without class and or method name, not source code lookup possible"
+
+        LOGGER.error(error)
+        raise ToolException(error)
