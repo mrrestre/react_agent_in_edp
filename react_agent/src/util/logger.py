@@ -1,10 +1,12 @@
 """Utility functions for logging"""
 
 import logging
+import os
+from pathlib import Path
 
 from react_agent.src.config.system_parameters import LoggerSettings
 
-logger_settings = LoggerSettings()
+LOGGER_SETTINGS = LoggerSettings()
 
 
 class LoggerSingleton:
@@ -21,17 +23,24 @@ class LoggerSingleton:
 
     def __init__(
         self,
-        filename=logger_settings.filename,
-        level=logger_settings.level,
-        log_format=logger_settings.format,
+        filename=LOGGER_SETTINGS.filename,
+        level=LOGGER_SETTINGS.level,
+        log_format=LOGGER_SETTINGS.format,
     ):
         if not self._configured:
-            logging.basicConfig(filename=filename, level=level, format=log_format)
+            abs_filename = os.path.join(LoggerSingleton.get_project_root(), filename)
+            logging.basicConfig(filename=abs_filename, level=level, format=log_format)
             self._logger = logging.getLogger()
             self._configured = True
 
+    @staticmethod
+    def get_project_root() -> Path:
+        """Returns the project root directory."""
+        return Path(__file__).parent.parent.parent.parent
+
     @classmethod
     def get_logger(cls, name=None):
+        """Returns the logger instance."""
         instance = cls()
         if name:
             return logging.getLogger(name)

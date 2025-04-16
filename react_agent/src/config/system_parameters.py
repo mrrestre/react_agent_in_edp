@@ -11,6 +11,7 @@ from pydantic_settings import BaseSettings
 class SapHelpToolSettings(BaseSettings):
     """Settings for SAP Help Tool"""
 
+    logger_name: str = "SAP Help Tool"
     name: str = "documentation_retriever"
     description: str = (
         "Receives a query of up to 5 words, searches through documentation, and returns a concise summary of the relevant content."
@@ -34,6 +35,7 @@ Markdown Articles:
 class SourceCodeLookupSettings(BaseSettings):
     """Settings for Source Code Lookup"""
 
+    logger_name: str = "Source Code Lookup Tool"
     name: str = "source_code_lookup"
     description: str = (
         "Returns a specific method or class implementation that matches the specified input parameter."
@@ -43,6 +45,7 @@ class SourceCodeLookupSettings(BaseSettings):
 class TroubleshootingSearchSettings(BaseSettings):
     """Settings for Troubleshooting Search"""
 
+    logger_name: str = "Troubleshooting Search Tool"
     name: str = "troubleshooting_memories_retriever"
     description: str = """Searches long-term memory to retrieve eInvoicing domain-specific knowledge related to the query, 
 including troubleshooting guides and details on Application, Invoice, and Message Level Responses using vector-based analysis."""
@@ -58,9 +61,7 @@ including troubleshooting guides and details on Application, Invoice, and Messag
 class AgentSettings(BaseSettings):
     """Settings for the Main Agent"""
 
-    final_output_description: str = "The final output of the agent"
-    reasoning_description: str = "The reasoning behind the final output"
-    tools_used_description: str = "The tools used by the agent to achieve the result"
+    logger_name: str = "ReAct Agent"
     max_iterations: int = 10
     system_prompt: str = """
 < Role >
@@ -100,6 +101,10 @@ You have access to the following tools in order to resolve the incoming question
         - If yes, create new thought and action pairs.
         - If no, provide a concise conclusion.""",
     ]
+    # Output schema
+    final_output_description: str = "The final output of the agent"
+    reasoning_description: str = "The reasoning behind the final output"
+    tools_used_description: str = "The tools used by the agent to achieve the result"
 
 
 # --------------- MCP Servers --------------- #
@@ -124,6 +129,12 @@ class CodingsToolsServerSettings(BaseSettings):
 # --------------- Utils --------------- #
 
 
+class ABAPRepositorySettings(BaseSettings):
+    """Settings for the ABAP Repository"""
+
+    logger_name: str = "ABAP Repository"
+
+
 class LoggerSettings(BaseSettings):
     """Settings for the Logger"""
 
@@ -135,6 +146,7 @@ class LoggerSettings(BaseSettings):
 class LlmProxySettings(BaseSettings):
     """Settings for the LLM Proxy"""
 
+    logger_name: str = "LLM Proxy"
     model: str = "gpt-4o"
     max_output_tokens: int = 1024
     temperature: float = 0.05
@@ -144,6 +156,7 @@ class LlmProxySettings(BaseSettings):
 class MemoryManagerSettings(BaseSettings):
     """Settings for the Memory Manager"""
 
+    logger_name: str = "Memory Manager"
     embedding_model: str = "text-embedding-ada-002"
     dimensions: int = 1536
     postgres_conn_string: str = (
@@ -156,6 +169,7 @@ class MemoryManagerSettings(BaseSettings):
 class TriageSettings(BaseSettings):
     """Settings for the Triage component"""
 
+    logger_name: str = "Triage"
     sys_prompt: str = """
 < Role >
 You are in charge for the triage in an agent. Based on the question, you should decide the most fitting category for further processing

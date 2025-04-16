@@ -10,8 +10,10 @@ from pydantic import BaseModel, Field, field_validator
 
 from react_agent.src.util.abap_repository import ABAPClassRepository
 from react_agent.src.config.system_parameters import SourceCodeLookupSettings
+from react_agent.src.util.logger import LoggerSingleton
 
 TOOL_SETTINGS = SourceCodeLookupSettings()
+LOGGER = LoggerSingleton.get_logger(TOOL_SETTINGS.logger_name)
 
 
 class LookupInputModel(BaseModel):
@@ -49,6 +51,11 @@ class SourceCodeMethodLookup(BaseTool):
         self, class_name: Optional[str] = None, method_name: Optional[str] = None
     ) -> str:
         """Use default source data for source code lookup"""
+        LOGGER.info(
+            "Running source code lookup with class_name: %s and method_name: %s",
+            class_name,
+            method_name,
+        )
         code_repository = ABAPClassRepository()
         try:
             script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -56,6 +63,7 @@ class SourceCodeMethodLookup(BaseTool):
             code_repository.index_source(file_path=file_path)
 
         except Exception as exc:
+            LOGGER.error("Error indexing abap source code: %s", exc)
             raise ToolException(exc) from exc
 
         if class_name and method_name:
@@ -78,6 +86,9 @@ class SourceCodeMethodLookup(BaseTool):
             except KeyError as error:
                 raise ToolException(error) from error
 
+        LOGGER.error(
+            "Without class and or method name, not source code lookup possible"
+        )
         raise ToolException(
             "Without class and or method name, not source code lookup possible"
         )

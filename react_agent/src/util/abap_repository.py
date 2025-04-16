@@ -3,6 +3,12 @@
 import re
 from typing import Dict
 
+from react_agent.src.config.system_parameters import ABAPRepositorySettings
+from react_agent.src.util.logger import LoggerSingleton
+
+SETTINGS = ABAPRepositorySettings()
+LOGGER = LoggerSingleton.get_logger(SETTINGS.logger_name)
+
 
 class ABAPClassRepository:
     """Class for indexing and accessing methods and class from a txt file"""
@@ -22,6 +28,7 @@ class ABAPClassRepository:
 
     def get_content_by_class(self, class_name: str) -> str:
         """Returns all methods for a given class as a string."""
+        LOGGER.info("Getting content for class: %s", class_name)
         class_name = class_name.lower()
         methods = self.classes.get(class_name, {})
 
@@ -34,6 +41,7 @@ class ABAPClassRepository:
 
     def get_content_by_method(self, method_name: str) -> str:
         """Search for a method across all classes and return the content of matching methods as a single string."""
+        LOGGER.info("Getting content for method: %s", method_name)
         method_name = method_name.lower()
         results: list[tuple[str, str]] = []
 
@@ -55,6 +63,9 @@ class ABAPClassRepository:
 
     def get_content_by_class_and_method(self, class_name: str, method_name: str) -> str:
         """Returns the content of a specific method in a class."""
+        LOGGER.info(
+            "Getting content for class: %s and method: %s", class_name, method_name
+        )
         class_name = class_name.lower()
         method_name = method_name.lower()
 
@@ -75,6 +86,7 @@ class ABAPClassRepository:
 
     def index_source(self, file_path: str) -> None:
         """Indexes ABAP classes and methods from a source file."""
+        LOGGER.info("Indexing source file: %s", file_path)
         class_name_pattern = r"\bCLASS\s+([A-Za-z0-9_]{1,30})\s+IMPLEMENTATION"
         method_name_pattern = r"\bMETHOD\s+([A-Za-z0-9_]+)\s*\."
 

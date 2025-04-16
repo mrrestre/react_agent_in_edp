@@ -15,9 +15,11 @@ from langchain.prompts import PromptTemplate
 from dotenv import load_dotenv
 
 from react_agent.src.config.system_parameters import TriageSettings, LlmProxySettings
+from react_agent.src.util.logger import LoggerSingleton
 
-triage_settings = TriageSettings()
-llm_proxy_settings = LlmProxySettings()
+TRIAGE_SETTINGS = TriageSettings()
+LLM_PROXY_SETTINGS = LlmProxySettings()
+LOGGER = LoggerSingleton.get_logger(TRIAGE_SETTINGS.logger_name)
 
 
 class Triage:
@@ -25,11 +27,11 @@ class Triage:
 
     def __init__(self):
         self.llm = LLM(
-            name=llm_proxy_settings.model,
+            name=LLM_PROXY_SETTINGS.model,
             version="latest",
             parameters={
-                "max_tokens": llm_proxy_settings.max_output_tokens,
-                "temperature": llm_proxy_settings.temperature,
+                "max_tokens": LLM_PROXY_SETTINGS.max_output_tokens,
+                "temperature": LLM_PROXY_SETTINGS.temperature,
             },
         )
 
@@ -38,6 +40,7 @@ class Triage:
     def triage_user_message(self, user_message: str) -> dict[str, str]:
         """Route the input question to the appropriate category
         based on its content."""
+        LOGGER.info("Triaging user message: %s", user_message)
 
         orchestration_url = os.getenv("ORCHESTRATION_URL")
 
@@ -67,18 +70,18 @@ class Triage:
         """Prepare the promp for the orchestration api call"""
 
         categories = "\n".join(
-            instruction.get("category") for instruction in triage_settings.instructions
+            instruction.get("category") for instruction in TRIAGE_SETTINGS.instructions
         )
         triage_rules = "\n".join(
             f"Category: {instruction.get("category")}\tDescription: {instruction.get("description")}"
-            for instruction in triage_settings.instructions
+            for instruction in TRIAGE_SETTINGS.instructions
         )
         examples = "\n".join(
             f"Question: {example.get("question")}\tCategory{example.get("category")}"
-            for example in triage_settings.examples
+            for example in TRIAGE_SETTINGS.examples
         )
 
-        sys_prompt_template = PromptTemplate.from_template(triage_settings.sys_prompt)
+        sys_prompt_template = PromptTemplate.from_template(TRIAGE_SETTINGS.sys_prompt)
 
         sys_message = sys_prompt_template.format(
             categories=categories, triage_rules=triage_rules, examples=examples
@@ -92,6 +95,6 @@ class Triage:
             response_format=ResponseFormatJsonSchema(
                 name="response",
                 description="triage output",
-                schema=triage_settings.response_schema,
+                schema=TRIAGE_SETTINGS.response_schema,
             ),
         )

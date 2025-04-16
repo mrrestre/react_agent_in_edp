@@ -14,8 +14,10 @@ from langchain_core.tools import ToolException
 
 from react_agent.src.util.llm_proxy import LLMProxy
 from react_agent.src.config.system_parameters import SapHelpToolSettings
+from react_agent.src.util.logger import LoggerSingleton
 
 TOOL_SETTINGS = SapHelpToolSettings()
+LOGGER = LoggerSingleton.get_logger(TOOL_SETTINGS.logger_name)
 
 
 class SapHelpInputModel(BaseModel):
@@ -48,6 +50,7 @@ class SapHelpSearcher(BaseTool):
         all_articles_markdown = ""
 
         if query == "" or not isinstance(query, str):
+            LOGGER.error("Cannot perform search, whitout a valid query")
             raise ToolException("Cannot perform search, whitout a valid query")
 
         search_results = self.fetch_articles_with_query(
@@ -63,8 +66,12 @@ class SapHelpSearcher(BaseTool):
                         topic_loio=result.get("loio")
                     )
                 else:
+                    LOGGER.info(
+                        "Skipping article with no LOIO: %s", result.get("title", "")
+                    )
                     continue
         else:
+            LOGGER.error("No articles found for query: %s", query)
             raise ToolException(
                 "No articles found for query, try again with broader query."
             )
@@ -75,6 +82,7 @@ class SapHelpSearcher(BaseTool):
 
     def summarize_markdown(self, markdown_content: str, query: str) -> str:
         """Summarization method for articles found."""
+        LOGGER.info("Summarizing markdown")
         llm_proxy = LLMProxy()
 
         # Create a PromptTemplate object
@@ -89,12 +97,15 @@ class SapHelpSearcher(BaseTool):
         try:
             return llm_proxy.invoke(input=prompt)
         except RuntimeError:
+            LOGGER.warning("Markdown too long, trying again with half of it")
             words = prompt.split()
             prompt = "".join(words[: int(len(words) / 2)])
             return llm_proxy.invoke(input=prompt)
 
     def fetch_articles_with_query(self, query: str, top_n: int) -> list:
         """Return top n articles for query in sap.help"""
+        LOGGER.info("Searching for articles with query: %s", query)
+
         search_query_params_dic = {
             "area": "content",
             "language": "en-US",
@@ -105,6 +116,7 @@ class SapHelpSearcher(BaseTool):
             "to": "19&advancedSearch=0",
             "excludeNotSearchable": "1",
         }
+
         search_query_str = urlencode(search_query_params_dic)
         search_url = f"https://help.sap.com/http.svc/elasticsearch?{search_query_str}"
 
@@ -122,6 +134,8 @@ class SapHelpSearcher(BaseTool):
 
     def fetch_article(self, topic_loio: str) -> str:
         """Fetch the content of an article for a given topic loio."""
+        LOGGER.info("Fetching article with LOIO: %s", topic_loio)
+
         topic_query_params_dic = {
             "version": "LATEST",
             "language": "en-US",
@@ -158,4 +172,9 @@ class SapHelpSearcher(BaseTool):
             )
         else:
             # If the article is bigger than a certain size or does not contain content, skip it
+            LOGGER.info(
+                "Skipping article with LOIO: %s, content size: %s bytes",
+                topic_loio,
+                response_content_size,
+            )
             return ""

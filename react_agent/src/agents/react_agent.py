@@ -10,8 +10,10 @@ from pydantic import BaseModel, Field
 from react_agent.src.util.llm_proxy import LLMProxy
 
 from react_agent.src.config.system_parameters import AgentSettings
+from react_agent.src.util.logger import LoggerSingleton
 
 AGENT_SETTINGS = AgentSettings()
+LOGGER = LoggerSingleton.get_logger(AGENT_SETTINGS.logger_name)
 
 
 class AgentResponseSchema(BaseModel):
@@ -31,7 +33,8 @@ class ReActAgent:
         self,
         tool_list: list[BaseTool],
     ):
-        self.response = None
+        self.response_message = None
+        self.response_metadata = None
 
         self.tools = tool_list
 
@@ -64,9 +67,12 @@ class ReActAgent:
             arg_components = ", ".join(
                 f"{name}: {prop['type']}" for name, prop in schema_props.items()
             )
+
             tool_strings.append(
                 f"- Tool Name: {tool.name}, Description: {tool.description}, Args: {arg_components}"
             )
+
+            LOGGER.debug("Tool Name: %s", tool.name)
         return "\n".join(tool_strings)
 
     def get_agent_graph(self) -> str:
@@ -75,6 +81,10 @@ class ReActAgent:
 
     def run_and_print_agent_stream(self, user_message: str) -> None:
         """Evaluates user input and print the agent's stream of messages."""
+        LOGGER.info(
+            "Running agent synchronously with user message: %s",
+            user_message.replace("\n", ""),
+        )
         input_object = {"messages": [("user", user_message)]}
 
         config_object = {"recursion_limit": AGENT_SETTINGS.max_iterations}
@@ -88,10 +98,17 @@ class ReActAgent:
             else:
                 message.pretty_print()
 
-            self.response = s
+            self.response_message = message
+            self.response_metadata = s
+
+        LOGGER.info("Agent final response: %s", self.response_message)
 
     async def arun_and_print_agent_stream(self, user_message: str) -> None:
         """Evaluates user input and print stream of messages in an asynchronus manner."""
+        LOGGER.info(
+            "Running agent asynchronously with user message: %s",
+            user_message.replace("\n", ""),
+        )
         input_object = {"messages": [("user", user_message)]}
 
         config_object = {"recursion_limit": AGENT_SETTINGS.max_iterations}
@@ -105,4 +122,7 @@ class ReActAgent:
             else:
                 message.pretty_print()
 
-            self.response = output
+            self.response_message = message
+            self.response_metadata = output
+
+        LOGGER.info("Agent final response: %s", self.response_message)
