@@ -1,11 +1,11 @@
 import os
 import json
 
-from react_agent.src.util.long_term_mem_manager import PostgresMemoryManager
+from react_agent.src.util.memory_manager import MemoryManager
 
 
 def load_memories(
-    mem_manager: PostgresMemoryManager,
+    mem_manager: MemoryManager,
 ) -> None:
     """Load memories from reference troubleshooting json file if not already loaded"""
     script_dir = os.path.dirname(os.path.abspath(__file__))

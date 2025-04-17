@@ -62,7 +62,7 @@ including troubleshooting guides and details on Application, Invoice, and Messag
     query_field_descr: str = (
         "Query composed of one or more keywords related to the question. Separate keywords with spaces."
     )
-    use_in_memory_store: bool = False
+    namespace: Tuple[str, str] = ("agent", "troubleshooting")
 
 
 # --------------- Agent --------------- #
@@ -126,6 +126,7 @@ class QAToolsServerSettings(BaseSettings):
     name: str = "QuestionAnsweringTools"
     port: int = 8000
     host: str = "0.0.0.0"
+    transport: str = "sse"
 
 
 class CodingToolsServerSettings(BaseSettings):
@@ -134,6 +135,7 @@ class CodingToolsServerSettings(BaseSettings):
     name: str = "CodingTools"
     port: int = 8001
     host: str = "0.0.0.0"
+    transport: str = "sse"
 
 
 # --------------- Utils --------------- #
@@ -172,7 +174,6 @@ class MemoryManagerSettings(BaseSettings):
     postgres_conn_string: str = (
         "postgresql://react_agent:react_agent@localhost:5432/troubleshooting"
     )
-    namespace: Tuple[str, str] = ("agent", "troubleshooting")
     memories_to_retrieve: int = 3
 
 

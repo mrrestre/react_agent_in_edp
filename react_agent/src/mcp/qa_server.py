@@ -27,4 +27,4 @@ if __name__ == "__main__":
         )
 
     logger.debug("MCP Server %s starting", mcp.name)
-    mcp.run(transport="sse")
+    mcp.run(transport=settings.transport)

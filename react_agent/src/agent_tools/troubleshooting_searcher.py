@@ -7,14 +7,8 @@ from pydantic import BaseModel, Field
 from langchain.tools.base import BaseTool
 
 from react_agent.src.util.logger import LoggerSingleton
-from react_agent.src.util.long_term_mem_manager import (
-    PostgresMemoryManager,
-    InMemoryManager,
-)
-from react_agent.src.scripts import (
-    load_troubleshooting_postgres,
-    load_troubleshooting_memory,
-)
+from react_agent.src.util.memory_manager import MemoryManager
+from react_agent.src.scripts import load_troubleshooting_postgres
 
 from react_agent.src.config.system_parameters import TroubleshootingSearchSettings
 
@@ -41,13 +35,14 @@ class TroubleshootingSearcher(BaseTool):
     def _run(self, query: str) -> str:
         """Search for most fitting memories to query in memory store"""
         LOGGER.info("Searching for most fitting memories to query")
-        if TOOL_SETTINGS.use_in_memory_store:
-            LOGGER.info("Loading memories from in memory store")
-            mem_manager = InMemoryManager()
-            load_troubleshooting_memory.load_memories(mem_manager)
-        else:
-            LOGGER.info("Loading memories from postgres store")
-            mem_manager = PostgresMemoryManager()
-            load_troubleshooting_postgres.load_memories(mem_manager)
+
+        mem_manager = MemoryManager(
+            memory_store_type="Postgres", namespace=TOOL_SETTINGS.namespace
+        )
+        LOGGER.info(
+            "Loading memories from postgres store with namespace %s",
+            mem_manager.namespace,
+        )
+        load_troubleshooting_postgres.load_memories(mem_manager)
 
         return mem_manager.search_memories(query=query)
