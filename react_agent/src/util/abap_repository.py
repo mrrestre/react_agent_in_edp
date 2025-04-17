@@ -1,12 +1,10 @@
 """Class for indexing and accessing methods and class from a txt file"""
 
-import os
 import re
 from typing import Dict
 
 from react_agent.src.config.system_parameters import ABAPRepositorySettings
 from react_agent.src.util.logger import LoggerSingleton
-from react_agent.src.util.sap_system_proxy import SAPSystemProxy
 
 SETTINGS = ABAPRepositorySettings()
 LOGGER = LoggerSingleton.get_logger(SETTINGS.logger_name)
@@ -15,25 +13,11 @@ LOGGER = LoggerSingleton.get_logger(SETTINGS.logger_name)
 class ABAPClassRepository:
     """Class for indexing and accessing methods and class from a txt file"""
 
-    def __init__(self, class_name: str = None):
+    def __init__(self, source_code: str):
         """Initialize an empty repository for storing ABAP classes and methods."""
         self.classes: Dict[str, Dict[str, str]] = {}
 
-        # Index the local ABAP source file
-        source_code = self._read_local_abap_source_file()
         self._index_source(source_code=source_code)
-
-        # If an specific class was passed, get the content for that class only if not already indexed
-        if class_name is not None and self.classes.get(class_name) is None:
-            xco2_source_code = self._query_xco2_service(class_name=class_name)
-            if xco2_source_code is not None:
-                self._index_source(source_code=xco2_source_code)
-
-    def _read_local_abap_source_file(self) -> str:
-        script_dir = os.path.dirname(os.path.abspath(__file__))
-        file_path = os.path.join(script_dir, "resources", "abap_source.txt")
-        with open(file_path, "r", encoding="utf-8") as file:
-            return file.read()
 
     def _add_method(
         self, class_name: str, method_name: str, method_content: str
@@ -54,7 +38,7 @@ class ABAPClassRepository:
 
         if not methods:
             raise KeyError(
-                f"No methods for this class indexed, indexed classes: {self.list_indexed_classes()}"
+                f"No methods for this class indexed, indexed classes: {" ".join(self.list_indexed_classes())}"
             )
 
         return "\n\n".join(methods.values())
@@ -100,9 +84,7 @@ class ABAPClassRepository:
 
     def list_indexed_classes(self) -> list[str]:
         """Returns a list of all stored class names."""
-        class_names = list(self.classes.keys())
-
-        return " ".join(class_names)
+        return list(self.classes.keys())
 
     def _index_source(self, source_code: str) -> None:
         """Indexes ABAP classes and methods from a source file."""
@@ -147,10 +129,6 @@ class ABAPClassRepository:
                         )
                 else:
                     continue
-
-    def _query_xco2_service(self, class_name: str) -> str:
-        response = SAPSystemProxy().get_endpoint_https(f"classes('{class_name}')")
-        return response.get("code")
 
     def __repr__(self):
         """Returns a string representation of stored classes and methods."""

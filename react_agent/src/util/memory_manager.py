@@ -52,22 +52,18 @@ class MemoryManager:
 
         self.namespace = namespace
 
-    def add_memory(self, memory_title: str, memory_text: str) -> None:
+    def add_memory(self, memory_title: str, memory_content=dict) -> None:
         """Add memory to long term memory store"""
-        self.store.put(
-            namespace=self.namespace, key=memory_title, value={"text": memory_text}
-        )
+        self.store.put(namespace=self.namespace, key=memory_title, value=memory_content)
 
-    def search_memories(self, query: str) -> str:
+    def search_memories(self, query: str) -> list[dict]:
         """Search for most fitting memories to query in memory store"""
         LOGGER.info("Searching for most fitting memories for query: %s", query)
-        memories = self.store.search(
+        return self.store.search(
             self.namespace,
             query=query,
             limit=SETTINGS.memories_to_retrieve,
         )
-        memories_text = [memory.value["text"] for memory in memories]
-        return "\n".join(memories_text)
 
     def is_memory_present(self, title: str) -> bool:
         """Check if memory is present in long term memory store"""

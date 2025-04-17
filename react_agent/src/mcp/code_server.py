@@ -2,7 +2,8 @@
 
 from mcp.server.fastmcp import FastMCP
 
-from react_agent.src.agent_tools.troubleshooting_searcher import TroubleshootingSearcher
+from react_agent.src.agent_tools.source_code_retriever import SourceCodeRetriever
+from react_agent.src.agent_tools.codebase_searcher import CodebaseSearcher
 
 from react_agent.src.config.system_parameters import CodingToolsServerSettings
 from react_agent.src.util.logger import LoggerSingleton
@@ -17,7 +18,7 @@ if __name__ == "__main__":
         host=settings.host,
     )
 
-    tool_list = [TroubleshootingSearcher()]
+    tool_list = [SourceCodeRetriever(), CodebaseSearcher()]
 
     for tool in tool_list:
         mcp.add_tool(
@@ -26,5 +27,9 @@ if __name__ == "__main__":
             description=tool.description,
         )
 
-    logger.debug("MCP Server %s starting", mcp.name)
+    logger.debug(
+        "MCP Server %s starting with tools: %s",
+        mcp.name,
+        " ".join(tool.name for tool in tool_list),
+    )
     mcp.run(transport=settings.transport)

@@ -32,36 +32,55 @@ Markdown Articles:
 ---"""
 
 
-class SourceCodeLookupSettings(BaseSettings):
-    """Settings for Source Code Lookup"""
+class SourceCodeRetrieverSettings(BaseSettings):
+    """Settings for Source Code Retriever"""
 
-    logger_name: str = "Source Code Lookup Tool"
-
-    # Input model description
-    class_name_field_descr: str = (
-        "Exisiting ABAP class name to query. No trailing or leading whitespaces."
-    )
-    method_name_field_descr: str = (
-        "Exisiting ABAP method name to query. No trailing or leading whitespaces."
-    )
+    logger_name: str = "Source Code Retriever Tool"
 
     # Tool Description
-    name: str = "source_code_lookup"
+    name: str = "source_code_retriever"
+    description: str = "Returns source code for the classname of the input"
+
+    # Input model description
+    class_name_field_descr: str = "The name of the class to retrieve source code for"
+
+
+class CodebaseSearcherSettings(BaseSettings):
+    """Settings for Source Code Lookup"""
+
+    logger_name: str = "Codebase Search Tool"
+
+    # Tool Description
+    name: str = "codebase_memories_searcher"
     description: str = (
-        "Returns a specific method or class implementation that matches the specified input parameter."
+        "Returns source code for methods that are related to the input query"
     )
+
+    # Input model description
+    query_field_descr: str = (
+        "Query composed of one or more keywords related to the question. Separate keywords with spaces."
+    )
+
+    # Tool specifics
+    namespace: Tuple[str, str] = ("agent", "source_code")
 
 
 class TroubleshootingSearchSettings(BaseSettings):
     """Settings for Troubleshooting Search"""
 
     logger_name: str = "Troubleshooting Search Tool"
+
+    # Tool Description
     name: str = "troubleshooting_memories_retriever"
     description: str = """Searches long-term memory to retrieve eInvoicing domain-specific knowledge related to the query, 
 including troubleshooting guides and details on Application, Invoice, and Message Level Responses using vector-based analysis."""
+
+    # Input model description
     query_field_descr: str = (
         "Query composed of one or more keywords related to the question. Separate keywords with spaces."
     )
+
+    # Tool specifics
     namespace: Tuple[str, str] = ("agent", "troubleshooting")
 
 
@@ -108,8 +127,8 @@ You have access to the following tools in order to resolve the incoming question
         "4. Execute the exactly one action using the choosen tool and specify the parameters needed.",
         "5. Collect the new observation or insights generated from the tool's output.",
         """6. Is further analysis or action needed, think how other possible tools may help to improve the output?
-        - If yes, create new thought and action pairs.
-        - If no, provide a concise conclusion.""",
+- If yes, create new thought and action pairs.
+- If no, provide a concise conclusion.""",
     ]
     # Output schema
     final_output_description: str = "The final output of the agent"
@@ -139,6 +158,15 @@ class CodingToolsServerSettings(BaseSettings):
 
 
 # --------------- Utils --------------- #
+
+
+class CodeSummarizerSettings(BaseSettings):
+    """Settings for the Code Summarizer"""
+
+    logger_name: str = "Code Summarizer"
+    prompt_template: str = """Provide a brief description (1 or 2 sentences) of what this ABAP method does, 
+focusing on its main purpose and functionality, source code: 
+{source_code}"""
 
 
 class ABAPRepositorySettings(BaseSettings):

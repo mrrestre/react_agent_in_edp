@@ -6,18 +6,19 @@ from pydantic import BaseModel, Field
 
 from langchain.tools.base import BaseTool
 
+from react_agent.src.config.system_parameters import CodebaseSearcherSettings
 from react_agent.src.util.logger import LoggerSingleton
 from react_agent.src.util.memory_manager import MemoryManager
-from react_agent.src.scripts.load_troubleshooting import load_memories
 
-from react_agent.src.config.system_parameters import TroubleshootingSearchSettings
+from react_agent.src.scripts.load_abap_code import load_abap_code
 
-TOOL_SETTINGS = TroubleshootingSearchSettings()
+
+TOOL_SETTINGS = CodebaseSearcherSettings()
 LOGGER = LoggerSingleton.get_logger(TOOL_SETTINGS.logger_name)
 
 
-class TroubleshootingInputModel(BaseModel):
-    """Input schema for the searching in long term memories about troubleshooting."""
+class CodebaseSearcherInputModel(BaseModel):
+    """Input schema for source_code_lookup"""
 
     query: str = Field(
         ...,
@@ -25,15 +26,15 @@ class TroubleshootingInputModel(BaseModel):
     )
 
 
-class TroubleshootingSearcher(BaseTool):
-    """Tool for searching domain specific knowledge from long term memory"""
+class CodebaseSearcher(BaseTool):
+    """Tool for searching source code in ABAP codebase"""
 
     name: str = TOOL_SETTINGS.name
     description: str = TOOL_SETTINGS.description
-    args_schema: Type[BaseModel] = TroubleshootingInputModel
+    args_schema: Type[BaseModel] = CodebaseSearcherInputModel
 
     def _run(self, query: str) -> str:
-        """Search for most fitting memories to query in memory store"""
+        """Search for most fitting source code snippets to query in memory store"""
         LOGGER.info("Searching for most fitting memories to query")
 
         mem_manager = MemoryManager(
@@ -43,9 +44,12 @@ class TroubleshootingSearcher(BaseTool):
             "Loading memories from postgres store with namespace %s",
             mem_manager.namespace,
         )
-        load_memories(mem_manager)
+        load_abap_code(mem_manager)
 
         memories = mem_manager.search_memories(query=query)
 
-        memories_text = [memory.value["text"] for memory in memories]
-        return "\n".join(memories_text)
+        response = ""
+        for memory in memories:
+            response += f"{memory.value['code']}\n"
+
+        return response

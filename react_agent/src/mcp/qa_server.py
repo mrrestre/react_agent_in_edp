@@ -26,5 +26,9 @@ if __name__ == "__main__":
             description=tool.description,
         )
 
-    logger.debug("MCP Server %s starting", mcp.name)
+    logger.debug(
+        "MCP Server %s starting with tools: %s",
+        mcp.name,
+        " ".join(tool.name for tool in tool_list),
+    )
     mcp.run(transport=settings.transport)
