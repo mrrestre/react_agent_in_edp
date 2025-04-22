@@ -4,6 +4,7 @@ from langchain_core.tools import StructuredTool
 from langchain.tools.base import BaseTool
 from langchain.prompts import PromptTemplate
 from langgraph.prebuilt import create_react_agent
+
 from pydantic import BaseModel, Field
 
 
@@ -87,7 +88,9 @@ class ReActAgent:
         )
         input_object = {"messages": [("user", user_message)]}
 
-        config_object = {"recursion_limit": AGENT_SETTINGS.max_iterations}
+        config_object = {
+            "recursion_limit": AGENT_SETTINGS.max_iterations,
+        }
 
         for s in self.agent.stream(
             input=input_object, stream_mode="values", config=config_object

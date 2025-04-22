@@ -1,13 +1,12 @@
 """Tool for searching source code in ABAP system"""
 
-from typing import Type, Optional
+from typing import Type
 
 from langchain.tools.base import BaseTool
 from langchain_core.tools import ToolException
 
-from pydantic import BaseModel, Field, field_validator
+from pydantic import BaseModel, Field
 
-from react_agent.src.util.abap_repository import ABAPClassRepository
 from react_agent.src.config.system_parameters import SourceCodeRetrieverSettings
 from react_agent.src.util.logger import LoggerSingleton
 from react_agent.src.util.sap_system_proxy import SAPSystemProxy
