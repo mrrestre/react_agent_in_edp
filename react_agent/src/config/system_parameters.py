@@ -12,9 +12,9 @@ class SapHelpToolSettings(BaseSettings):
     """Settings for SAP Help Tool"""
 
     logger_name: str = "SAP Help Tool"
-    name: str = "documentation_retriever"
+    name: str = "get_doc_summary"
     description: str = (
-        "Receives a query of up to 5 words, searches through documentation, and returns a concise summary of the relevant content."
+        "Searches a knowledge database using a short query (max 5 words) and returns a concise summary of the relevant information found."
     )
     query_field_descr: str = (
         "A query composed of up to 5 words, each representing a technical object name. Words should be space-separated."
@@ -30,6 +30,26 @@ Markdown Articles:
 ---
 {markdown_content}
 ---"""
+
+
+class TroubleshootingSearchSettings(BaseSettings):
+    """Settings for Troubleshooting Search"""
+
+    logger_name: str = "Troubleshooting Search Tool"
+
+    # Tool Description
+    name: str = "retrieve_troubleshooting_guide"
+    description: str = (
+        "Retrieves relevant troubleshooting guidance from a specialized knowledge base using semantic similarity to match the query."
+    )
+
+    # Input model description
+    query_field_descr: str = (
+        "Query composed of one or more keywords related to the question. Separate keywords with spaces."
+    )
+
+    # Tool specifics
+    namespace: Tuple[str, str] = ("agent", "troubleshooting")
 
 
 class SourceCodeRetrieverSettings(BaseSettings):
@@ -65,25 +85,6 @@ class CodebaseSearcherSettings(BaseSettings):
     namespace: Tuple[str, str] = ("agent", "source_code")
 
 
-class TroubleshootingSearchSettings(BaseSettings):
-    """Settings for Troubleshooting Search"""
-
-    logger_name: str = "Troubleshooting Search Tool"
-
-    # Tool Description
-    name: str = "troubleshooting_memories_retriever"
-    description: str = """Searches long-term memory to retrieve eInvoicing domain-specific knowledge related to the query, 
-including troubleshooting guides and details on Application, Invoice, and Message Level Responses using vector-based analysis."""
-
-    # Input model description
-    query_field_descr: str = (
-        "Query composed of one or more keywords related to the question. Separate keywords with spaces."
-    )
-
-    # Tool specifics
-    namespace: Tuple[str, str] = ("agent", "troubleshooting")
-
-
 # --------------- Agent --------------- #
 
 
@@ -94,7 +95,7 @@ class AgentSettings(BaseSettings):
     max_iterations: int = 10
     system_prompt: str = """
 < Role >
-You are an expert on Electronic Document Processing.
+You are an expert on Electronic Document Processing and SAP Document and Reporting Compliance.
 </ Role >
 
 < Instructions >
@@ -114,22 +115,27 @@ You have access to the following tools in order to resolve the incoming question
 {rules}
 </ Rules >"""
     rules: list[str] = [
-        "Always use tools that relly in memory first, before looking for new information",
-        "Do not call more than one tool at the same time",
-        "Excecute the tools in synchron manner",
-        "Always cross validate your outputs using different sources",
-        "Before expressing the answer, ensure that the original question is answered",
+        "1. Prioritize Memory First: Before using tools to search for or fetch new external information, always check if relevant information already exists in memory or internal knowledge tools. Use these memory tools first if applicable.",
+        "2. Strict Sequential Execution: Execute only *one* tool action per reasoning cycle. Crucially, wait for the action to fully complete and return its result before proceeding to the next 'Thought' step. Do not initiate multiple tool calls concurrently.",
+        "3. Cross-Validation Principle: Whenever feasible and necessary for accuracy (especially for factual claims or critical data), plan to cross-validate information obtained from one source by using a different, independent tool or source in a subsequent reasoning cycle.",
+        "4. Avoid Redundant Calls: Do not call the exact same tool with the exact same parameters repeatedly unless there is a clear reason (e.g., retrying after a confirmed transient error). If exploring related information, formulate a new, distinct query or use different parameters.",
+        "5. Completeness and Support Check: Before generating the 'Final Answer', explicitly review the original request and the gathered information. Ensure *all parts* of the request have been addressed and that the answer is well-supported by the findings recorded in the 'Observation (Result)' steps.",
+        "6. Task Focus: Ensure every 'Thought' and planned 'Action' directly contributes to solving the original request or validating necessary information. Avoid unnecessary exploration or tool usage.",
+        "7. Error Handling: If a tool call fails or returns an error, explicitly note this error in the 'Observation (Result)' step. Your next 'Thought' should address how to handle this error (e.g., retry the action, try different parameters, use an alternative tool, or acknowledge the inability to retrieve the specific information).",
     ]
     instructions: list[str] = [
-        "1. Begin with an observation that outlines the primary task or question you want the agent to address.",
-        "2. Analyze the observation to generate exactly one thought that leads to an actionable step using one of the available tools.",
-        "3. Log the generated thought and corresponding action pair for transparency and future reference.",
-        "4. Execute the exactly one action using the choosen tool and specify the parameters needed.",
-        "5. Collect the new observation or insights generated from the tool's output.",
-        """6. Is further analysis or action needed, think how other possible tools may help to improve the output?
-- If yes, create new thought and action pairs.
-- If no, provide a concise conclusion.""",
+        "1. Observation: Start by clearly stating the initial user request, task, or the current state of the problem you need to address.",
+        "2. Thought: Analyze the Observation. Break down the task if complex. Identify what information is missing or what specific sub-task needs to be performed next. Formulate a clear reasoning chain: explain why a particular action is needed and how it will help address the Observation or move towards the final goal. Explicitly consider if information validation is required at this stage or after gathering initial data.",
+        "3. Action Plan: Based on the Thought, explicitly state: a) The single specific tool you plan to use next. b) The precise input or parameters you will provide to that tool. This step clearly documents the one intended action before execution.",
+        "4. Action: Execute the single tool call exactly as specified in the Action Plan. Name the exact tool to be used and the parameters to be provided. Call the choosen tool and await response.",
+        "5. Observation (Result): WAIT until the tool executed in Step 4 completes and returns its output. Once the result is available, record the exact output or result received. Do not proceed without this result.",
+        "6. Thought (Synthesis & Validation): Only after successfully receiving the Observation (Result) in Step 5, analyze it:",
+        "    a. Synthesize: Does the result directly answer the part of the problem you were addressing? Integrate this new information with previous findings.",
+        "    b. Quality Check & Validation Plan: Assess the reliability and completeness of the information. Is it ambiguous? Does it conflict with previous information? Crucially, decide if cross-validation or verification using another source/method is necessary. If yes, formulate a plan for this validation (this plan will lead to the next Thought/Action Plan cycle).",
+        "    c. Next Step Decision: Determine if the overall task is complete. If yes, proceed to Final Answer. If no, identify the next logical question, information gap, or validation step based on your synthesis and validation assessment, and loop back to Step 2 (Thought) to plan the next sequential cycle.",
+        "7. Final Answer: Once the iterative process determines the task is complete and information is sufficiently validated, construct the final response. Summarize the key findings derived from the sequential steps. For transparency, briefly mention the sources consulted or the validation steps taken, especially if conflicting information was encountered. Clearly state any remaining uncertainties or limitations.",
     ]
+
     # Output schema
     final_output_description: str = "The final output of the agent"
     reasoning_description: str = "The reasoning behind the final output"
