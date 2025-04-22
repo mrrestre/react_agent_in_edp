@@ -7,7 +7,7 @@ from langchain.tools.base import BaseTool
 
 from react_agent.src.agent_tools.sap_help_searcher import SapHelpSearcher
 from react_agent.src.config.system_parameters import SapHelpToolSettings
-from react_agent.src.util.llm_proxy import LLMProxy
+from react_agent.src.util.llm_proxy import LLM_PROXY
 
 SETTINGS = SapHelpToolSettings()
 
@@ -115,8 +115,7 @@ def test_fetched_articles_sorted_by_score():
 def test_llm_proxy_called_exactly_once_by_summarization():
     """Ensure the proxy is called at most once, proxy is a singleton"""
     # Given
-    llm_proxy = LLMProxy()
-    llm_proxy.reset_call_count()
+    LLM_PROXY.reset_call_count()
     tool = SapHelpSearcher()
     # When
     tool.summarize_markdown(
@@ -124,7 +123,7 @@ def test_llm_proxy_called_exactly_once_by_summarization():
         query="unit testing",
     )
     # Then
-    assert llm_proxy.call_count == 1
+    assert LLM_PROXY.call_count == 1
 
 
 def test_non_empty_string_should_be_generated_from_query():

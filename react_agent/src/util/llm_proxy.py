@@ -1,10 +1,9 @@
 """Utility functions for proxying LLMs"""
 
-from typing import Any, Optional, Dict, Type
+from typing import Optional, Dict, Type
 
 from gen_ai_hub.proxy.langchain import init_llm
 
-from langchain_core.language_models import BaseLanguageModel
 from langchain_core.runnables import RunnableConfig
 from langchain_core.messages import AIMessage
 
@@ -21,20 +20,15 @@ LOGGER = LoggerSingleton.get_logger(LLM_PROXY_SETTINGS.logger_name)
 
 class LLMProxy:
     """
-    Singleton class to manage the initialization and invocation of a language model proxy.
+    Manages the initialization and invocation of a language model proxy.
+    Intended to be used as a singleton via the module-level instance.
     """
 
-    _instance: Optional["LLMProxy"] = None
-
-    def __new__(cls, *args: Any, **kwargs: Any) -> "LLMProxy":
-        if cls._instance is None:
-            cls._instance = super().__new__(cls)
-        return cls._instance
-
     def __init__(self):
-        if hasattr(self, "_initialized"):  # prevent re-init
-            return
-
+        """
+        Initializes the LLM proxy. This should only be called once
+        during the module's loading.
+        """
         self._used_model = LLM_PROXY_SETTINGS.model
 
         self._llm = init_llm(
@@ -49,7 +43,6 @@ class LLMProxy:
             "total_tokens": 0,
         }
         self.call_count: int = 0
-        self._initialized = True
 
     def invoke(self, input: str, config: Optional[RunnableConfig] = None) -> str:
         """Invokes the underlying LLM and monitors token usage and call count."""
@@ -57,19 +50,16 @@ class LLMProxy:
             "Invoking LLM (%s)",
             self._used_model,
         )
-        if self._llm is None:
-            raise RuntimeError("LLM proxy is not initialized")
+
+        input_tokens_count = self.num_tokens_from_string(input)
+        if input_tokens_count < LLM_PROXY_SETTINGS.max_input_tokens:
+            result = self._llm.invoke(input, config=config)
+            self.update_llm_usage(result)
+            return result.content
         else:
-            input_tokens_count = self.num_tokens_from_string(input)
-            if input_tokens_count < LLM_PROXY_SETTINGS.max_input_tokens:
-                self.call_count += 1
-                result = self._llm.invoke(input, config=config)
-                self._update_token_usage(result)
-                return result.content
-            else:
-                raise RuntimeError(
-                    f"Too many input tokens, input tokens: {input_tokens_count}, max allowed: {LLM_PROXY_SETTINGS.max_input_tokens}"
-                )
+            raise RuntimeError(
+                f"Too many input tokens, input tokens: {input_tokens_count}, max allowed: {LLM_PROXY_SETTINGS.max_input_tokens}"
+            )
 
     def invoke_with_structured_output(
         self,
@@ -83,21 +73,18 @@ class LLMProxy:
             self._used_model,
             input,
         )
-        if self._llm is None:
-            raise RuntimeError("LLM proxy is not initialized")
+
+        input_tokens_count = self.num_tokens_from_string(input)
+        if input_tokens_count < LLM_PROXY_SETTINGS.max_input_tokens:
+            result = self._llm.invoke_with_structured_output(
+                input, output_type, config=config
+            )
+            self.update_llm_usage(result)
+            return result.content
         else:
-            input_tokens_count = self.num_tokens_from_string(input)
-            if input_tokens_count < LLM_PROXY_SETTINGS.max_input_tokens:
-                self.call_count += 1
-                result = self._llm.invoke_with_structured_output(
-                    input, output_type, config=config
-                )
-                self._update_token_usage(result)
-                return result.content
-            else:
-                raise RuntimeError(
-                    f"Too many input tokens, input tokens: {input_tokens_count}, max allowed: {LLM_PROXY_SETTINGS.max_input_tokens}"
-                )
+            raise RuntimeError(
+                f"Too many input tokens, input tokens: {input_tokens_count}, max allowed: {LLM_PROXY_SETTINGS.max_input_tokens}"
+            )
 
     def num_tokens_from_string(self, string: str) -> int:
         """Returns the number of tokens in a text string."""
@@ -105,19 +92,20 @@ class LLMProxy:
         num_tokens = len(encoding.encode(string))
         return num_tokens
 
-    def _update_token_usage(self, result: AIMessage) -> None:
+    def update_llm_usage(self, result: AIMessage) -> None:
         """Updates the token usage metrics based on the LLM result."""
         if isinstance(result, AIMessage) and result.usage_metadata:
-            self._token_usage["input_tokens"] += result.usage_metadata["input_tokens"]
-            self._token_usage["output_tokens"] += result.usage_metadata["output_tokens"]
-            self._token_usage["total_tokens"] += result.usage_metadata["total_tokens"]
+            self.call_count += 1
 
-    def get_llm(self) -> BaseLanguageModel:
-        """Get the initialized LLM instance."""
-        if self._llm is None:
-            raise RuntimeError("LLM proxy is not initialized")
-        else:
-            return self._llm
+            self._token_usage["input_tokens"] += result.usage_metadata.get(
+                "input_tokens", 0
+            )
+            self._token_usage["output_tokens"] += result.usage_metadata.get(
+                "output_tokens", 0
+            )
+            self._token_usage["total_tokens"] += result.usage_metadata.get(
+                "total_tokens", 0
+            )
 
     def get_token_usage(self) -> Dict[str, int]:
         """Returns the current token usage metrics."""
@@ -135,3 +123,8 @@ class LLMProxy:
     def reset_call_count(self) -> None:
         """USE ONLY FOR UNIT TESTING - Resets the call count"""
         self.call_count = 0
+
+
+# Create a single instance of LLMProxy when the module is imported
+# This instance will be the de facto singleton
+LLM_PROXY = LLMProxy()

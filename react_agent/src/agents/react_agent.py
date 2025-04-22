@@ -7,7 +7,7 @@ from langgraph.prebuilt import create_react_agent
 from pydantic import BaseModel, Field
 
 
-from react_agent.src.util.llm_proxy import LLMProxy
+from react_agent.src.util.llm_proxy import LLM_PROXY
 
 from react_agent.src.config.system_parameters import AgentSettings
 from react_agent.src.util.logger import LoggerSingleton
@@ -39,7 +39,7 @@ class ReActAgent:
         self.tools = tool_list
 
         self.agent = create_react_agent(
-            model=LLMProxy().get_llm(),
+            model=LLM_PROXY._llm,
             # response_format=AgentResponseSchema,
             tools=self.tools,
             prompt=self.create_sys_prompt(),
@@ -98,6 +98,7 @@ class ReActAgent:
             else:
                 message.pretty_print()
 
+            LLM_PROXY.update_llm_usage(message)
             self.response_message = message
             self.response_metadata = s
 
