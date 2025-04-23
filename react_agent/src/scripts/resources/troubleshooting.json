@@ -69,7 +69,7 @@
             "text": "The method is delivered by the subsequentlySAP Note 2853195 (eDoc Framework 24). Implement this SAP Note and subsequently implement the SAP Note 2905102 (eDoc EU Corrections)."
         },
         {
-            "title": "C23 - Connection to ### can not be established",
+            "title": "C23 - Connection to  can not be established",
             "text": "This generic error can be displayed due to incorrect or invalid user name or password in the configuration of the connections. Review all credentials and connections customizing in your back end system, Cloud Connector and Peppol Exchange dashboard. Check the password field, as there is a restriction of 200 characters in the field in the UI. Sometimes this error is related to missing authorization (HTTP response '401: Unauthorized'), as for example, the user and password set up in the Connection Management app in the Peppol Exchange dasboard are not valid in the back end system; Another suggestion is to check if the subaccount user has been maintained according to the documentation. In the subaccount user field, enter your user. Do not enter the user configured in User Management app of the Peppol Exchange dashboard. To establish a connection with the source system, you must configure the Cloud Connector. While configuring the Cloud Connector, enter the subaccount user ID created in this step in the subaccount user ID field. It is important to confirm that the host name informed in Connection Management app from the Peppol Exchange dashboard is the same as the host name in the Cloud Connector configuration. In addition, the LocationID should match between Cloud Connector setup and Connection Management app setup."
         },
         {
@@ -82,7 +82,7 @@
         },
         {
             "title": "C29 - The Seller VAT identifier, (...) and the Buyer VAT identifier shall have a prefix",
-            "text": "The complete message is '[BR-CO-09] The Seller VAT identifier (BT-31), the Seller tax representative VAT identifier (BT-63) and the Buyer VAT identifier (BT-48) shall have a prefix in accordance with ISO code ISO 3166-1 alpha-2 by which the country of issue may be identified. Nevertheless, [country] may use the prefix '[ISO Code]'. To solve this issue, it is necessary to maintain the VAT number with a prefix that is the ISO Code of the country and a suffix which is the VAT ID of the country, like '##123456789###'."
+            "text": "The complete message is '[BR-CO-09] The Seller VAT identifier (BT-31), the Seller tax representative VAT identifier (BT-63) and the Buyer VAT identifier (BT-48) shall have a prefix in accordance with ISO code ISO 3166-1 alpha-2 by which the country of issue may be identified. Nevertheless, [country] may use the prefix '[ISO Code]'. To solve this issue, it is necessary to maintain the VAT number with a prefix that is the ISO Code of the country and a suffix which is the VAT ID of the country, like '123456789'."
         },
         {
             "title": "C30 - User already exists for the provided email ID / ERR_CONNECTION_RESET",
@@ -113,8 +113,8 @@
             "text": "These error messages are related to incorrect customizing of the Organization Number. To solve this issue, review all instructions in the attachment of the country/region specific overview SAP Note. The Organization Number must be correctly set in VAT Registration (T001-STCEG) for the Company Code. In addition, all table views mentioned in that attachment must be correctly set and the Company Code needs to be from the respective country. Also, review the master data configuration for the Company Code. The VAT Number usually starts with the country code prefix. Alternatively, you can remove the country code from the beginning of the string and remove the tax identification from the end of the string as well. See Master Data."
         },
         {
-            "title": "C38 - The content ### of element ### does not match the required simple type",
-            "text": "To solve this issue, implement the SAP Notes 2984154 (Update validations for the Document ID, Document Name and File Name fields), 2968006 (eDoc EU Corrections) and 2992171 (eDoc EU Corrections). If this error is related to Germany, also check the instructions from the topic DE15. The complete message is 'Validation failed for: /xsd/generic-push-service.xsd errors: [ org.xml.sax.SAXParseException: The content \"###\" of element &gt;documentId&lt; does not match the required simple type. Value \"###\" contravenes the pattern facet \"###\" of the type ###, Line : ###, Column : ###]. Exchange[ID-###]', or 'No document available for download', or 'Error at VALIDATION operation, MPL: ###', and the document displays the status 'PUSH FAILED' in Peppol Exchange dashboard."
+            "title": "C38 - The content  of element  does not match the required simple type",
+            "text": "To solve this issue, implement the SAP Notes 2984154 (Update validations for the Document ID, Document Name and File Name fields), 2968006 (eDoc EU Corrections) and 2992171 (eDoc EU Corrections). If this error is related to Germany, also check the instructions from the topic DE15. The complete message is 'Validation failed for: /xsd/generic-push-service.xsd errors: [ org.xml.sax.SAXParseException: The content \"\" of element &gt;documentId&lt; does not match the required simple type. Value \"\" contravenes the pattern facet \"\" of the type , Line : , Column : ]. Exchange[ID-]', or 'No document available for download', or 'Error at VALIDATION operation, MPL: ', and the document displays the status 'PUSH FAILED' in Peppol Exchange dashboard."
         },
         {
             "title": "C39 - HTTP Status 403 - Forbidden",
@@ -169,8 +169,8 @@
             "text": "The view EDOEUBANKACCV is used to control the bank details displaying in the XML files. If you are facing issues with PAYMENT_MEANS_CODE as '58', you must maintain the entries with '0' (Credit Transfer SEPA/Non-SEPA) in this view. For the bank details for different payment means in invoices or credit memos, the value mapping configuration is provided for direct debit option, which is for non-Europe customers. This cannot be extended for other payment means. The suggestion is to adjust bank details via method SET_OUTPUT_DATA from the EDOC_ADAPTOR BAdI."
         },
         {
-            "title": "C54 - The value # is not in the value range of the XML schema type decimal (...)",
-            "text": "In German it says 'Der Wert # liegt nicht im Wertebereich des XML-Schema-Typs decimal oder verletzt eine der angegeben Einschränkungen'. This is a transformation problem in the code of method FILL_DCS_REQUEST from class CL_EDOC_MAP_CII. To correct this problem, implement the SAP Note 2932677 (eDoc Peppol eInvoice Email Corrections)."
+            "title": "C54 - The value  is not in the value range of the XML schema type decimal (...)",
+            "text": "In German it says 'Der Wert  liegt nicht im Wertebereich des XML-Schema-Typs decimal oder verletzt eine der angegeben Einschränkungen'. This is a transformation problem in the code of method FILL_DCS_REQUEST from class CL_EDOC_MAP_CII. To correct this problem, implement the SAP Note 2932677 (eDoc Peppol eInvoice Email Corrections)."
         },
         {
             "title": "C56 - Proxy error SOAP:1.007 SRT: Unsupported xstream found: (\"HTTP: Code 500 : \")",
@@ -261,7 +261,7 @@
             "text": "You find this content in the XML file inside the path InvoiceLine > Price > AllowanceCharge. The main tags inside this node are Amount and BaseAmount. Allowance and charges are customer-specific and often customized, sometimes even within the PDF subtools. Currently, SAP does not support these fields in the standard mapping."
         },
         {
-            "title": "C83 - Please contact SAP support with MPL Id ###",
+            "title": "C83 - Please contact SAP support with MPL Id ",
             "text": "If this error is shown without any clear instructions for resolving the issue, open an case for LOD-LH-DCS-PAP component informing the steps to reproduce the issue or see the error message and the URL of your dashboard."
         },
         {
@@ -310,11 +310,767 @@
         },
         {
             "title": "C96 - An invoice has been posted but eDocument is not getting created",
-            "text": "Ensure following customisations & configurations are maintained:\n\n* Activating Source Type Documents for Company Code (EDOCOMPANYACTIV)\n* Defining Interface Type for eDocument (EDOINTTYPEV)\n* Assigning eDocument Type to Accounting Document Type (T003EDOC)\n* Assigning eDocument Type to Billing Document Type (TVFKEDOCV)\n* Assigning Party ID Types to Business Partner (EDOEUBUPAV)"
+            "text": "Ensure following customisations & configurations are maintained:  * Activating Source Type Documents for Company Code (EDOCOMPANYACTIV) * Defining Interface Type for eDocument (EDOINTTYPEV) * Assigning eDocument Type to Accounting Document Type (T003EDOC) * Assigning eDocument Type to Billing Document Type (TVFKEDOCV) * Assigning Party ID Types to Business Partner (EDOEUBUPAV)"
         },
         {
             "title": "C97 - Invoice Responses",
-            "text": "# BIS Invoice Response 3.2\nThe Peppol Business Interoperability Specification, “BIS” from here on after, has been developed by the OpenPeppol AISBL Post Award Coordinating Community and is published as part of the Peppol specifications."
+            "text": " BIS Invoice Response 3.2 The Peppol Business Interoperability Specification, “BIS” from here on after, has been developed by the OpenPeppol AISBL Post Award Coordinating Community and is published as part of the Peppol specifications."
+        },
+        {
+            "title": "Introduction to openPeppol and BIS",
+            "text": "This BIS is a result of work within [OpenPeppol](https://peppol.eu/about-openpeppol/?rel=tab41) and is published as part of the [Peppol](https://peppol.eu/?rel=undefined) specifications. This Peppol BIS provides a set of specifications for implementing a [Peppol](https: //peppol.eu/?rel=undefined) business process. The document is concerned with clarifying requirements for ensuring interoperability of pan-European Public eProcurement and provides guidelines for supporting these requirements and how to implement them. This Peppol BIS is developed by OpenPeppol as a new business process.**The purpose** of this document is to describe a common format for the invoice response message in the European market, and to facilitate an efficient implementation and increased use of electronic collaboration regarding invoice responses based on this format."
+        },
+        {
+            "title": "Principles and prerequisites",
+            "text": "This chapter describes the principles and assumptions that underlie the use of the Peppol Invoice Response. The term Invoice in this specification is used for both an invoice and a credit note unless otherwise stated in the text or clear from the context. An Invoice Response can be used in the process of the exchange of invoices and credit notes until the parties have agreed on its settlement as paid or cancelled. It provides the Seller, as the issuer of the invoice or credit note, with information about the status of his invoice or credit note and provides the Buyer, as receiver of the invoice or credit note, with efficient means for keeping the Seller informed."
+        },
+        {
+            "title": " 2.1. Invoice Response message in general",
+            "text": "From the creation of an electronic message, down the transport line that goes through one or more transport networks, to the designated receiver and all way through the eventual processing of the message content; there may be a need to give responses to the relevant parties up-line about the status or results of the actions that the message goes through. These responses are of different nature but in the scope of this document they can be divided into the following main groups."
+        },
+        {
+            "title": " 2.1.1. Transport acknowledgements",
+            "text": "These are messages that are exchanged within the transport network(s) to inform about the process of carrying a message down the transport line. These responses may inform someone up-line whether the delivery to a given point was successful or not and may contain details about issues that are relevant such as why a delivery was not successful. The key nature of these responses is that they do not in any way act on the result of validation or processing of the content of the payload that is being transported. These response messages are commonly called “acks” (short for acknowledgements) and in Peppol they are part of the transport protocol of the [Peppol](https://peppol.eu/?rel=undefined) network ([Peppol eDelivery Network Specifications](https://peppol.eu/downloads/the-peppol-edelivery-network-specifications/)) (e.g. as MDN - Message Disposition Notification - in AS2)."
+        },
+        {
+            "title": " 2.1.2. Business Level Responses",
+            "text": "A message that has been received and assigned to processing may call for an action on the receiver's behalf. That receiver's action may need to be reported back up-line to a relevant party. An example is that a technically correct invoice may be received but the receiver decides to dispute the invoice for any business reason such as incorrect values, delivery issues etc. The key nature of these responses is that they report a business decision that is made on the message instance received by the Receiver. Business level responses may have a role in the processing of various document types other than invoices."
+        },
+        {
+            "title": " )2.2. Scope of Invoice Response message",
+            "text": "Invoice Response is an invoice and credit note specific response message that can be used to inform the Seller of the status of an invoice in the Buyer's approval and payment processes, based on the Buyer's business rules and/or a Seller/Buyer agreement.  Invoice Response will provide following benefits to its users: * Invoice Response helps the Seller to initiate an action early in the case when processing of an invoice is challenged on the Buyer side. * The response informs Seller whether his invoice is in due process or whether that process is disrupted and requires action from Seller. * Invoice Response informs the Seller when their invoice has been approved or payment has been initiated so that the Seller can manage their cash flows and monitor the reception of funds through the payment channels. * Invoice Response provides automated means to the Buyer to keep the Seller informed of the invoice status in his invoice verification process and thus reduces or eliminates the need for manual status queries. * Invoice Response is designed to support automatic processing on the Seller side although it still may require manual actions. * Invoice Response is an informative message from Buyer to Seller. * Invoice Response structures the feedback loop from Buyer to Seller regarding the invoice handling process on Buyer's side. * Invoice Response is an option for the Buyer to inform Seller about Buyer's decisions in invoice processing in a structured or unstructured form."
+        },
+        {
+            "title": " 2.2.1. In scope",
+            "text": "The following concepts are within the scope of the Invoice Response: * Buyer can inform Seller about Invoice and credit note processing steps and statuses on Buyer's side. * Invoice Response is based on Buyer's business rules. * Invoice Response is a one directional message only - from Buyer to Seller. * Several response messages can potentially be exchanged for one invoice or credit note. * Response content may require manual action on Seller's side. * Invoice Response supports only push message of the invoice status. * Invoice Response can not be automatically requested by Seller. * Acknowledging that a transmitted invoice has been received and can be processed."
+        },
+        {
+            "title": " 2.2.2. Out of scope",
+            "text": "The following concepts are outside the scope of the Invoice Response: * Invoice responses on a line level. * Several statuses in one response message. * Full automation on Seller side - not all the errors have to be encoded. * Bi-directional communication - discussion on response. * Enquiry of the Invoice response message. * Transmission level status. * Support for attachments."
+        },
+        {
+            "title": " 2.3. Parties and roles",
+            "text": "The table below gives the definitions of the parties and roles in the process of Invoice Response message. Parties are persons or entities who are responsible for roles. They may carry them out themselves or outsource them.  Table 1. Parties and roles * Party / Role: Supplier   * Type: Party   * Definition: The supplier is the legal person or organization who provides a product and/or service.Examples of supplier roles: Seller, consignor, creditor, economic operator. * Party / Role: Customer   * Type: Party   * Definition: The customer is the legal person or organization who is in demand of a product, service or works.Examples of customer roles: buyer, consignee, debtor, contracting body. * Party / Role: Seller   * Type: Role   * Definition: One who issues an invoice for items or services sold to a Buyer and to whom a debt is owed.The Party that claims the payment and is responsible for resolving billing issues and arranging settlement.Also, known as Invoice Issuer, Accounts Receivable, Creditor, Economic operator. * Party / Role: Buyer   * Type: Role   * Definition: One who receives an invoice for items or services bought from a Seller and who owes debt.The Party responsible for making settlements relating to a purchase.Also, known as Invoicee, Accounts Payable, Debtor * Party / Role: Service provider   * Type: Party   * Definition: A party that is contracted by either or both Supplier and/or the Customer to send or receive an Invoice Response message."
+        },
+        {
+            "title": " 2.3.1. Parties responsibilities",
+            "text": "Following paragraphs list the responsibilities and activities carried out by each party in the Invoice Response process from a technical, practical and informative perspective. Any legal implications of the measures discussed here are outside the scope of this document.   Seller  * Not obliged to support the Invoice Response. * In case the Seller has registered support for the Invoice Response, then he is responsible for receiving an Invoice Response message and to take actions in accordance to this specification.        Buyer  * Not obliged to send an Invoice Response. * Responsible for creating the Invoice Response. * Responsible for complying with the business rules used in invoice validations. * Responsible for when and how to use the Invoice Response in the frame of the Invoice Response document. * Responsible for expressing what action is expected from the Seller. * It is recommended that the Buyer maintains visibility of all Invoice Response messages created by him or on his behalf in order to solve potential issues with the Seller. * May have a bilateral agreement with Seller for using Invoice Response."
+        },
+        {
+            "title": " 3.2. Process in general",
+            "text": "The process starts when a Seller party is preparing an electronic invoice and then sends it to the Buyer. After the invoice has been validated and transported the Buyer party receives the invoice.  Once the Buyer has received the invoice in the form that it can be processed he may notify the Seller about this with an Invoice Response.  After reception, the Buyer will usually enter into the invoice reviewal and approval process. The approval process may result in the invoice being approved as is without any comments. In that case the Buyer sends an Invoice Response to the Seller to notify him that the invoice has been approved and will be paid on due date. Approval process might be a bit different for the credit note (especially as status “Paid” is not applicable, but the other statuses serve their purpose).  During the approval process, various issues may be identified. Issues such as quantities or amounts not being in line with Buyer's data, missing information to correctly handle the invoice, invoice terms not in line with agreements or contracts and so forth. Depending on the nature of the issues the Buyer may do one of the following.  * The Buyer may put the approval process on hold and notify the Seller by sending Invoice Response with status \"under query\" and add an explanation of what the issue is.     * Once the Seller has responded to the issue the acceptance process may continue or the Buyer may raise further issues. * The Buyer may conditionally approve the invoice in which case they will send an Invoice Response to the Seller with the respective status and what the conditions are.     * The Seller may respond externally, e.g. with an objection, or they may not respond in which case the Buyer will proceed and pay the invoice according to the conditions.     * Most common example is when an invoice has payment terms like due date or payment account that are not in line with a contract.     * Then the Buyer may notify that the invoice will be paid in accordance to the contract and then proceed to do so unless the Seller objects. * The Buyer may reject the invoice in which case it will notify the Seller and state the reason for the rejection and possibly request a credit note.     * This is a final status for the invoice so if the Seller does not agree with the rejection they must follow that up externally.  If an invoice has been approved or conditionally approved the Buyer will in due time proceed to initiate payment. The Buyer may then notify the Seller that the payment has been initiated."
+        },
+        {
+            "title": " 3.3. Invoice Response process rules",
+            "text": "The Invoice Response process governs how and when the transactions are issued and how they are handled between the sender and the receiver.   Table 2. Invoice response process rules * RuleID: OP-BR111-R001   * Rule: The Invoice Response is one directional message only - from Buyer to Seller.Invoice Response is meant to be sent from Buyer to Seller informing about invoice status inside the Buyer's business process. * RuleID: OP-BR111-R002   * Rule: Each Invoice Response message is intended to carry one status code (top level status) at a time, for an individual invoice.To inform about several statuses of an Invoice then several messages shall be used in sequence.An invoice can only have one status at each time. * RuleID: OP-BR111-R003   * Rule: Several Invoice Response's can be sent for one invoice. * RuleID: OP-BR111-R004   * Rule: If an invoice has been given the status Rejected or Paid, then no further Invoice Response may be sent regarding that invoice.I.e. Seller may ignore them.[1] * RuleID: OP-BR111-R005   * Rule: If an invoice has been given status Approved, then that may only be followed with an Invoice Response giving status Paid.I.e. Seller may ignore them.[1] * RuleID: OP-BR111-R006   * Rule: A Buyer shall provide first Invoice Response within 3 working days. * RuleID: OP-BR111-R007   * Rule: An Invoice Response message doesn't prescribe the invoice workflow process for the Buyer.Different Buyers may have different workflows processes for the invoices. * RuleID: OP-BR111-R008   * Rule: An Invoice Response does not have any legal power. * RuleID: OP-BR111-R009   * Rule: An Invoice Response does not change the invoice content. * RuleID: OP-BR111-R010   * Rule: An Invoice Response does not change the commercial responsibilities between Buyer and Seller. * RuleID: OP-BR111-R011   * Rule: An Invoice Response (even as rejection) does not free the Buyer from his payment obligations towards the Seller if such an obligation exists by agreement or real business transaction or the other way around in case of a credit note. * RuleID: OP-BR111-R012   * Rule: The status of invoices shall advance in the following order.AB   * Acknowledged * RuleID: IP   * Rule: In process * RuleID: UQ   * Rule: Under query * RuleID: CA   * Rule: Conditionally accepted * RuleID: RE   * Rule: Rejected (Final status) * RuleID: AP   * Rule: Accepted (approved) * RuleID: PD   * Rule: Paid (Final status, The status code “Paid” will probably not be used in relation to credit notes)"
+        },
+        {
+            "title": " 3.4. Code Policy",
+            "text": "Key information in an Invoice Response is the reporting of the status of the invoice. The objective of the status code is to provide the Seller with a clear indication of the status of the referenced invoice inside the Buyers process in a way that allows the Seller to clearly identify if an action is required on his behalf. The status code can be supplemented with a clarification or an action code or textual note that explains the status and assists the Seller in deciding on correct reaction.  The codes in the Invoice Response are given in the following structure.  * Invoice Status (1..1) 'cac:DocumentResponse/Response/cbc:ResponseCode'  Each Invoice Response must have one and only one status code. For each Invoice Response (status) there is the option of providing one or more clarification. For each clarification there is the option to provide data that the Buyer proposes as a correction.  Example 1. Example An invoice may have been put under query (status UQ), as clarification the code XYZ is given to indicate that there is an issue with the references in the invoice. As data the Invoice Response may state that the expected value for the Purchase Order reference in the invoice was PO123."
+        },
+        {
+            "title": " 3.4.1. Status codes",
+            "text": "The following policies apply to the use of status codes:  * List of Status codes is fixed and can not be changed bilaterally. * There are seven pre-agreed status codes (main statuses). * Status code is sent from Buyer to Seller to inform the Seller about further processing of the invoice on Buyer side. * Status code does not inform the business reason for the Status to the Seller (there is a clarification code for that). * Every status can be the first status sent to the Seller but from there further statuses must follow a defined order (see [Invoice Response process rules](invoice-response-process-rules), rule OP-BR111-R012). * Maximum time for first response 3 days - The Seller should receive the first Invoice Response within 3 working days.     * By receiving the first Response message the Seller will know that an Invoice has been received by the Buyer and what its status is.     * However, if the Seller does not receive any response he should wait 3 working days before contacting the Buyer to query whether the Invoice was received.     * A Buyer who has received an invoice should therefore provide a first Response before that time to notify the Seller that it has been received and what its status is. * The minimum set of Statuses that must be supported by a Buyer is “Message acknowledged”, “Rejected” and “Approved”.  Table 3. The Status codes used in an Invoice Response message are defined in the below table and are a subset UNECE code list 4343 with additional codes.  * Status Code: AB   * UNECE name: Message acknowledgement   * UNECE definition: Indicates that an acknowledgement relating to receipt of message or transaction is required.   * BIS usage: Status is used when Buyer has received a readable invoice message that can be understood and submitted for processing by the Buyer.   * Response expected: NO   * Clarification Required: NO   * Mandatory: YES   * Final: NO * Status Code: IP   * UNECE name: In Process   * UNECE definition: Indicates that the referenced message or transaction is being processed.   * BIS usage: Status is used when the processing of the Invoice has started in Buyers system.   * Response expected: NO   * Clarification Required: NO   * Mandatory: NO   * Final: NO * Status Code: UQ   * UNECE name: Under query   * UNECE definition: Indicates that the processing of the referenced message has been halted pending response to a query.   * BIS usage: Status is used when Buyer will not proceed to accept the Invoice without receiving additional information from the Seller.   * Response expected: YES   * Clarification Required: YES   * Mandatory: NO   * Final: NO * Status Code: CA   * UNECE name: Conditionally accepted   * UNECE definition: Indication that the referenced offer or transaction (e.g., cargo booking or quotation request) has been accepted under conditions indicated in this message.   * BIS usage: Status is used when Buyer is accepting the Invoice under conditions stated in 'Status Reason' and proceed to pay accordingly unless disputed by Seller.   * Response expected: NO[2]   * Clarification Required: YES   * Mandatory: NO   * Final: NO * Status Code: RE   * UNECE name: Rejected   * UNECE definition: Indication that the referenced offer or transaction (e.g., cargo booking or quotation request) is not accepted.   * BIS usage: Status is used only when the Buyer will not process the referenced Invoice any further.Buyer is rejecting this invoice but not necessarily the commercial transaction.Although it can be used also for rejection for commercial reasons (invoice not corresponding to delivery).   * Response expected: YES   * Clarification Required: YES   * Mandatory: YES   * Final: YES * Status Code: AP   * UNECE name: Accepted   * UNECE definition: Indication that the referenced offer or transaction (e.g., cargo booking or quotation request) has been accepted.   * BIS usage: Status is used only when the Buyer has given a final approval of the invoice and the next step is payment   * Response expected: NO   * Clarification Required: NO   * Mandatory: YES   * Final: NO * Status Code: PD with PPD (1)   * UNECE name: Partially Paid   * UNECE definition: Indicates that the referenced document or transaction has been partially paid.   * BIS usage: Status is used together with Clarification Reason code PPD, only when the Buyer has initiated the payment of the invoice without having paid the accepted amount in full.   * Response expected: NO   * Clarification Required: NO   * Mandatory: NO   * Final: NO * Status Code: PD   * UNECE name: Fully Paid   * UNECE definition: Indicates that the referenced document or transaction has been paid.   * BIS usage: Status is used only when the Buyer has initiated the payment of the invoice.   * Response expected: NO   * Clarification Required: NO   * Mandatory: NO   * Final: YES   (1) Status code PD (Paid) together with Clarification Reason code PPD (Partially Paid) is the case when an invoice is partially paid with the intention of later paying the full invoice amount as was accepted.  The sequence of the status codes is fixed to allow the Seller, as receiver of the Invoice Response message, to advance the status of the invoice in his systems in an orderly way. See [Invoice Response process rules](invoice-response-process-rules). This requires the Buyer to be conservative in reporting status and only advance an invoice when the status is reasonably certain.  The status of an invoice must advance in the following sequence, but any status may be the first one used or may be omitted.  1.  AB - Message acknowledgement 2.  IP - In process 3.  UQ - Under query (may be repeated before moving forward) 4.  CA - Conditionally accepted 5.  RE - Rejected 6.  AP - Accepted 7.  PD - Paid, can be in steps, partially paid and then paid.  Example 2. Examples of status advancement: 1.  If an invoice is paid right after being received, the Buyer can report with a single Invoice Response using the code PD. 2.  If an invoice has been put under query then following the response from the Seller, the Buyer may advance it to any of the following codes:      |CA |conditionally accepted| |---|----------------------| |RE |Rejected              | |AP |Accepted              | |PD |Paid                  |  Deviations from this sequence must be handled manually between the trading parties. As example, if a Buyer has stated that an invoice has been accepted they can not later send an Invoice Response indicating that it is under query or rejected. This does however not prohibit the Buyer from changing his decision, but he must report that to the Seller by other means than by using an Invoice Response.  The fixed order simplifies the automation of the processing for the receiver of the Invoice Response."
+        },
+        {
+            "title": " 3.4.2. Clarification",
+            "text": "Depending on the status code, a clarification may be needed to state the Buyer's reason for the status and/or any expected action from the Seller's side. The clarification may be given either as text (in Status Reason) or as code (in StatusReasonCode). The purpose of the clarification is to provide the Seller with structured information which enables him to partially or fully automate his processing. The clarifications are of two types.  * Reasons for the given status. * Actions that the Buyer requests from the Seller.  These two types of clarifications are contained in separate code lists that have different list identifiers. This allows the Seller to distinguish between the two types of clarifications. Clarification codes are defined in [Code list section](https://docs.peppol.eu/poacc/upgrade-3/codelist/).  Similar business reason (for example missing order number) may trigger different statuses depending on the Buyer's business process. (e.g. missing order number - some of the Buyers might 'Reject' the invoice but some of the Buyers might put it 'Under query').   Detail type codes and values  For each clarification code the Buyer can provide details to assist in the correction. For example, if an invoice contains the wrong Buyers TAX number then the Buyer can provide the correct number in the Invoice Response. When a textual clarification that includes information about the correct values is not sufficient, but the correct values need to be provided in a structured way that information can be given by providing a type code that identifies the information type and the correct value.  The detail type code for each data type shall be the business term identifier of the referenced document that shall be corrected, and the detail value shall be the value that the Buyer proposes as the correct one.  Example: A Buyer receives a Peppol invoice where the following is true * The invoice complies to Peppol Billing specification * The Buyer's TAX number in the invoice is incorrect and should be EU12345 * The Buyer requests the Seller to send a credit note to cancel the incorrect invoice and issue a new invoice with the correct TAX number."
+        },
+        {
+            "title": " 3.5. Typical use cases",
+            "text": "The following use cases demonstrate how the Invoice Response message can be used in the described situations. While the use cases are drawn up to illustrate the general functionality of this BIS 63A, implementers are cautioned that national accounting rules may pose additional requirements on the handling of invoices.  |No |Use Case Name                                                                     | |---|----------------------------------------------------------------------------------| |1  |Invoice in process.                                                               | |2a |Invoice is in process with additional reference data.                             | |2b |Invoice is in process but postponed.                                              | |3  |Invoice is accepted.                                                              | |4a |Invoice is rejected.                                                              | |4b |Invoice is rejected requesting re-issue.                                          | |4c |Invoice is rejected requesting replacement.                                       | |5  |Invoice is conditionally accepted.                                                | |6a |Invoice is under query because of wrong or missing information.                   | |6b |Invoice is under query because of missing PO reference.                           | |6c |Invoice is in under query because of wrong details, partial credit note requested.| |7  |Invoice payment has been initiated.                                               | |8  |Invoice is accepted by a third party acting on behalf of the Buyer.               |    Table 4. Use case 1 — Invoice in process * Use Case number: Use Case Name   * 1: Invoice in process. * Use Case number: Assumption and description   * 1: Invoice has been received but a clear or final response is not possible within the Maximum response timeTherefore the Buyer must provide an initial response to inform the Seller that the invoice is in process within 'Maximum Response time. * Use Case number: The flow   * 1: Invoice Response with 'In Process' status prior to 'Maximum Response time' Invoice Response with OTHER status is not part of the use case but the final status has to be delivered later when the invoice has been fully processed. * Use Case number: Parties involved   * 1: BuyerSeller * Use Case number: Result   * 1: Seller is notified within the “Maximum Response Time” that the invoice is being processed.A further Invoice Response will follow.    Table 5. Use case 2a — Invoice is in process with additional reference data * Use Case number: Use Case Name   * 2a: Invoice is in process with additional reference data. * Use Case number: Assumption and description   * 2a: The Buyer wants to inform the Seller of the date when the Buyer has received an invoice as well as his internal reference ID for that invoice. * Use Case number: The flow   * 2a: Invoice Response with 'In Process' status, including information about formal reception date and the internal reference for the invoice. * Use Case number: Parties involved   * 2a: BuyerSeller * Use Case number: Result   * 2a: The Seller knows that invoice is in process and that the Buyer received it at a certain date.He knows the internal reference used by the Buyer for this invoice.    Table 6. Use case 2b — Invoice is in process but postponed * Use Case number: Use Case Name   * 2b: Invoice is in process but postponed * Use Case number: Assumption and description   * 2b: Buyer informs Seller that a reference could not be validated but also indicates that a further attempt will be made to process the Invoice and so no further action is required at this time.Buyer validates the invoice, but a Reference Number could not be matched to those on their system.Buyer can re-attempt validation of the invoice (e.g. to allow updating of their internal Reference Number database in case the Reference Number details have not yet been processed ready for matching - or where the invoice arrives ahead of the goods). * Use Case number: The flow   * 2b: Invoice Response with 'In Process' status and clarification text when invoice processing will continue, as no valid Reference Number was found. * Use Case number: Parties involved   * 2b: BuyerSeller * Use Case number: Result   * 2b: Seller knows that the invoice is in the queue and the process is stopped until appointed date and then a further attempt will be made to match the Invoice.    Table 7. Use case 3 — Invoice is accepted * Use Case number: Use Case Name   * 3: Invoice is accepted * Use Case number: Assumption and description   * 3: Buyer has accepted the Invoice. * Use Case number: The flow   * 3: Invoice Response with 'Accepted' status and mandatory Invoice Response data indicating that an invoice is accepted. * Use Case number: Parties involved   * 3: BuyerSeller * Use Case number: Result   * 3: Seller is notified that an invoice has been accepted and will be paid on due date.    Table 8. Use case 4a — Invoice is rejected * Use Case number: Use Case Name   * 4a: Invoice is rejected * Use Case number: Assumption and description   * 4a: Buyer has rejected the invoice.Buyer doesn't provide any encoded reasoning but provides only textual reason. * Use Case number: The flow   * 4a: Invoice Response with 'Rejected' status and reasoning text why Invoice is rejected. * Use Case number: Parties involved   * 4a: BuyerSeller * Use Case number: Result   * 4a: Seller is notified that an invoice has been rejected.In case further clarifications are needed, Seller needs to contact the Buyer for further actions (externally).    Table 9. Use case 4b — Invoice is rejected requesting re-issue * Use Case number: Use Case Name   * 4b: Invoice is rejected requesting re-issue * Use Case number: Assumption and description   * 4b: Invoice is rejected e.g. because of missing PO reference.The Buyer may not have booked the invoice into his accounts, so he considers that a Credit note is not needed but a correct Invoice is needed. * Use Case number: The flow   * 4b: Invoice Response with 'Rejected' status, explanatory clarification code e.g, for missing PO reference and instructive clarification code for issuing a correct Invoice. * Use Case number: Parties involved   * 4b: BuyerSeller * Use Case number: Result   * 4b: Seller is notified that an invoice has been rejected because of missing PO reference.Seller needs to add PO number to the Invoice and reissue it.How he handles the initial invoice is up to him.    Table 10. Use case 4c — Invoice is rejected requesting replacement * Use Case number: Use Case Name   * 4c: Invoice is rejected requesting replacement. * Use Case number: Assumption and description   * 4c: The Invoice is rejected, Credit Note requested, and a new Invoice is requested.The Buyer doesn't accept the invoice content and rejects it.Buyer needs a Credit Note to cancel the original invoice and a new correct Invoice to continue with processing.The Buyer provides contact data and textual reasoning. * Use Case number: The flow   * 4c: Invoice Response with 'Rejected' status with reasoning text why Invoice is rejected.Clarification codes for requesting a Credit Note and reissuing of a new Invoice.Buyer provides contact information to the Seller. * Use Case number: Parties involved   * 4c: BuyerSeller * Use Case number: Result   * 4c: The Seller has been informed that the Invoice has been rejected.The Seller will proceed to issue a Credit Note for the referenced Invoice and a new Invoice to replace it.The Seller can contact the Buyer using contact details provided in the Invoice Response.    Table 11. Use case 5 — Invoice is conditionally accepted * Use Case number: Use Case Name   * 5: Invoice is conditionally accepted * Use Case number: Assumption and description   * 5: The Invoice is conditionally accepted and will be paid on a date different from the Invoice due date.The Buyer has accepted the invoice and intends to pay it according to agreement which gives a due date different from what is stated in the invoice. * Use Case number: The flow   * 5: Invoice Response with 'Conditionally accepted' status and explanatory clarification code for changed payment terms.The clarification includes information on what date the Invoice will be paid. * Use Case number: Parties involved   * 5: BuyerSeller * Use Case number: Result   * 5: Seller is notified that Invoice has been conditionally accepted but will be paid on a date that is different from what was stated in the invoice.If the Seller accepts the change, he doesn't need to react, otherwise he must contact the Buyer (externally).  Table 12. Use case 6a — Invoice is under query because of wrong or missing information. * Use Case number: Use Case Name   * 6a: Invoice is under query because of wrong or missing information. * Use Case number: Assumption and description   * 6a: The Buyer cannot process the invoice and needs additional data from the Seller in order to proceed.Buyer informs of the date when invoice was put under query (to allow for a pote"
+        },
+        {
+            "title": " )4.2. Semantic data types",
+            "text": "The different semantic data types are described in the tables below, where various features such as attributes, format, and decimals as well as the basic type are defined for each semantic data type. They are based on [ISO 15000-5:2014](https://www.iso.org/standard/61433.html).  When used in an instance document, each data element will contain data. In the below tables this is identified as the “content”. Whenever a business term is used this term shall **always** have content and therefore the content is always mandatory."
+        },
+        {
+            "title": " 4.2.1. Amount",
+            "text": "An amount states a numerical monetary value. The currency of the amount is defined as a separate business term.  |Component|Use      |Primitive Type|Example | |---------|---------|--------------|--------| |Content  |Mandatory|Decimal       |10000.25|"
+        },
+        {
+            "title": " 4.2.2. Price Amount",
+            "text": "A price amount states a numerical monetary amount value for data elements that contain item prices that may be multiplied by item quantities. The currency of the amount is defined as a separate business term.  |Component|Use      |Primitive Type|Example   | |---------|---------|--------------|----------| |Content  |Mandatory|Decimal       |10000.1234|"
+        },
+        {
+            "title": " 4.2.3. Percentage",
+            "text": "Percentages are given as fractions of a hundred (per cent) e.g. the value 34,78 % in percentage terms is given as 34,78.  |Component|Use      |Primitive Type|Example| |---------|---------|--------------|-------| |Content  |Mandatory|Decimal       |34.7812|"
+        },
+        {
+            "title": " 4.2.4. Quantity",
+            "text": "Quantities are used to state a number of units such as for items. The code for the Unit of Measure is defined as a separate business term.  |Component|Use      |Primitive Type|Example   | |---------|---------|--------------|----------| |Content  |Mandatory|Decimal       |10000.1234|"
+        },
+        {
+            "title": " 4.2.5. Code",
+            "text": "Codes are used to specify allowed values in elements as well as for lists of options. Code is different from Identifier in that allowed values have standardized meanings that can be known by the recipient.  |Component|Use      |Primitive Type|Example| |---------|---------|--------------|-------| |Content  |Mandatory|String        |Abc123 |"
+        },
+        {
+            "title": " 4.2.6. Identifier",
+            "text": "Identifiers (IDs) are keys that are issued by the sender or recipient of a document or by a third party.  |Component                |Use        |Primitive Type|Example    | |-------------------------|-----------|--------------|-----------| |Content                  |Mandatory  |String        |abc:123-DEF| |Scheme identifier        |Conditional|String        |0088       | |Scheme version identifier|Conditional|String        |1.0        |"
+        },
+        {
+            "title": " 4.2.7. Date",
+            "text": "Dates shall be in accordance to the “Calendar date complete representation” as specified by [ISO 8601:2004](https://www.iso.org/standard/40874.html), format **YYYY-MM-DD**.  Table 17. EN 16931_ Date. Type  |Component|Use      |Primitive Type|Example   | |---------|---------|--------------|----------| |Content  |Mandatory|Date          |2017-12-01|"
+        },
+        {
+            "title": " 4.2.8. Time",
+            "text": "Time shall be in accordance to the “Extended time format” as specified by [ISO 8601:2004](https://www.iso.org/standard/40874.html), format \\[hh\\]:\\[mm\\]:\\[ss\\]  Table 18. EN 16931_ Date. Type  |Component|Use      |Primitive Type|Example | |---------|---------|--------------|--------| |Content  |Mandatory|Date          |09:30:12|"
+        },
+        {
+            "title": " )4.2.9. Document Reference",
+            "text": "Document Reference Types are identifiers that were assigned to a document or document line.  Table 19. Document Reference. Type |Component|Use      |Primitive Type|Example    | |---------|---------|--------------|-----------| |Content  |Mandatory|String        |abc:123-DEF|"
+        },
+        {
+            "title": " 4.2.10. Text",
+            "text": "Text is the actual wording of anything written or printed. Line breaks in the text may be present, and any line breaks should be preserved and respected by the receiver's system  |Component|Use      |Primitive Type|Example                              | |---------|---------|--------------|-------------------------------------| |Content  |Mandatory|String        |5% allowance when paid within 30 days|"
+        },
+        {
+            "title": " 4.2.11. Binary objects",
+            "text": "Binary objects can be used to describe files which are transmitted together with the business document. Attachments shall be transmitted together with the business document. The binary object has two supplementary components: a Mime Code, which specifies the Mime type of the attachment and a Filename that is provided by (or on behalf of) the sender of the business document.   |Component|Use      |Primitive Type|Example                         | |---------|---------|--------------|--------------------------------| |Content  |Mandatory|Binary        |QmFzZTY0IGNvbnRlbnQgZXhhbXBsZQ==| |Mime Code|Mandatory|String        |image/jpeg                      | |Filename |Mandatory|String        |drawing5.jpg                    |"
+        },
+        {
+            "title": " 4.2.12. Boolean",
+            "text": "Boolean indicators are used to specify the two allowed values, _true_ or _false_. All elements of datatype Boolean, must have either _true_ or _false_ as their value.   |Component|Use      |Primitive Type|Example| |---------|---------|--------------|-------| |Content  |Mandatory|String        |true   |"
+        },
+        {
+            "title": " 5.1. Code lists for coded elements",
+            "text": "Any element with the semantic data type = **code**, can mandate the use of a specific code list (or a fixed value). The applicable code lists can be found in the [Code list section](https://docs.peppol.eu/poacc/upgrade-3/codelist/). In this section, you can find the valid codes, their names and description, and also links to where the same code list is used elsewhere in the transaction, or in other Peppol BIS v3. documents."
+        },
+        {
+            "title": " 5.2.1. Party identifiers and party legal registration identifier scheme",
+            "text": "All party identifiers (`cac:PartyIdentification/cbc:ID`) and party legal registration identifier (`cac:PartyLegalEntity/cbc:CompanyID`) has an optional scheme identifier attribute (`@schemeID`). If used, the value shall be chosen from the code list [ICD codes](https://docs.peppol.eu/poacc/upgrade-3/codelist/ICD/)  Examples of usage in `cac:PartyIdentification`  ``` <cac:PartyIdentification>         <cbc:ID schemeID=\"0088\">5790000435968</cbc:ID> (1) </cac:PartyIdentification> ```"
+        },
+        {
+            "title": " 5.2.2. Electronic address identifier scheme identifier",
+            "text": "All electronic address identifiers (`cbc:EndpointID/@schemeID`) use the Electronic Address Scheme code list (EAS), maintained by CEF ([CEF Code lists](https://ec.europa.eu/cefdigital/wiki/display/CEFDIGITAL/Code+listsCodelists-1)).  Valid values are found here: [EAS codes](https://docs.peppol.eu/poacc/upgrade-3/codelist/eas/).  Examples of usage in `cbc:EndpointID`  ``` <cbc:EndpointID schemeID=\"0184\">DK87654321</cbc:EndpointID> (1) ```"
+        },
+        {
+            "title": " 6.1. Message identification",
+            "text": "The first section of the message is concerned with identifying the message and declaring what specifications the message is based on.  UBL example:  ``` <cbc:CustomizationID>urn:fdc:peppol.eu:poacc:trns:invoice_response:3</cbc:CustomizationID> (1) <cbc:ProfileID>urn:fdc:peppol.eu:poacc:bis:invoice_response:3</cbc:ProfileID> (2) <cbc:ID>imrid001</cbc:ID> (3) <cbc:IssueDate>2016-10-26</cbc:IssueDate> (4) <cbc:IssueTime>12:00:00</cbc:IssueTime> (4) ```  * 1: 2   * The message is based on the Peppol transaction specification for transaction 111 and should therefore comply with the rules defined in that specification.: The profile ID states that the transaction is part of business process number 63 which is the Invoice Response process. * 1: 3   * The message is based on the Peppol transaction specification for transaction 111 and should therefore comply with the rules defined in that specification.: The identifier for this message, i.e. the identifier for this Invoice Response message, not the identifier of the invoice that is being responded to. * 1: 4   * The message is based on the Peppol transaction specification for transaction 111 and should therefore comply with the rules defined in that specification.: The date and the time when the response was issues is then provided"
+        },
+        {
+            "title": " 6.2. Message note",
+            "text": "The Invoice Response enables the sender to provide a textual note that may give comments or instructions that apply to the whole response.  UBL example:  ``` <cbc:Note>Please refer to previous email exchange regarding this invoice. </cbc:Note> ```   "
+        },
+        {
+            "title": " 6.3. Sending and receiving parties",
+            "text": "The sending and receiving parties are those that exchange the Invoice Response. These may be the Buyer and the Seller or service providers acting on their behalf."
+        },
+        {
+            "title": " 6.3.1. SenderParty",
+            "text": "The party that sends the Invoice Response. This may be the Buyer who received the invoice, or it may be a service provider processing the invoice on behalf of the Buyer. If the Invoice Response is issued by a service provider the name of the actual Buyer may be given with the invoice reference.  The information given for the sender is his EndpointID which is his Peppol Participant Identifier (PPID). The party identifier may be given as well and the schema that the identifier is based on. The name of the sender is then provided.  Contact information for the sender (Buyer) is the person that the receiver (Seller) can contact when resolving an issue reported in the Invoice Response. This should not be general company email and phone unless the sender has in place a process that would direct the contact efficiently to a relevant person.  UBL example:  ``` <cac:SenderParty>   <cbc:EndpointID schemeID=\"0196\">6963495890</cbc:EndpointID>   <cac:PartyIdentification>     <cbc:ID schemeID=\"0088\">senderif12345</cbc:ID>   </cac:PartyIdentification>   <cac:PartyLegalEntity>         <cbc:RegistrationName>Buyer organization</cbc:RegistrationName>   </cac:PartyLegalEntity>   <cac:Contact>     <cbc:Name>Invoice processing department</cbc:Name>     <cbc:Telephone>012312312345</cbc:Telephone>     <cbc:ElectronicMail>invoiceprocessingdepartment@organization.org</cbc:ElectronicMail>   </cac:Contact> </cac:SenderParty> ```   "
+        },
+        {
+            "title": " 6.3.2. ReceiverParty",
+            "text": "The party that sent the Invoice that the IMR is responding to. This is also the receiver of the Invoice Response. This may be the Seller who issued the invoice or a service provider who handles the invocing process on behalf of the Seller. If this is a service provider, then the actual Seller may be identified as part of the invoice reference information.  UBL example:  ``` <cac:ReceiverParty>   <cbc:EndpointID schemeID=\"0196\">6841569459</cbc:EndpointID>   <cac:PartyIdentification>     <cbc:ID schemeID=\"0088\">receiver12345</cbc:ID>   </cac:PartyIdentification>   <cac:PartyLegalEntity>         <cbc:RegistrationName>Seller company</cbc:RegistrationName>   </cac:PartyLegalEntity> </cac:ReceiverParty> ```   "
+        },
+        {
+            "title": " 6.3.3. Issuer and Recipient parties",
+            "text": "In the case when the Invoice processing is handled by a service provider on behalf or the Buyer or the Seller then the sending/receiving party is not the Buyer/Seller stated in the Invoice document. In those cases, it is required to identify the Buyer and the Seller as declared in the referenced Invoice. This shall be done by giving an identifier and a name.  UBL example:  ``` <cac:IssuerParty>   <cac:PartyIdentification>     <cbc:ID schemeID=\"0088\">6543219876546</cbc:ID>   </cac:PartyIdentification>   <cac:PartyName>     <cbc:Name>Seller A</cbc:Name>   </cac:PartyName> </cac:IssuerParty> ```   UBL example:  ``` <cac:RecipientParty>   <cac:PartyIdentification>     <cbc:ID schemeID=\"0088\">9876549873211</cbc:ID>   </cac:PartyIdentification>   <cac:PartyName>     <cbc:Name>Buyer A</cbc:Name>   </cac:PartyName> </cac:RecipientParty> ```   "
+        },
+        {
+            "title": " 6.4. Response",
+            "text": "Is used to indicate the status of the Invoice. The response also provides information about the reason for the status as well as instructions on how the receiver of the Invoice Response is expected to react to the Invoice Response message.  This information is given in the following hierarchy:  * Invoice processing status (of the invoice receiver).          * Status clarification (Status reason and/or Status action)                Each Invoice Response may only reference one invoice and that invoice can only have one status at a time. If the status of that Invoice changes the respective change must be reported with another Invoice Response.  The status clarification for the given status can be of either or both of two types - reason of that status and/or action expected by Seller. The purpose of this is to help Seller to understand the status and to resolve it in the correct way.  As example if an invoice is rejected it will be represented as status code RE (Rejected) in the Invoice Response. For clarification, the Invoice Response would then state why it is rejected and there may be more than one reason. The clarification may further give the instructions regarding actions expected from the Seller, for example to cancel the Invoice with a Credit Note and issue a new corrective Invoice.  To assist with resolution the Buyer might want to provide instructions on what is the correct data.  UBL example where TAX is VAT:  ``` <cac:DocumentResponse>   <cac:Response>     <cbc:ResponseCode>RE</cbc:ResponseCode> (1)     <cbc:EffectiveDate>2016-10-25</cbc:EffectiveDate>        <cac:Status>         <cbc:StatusReasonCode listID=\"OPStatusReason\">LEG</cbc:StatusReasonCode> (2)         <cbc:StatusReason>VAT Reference not found</cbc:StatusReason> (3)         <cac:Condition>           <cbc:AttributeID>BT-48</cbc:AttributeID> (4)           <cbc:Description>EU123456789</cbc:Description> (5)         </cac:Condition>       </cac:Status>        <cac:Status>         <cbc:StatusReasonCode listID=\"OPStatusAction\">CNF</cbc:StatusReasonCode> (6)         <cbc:StatusReason>Credit fully</cbc:StatusReason> (6)         </cac:Status>        <cac:Status>         <cbc:StatusReasonCode listID=\"OPStatusAction\">NIN</cbc:StatusReasonCode> (7)         <cbc:StatusReason>Issue new invoice</cbc:StatusReason> (7)       </cac:Status>   </cac:Response> </cac:DocumentResponse> ```     * 1: 2   * An invoice is rejected using the status code RE.: The reason code for this rejection is LEG indicating that the invoice does not fulfil legal requirements * 1: 3   * An invoice is rejected using the status code RE.: In text it is stated that the TAX reference is not found * 1: 4   * An invoice is rejected using the status code RE.: Further reference is given to the element BT-48 in the Invoice (Buyers TAX number) * 1: 5   * An invoice is rejected using the status code RE.: Expected value in BT-48 is EU123456789 * 1: 6   * An invoice is rejected using the status code RE.: The Buyer expects the Seller to issue a Credit Note that fully cancels the rejected Invoice * 1: 7   * An invoice is rejected using the status code RE.: The Buyer also expects the Seller to issue a new Invoice with corrected information."
+        },
+        {
+            "title": " 6.5. Document reference",
+            "text": "Used to provide a reference to the business document e.g. the invoice or credit note, to which the Invoice Response is is responding.    The type of the business document must also be included in the document reference element. Document Type Code is coded according to code list 1001 issued by UN/CEFACT.  See chapter [Code list section](https://docs.peppol.eu/poacc/upgrade-3/codelist/) for a complete list of all the document types.  UBL example:  ``` <cac:DocumentReference>   <cbc:ID>inv021</cbc:ID> (1)   <cbc:IssueDate>2017-11-30</cbc:IssueDate> (2)   <cbc:DocumentTypeCode>380</cbc:DocumentTypeCode> (3) </cac:DocumentReference> ```  * 1: 2   * Value from the ID element in the invoice for which this response is valid, found in element cbc:ID in the received invoice: The issue date of the invoice for which this response is valid, found in element cbc:IssueDate in the received invoice * 1: 3   * Value from the ID element in the invoice for which this response is valid, found in element cbc:ID in the received invoice: The invoice type in the invoice for which this response is valid, found in element cbc:DocumentTypeCode in the received invoice  "
+        },
+        {
+            "title": "Peppol Identifiers",
+            "text": "----------------------------------------------  Peppol has defined a [Peppol Policy for identifiers, policy 8](https://peppol.eu/downloads/the-peppol-edelivery-network-specifications/) that specifies how to use identifiers in both its transport infrastructure and within the documents exchanged across that infrastructure. It also introduces principles for any identifiers used in the Peppol environment. The policies that apply to this BIS are the following:"
+        },
+        {
+            "title": " 7.1. Profiles and messages",
+            "text": "All messages contains ProfileID and CustomizationID. ProfileID identifies what business process a given message is part of, and CustomizationID identifies the kind of message and the rules applied.  Profiles are connected to one business process, and may contain multiple document types. Valid document instances shall contain corresponding ProfileID and CustomizationID."
+        },
+        {
+            "title": " 7.2. Customization and Profile identifiers",
+            "text": "In the table below you will find the values to be used as the specification identifier and the business process type for this profile   * Type: Invoice message response (Trns111)   * Element cbc:CustomizationID: urn:fdc:peppol.eu:poacc:trns:invoice_response:3   * Element cbc:ProfileID: urn:fdc:peppol.eu:poacc:bis:invoice_response:3   "
+        },
+        {
+            "title": " 7.3. Namespaces",
+            "text": "The message level response data model is in this Peppol BIS bound to the [UBL Application Response 2.1](http://docs.oasis-open.org/ubl/os-UBL-2.1/xsd/maindoc/UBL-ApplicationResponse-2.1.xsd). The target namespace for the UBL-ApplicationResponse-2.1 is:  `urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2`"
+        },
+        {
+            "title": "C1.1 - SAP Notes with manual activities",
+            "text": "C1.1 - SAP Notes with manual activities: During the installation of the Document and Reporting Compliance Framework, you will be required to create and execute several reports along the Document and Reporting Compliance Framework implementation, usually as the format 'NOTE_2403666'. Make sure that these reports are always executed with the options 'Update and Activate' and/or 'Generate Maintenance Dialog'. Also ensure that there is no red warning in the execution's log."
+        },
+        {
+            "title": "C1.2 - Warnings 'Object already exists and will be overwritten'",
+            "text": "C1.2 - Warnings 'Object already exists and will be overwritten': These warnings are only to remember that the objects that the SAP Note is changing already exist in your system and they will be modified with the new instruction delivered in the SAP Note that you are applying. Follow the instructions of the SAP Note taking over all objects, also the ones indicated in yellow to overwrite the existing objects."
+        },
+        {
+            "title": "C1.3 - Error 'Changes to LEDOT2U19 are forbidden by SAP'",
+            "text": "C1.3 - Error 'Changes to LEDOT2U19 are forbidden by SAP': Follow the instructions described in the SAP Note 1921937 (Implementing SAP Note is not allowed) to fix this problem."
+        },
+        {
+            "title": "C1.4 - Error 'New creation impossible, since INTF IF_EDOC_INTERFACE_CONNECTOR cannot be created'",
+            "text": "C1.4 - Error 'New creation impossible, since INTF IF_EDOC_INTERFACE_CONNECTOR cannot be created': The error SCWN363 happens during the implementation of SAP Note 2122429 (Electronic Document Processing Framework 7). The SAP Note 1287384 (SNOTE Source of component cannot be changed) addresses the problem. Implement this SAP Note in your system, and then implement the SAP Note 2122429 (Electronic Document Processing Framework 7) again."
+        },
+        {
+            "title": "C1.5 - Dump 'The specified type (\"EDOCUMENT-.INCLU--AP\") is not a valid data type'",
+            "text": "C1.5 - Dump 'The specified type (\"EDOCUMENT-.INCLU--AP\") is not a valid data type': Create an entry in the table view EDOEXCLFIELDV via transaction SM30. Add a new entry with 'EDOCUMENT' table name and '.INCLU--AP' field name. The dump should no longer occur once you saved the new entry."
+        },
+        {
+            "title": "C1.6 - Missing SPRO IMG entries after SAP Note implementation",
+            "text": "C1.6 - Missing SPRO IMG entries after SAP Note implementation: The nodes and menu entries of the SPRO IMG are delivered only via Support Package upgrades and TCI installations. The manual instructions of eDocument customizing mention the customizing view names which you can access using SM30 transaction."
+        },
+        {
+            "title": "C1.7 - Error 'You are trying to use screen 0000 in program SAPLEDOT. This screen does not exist'",
+            "text": "C1.7 - Error 'You are trying to use screen 0000 in program SAPLEDOT. This screen does not exist': This dump occurs when you try to access the table view T003EDOCV. To solve this issue, delete the overview screen of table view T003EDOCV, then recreate the same table view following the instructions from SAP Note 2472173 (Data in view T003EDOCV cannot be displayed nor maintained)."
+        },
+        {
+            "title": "C1.8 - Table view EDOFACTORYV is unknown or does not exist",
+            "text": "C1.8 - Table view EDOFACTORYV is unknown or does not exist: This table view is created by the SAP Note 2427168 (Electronic Document Processing Framework 13) and its prerequisite, the SAP Note 2446369 (Prerequisite objects for SAP Note 2427168). Review the manual steps of the SAP Note 2427168 (Electronic Document Processing Framework 13). Note that you need to run the program NOTE_2446369 in transaction SE38 with some options. Review this step too."
+        },
+        {
+            "title": "C1.9 - Error 'Method ARCHIVE_FILE is not declared or inherited in class CL_EDOC_MESSAGE'",
+            "text": "C1.9 - Error 'Method ARCHIVE_FILE is not declared or inherited in class CL_EDOC_MESSAGE': Check if the SAP Note 2280985 (eDocument Inbound Message Handler) is correctly applied in your system including the manual steps. This SAP Note is a prerequisite of SAP Note 2386606 (Electronic Document Processing Framework 12), and it adds the content to CL_EDOC_MESSAGE and ARCHIVE_FILE objects."
+        },
+        {
+            "title": "C1.10 - Error 'RPY_TEXTELEMENTS_INSERT is called, but cannot be found in its function group'",
+            "text": "C1.10 - Error 'RPY_TEXTELEMENTS_INSERT is called, but cannot be found in its function group': This issue is caused because of the SAP_BASIS version of your system is too old. This dump may happen during the implementation of the SAP Notes 2403666 (Prerequisite objects for SAP Note 2386606 / NOTE_2403666), 2386606 (Electronic Document Processing Framework 12) and 2421831 (Prerequisite objects for SAP Note 2215021 / NOTE_2421831). As it is described in the SAP Note 1842889 (Cleanup of function group SIFP), you should upgrade the Support Package to SAPKB70114 version. If that is not applicable, modify the code of the UDO report as shown below. The report should work after the modification without errors. Replace the CALL FUNCTION 'RPY_TEXTELEMENTS_INSERT' by: INSERT TEXTPOOL i_progname FROM lt_textpool LANGUAGE i_langu. MESSAGE i666(01) WITH 'Update successful for program text' i_key INTO sy-lisel. CALL METHOD log_message. ENDMETHOD. (...)"
+        },
+        {
+            "title": "C1.11 - The data object does not have a component called 'EDOCUMENT_CLASS'",
+            "text": "C1.11 - The data object does not have a component called 'EDOCUMENT_CLASS': Check if the SAP Notes 2427168 (Electronic Document Processing Framework 13) and 2446369 (Prerequisite objects for SAP Note 2427168) are correctly implemented in your system."
+        },
+        {
+            "title": "C1.12 - ZEDOAIFIDXREQ ZEDOAIFIDXRES is not defined or does not exist",
+            "text": "C1.12 - ZEDOAIFIDXREQ ZEDOAIFIDXRES is not defined or does not exist: Refer to SAP Note 2027186 (Electronic Document Processing AIF Setup) in order to create these tables."
+        },
+        {
+            "title": "C1.13 - Error 'The field GO_EDOC_DPP is unknown'",
+            "text": "C1.13 - Error 'The field GO_EDOC_DPP is unknown': Implement the SAP Note 2587421 (Adjustments in mapping based on Framework 17) to solve this issue."
+        },
+        {
+            "title": "C1.14 - Syntax error in CL_EDOC_MESSAGE_CL method ARCHIVE_FILE",
+            "text": "C1.14 - Syntax error in CL_EDOC_MESSAGE_CL method ARCHIVE_FILE: The complete error is 'LV_ARCHIVE_PATH_PHYSICAL is not type-compatible with formal parameter IV_ARCHIVE_PATH_PHYSICAL'. Read and install the last version of the SAP Note 2609565 (File Name Field Extension)."
+        },
+        {
+            "title": "C1.15 - Error TK103 'This syntax cannot be used for an object name' in NOTE_2601568",
+            "text": "C1.15 - Error TK103 'This syntax cannot be used for an object name' in NOTE_2601568: This error is shown during the installation of the SAP Note 2601568 (Prerequisite objects for SAP Note 2550216). The program NOTE_2601568 tries to create documentation for archiving object EDOCUMENT, but the activation step in the UDO ends with the error 'Activation was skipped'. The issue is solved with SAP Note 2122977 (Archiving object documentation as system documentation)."
+        },
+        {
+            "title": "C1.16 - Table LRM_T_OT_STT_TO does not exist",
+            "text": "C1.16 - Table LRM_T_OT_STT_TO does not exist: The table LRM_T_OT_STT_TO belongs to package S_LRM_OBJ_CAT_INDEPENDENT and it is delivered via support package 11 of SAP_BASIS 702. To solve this issue, you need to upgrade the SAP_BASIS support package to 11. In case you need to clarify this situation, open a new case using the component BC-ILM-IRM, which is the area responsible for the package S_LRM_OBJ_CAT_INDEPENDENT."
+        },
+        {
+            "title": "C1.17 - Parameter IV_VSI_PROFILE does not exist",
+            "text": "C1.17 - Parameter IV_VSI_PROFILE does not exist: Reinstall the SAP Note 2656570 (Electronic Document Processing Framework 20). Remember to read the content of the SAP Note in order to confirm if there are prerequisites and manual steps."
+        },
+        {
+            "title": "C1.18 - Error 'Method CLASS_CONSTRUCTOR is not declared or inherited in class CL_IM_EI_EDOCUMENT_GI_POSTING'",
+            "text": "C1.18 - Error 'Method CLASS_CONSTRUCTOR is not declared or inherited in class CL_IM_EI_EDOCUMENT_GI_POSTING': To solve this issue, read and install SAP Note 2697811 (eDocument for Shipment Reverse Goods Issue Posting). Notice that SAP Note 2606280 (Electronic Document Processing Framework 19) is a prerequisite of SAP Note 2697811 (eDocument for Shipment Reverse Goods Issue Posting). All manual steps and prerequisites need to be correctly implemented."
+        },
+        {
+            "title": "C1.19 - Texts are not created via SAP Note 2293306 and program NOTE_2293306_POST_IMPL",
+            "text": "C1.19 - Texts are not created via SAP Note 2293306 and program NOTE_2293306_POST_IMPL: It is possible that the user which executed the program did not have enough authorization. Remove the SAP Note 2293306 (eDocument Cockpit) and reimplement it again. And if the same problem happens again with the post implementation steps, use transaction SU53 to display failed authorization checks."
+        },
+        {
+            "title": "C1.20 - Error 'Could not add object to transport request' when running a report",
+            "text": "C1.20 - Error 'Could not add object to transport request' when running a report: Verify if the user which is implementing the referred report has the necessary authorization to execute reports. To test this solution with a new user, it is recommended to remove the SAP Note which delivers this report completely and reimplement it, executing the report in a new and clean transport request."
+        },
+        {
+            "title": "C1.21 - Error 'No BC Set found' (SCPR398) when uploading BCSet",
+            "text": "C1.21 - Error 'No BC Set found' (SCPR398) when uploading BCSet: Read the instructions contained in the SAP Note 2469513 (SCPR398 No BC Set found error when uploading BC Set)."
+        },
+        {
+            "title": "C1.22 - Error 'Filter GENERIC_FILTER must be specified for BADI EDOC_PARTNER_CONNECTOR in method PROCESS_SEND_TO_CUSTOMER'",
+            "text": "C1.22 - Error 'Filter GENERIC_FILTER must be specified for BAdI EDOC_PARTNER_CONNECTOR in method PROCESS_SEND_TO_CUSTOMER': Read the instructions contained in the SAP Note 2710859 (GENERIC_FILTER must be specified for BAdI EDOC_PARTNER_CONNECTOR)."
+        },
+        {
+            "title": "C1.23 - Syntax errors when executing UDO report with object AO EDOCUMENT",
+            "text": "C1.23 - Syntax errors when executing UDO report with object AO EDOCUMENT: Read the SAP Note 2641523 (Syntax/Activation error with object AO EDOCUMENT) to continue your implementation with the workaround for the missing archiving object."
+        },
+        {
+            "title": "C1.24 - Dump DYNPRO_NOT_FOUND when maintaining table view T003EDOCV (You are trying to use screen 0000 in program SAPLEDOT)",
+            "text": "C1.24 - Dump DYNPRO_NOT_FOUND when maintaining table view T003EDOCV (You are trying to use screen 0000 in program SAPLEDOT): Follow the instructions provided in the SAP Note 2528570 (Dump with table view T003EDOCV Screen 0000 in program SAPLEDOT)."
+        },
+        {
+            "title": "C1.25 - Error 'Type EDOC_S_DATE_TAB is unknown'",
+            "text": "C1.25 - Error 'Type EDOC_S_DATE_TAB is unknown': The object EDOC_S_DATE_TAB is delivered by following the SAP Note 2754874 (Prerequisites for SAP Note 2751933) and SAP Note 2751933 (Inbound Message Handler Improvements). To solve this issue, read and correctly execute the manual pre and post implementation steps and the prerequisite SAP Notes."
+        },
+        {
+            "title": "C1.26 - Error 'When you redefine a method, you cannot change its visibility( PUBLIC,PROTECTED )'",
+            "text": "C1.26 - Error 'When you redefine a method, you cannot change its visibility( PUBLIC,PROTECTED )': To solve this problem, go to transaction SE24 with each subclass which need to be cleaned. From the menu options, select Utilities > Clean Up > Redefinitions."
+        },
+        {
+            "title": "C1.27 - Error 'Edit objects separately since they belong to different original systems' (TK112)",
+            "text": "C1.27 - Error 'Edit objects separately since they belong to different original systems' (TK112): The similar message 'Edit objects separately since they cannot be transported together' (TK113) is also shown. The resolution for this problem is described in the SAP Note 1904147 (Edit the two objects separately)."
+        },
+        {
+            "title": "C1.28 - Error 'CA-GTF-CSC-EDO does not exist' (PAK088)",
+            "text": "C1.28 - Error 'CA-GTF-CSC-EDO does not exist' (PAK088): Usually this error is shown during the installation of SAP Note 2837208 (eDoc Kazakhstan Material Movement Document DDIC Changes and UDO Report), or during the manual instructions related to package GLO-EDO-KZ. You can use the package GLO-EDO as reference and use CA-GTF-CSC instead. Using CA-GTF-CSC you should be able to proceed with the implementation of the SAP Note 2837208."
+        },
+        {
+            "title": "C1.29 - Errors 'TOBJ  Screen number is already assigned' and 'TOBJ  Table/view  generation errors'",
+            "text": "C1.29 - Errors 'TOBJ  Screen number is already assigned' and 'TOBJ  Table/view  generation errors': In case you see these errors when performing the manual activity steps of an SAP Note, open an case in component BC-CUS-TOL-TME. Remember to include the screenshots of the errors and the SAP Note number that you are trying to install."
+        },
+        {
+            "title": "C1.30 - Issues in BadI EDOC_ADAPTOR implementation due to unavailability of parameter IS_ADDITIONAL_INFO",
+            "text": "C1.30 - Issues in BadI EDOC_ADAPTOR implementation due to unavailability of parameter IS_ADDITIONAL_INFO: Implement SAP Note 2777017 which provides a new parameter for additional mapping information and review your BAdI implementation to make any necessary adjustments."
+        },
+        {
+            "title": "C1.31 - Error 'Field STATUS_EDOT156V-UPD_FLAG is unknown' in VIEWFRAME_EDOT156V while executing program NOTE_2828767",
+            "text": "C1.31 - Error 'Field STATUS_EDOT156V-UPD_FLAG is unknown' in VIEWFRAME_EDOT156V while executing program NOTE_2828767: To solve this error, install the last version of the SAP Note 2866639 (Correction for program NOTE_2828767). Remember to read the content of the SAP Note to confirm if there are prerequisites and manual steps to be performed during the installation of it. After that, execute the program NOTE_2828767 with all three steps, and the maintenance view EDOT156V should be generated correctly."
+        },
+        {
+            "title": "C1.32 - Error 'Correction instruction format  unknown; correction instruction not readable' (SCWN409) when installing SAP Notes of Electronic Document Processing",
+            "text": "C1.32 - Error 'Correction instruction format  unknown; correction instruction not readable' (SCWN409) when installing SAP Notes of Electronic Document Processing: This is not an error in the SAP Note of Electronic Document Processing, but a problem in the transaction SNOTE (Note Assistant). To solve this problem, install the SAP Note 3006946 (Error SCWN 409 is displayed during SAP Note implementation when it contains MESS/MSAD object). Remember to read the content of the SAP Note in order to confirm if there are prerequisites, and because there are manual steps."
+        },
+        {
+            "title": "C1.33 - Errors 'Source Code of the class is incomplete' and 'Implementation missing for method MAP_DATA. MAP_DATA.'",
+            "text": "C1.33 - Errors 'Source Code of the class is incomplete' and 'Implementation missing for method MAP_DATA. MAP_DATA.': This problem is shown during the manual instructions of SAP Notes. To solve it, try and navigate to the public section (menu Goto > Sections > Public Section) and then activate the class from there. If the problem remains, try to continue with the manual steps of the SAP Note without trying to activate the class in that step that the error was displayed to you. After performing the rest of the following manual steps of the SAP Note, then you activate the class."
+        },
+        {
+            "title": "C1.34 - Proxy objects are missing in the SOAMANAGER web service editor",
+            "text": "C1.34 - Proxy objects are missing in the SOAMANAGER web service editor: This inconsistency can happen during an installation or update of any country-solution that deploys Proxy objects. Even though the objects were installed in the ERP system, appear as active ABAP objects in t-code SE11 and as Service Consumer in the Proxy Editor, the same proxies are not replicated at the SOAMANAGER end. Orientation for your BASIS team is to refer to the KBA 2772510 - \"Proxy objects not found in SOAMANAGER\", and to check and activate the consumer objects that are missing in SOAMANAGER using Transaction \"SPROXY_START\" in change mode. After that, start SOAMANAGER and check the availability of the missing proxies."
+        },
+        {
+            "title": "C1.35 - Error 'Test Classes  / Seam  does not exist'",
+            "text": "C1.35 - Error 'Test Classes  / Seam  does not exist': To solve this situation, it is necessary to delete the Test Class, as it is only relevant for SAP's internal tests. Go to transaction SE24, fill the name of the affected class to change/edit it. Then, select the menu Utilities > Test Class > Delete Activate."
+        },
+        {
+            "title": "C1.36 - SAP Note with implementation status 'Cannot be implemented' in SNOTE",
+            "text": "C1.36 - SAP Note with implementation status 'Cannot be implemented' in SNOTE: Most SAP Notes can be installed via transaction SNOTE, but part of them only have manual steps to be executed on the system, without the need for installation via SNOTE. Also, there is also the possibility that the code of an SAP Note is already present on the system because that code came via SP (Support Package) upgrade. So even if an SAP Note can be installed via SNOTE, some SAP Notes may not be valid for the version of the system, since the code is already present in your system's SP version. For both cases, we always suggest users to read the content of the SAP Note before attempting to install via SNOTE. And even if the code is already present on the system via SP upgrade, we suggest to read and follow the manual steps and attachments. If you have doubts or other errors inside the transaction SNOTE or during the SAP Notes installation, open an case using the component BC-UPG-NA."
+        },
+        {
+            "title": "C1.37 - Error 'Format of correction instructions  ; unable to read corr. instruct.' while installing an SAP Note",
+            "text": "C1.37 - Error 'Format of correction instructions  ; unable to read corr. instruct.' while installing an SAP Note: This is an error in the Note Assistant program and not necessarily a problem in the SAP Note of Electronic Document Processing. To solve this situation, install first the SAP Note 3006946 (Error SCWN 409 when it contains MESS/SMAD object). Remember to read the content of the SAP Note to confirm if there are prerequisites and manual steps to be performed during the installation of it. If you have doubts or other errors inside the transaction SNOTE or during the SAP Notes installation, you need to open an case using the component BC-UPG-NA, which is from the Note Assistant area."
+        },
+        {
+            "title": "C1.38 - Error 'Method CHECK_MAX_FILE_SIZE is unknown or PROTECTED or PRIVATE'",
+            "text": "C1.38 - Error 'Method CHECK_MAX_FILE_SIZE is unknown or PROTECTED or PRIVATE': This method is created via SAP Note 2927542 (eDoc Framework 25). It also suggested to install SAP Note 2869996 (eDoc Inbound Message Handler Improvements) too. Remember to read the content of the SAP Notes to confirm if there are prerequisites and manual steps to be performed during the installation of them."
+        },
+        {
+            "title": "C1.39 - Syntax error in the function module EDOC_MAIN_SCREEN_DISPL_INITIAL with message 'The field GO_COCKPIT_UI is unknown'",
+            "text": "C1.39 - Syntax error in the function module EDOC_MAIN_SCREEN_DISPL_INITIAL with message 'The field GO_COCKPIT_UI is unknown': To fix this issue, review the manual steps as stated in the topic Solution from SAP 3005076 (eDoc Framework 27). Then, install SAP Note 3005076 guaranteeing that all objects are marked to be copied in the current implementation. This action should overwrite previous objects with the new implementation required for this SAP Note, the existing objects depicted in yellow shall be overwritten. Also, confirm that latest version of following SAP Note 3085447 (Class Deletion Issue While De-implementing the SAP Note) is correctly implemented to avoid class objects getting deleted while de-implementing your SAP Notes."
+        },
+        {
+            "title": "C1.40 - Error 'The field EDOCOMPPROCCOMV_EXTRACT is unknown' while installing SAP Note 2927542",
+            "text": "C1.40 - Error 'The field EDOCOMPPROCCOMV_EXTRACT is unknown' while installing SAP Note 2927542: This message is caused due to the maintenance view EDOCOMPPROCCOMV delivered via SAP Note 2976732 (Prerequisites for SAP Note 2927542). Check if this SAP Note is correctly installed and, as informed in the manual steps from SAP Note 2927542 (Electronic Document Processing Framework 25), check if the report NOTE_2976732 was executed without errors. As shown in the report, you need to select the Step 3 (Generate Maintenance Dialogs). If you see missing authorization errors in the logs of this report, contact your Basis Netweaver area and follow the instructions from SAP Note 2328941 (You have no change authorization). After these steps, you need to reimplement SAP Note 2927542."
+        },
+        {
+            "title": "C1.41 - Package to be selected on post-implementation step 2 of SAP Note 3017310",
+            "text": "C1.41 - Package to be selected on post-implementation step 2 of SAP Note 3017310: Package 'GLO-EDO'."
+        },
+        {
+            "title": "C1.42 - Syntax error \"The table/structure EDOINTDRCATTDETV is unknown.\" after a system upgrade",
+            "text": "C1.42 - Syntax error \"The table/structure EDOINTDRCATTDETV is unknown.\" after a system upgrade: This error occurs due to a missing regeneration of function group EDOT4. To resolve this issue: Go to Transaction code SE54. Navigate to edit Function Group and select EDOT4. Select the radio button Regenerate Group-specific programs and click on Change. Check the following checkboxes and press enter: 2nd - Update structure-specific data declare 4th - Update general data declaration  "
+        },
+        {
+            "title": "C1.43 - Missing value EDOC_EU_OAUTH during the configuration of an OAuth 2.0 Client.",
+            "text": "C1.43 - Missing value EDOC_EU_OAUTH during the configuration of an OAuth 2.0 Client.: Solution: Implement SAP Note 3289969 and perform additional manual tasks."
+        },
+        {
+            "title": "C1.44 - Error 'Process  can only be used with Cloud Edition: Standard Integration' or Error message 'Select \"Cloud Edition: Standard Integration\" as communication service' in Application log",
+            "text": "C1.44 - Error 'Process  can only be used with Cloud Edition: Standard Integration' or Error message 'Select \"Cloud Edition: Standard Integration\" as communication service' in Application log: This error occurs due to missing implementation of the SAP Note 3499356. Review your implementation according to the overview 2134248."
+        },
+        {
+            "title": "C1.45 - Error 'BC Set contains internal errors and cannot be saved' upon uploading a BC Set",
+            "text": "C1.45 - Error 'BC Set contains internal errors and cannot be saved' upon uploading a BC Set: Make sure that the BC Set is being uploaded in Expert Mode. KBA 3140493 - SCPR20 | How to activate a BC Set in expert mode - SAP for Me highlights how to perform this action."
+        },
+        {
+            "title": "C1.46 - Error 'Process step is not defined for interface; Check EDOPROCSTEPDETV view (Message no. EDOCUMENT187)'",
+            "text": "C1.46 - Error 'Process step is not defined for interface; Check EDOPROCSTEPDETV view (Message no. EDOCUMENT187)': This error is usually related to missing customization of the \"Group\" column in entries \"/AIF/IFKEYS\" and \"/AIF/ADMIN\" in the \"ZEDOAIFIDXREQ\" table. Review your customization according to the manual activities mentioned in SAP Note 2027186."
+        },
+        {
+            "title": "C1.47 - Error 'The ABAP dictionary structure or table \"EDOPROCSTEPDET1V\" is either not active or does not exist'",
+            "text": "C1.47 - Error 'The ABAP dictionary structure or table \"EDOPROCSTEPDET1V\" is either not active or does not exist': This error is indicates that the SAP note 3480585 - Corrections for Electronic Document Processing Framework (35) is wrongfully implemented. Check for any pre-requisites or missing manual steps."
+        },
+        {
+            "title": "C1.48 - Error 'The data type EDOAIFMSG is unknown' in method TRIGGER_DRCC",
+            "text": "C1.48 - Error 'The data type EDOAIFMSG is unknown' in method TRIGGER_DRCC: This error is normally caused by wrong implementation or missing SAP note 2847920 - eDocument: AIF Prerequisites for SAP Note 2790131, make sure all pre requisites and manual steps have been executed properly."
+        },
+        {
+            "title": "C1.49 - Error 'INCLUDE report 'LEDOT_EXTT00' not found', when trying to implement SAP Note 3403461",
+            "text": "C1.49 - Error 'INCLUDE report 'LEDOT_EXTT00' not found', when trying to implement SAP Note 3403461: This error could occur due to missing manual steps from SAP Note 3442327, which is a prerequisite to SAP Note 3403461. Ensure that step 3 of the report NOTE_3442327 was generated successfully."
+        },
+        {
+            "title": "C1.50 - Dump DDIC_COMPTYPE_INCONSISTENT (Inconsistent type properties of field \"PROCDESC\" of structure \"EDOPROCESST\".)",
+            "text": "C1.50 - Dump DDIC_COMPTYPE_INCONSISTENT (Inconsistent type properties of field \"PROCDESC\" of structure \"EDOPROCESST\".): This issue has arisen due to changes implemented by SAP Note 3385792, which altered the domain of EDOC_PROCDESC from TEXT30 to TEXT60. To address this issue, follow the guidance in KBA 3300154 (related to the DDIC_COMPTYPE_INCONSISTENT dump). If the error persists after that, open a case in the component BC-DWB-DIC."
+        },
+        {
+            "title": "C1.51 - While implementing SAP Note 3284133 error is raised for object METH IF_EDOC_INCOM_DATA DETERMINE_SOLUTION",
+            "text": "C1.51 - While implementing SAP Note 3284133 error is raised for object METH IF_EDOC_INCOM_DATA DETERMINE_SOLUTION: To resolve this follow the steps described in KBA 3322228 - Error: Object cannot be created again. Object <object name> missing."
+        },
+        {
+            "title": "C1.52 - Error Field \"EDOINTDRCATTDETV\" is unknown",
+            "text": "C1.52 - Error Field \"EDOINTDRCATTDETV\" is unknown: Implement SAP note 3385792 - Electronic Document Processing: Prerequisites for SAP Note 3389496 and Run UDO Report NOTE_3385792 which will be delivered as per correction Instruction to fix the issue."
+        },
+        {
+            "title": "C1.53 - Error 'The language of the interface differs from that of the program' upon installing a SAP Note",
+            "text": "C1.53 - Error 'The language of the interface differs from that of the program' upon installing a SAP Note: This error is thrown due to the language of the delivered object being different than the expected value in table 'TADIR'. To solve the error, you need to run report 'RUDUTI53' for the affected objects. Check KBA 3554744 - Error when implementing SAP Note 3239482 due to master language - SAP for Me to understand how to do so. NOTE: Field 'MASTERLANG' may have name 'Original Language' in the table view."
+        },
+        {
+            "title": "C2.1 - Content delivered by TCI implementation",
+            "text": "C2.1 - Content delivered by TCI implementation:TCI installs the content of all SAP Notes of the Electronic Document Processing Framework 1 to 32. You need to manually install the SAP Notes created after Framework 32 as per the Installation Guide on SAP Note2134248. If you did not install the TCI, you need to install all notes manually."
+        },
+        {
+            "title": "C2.2 - Error 'Type IF_DCS_INTERFACE_CONNECTOR is unknown'",
+            "text": "C2.2 - Error 'Type IF_DCS_INTERFACE_CONNECTOR is unknown':As informed in the content of TCI SAP Note3278685(Transport based Correction Instructions (TCI) for the Electronic Document Processing Framework), there is the explanation in the prerequisites text 'Implement the following SAP Notes before the TCI is installed. All SAP Notes contain manual activities: SAP Note2451604(Exclude customers or vendors flagged for deletion); SAP Note2822188(Integrate Document and Reporting Compliance Service with SAP ECC or SAP S/4HANA). The missing interface IF_DCS_INTERFACE_CONNECTOR is delivered via SAP Note2822188and its prerequisites. This SAP Note is informed in the prerequisites from TCI SAP Note3278685. Even if DCS will not be used, it is necessary to read and install all prerequisites of the SAP Notes and TCIs."
+        },
+        {
+            "title": "C2.3 - Error 'R3TRTABLEDOEXCLFIELDV not found. The object will NOT be deleted in the target system'",
+            "text": "C2.3 - Error 'R3TRTABLEDOEXCLFIELDV not found. The object will NOT be deleted in the target system':In order to solve this situation, follow the manual instructions in the content of the SAP Note2712568(Error CP_CREATE_BACKUP). You must read carefully these steps. If there is any problem or doubt in this process, it is necessary to open an case using the component BC-UPG-OCS-SPA (Support Package tools for ABAP)."
+        },
+        {
+            "title": "C2.3 - While following the manual instructions from SAP Note3001923, system throws error \"EDOPROCSTEPVAR is not active\"",
+            "text": "C2.3 - While following the manual instructions from SAP Note3001923, system throws error \"EDOPROCSTEPVAR is not active\":Read and implement SAP Note2217515, the table EDOPROCSTEPVARwill be created with this."
+        },
+        {
+            "title": "C2.4 - Which TCI note I should follow and implement for my system/release?",
+            "text": "C2.4 - Which TCI note I should follow and implement for my system/release?:In case the system is in SAP_APPL 605, follow SAP Note2968068. For allhigher releases, implement the TCI Note3278685."
+        },
+        {
+            "title": "C3.1 - Information 'You have only display authorization for namespace'",
+            "text": "C3.1 - Information 'You have only display authorization for namespace':Follow the instructions of the SAP Note2178382(Electronic Document Processing AIF namespace locked) to solve this issue. You may see this error for the namespaces /EDOIT, /EDSII and /EDOES. Avoid the usage of the placeholder '/ED*' with the asterisk. Instead, inform the complete namespace, such as '/EDOIT', for example."
+        },
+        {
+            "title": "C3.2 - BC Set error 'ZAIF_EDOC_GLO_ACTIONS_V01 ended with warnings'",
+            "text": "C3.2 - BC Set error 'ZAIF_EDOC_GLO_ACTIONS_V01 ended with warnings':This is a recurring error when the system has an implementation of AIF version 702 without Support Package. To solve it, follow the orientation from the content of SAP Note2010697(Electronic Document Processing AIF customizing) in the topic 'If you have implemented a release of AIF that lies outside the validity of this SAP Note'. A permanent solution for this error is to install the latest Support Package for AIF 702."
+        },
+        {
+            "title": "C3.3 - Error 'AIF global data not initialized properly, see FM EDOC_AIF_SET_GLOBAL_DATA'",
+            "text": "C3.3 - Error 'AIF global data not initialized properly, see FM EDOC_AIF_SET_GLOBAL_DATA':Review the manual instructions of the content and attachment of the SAP Note2324010(Electronic Document Processing AIF Setup 2)and install SAP Notes2847920(AIF Enhancements),2700218(Error flag not set when send to AIF not successful) and2790131(AIF Enhancements AIF Buffering)in case they are valid for your system version.Remember to read the content of the SAP Notes to confirm if there are prerequisites and manual steps to be performed during the installation of them. Furthermore, confirm that 'MV_EDOC_GUID' and 'MV_MSGID' have been defined as 'STATIC' in the attributes of the BAdI implementation (e.g.: \"ZCL_EDOCUMENT_AIF_BADI'\"), in accordance to the instructions described in the PDF file attached to SAP Note2049259(Electronic Document Processing: AIF Mapping)."
+        },
+        {
+            "title": "C3.4 - Errors 'Application ID was changed(...)' or 'Application AIF is not defined'",
+            "text": "C3.4 - Errors 'Application ID was changed(...)' or 'Application AIF is not defined':These errors/AIF/UI006 and /AIF/UI008 may appear when triggering AIF or interface logs. Follow and apply the instructions described at SAP Note2588468(Errors /AIF/UI008 or /AIF/UI006) to solve it."
+        },
+        {
+            "title": "C3.5 - Error BACKUP_CREATION_ERROR in TCI installation",
+            "text": "C3.5 - Error BACKUP_CREATION_ERROR in TCI installation:When the installation of the TCI SAP Note2674158(TCI for Electronic Document Processing Framework 1 to 18) ends with BACKUP_CREATION_ERROR, install the SAP Note2569813(Error due to missing TADIR entries for TCI consolidation) to correct this problem.In addition, we recommend updating the version of SPAM to 070. If the error persists after that, open an case in the component BC-UPG-OCS."
+        },
+        {
+            "title": "C3.6 - Error 'The maintenance dialog for  is incomplete or not defined'",
+            "text": "C3.6 - Error 'The maintenance dialog for  is incomplete or not defined':Usually this is an error seen when the user is following the manual steps of an SAP Note. The transaction SM30 is for the Maintenance View editing. So, it is necessary to input the table view name ending with the letter V."
+        },
+        {
+            "title": "C3.7 - Error 'Software component AIF is not in the system'",
+            "text": "C3.7 - Error 'Software component AIF is not in the system':This error is shown during the installation of SAP Notes related to AIF customizing. The SAP Note usually has two different BCS files attached for the manual steps related to AIF, one of the BCS files is for EHP release (SAP_APPL) and the second one is for an S4 release (S4CORE). It is necessary to use the correct BCS file for your system version and you can identify the difference in the name of the files."
+        },
+        {
+            "title": "C3.8 - Warning 'Choose the key from the allowed namespace'",
+            "text": "C3.8 - Warning 'Choose the key from the allowed namespace':To solve the situation, you need to follow that customizing instructions in the table view, save and ignore the warning on the customer namespace. You can press enter when you get the warning while maintaining the table view and then proceed to save the changes."
+        },
+        {
+            "title": "C3.9 - Message 'Potentially unlicensed usage of AIF'",
+            "text": "C3.9 - Message 'Potentially unlicensed usage of AIF':Electronic Document Processing solution mainly uses AIF (Application Interface Framework) for the interface development and value/structure mapping to build the XML files and perform interface calls. This is performed via BC Sets to build the XML layouts, and post implementation customizing for fix values and mapping via transaction /n/AIF/CUST. The mentioned message is from AIF solution. It is suggested to check the content of the SAP Note2293938(License Check for SAP Application Interface Framework). If your system displays that message, check if your company (customer number which your installation belongs to) owns a valid license for SAP AIF. If so, ensure that the software component AIFGEN is installed at least in your development system, before the system restricts the AIF usage. If in the development system the AIFGEN component is installed, then it should conciliate with the major AIF-related activities made on development system as well, to affect the Electronic Document Processing country/region solutions. For software components, add-on topics and license issues the support team is via component BC-UPG-ADDON."
+        },
+        {
+            "title": "C3.10 - Error message 'Entry /EDO GENERIC_ACTION does not exist in /AIF/T_ACT (check entry)' during BC Set activation",
+            "text": "C3.10 - Error message 'Entry /EDO GENERIC_ACTION does not exist in /AIF/T_ACT (check entry)' during BC Set activation:This issue occurs due to missing AIF entries in the table view /AIF/T_ACT. To fix this issue, download the last version of the BC Set file attached to the SAP Note2010697(eDoc AIF Customizing) for SAP_APPL releases, or SAP Note2360094(eDoc AIF Customizing for SAP S/4HANA) for S/4HANA releases. Remember to activate the BC Set in Expert Mode."
+        },
+        {
+            "title": "C3.11 - Error 'No BC Set found in the file ZAIF_EDOC_GLO.BCS; see long text'",
+            "text": "C3.11 - Error 'No BC Set found in the file ZAIF_EDOC_GLO.BCS; see long text':This error is shown when installing SAP Note2010697(eDoc AIF Customizing). This SAP Note is only relevant if you have implemented AIF for the eDoc Framework as described in SAP Note2008183(eDoc Implementation of AIF), and this is informed in the content of the topic 'Reason and Prerequisites' from SAP Note2010697. The BC Set file ZAIF_EDOC_GLO.BCS is valid from component 'AIF 701 until unrestricted', and the SAP Note2008183is a prerequisite and you need to install for AIF in the minimum release 701. In case you followed these instructions and the issue remains, a second cause for that is missing authorization rights for transactions SCPR20 and /AIF/CUST, along with SM30 for table view inspection. For this problem, you need to contact your Basis Netweaver area to confirm that there is no issue with missing authorization when performing changes via transactions SCPR20, /AIF/CUST and SM30."
+        },
+        {
+            "title": "C3.12 - Error 'Check your database and value mapping indicator' (/AIF/VMAP_MESSAGES022)",
+            "text": "C3.12 - Error 'Check your database and value mapping indicator' (/AIF/VMAP_MESSAGES022'):Check the field 'Customizing or Master Data' related to the affected fix value or value mapping in the transaction /N/AIF/CUST. When opening this transaction, select 'Define Value Mappings' or 'Define Fix Values'. In the next screen, select the mapping entry related to the error message, then click on the button Details (magnifying glass icon). In the next screen, check the field 'Customizing or Master Data' and define it with \"customizing\" or \"Master Data\". Using the indicator Both is a legacy value mapping type, introduced in the very first version of AIF. If you choose Both, then at the runtime, value mapping function will first search Master data table, if it does not find anything, then it searches Customizing data table. In general, it is never recommended to use both values, and it is recommended to use Single or Multiple as the option of this field. And in casethis error is shown for a specific value mapping, review the activation of the BCS file related to this solution. For example, if you are seeing this message while installing the Electronic Document Processing Mexico solution, then you need to review the activation of the BCS files that are attached to the SAP Notes of AIF customizing listed in the content of the overview SAP Note for Electronic Document Processing Mexico. You should download and activate the last version of the BC Set using the expert mode to activate this BC Set, following the manual steps from the SAP Note that has this BCS file."
+        },
+        {
+            "title": "C3.13 - Error 'Trace level not defined' on the interface log",
+            "text": "C3.13 - Error 'Trace level not defined' on the interface log:This is a warning message comming from AIF related to error handling customization activities that are missing. For instructions review KBA1530212(SAP Application Interface Framework FAQ)."
+        },
+        {
+            "title": "C3.14 - The namespace  is not available in the view /AIF/T_NS",
+            "text": "C3.14 - The namespace  is not available in the view /AIF/T_NS:Namespaces are usually delivered in the initial BC Sets in AIF Customizing SAP Notes from each country-specific overview. Review your implementation and ensure that the BC Sets are uploaded and activated."
+        },
+        {
+            "title": "D1 - Error 'No authorization for selected company codes'",
+            "text": "D1 - Error 'No authorization for selected company codes':This error occurs due to missing authorization objects for eDocument Framework. To solve this issue, go to transaction SU22 and create the EDO_BUK entries for the company codes and EDO_PROC for process related authorizations for process."
+        },
+        {
+            "title": "D2 - Error 'Selection not possible; no active source types in view EDOCOMPANYACTIV'",
+            "text": "D2 - Error 'Selection not possible; no active source types in view EDOCOMPANYACTIV': occurs when accessing edoc_cockpit. To use the edoc_cockpit, authorization for the Company Codes is required, which is defined in the EDOCOMPANYACTIV table. To resolve this issue, complete the customizing steps outlined on the SAP Help Portal, specific to each country, particularly in the section 'Activating Source Type Documents for Company Code'."
+        },
+        {
+            "title": "D3 - Dump CL_EDOC_PROCESS EXECUTE_PROCSTEP_METHOD",
+            "text": "D3 - Dump CL_EDOC_PROCESS EXECUTE_PROCSTEP_METHOD:The dump CREATE_DATA_NOT_ALLOWED_TYPE CX_SY_CREATE_DATA_ERROR that happens in the method EXECUTE_PROCSTEP_METHOD of class CL_EDOC_PROCESS is solved implementing the SAP Note2498105(Dump in action cancel eDocument)."
+        },
+        {
+            "title": "D4 - Error 'Field symbol cannot be assigned' (/AIF/MES074)",
+            "text": "D4 - Error 'Field symbol cannot be assigned' (/AIF/MES074'):To solve this AIF error, install the last version of theSAP Note2402118(Error handling response of outbound proxies within AIF). If this issue is related to Electronic Document Processing Spain solution,check topic E1 from SAP Note2872857(Electronic Document Processing Spain Troubleshooting Guide)."
+        },
+        {
+            "title": "D5 - Proxy error 'ERROR_WEBSERVICE_RUNTIME_INIT No logical port EDO (...) exists for the proxy class (...)'",
+            "text": "D5 - Proxy error 'ERROR_WEBSERVICE_RUNTIME_INIT No logical port EDO (...) exists for the proxy class (...)':In order to solve this proxy error, follow the instructions described in the content of the SAP Note2804777(No logical port EDO exists for the proxy class)."
+        },
+        {
+            "title": "D6 - Errors '[ArtifactDeploymentFailed] All attempts of deployment of artifact failed' and 'Error converting plugin at (...)'",
+            "text": "D6 - Errors '[ArtifactDeploymentFailed] All attempts of deployment of artifact failed' and 'Error converting plugin at (...)':Since the artifact is in a failed state, you need to redeploy it. This should resolve the error. There was an issue with our content deployment mechanism, which was causing the some iFlows sometimes to be moved to failed state and therefore it stopped working. The root cause was identified, and a fix will be available in the next update."
+        },
+        {
+            "title": "D7 - Error 'Instance of process manager for eDocument has not been created'",
+            "text": "D7 - Error 'Instance of process manager for eDocument has not been created':Use the eDocument's Process Manager for the AIF XML solution. In order to do that, you need to install SAP Note2273379(Use Process Manager), and for Electronic Document Processing Italy you have also to install SAP Note2181282(Electronic Document Processing Italy Use Process Manager). Remember to follow their content to confirm if there are prerequisites and manual steps. After the implementation, test the same scenario again with new documents."
+        },
+        {
+            "title": "D8 - Cockpit button labels are blank in logon language different than English (EN)",
+            "text": "D8 - Cockpit button labels are blank in logon language different than English (EN):This problem happens because you are missing the button translations. Check the instructions from SAP Note2731171(Cockpit button labels are blank due to translations) to solve this error."
+        },
+        {
+            "title": "D9 - Error 'No Interface is defined for process step' shown in EDOC_INBOUND_MSG oreDoc Cockpit",
+            "text": "D9 - Error 'No Interface is defined for process step' shown in EDOC_INBOUND_MSG oreDoc Cockpit:This error EDOCUMENT034 happens due a missing SAP Note of Electronic Document Processing Framework. To solve this error, implement SAP Note2632601(Error No Interface is defined for process step)."
+        },
+        {
+            "title": "D10 - Dump TIME_OUT in class CL_OO_CLASS when accessingeDoc Cockpit",
+            "text": "D10 - Dump TIME_OUT in class CL_OO_CLASS when accessingeDoc Cockpit:Double check the installation of the Electronic Document Processing Framework solution on your system. Additionally, we recommend the implementation of the TCI for it. To install the Framework via TCI, customer needs to follow the instructions of topic 'Installation of TCI' of the attachment of SAP Note2134248(eDoc Framework Installation Overview)."
+        },
+        {
+            "title": "D11 - Different performance between users of the same system in eDoc Cockpit",
+            "text": "D11 - Different performance between users of the same system in eDoc Cockpit:Check the Default Selection variant for each user. If this variant contains a massive quantity of documents, it may result in performance issues. It is recommended to change the default variant for the affected user to solve this issue."
+        },
+        {
+            "title": "D12 - Message 'Error while inserting record into table EDOCUMENTHISTORY'",
+            "text": "D12 - Message 'Error while inserting record into table EDOCUMENTHISTORY':If there is an eDocument with a high volume of entries in the table EDOCUMENTHISTORY, the recommended action is to cancel the source document via transaction VF11 and create new document. This usually happens with jobs from EDOC_BACKGROUND, where the document is resent at each time interval and get an exception process status. If there is a job with this setup, exclude the eDocuments with such process statuses from the batch processing. Then, investigate the root cause for the negative response for these eDocuments and resubmit them manually in the Cockpit. The point is to avoid a loop where the eDocument is being resent by a job and the history hits the limit, which should not occur.There is no plan to extend the length of the table EDOCUMENTHISTORY, the correct action is to cancel the source document. To avoid this issue for your future eDocuments, please read and implement the following SAP Note3219041(Prevent overloading table EDOCUMENTHISTORY)."
+        },
+        {
+            "title": "D13 - Dump MASK_FIELDS_RESULT_LIST CX_SY_CONVERSION_NO_NUMBER CONVT_NO_NUMBER",
+            "text": "D13 - Dump MASK_FIELDS_RESULT_LIST CX_SY_CONVERSION_NO_NUMBER CONVT_NO_NUMBER:To solve this issue, read and install the SAP Note2757594(Dump for masked eDocuments). Remember to follow their content to confirm if there are prerequisites and manual steps. After the implementation, test the same scenario again."
+        },
+        {
+            "title": "D14 - Pop up asking for credentials/logon data (username and/or password) when submitting an eDocument in eDoc Cockpit",
+            "text": "D14 - Pop up asking for credentials/logon data (username and/or password) when submitting an eDocument in eDoc Cockpit:Usually this means that the Tax Authority rejected the username and/or password that is maintained for your country solution under the active SAP Cloud Platform tenant. From the SAP Cloud Platform Integration perspective, follow theCPI Security Material best practices and maintenanceandvalidate if the Security Material is affected by changes or upgrades, review expiration date, etc. From the Tax Authority perspective, review credentials used and if they follow the specifications from the CPI Setup Guide from your respective country solution, confirm if the credentials maintained uploaded to the security material area follow the Tax Authority specifications, try to use the username and password manually by logging in the tax authority web portal, it could be that the credentials expired or you need to renew the credentials and update the security material with the new username and/or password. Notice that during transport between system the credentials will also be transported, this means that during the refresh of a Quality system to Production the credentials will be taken to Production and the same issue can occur. If your system was recently refreshed, verify if the credentials are correct."
+        },
+        {
+            "title": "D15 - Message EDOCUMENT026 'Error Sending eDocument to the Customer' despite the sending being successful",
+            "text": "D15 - Message EDOCUMENT026 'Error Sending eDocument to the Customer' despite the sending being successful':This behavior happens due to the logic inside the method TRIGGER from BADI EDOC_PARTNER_CONNECTOR. This method handles the exporting parameter EV_SENT_OK and it should be accordingly set to ABAP_FALSE when there is an error. And in this case, most probably the parameter is not being set to ABAP_TRUE when the sending was successful. It causes the parameter to be returned as ABAP_FALSE and causes a mismatch to be returned on the application log. See the attached file named TOPIC_D17(...).TXT for reference on how the logic should look like."
+        },
+        {
+            "title": "D16 - Error EDOCUMENT185 'No file found for the selected eDocument; PDF cannot be generated'",
+            "text": "D16 - Error EDOCUMENT185 'No file found for the selected eDocument; PDF cannot be generated':This error happens when you try to display the PDF for an eDocument that has not yet a XML file saved for it. Refer to the File column in the eDoc Cockpit. The XML file is saved after the eDocument was successfully submitted to the tax authority. The statuses of files that are not saved yet are usually 'eDocument Created', or 'Sending Requested' or 'Sent to Interface'. A prerequisite is that you have created an output format for the eDocument type and have defined in Customizing for eDocuments which output form should be used to generate the PDF. Also, make sure that you have created an output format for the eDocument type and have defined in customizing for eDocuments, which output form should be used to generate the PDF (Specify Output Forms for PDF Generation Customizing activity)."
+        },
+        {
+            "title": "D17 - AIF message 'Recipient list not found for interface (...)' or 'Recipient list ALL (namespace) cannot be determined' in application or log",
+            "text": "D17 - AIF message 'Recipient list not found for interface (...)' or 'Recipient list ALL (namespace) cannot be determined' in application or log:This warning does not impact the communication process. It is an AIF functionality related to alerts for sysadmin roles. To solve this situation, maintain users to receive the AIF alerts in transaction /n/AIF/CUST. Go to System Configuration > Assign Recipients, select your country namespace (example '/EDOCO', '/EDOIT', '/EDHUI', etc) and select ALL for recipient for alert. Within the next view, you can either setup entries for specific users, in case only a few users need to be maintained in the system to receive an alert. Or if many users should be notified in case of an alert, setup a common role which all users (to be notified) own. To maintain a specific user, double click on the entry 'Assign Users' and specify a valid username who shall receive the alert. For maintaining the field message type, it is important to know which messages shall trigger an alert. If you only want to alert in case of errors, it is sufficient to select the empty entry (Application Error or Technical Error). If you want to alert for every message type, independently if it is a success or an error message, select 'I - Info'. Select also the check box for 'Include on Overview' and save the entry. And lastly, start the AIF customizing (/AIF/CUST) again and expand the node 'Error Handling'. Execute the activity 'Define Namespace Specific Features', select the country namespace as namespace and click on OK. In the left area, click on 'Configure Alerts'. For all entries, the field Namespace should be maintained with the namespace and not be empty. The view/AIF/V_ALRT_DEF must be configured for the respective Interface Type and Namespace used in the scenario. The lack of this configuration can also lead to the error above."
+        },
+        {
+            "title": "D18 - Error 'Source document comp.code  source type  source key  is locked'",
+            "text": "D18 - Error 'Source document comp.code  source type  source key  is locked':This issue is related to a conflict about the use of the related source document. Check if the eDocument is included in any processing job, for example via transaction EDOC_BACKGROUND, and also check if the source document is completely created."
+        },
+        {
+            "title": "D19 - Error EDOCUMENT037 / Email Billing Document  could not be sent' or Email Accounting Documentcould not be sent'",
+            "text": "D19 - Error EDOCUMENT037 / Email Billing Document  could not be sent' or Email Accounting Documentcould not be sent':Follow the instructions described in SAP Note2889792(Email could not be sent)."
+        },
+        {
+            "title": "D20 - Dump DYN_CALL_METH_PARAM_KIND CX_SY_DYN_CALL_ILLEGAL_TYPE",
+            "text": "D20 - Dump DYN_CALL_METH_PARAM_KIND CX_SY_DYN_CALL_ILLEGAL_TYPE:The input parameter results in this dump because there is a non-caught exception in the AIF's code (/AIF/SAPLFILE, /AIF/LFILEU35 and /AIF/SEND_WITH_PROXY_CORE). The description of the dump mentions 'Obligatory parameter not provided in dynamic method call'. This dump is corrected by SAP Notes2715680(Determine importing parameters for outbound message),2402118(Error handling response of outbound proxies within AIF) and2192131(Define Interfaces: raw structure must be same as proxy methods structure). In transaction SNOTE, remember to confirm if there are prerequisites SAP Notes to be installed before these two SAP Notes.In case you have additional questions regarding the mentioned SAP Notes, please open an case under the component CA-GTF-AIF."
+        },
+        {
+            "title": "D21 - EDOC_COCKPIT missing action buttons (Display, Submit, More, Get status, Go to, Help)",
+            "text": "D21 - EDOC_COCKPIT missing action buttons (Display, Submit, More, Get status, Go to, Help):This issue can happen due to previous manual changes in the table view EDOPROCFUNCASGV. To solve it, access this table view and check if the missing label function is correctly configured for the corresponding Electronic Document Process. Checktopic D8."
+        },
+        {
+            "title": "D22 - Dump in eDocument Cockpit due to large variant selection criteria",
+            "text": "D22 - Dump in eDocument Cockpit due to large variant selection criteria:When filtering documents in EDOC_COCKPIT, either by entering the number of days for recent documents or by variant, if the system has a too wide selection range and has to process an excessive amount of documents, the process can result in a dump. To solve this problem, it is necessary to change the selection criteria or number of days. In case the variant causing the dump has been set as 'Default', you can change it via debug. Set a breakpoint in the method READ_DEFAULT_CRITERIA from class CL_EDOC_SEL_CRITERIA (line of statement 'IF ls_default_variant IS NOT INITIAL.')and select the default variant by modifying 'mt_variant_details' and 'ls_default_variant' parameters."
+        },
+        {
+            "title": "D23 - Invalid AIF customizing detected for namespace",
+            "text": "D23 - Invalid AIF customizing detected for namespace:In /AIF/VMAP transaction, check if any value mappings contain empty entries for the affected namespace. Also, this issue can be generated due to migration errors from ERP (ECC) to S/4HANA. For this scenario,go to transaction/AIF/CUST, then click on'Define Namespace-Specific Feature'. Check if there are entry tables starting with the letter 'z'. For these cases, remove the letter 'z' in the name of the entry."
+        },
+        {
+            "title": "D24 - Error 'eDocument cannot be displayed; Check implementation of BADI EDOC_INTERFACE_CONNECTOR' (EDOCUMENT097)",
+            "text": "D24 - Error 'eDocument cannot be displayed; Check implementation of BADI EDOC_INTERFACE_CONNECTOR' (EDOCUMENT097):In order to clean inconsistencies, delete and create again the filters for the implementation of the country in BAdI EDOC_INTERFACE_CONNECTOR. If there are multiple implementations for different country solutions, or different country functionalities, make sure that no filter value is overlapping or wrong. For example, the country is not filtered or it is filtered for different active implementations etc."
+        },
+        {
+            "title": "D25 - Error 'Assignment of CONTENT to <lv_invoice_xstring> failed (method XXXX of class YYYYY)'",
+            "text": "D25 - Error 'Assignment of CONTENT to <lv_invoice_xstring> failed (method XXXX of class YYYYY)':This error usually shown when the user is displaying or submitting invoices in the eDocument Cockpit.This error happens due to entries wrongly pointed to old release implementations in the table view EDOINTTYPEV. In case your country/region specific entries are set as AIF_PROXY/AIF_XML in a release S4CORE, it will call the implementation EDOC_INTERFACE_CONNECTOR for SAP_APPL instead of S4CORE. Proceed by changing the inconsistent entries in the table view EDOINTTYPEVto 'STANDARD' to solve this issue."
+        },
+        {
+            "title": "D26 - Error message EDOCUMENT054 'Cancel not possible, interface message cannot be cancelled'",
+            "text": "D26 - Error message EDOCUMENT054 'Cancel not possible, interface message cannot be cancelled':Commonly occurs when the country-solution's respective implementation of BAdI \"EDOC_INTERFACE_CONNECTOR\" has no logic implemented inside Method \"IF_EDOC_INTERFACE_CONNECTOR~CANCEL\"."
+        },
+        {
+            "title": "D27 - Error message EDOCUMENT020 \"Interface structure is different than expected structure *\"",
+            "text": "D27 - Error message EDOCUMENT020 \"Interface structure is different than expected structure *\":This may be caused due to missing SAP Note corrections or inconsistent transports. The problem happens when there's missing or incorrect entries in the Process Manager customizing views, for the related country-solution. Review the latest SAP Notes with corrections in the country's overview SAP Note. Also, check the view \"EDOPROCSTEPDETV\" and make sure that there are no inconsistencies or manual changes in this View. Any wrong value for \"Process Step\" will trigger this error."
+        },
+        {
+            "title": "D28 - Displaying documents older than 999 days",
+            "text": "D28 - Displaying documents older than 999 days:In the cockpit, click button \"Change selection Criteria\". A 'Select eDocuments' window will pop-up, where the user can set a date range for Creation or Posting date. Check topicD22."
+        },
+        {
+            "title": "D29 - Message 'Error during file export' (EDOCUMENT110)",
+            "text": "D29 - Message 'Error during file export' (EDOCUMENT110'):This error is shown while trying to save files in your local file system, like exporting XML files from transaction EDOC_COCKPIT. To solve this issue, implement SAP Note3170615(eDoc Framework Files cannot be exported to local file system). Remember to read the content of the SAP Note to confirm if there are prerequisites and manual steps to be performed during the installation."
+        },
+        {
+            "title": "D30 - Missing 'submit' and/or 'send to customer' buttons in the cockpit or error 'Action SUBMIT is not allowed for country/region'",
+            "text": "D30 - Missing 'submit' and/or 'send to customer' buttons in the cockpit or error 'Action SUBMIT is not allowed for country/region':To solve this, refer to SAP Help documentationActivation Requirements for Features in SAP Document and Reporting Complianceand activate the business function based upon the licensing you have - It can be checked in transaction 'SFW5', under 'ENTERPRISE_BUSINESS_FUNCTIONS'."
+        },
+        {
+            "title": "D31 - In one system, the advanced feature buttons(SUBMIT, STATUS etc.) are appearing in edoc_cockpit without activating any business function but it is not appearing in other systems",
+            "text": "D31 - In one system, the advanced feature buttons(SUBMIT, STATUS etc.) are appearing in edoc_cockpit without activating any business function but it is not appearing in other systems:We have unblocked advanced features for countries/processes which are already productive by inserting system generated entries in EDODCUSAGE table but for new ones, it is mandatory to activate business function based upon yourlicensing(Refer topic D30)."
+        },
+        {
+            "title": "D32 - You have no authorization for /AIF/V_NS_LOCK",
+            "text": "D32 - You have no authorization for /AIF/V_NS_LOCK: The error 'You have only display authorization for namespace /FINCF' is an intended and expected behaviour.SAP Delivered namespaces are locked, AIF carries out a check issuing the above error, in case the namespace is locked. To solve this issue, unlock both namespace /FINCF and /FIN* for view /AIF/V_NS_LOCK by transaction SM30. We recommend setting the namespace lock again once any customizing has been carried out to prevent unwanted changes to an interface."
+        },
+        {
+            "title": "E1 - Error 'The class CL_EDOCUMENT_IT does not exist'",
+            "text": "E1 - Error 'The class CL_EDOCUMENT_IT does not exist':You may see this error in FI and SD core transactions after the implementation of the Electronic Document Processing solution. To avoid the error, check if you have activated the source type for the company code related to the error in customizing of the table view EDOCOMPANYACTIV. Also, review the customizing of the table EDOCOUNTRYTCH too."
+        },
+        {
+            "title": "E2 - Dump in EDOC_INBOUND_UPLOAD_REPORT with the error 'Message type is unknown' in background",
+            "text": "E2 - Dump in EDOC_INBOUND_UPLOAD_REPORT with the error 'Message type is unknown' in background:The program EDOC_INBOUND_UPLOAD_REPORT is for uploading files from the frontend to the application server. This cannot be run in the background. If you need to automate the process, you need to store the files directly on the application server. The location on the application server is what you have configured in table view EDOMSGTYPEUPLDV, field 'Upload Path', which refers to a physical path that has been defined in the transaction FILE."
+        },
+        {
+            "title": "E3 - Error 'ZCL_EDOCUMENT_SVN does not exist'",
+            "text": "E3 - Error 'ZCL_EDOCUMENT_SVN does not exist':It happens as a side effect of the SAP Note2302468(eDoc Slovenia prerequisite for SAP Note 2259570). Erroneously the entry is created with the letter Z in front of the correct class name that is CL_EDOCUMENT_SVN. In order to solve this issue, run transaction SM30 with table view EDOCOUNTRYTCH, click on Edit/Maintain, select entry for Slovenia and change the value ZCL_EDOCUMENT_SVN to CL_EDOCUMENT_SVN. Ignore the pop-up with the message 'Do not make any changes'."
+        },
+        {
+            "title": "E4 - Message 'An error occurred during serialization in the simple transformation program'",
+            "text": "E4 - Message 'An error occurred during serialization in the simple transformation program':To solve error EDOCUMENT000, install SAP Note2725153(Calculate Payment Date). Remember to read the content of the SAP Note to confirm if there are prerequisites and manual steps. Additionally, run the transaction /n/AIF/CUST, then go to 'Define Fix Values', then 'Namespace for the country' (like /EDOIT or /EDOCO). The fix values need to be filled and maintained with a valid range of input values. This check must be made on each environment, as the transport of the fix values can reportedly fail and stay empty when moving from development system."
+        },
+        {
+            "title": "E5 - Issues with program EDOC_BACKGROUND when preparing a routine to create eDocuments from source documents that do not have generated eDocuments yet",
+            "text": "E5 - Issues with program EDOC_BACKGROUND when preparing a routine to create eDocuments from source documents that do not have generated eDocuments yet:For setting this routine, the parameter eDocument Process should be 'NO_EDOC' and the eDocument Action should be CREATE. To do that, is is necessary use the selection variant configured on your EDOC_COCKPIT, make sure to only keep values inside parameters Document Number, Fiscal Year, Posting Date, in Source Document tab. No values should be maintained in the 'Restriction on eDocument Criteria' parameters and the checkbox 'Not yet created' needs to be flagged."
+        },
+        {
+            "title": "E6 - EDOC_COCKPIT does not display invoices when running the transaction in Fiori Launchpad/SAPGUI for HTML",
+            "text": "E6 - EDOC_COCKPIT does not display invoices when running the transaction in Fiori Launchpad/SAPGUI for HTML:This error is related to SAP kernel version and patch level. Check the steps described in SAP Note2504247(Poor data visualization in EDOC_COCKPIT via SAP GUI for HTML) to solve this issue."
+        },
+        {
+            "title": "E7 - Error 'Unable to cancel document; Cancel related eDocument first' when using BAPI_BILLINGDOC_CREATEMULTIPLE",
+            "text": "E7 - Error 'Unable to cancel document; Cancel related eDocument first' when using BAPI_BILLINGDOC_CREATEMULTIPLE:To solve this issue, install SAP Note2861825(Creation of Credit Memo with BAPI not possible), which enables the support for this BAPI in eDocument solution."
+        },
+        {
+            "title": "E8 - Set the testID for more than one company code in the SAP CPI with different certificates for each company",
+            "text": "E8 - Set the testID for more than one company code in the SAP CPI with different certificates for each company:In order to include multiple companies in the same CPI for further tests, it is necessary to create the same secure parameter in CPI with different aliases for each company set. For example: edoc_xx_setid_company1, edoc_xx_setid_company12, edoc_x_setid_company123. In addition, if you have different certificates for each company, notice that there is no legal requirement about it. And, making a register for every company separately using the same CPI tenants is not recommended by SAP since, for multiple registrations, you need multiple SSL hosts. For every registration, you will need to create a separate server CSRs and deploy it on a separate SSL host with a separate DNS mapping. Ordering multiple SSL hosts is not recommended and might lead to delays in provisioning. So, if this is your scenario, if possible, please go for one single channel registration for multiple companies within a group."
+        },
+        {
+            "title": "E9 - Table EDOCUMENTFILE increased due to binary files",
+            "text": "E9 - Table EDOCUMENTFILE increased due to binary files:This situation happens because the binary files are the XML files stored in the field FILE_RAW (EDOC_FILE) from this table. To solve this situation, install the SAP Notes2561564(eDoc Framework 16),2585271(Manual steps for Data Archiving),2589248(eDoc Framework Archiving Improvement),2810826(eDoc Framework 22) and2876151(Documentation about Data Management) in your system in case they are valid for your system version. Remember to read the content of each SAP Note to confirm if there are prerequisites and manual steps to be performed during the installation of this SAP Note. Some SAP Notes cannot be installed via transaction SNOTE and they only have manual instructions."
+        },
+        {
+            "title": "E10 - Program EDOC_BACKGROUND takes longer hours to execute jobs",
+            "text": "E10 - Program EDOC_BACKGROUND takes longer hours to execute jobs:Notice that SAP considers an SQL statement technically efficient if the average runtime per record is 10,000 microseconds or less if a record is returned. If no record is returned, SAP considers a statement technically efficient if the time per execution is 10,000 microseconds or less. Generate and check the SQL Trace related to the executed job to check if the average runtime is calculated according to the range of 10,000 ms. In case it is, there are no issues happening in the standard solution and it will be necessary to optimize the affected job by reducing the max quantity of invoices which are being processed in the same batch job and reviewing the implementation of any BAdI/enhancement which can affected this job."
+        },
+        {
+            "title": "E11 - Error 'CFDI: Cancellation of accounting document // is not approved yet' (IDMX158)",
+            "text": "E11 - Error 'CFDI: Cancellation of accounting document // is not approved yet' (IDMX158):This error usually is shown for Mexican companies, regardless they use Electronic Document Processing Mexico solution or Mexico's Digital Invoice solution. To solve this problem, install the last version of the SAP Noe2810826(eDoc Framework 22). Remember to read the content of the SAP Note to confirm if there are prerequisites and manual steps to be performed during the installation."
+        },
+        {
+            "title": "E12 - Error 'The object could not be created: The class CL_EDOCUMENT_PE does not exist' (EDOCUMENT000)",
+            "text": "E12 - Error 'The object could not be created: The class CL_EDOCUMENT_PE does not exist' (EDOCUMENT000):This error is displayed in transaction VF01 and it is similar to other two error messages 'The object could not be created: The class CL_EDOCUMENT_CL does not exist' and 'The object could not be created: The class CL_EDOCUMENT_SVN does not exist'. To solve this problem, follow the instructions in the content of SAP Note2710859(GENERIC_FILTER must be specified for BAdI EDOC_PARTNER_CONNECTOR). The resolution of this error is the same from the problem described in that SAP Note, although the error message is different."
+        },
+        {
+            "title": "E13 - Issues in EDOC_RESUBMIT while creating a new eDocument",
+            "text": "E13 - Issues in EDOC_RESUBMIT while creating a new eDocument:The functionalities of EDOC_RESUBMIT were replaced by EDOC_COCKPIT. In eDocument Cockpit, in the process to generate eDocuments, the source documents became relevant for eDocuments only after the source documents is created, or if you deleted the eDocument generated by the system and then want to create a new eDocument. For this, choose Change to open the Select eDocuments screen, enter a company code and additional selection criteria as required. Select the 'Not yet Created' checkbox and choose Execute. In the results, select the Source Documents w/o eDocument node to display the list of source documents without eDocuments. Then use the Create button."
+        },
+        {
+            "title": "E14 - Proforma invoices in Electronic Document Processing",
+            "text": "E14 - Proforma invoices in Electronic Document Processing:Currently the solution allows users to complete proforma invoices without cancelling the eDocuments. The desired behavior is that the system restrict users to complete proforma invoices without cancelling eDocuments. This desire behavior is not supported by standard in proforma invoice scenarios. In order to adapt this situation, you can enhance the desired logic in include MV60AF0V_VBRK_BEARBEITEN. The adaptation of this scenario and also proforma scenarios are also not supported by SAP. In case of issues, it is suggested to contact a consulting team. In case this approach affect your business, it is possible to submit your suggestion about this change viaCustomer Influence program. Using this program, it is possible for SAP customers to influence the development decisions in Electronic Document Processing (Document and Reporting Compliance). More details are found in the content of SAP Note11(Shape and influence releases of products)."
+        },
+        {
+            "title": "E15 - Dump TSV_TNEW_PAGE_ALLOC_FAILED when running eDocument programs",
+            "text": "E15 - Dump TSV_TNEW_PAGE_ALLOC_FAILED when running eDocument programs:The description of the dump is 'No more memory available to add rows to an internal table'. It happens when a work process cannot allocate more memory as necessary, either because it is not allowed or because the global extended memory pool is full. For the first cause, change your configuration to allocate more memory for the report. If it is the second cause, the memory consumption by other processes should be analyzed and if possible avoid executing too many processes at once. This must analyzed with your Basis Netweaver area, as this is not an application problem, but specific settings in your system. SAP Wiki page forMemory Management Systemmay help you troubleshoot the problem. Also follow the instructions informed in the content of the SAP Notes2180736(TSV_TNEW_PAGE_ALLOC_FAILED) and1322182(Memory consumption shared objects). If you believe there is an abnormal performance issue with the solution, you can collect traces from transaction ST12 as informed in the content of the SAP Note2436955(Analyze traces using ST12)."
+        },
+        {
+            "title": "E16 - Errors 'Message processing failed' and 'MustUnderstand headers:  Action,  are not understood'",
+            "text": "E16 - Errors 'Message processing failed' and 'MustUnderstand headers:  Action,  are not understood':This message is related to incorrect configuration in the application SOAMANAGER. Open the SOAMANAGER, go to tab Messaging, then go to dropdown 'Message ID Protocol' and check if the option 'Suppress ID Transfer' is selected. After this, follow the instructions from the content of SAP Notes2433990(WS-Addressing headers are not understood),2371793(SOAP header Security was not understood) and1361688(Interop issue: SAP consumer calls 3rd party provider) to confirm that you performed these steps."
+        },
+        {
+            "title": "E17 - Runtime error 'SAPSQL_PARSE_ERROR and exception CX_SY_DYNAMIC_OSQL_SEMANTICS with Program CL_EDOC_MAP_AIF=CP'",
+            "text": "E17 - Runtime error 'SAPSQL_PARSE_ERROR and exception CX_SY_DYNAMIC_OSQL_SEMANTICS with Program CL_EDOC_MAP_AIF=CP':Usually this dump is related to the parser message '/AIF/T_FFIX is not defined in the ABAP Dictionary as a table, projection view, or database view', triggered during the method INIT_FIX_VALUES from class CL_EDOC_MAP_AIF. It happens when the Electronic Document Processing engine is actively being used, but the AIF AddOn is not installed in the ERP system. Without the AIF component, no AIF DDIC is created and this causes several errors since the Electronic Document Processing objects interact with the AIF component. If your system does not have the AIF AddOn installed, it is suggested to deactivate the Business Functions and Business Transaction Events related to Electronic Document Processing solution, since it will cause dumps if left activated without the AIF component installed. In order to deactivate the BTE, run transaction FIBF, then go to Settings > Identification > SAP Applications and uncheck the checkbox for the application EDOC. For the BF calls, it is necessary to delete the entries from the involved country/region in the table view EDOCOUNTRYTCH, via transaction SM30."
+        },
+        {
+            "title": "E18 - Electronic invoicing for Egypt",
+            "text": "E18 - Electronic invoicing for Egypt:The Electronic Document Processing (Document and Reporting Compliance) solution does not have a standard version for Egypt and there are no plans for that.A solution has been developed by a local partner as extension on SAP Document and Reporting Compliance including the integration into Electronic Document Processing Framework, eDocument Cockpit and the integration with the tax authority. If you are interested in knowing more information about the partner extension, send an email togsjam@sap.comto access theSAP Jam group 'MENA Localization SIG'. Notice that this local partner solution is not supported by SAP. For any other legal changes, check the appLegal Change Notification."
+        },
+        {
+            "title": "E19 - Electronic Document Processing solution for Serbia",
+            "text": "E19 - Electronic Document Processing solution for Serbia:The Electronic Document Processing (Document and Reporting Compliance) solution does not have a standard version for Republic of Serbia and at the moment there are no plans for that. For information on the supported Legal Requirements check theLegal Change Notificationtool. You can stay aware of all new legal changes by following the instructions from SAP Note2382863(Announcement of Legal Changes application)."
+        },
+        {
+            "title": "E20 - The same XML Output is displayed for any selected entry in eDocument History table",
+            "text": "E20 - The same XML Output is displayed for any selected entry in eDocument History table:Install the SAP Note3084687(eDoc Framework Correction for eDocument History) which contains the code corrections to solve this issue."
+        },
+        {
+            "title": "E21 - Inconsistencies in information transferred between eDocument and BW",
+            "text": "E21 - Inconsistencies in information transferred between eDocument and BW:When BW uses information from documents transacted in Electronic Document Processing solutions, the document number, reference number and date from the source documents may be incorrectly transferred to BW. This problem is affecting the data from SD billing documents and deliveries. To solve this problem, install the last version of the SAP Notes2888175(Reference document number and item data inconsistently transferred to BW) and2997537(Document number is not transferred to BW). Remember to read the content of the SAP Notes to confirm if there are prerequisites and manual steps to be performed during the installation of them. After you install them, test the same scenario again with new source documents, redoing the process from the beginning."
+        },
+        {
+            "title": "E22 - Metering functionality",
+            "text": "E22 - Metering functionality:SAP Note2927542(eDoc Framework 25) delivered this functionality. You can check the metering values with a Test/Execute option in the function module EDOC_AUDIT via transaction SE37. Also you can use the transaction USMM, executing the metering, but without transferring the data to SAP. You could then look up the values in the metering log."
+        },
+        {
+            "title": "E23 - Error 'Web service ping failed (RC=403). Service Ping ERROR' in SOAMANAGER while following the CPI setup guide",
+            "text": "E23 - Error 'Web service ping failed (RC=403). Service Ping ERROR' in SOAMANAGER while following the CPI setup guide:The use of Ping Web Service feature to test the integration between the systems is not the best option to test connection and authentication. The best way to test if the integration works is to create and submit an eDocument from your SAP backend system (ERP), via transaction EDOC_COCKPIT, and see if it reaches the destination system, the tax authority system usually. The ping option it is not the correct way to analyze problems in communication in this specific case. You need to follow the country/region's CPI setup guide. Also confirm that you have a specific configuration for Proxy Host in the transaction SICF, and if so, confirm that your customization is as described in the content of the SAP Note2137505(Target service not allowed during SOLMAN_SETUP). For more information about this error, review the content from SAP Notes1659135(Ping failed RC=403 Service ping ERROR:),1947516(SOAMANAGER Ping Web Service returns HTTP error),2463989(Web service ping failed) and2376378(Service Ping ERROR Unauthorized)."
+        },
+        {
+            "title": "E24 - Errors NIECONN_REFUSED and NIEHOST_UNKNOWN",
+            "text": "E24 - Errors NIECONN_REFUSED and NIEHOST_UNKNOWN:Review SAP Notes2901677(Ping Web Service fails while implementing SAP Note 2730525) and2728600(SSSLERR_when accessing HCI/(S)CPI/NEO/CF servers under *.hana.ondemand.com). It might be needed to maintain a proxy for the logical port, check 'error details' in the 'dev_icm' trace file in transaction SMICM, ST11, or L11 (under DIR_HOME) and review your country-solution's SOAMANAGER documentation on SAP Help. Additionally check KBA2582112(NiBufIConnect non-buffered connect pending after <timeout >ms) to identify and fix the network issues."
+        },
+        {
+            "title": "E25 - Error due to special characters in the XML file",
+            "text": "E25 - Error due to special characters in the XML file:You can control the special characters in the XML files via master data of the source documnts, restricting them manually. This process can be complex with a high volume of source documents, or filtering the special characters removing them by using your own logic in the method SET_OUTPUT_DATA from BADI EDOC_ADAPTOR."
+        },
+        {
+            "title": "E26 - Error 'Internal error occurred in SAFP API / Exception of class CX_FP_API_INTERNAL'",
+            "text": "E26 - Error 'Internal error occurred in SAFP API / Exception of class CX_FP_API_INTERNAL':Follow the instructions in the SAP Note2359109. Remember to read all the content, as in the Resolution there is some SAP Notes to help with the correct configuration of ADS."
+        },
+        {
+            "title": "E27 - Error Message EDOCUMENT613 (\"File xxx could not be archived\") in EDOC_MESSAGE_HANDLING job runs",
+            "text": "E27 - Error Message EDOCUMENT613 (\"File xxx could not be archived\") in EDOC_MESSAGE_HANDLING job runs:Confirm that your job is assigning \"Message Type\" values, since when no \"message type\" has been informed in the search field, the program \"EDOC_MESSAGE_HANDLING\" will try to process all \"message types\". Furthermore, this program processes each message type with its designed logic, meaning that it's not advised to create a single job with multiple message types specified, as it will turn the execution inconsistent, thus adjust the scheduled runs of the EDOC_MESSAGE_HANDLING report to utilize solely the message types that are actually involved in the execution (and should be processed), specifically one single message type for each job."
+        },
+        {
+            "title": "E28 - eDocument is not created when source document is created in core transactions",
+            "text": "E28 - eDocument is not created when source document is created in core transactions:This issue is related to electronic documents that are not generated automatically. You must enable the eDocument creation from the transaction FIBF. Go toMore > Settings > Identification > SAP applicationand enable the checkbox 'EDOC'. This is a manual step of the installation of Electronic Document Processing Framework SAP Note1995867."
+        },
+        {
+            "title": "E29 - In tcodeEDOC_COCKPIT under button 'Goto', 'Appl./Interf.Log and Last File' action is not available",
+            "text": "E29 - In tcodeEDOC_COCKPIT under button 'Goto', 'Appl./Interf.Log and Last File' action is not available:The action \"Appl./Interf.Log and Last File\" is part of extended features delivered from the eDocument framework side. The feature enablement is only possible when you have activated the \"Allow screen with details pane in edocument cockpit\" inside view EDOGENCUSTV. This information is also documented inside symptom area of note3005076- Document Compliance Framework (27)."
+        },
+        {
+            "title": "E30 - Restriction on eDocument Criteria filter 'With Errors' in Default Selection doesn't return all documents with errors",
+            "text": "E30 - Restriction on eDocument Criteria filter 'With Errors' in Default Selection doesn't return all documents with errors:The only documents that will show up in the filter are the onesthat contain Interface/Application errors, such as 'Field X is empty'. Documents that have only been rejected, for example, will not be shown in the filter."
+        },
+        {
+            "title": "E31 - 'Assign a Package' message upon uploading a BC Set in trasaction SCPR3",
+            "text": "E31 - 'Assign a Package' message upon uploading a BC Set in trasaction SCPR3:Button 'Local Object' must be selected in order to create the Package '$TMP' to proceed with the installion of the BC Set. KBA3368838 - SCPR3 | BC Set -> Upload | Keeps asking to assign a package - SAP for Meexplains in detail."
+        },
+        {
+            "title": "E32 - Error 'No implementation found for BAdi EDOC_AIF' upon submitting an eDocument",
+            "text": "E32 - Error 'No implementation found for BAdi EDOC_AIF' upon submitting an eDocument:First check Product Version - S/4HANA uses Interface Type 'Standard Implementation using AIF'and SAP ERP 'AIF Proxy' in table 'EDOINTTYPEV' (SM30) - it can also be checked in the country specific Enhancement Implementation (SE18 > Enhancement spot > 'ES_EDOCUMENT' > EDOC_INTERFACE_CONNECTOR > Implementations) 'EI_EDOC_INTF_CONN_AA' (S/4HANA)/'ZEI_EDOC_INTF_CONN_AA' (ERP) > Filter Values to see which value is expected for Interface Type."
+        },
+        {
+            "title": "E33 - Error 'No activation necessary\" when activating eDocumentsCA_EDOCorGLO_DRCbusiness functions",
+            "text": "E33 - Error 'No activation necessary\" when activating eDocumentsCA_EDOCorGLO_DRCbusiness functions:Flag column \"Planned Status\" for required Business Function (If youhit'Activate Changes' without flagging a BF, message 'No activation necessary' is shown). For more information check the SAP Note1641394- \"SFW5: How-to activate Business Function\"."
+        },
+        {
+            "title": "E34 - SLIMPC_XXXXXX_XXXX job is being cancelled with Dump 'SAPSQL_CURSOR_ALREADY_OPEN'",
+            "text": "E34 - SLIMPC_XXXXXX_XXXX job is being cancelled with Dump 'SAPSQL_CURSOR_ALREADY_OPEN':The Function module EDOC_AUDIT raises a dump SAPSQL_CURSOR_ALREADY_OPEN when it is called for multiple periods. Implement the SAP Note 3156221 to fix this error."
+        },
+        {
+            "title": "E35 - Missing the declaration of LOGSYS in FMENQUEUE_E_EDOC_SOURCE",
+            "text": "E35 - Missing the declaration of LOGSYS in FMENQUEUE_E_EDOC_SOURCE:You must re-execute the reportNOTE_3442327 and perform the Manual Steps of SAP Note3403461."
+        },
+        {
+            "title": "E36 - Business Partner address fields \"Street 2\" to \"Street 4\" are not considered in the XML street tag",
+            "text": "E36 - Business Partner address fields \"Street 2\" to \"Street 4\" are not considered in the XML street tag:The current system logic will only consider the \"Street\" field in the XML tags. If the other fields are needed to compose the XML street tag, the values can be included by adding them into the implementation of BAdIEDOC_ADAPTOR~SET_OUTPUT_DATA."
+        },
+        {
+            "title": "E37 - E-mails not being pulled into 'EDOC_INBOUND_MSG'",
+            "text": "E37 - E-mails not being pulled into 'EDOC_INBOUND_MSG':Perform the configuration highlighted in 'EDOC_INBOUND_MSG > Help > Product Assistance' and make sure that in view 'EDOMSGEMAILCUST', the 'RECIPIENT_MAIL' and 'SEARCH_EMAIL' fields have thesame valuein transaction 'SCOT', under 'SMTP Connection > Inbound Messages > Inbound Processing', in the field 'Recipient Address'."
+        },
+        {
+            "title": "E38 - Application Provider is requesting a different authentication mechanism than the one in Integration Suite",
+            "text": "E38 - Application Provider is requesting a different authentication mechanism than the one in Integration Suite:The authentication method of choice of the Integration Suite can be configured inside the BTP cockpit as shownhere."
+        },
+        {
+            "title": "E39 - AIF Customizing is missing transport request options",
+            "text": "E39 - AIF Customizing is missing transport request options:Check the following Help Page regardingTransporting AIF Content."
+        },
+        {
+            "title": "E40 - Dump 'Error: Invalid COMMIT WORK within an update function module' inCL_EDOC_PROCESS~EXECUTE_ACTION",
+            "text": "E40 - Dump 'Error: Invalid COMMIT WORK within an update function module' inCL_EDOC_PROCESS~EXECUTE_ACTION:Implement SAP Note3561384 - Skip commit work for variant API in CL_EDOC_PROCESS->EXECUTE_ACTION - SAP for Meto fix this error."
+        },
+        {
+            "title": "E41 - customerName field in XML doesn't display more than 35 characters",
+            "text": "E41 - customerName field in XML doesn't display more than 35 characters:This is currently working as designed - none of the 'NAME' fields in 'KNA1' table can have it's amount of characters edited. In case there's a customer with 35+ characters name, it's possible to create a custom enhancement to BAdI 'EDOC_ADAPTOR' in method 'SET_OUTPUT_DATA' to fill the tag as desired."
         }
     ]
 }
