@@ -69,9 +69,8 @@ class Triage:
     def _prepare_template(self) -> Template:
         """Prepare the promp for the orchestration api call"""
 
-        categories = "\n".join(
-            instruction.get("category") for instruction in TRIAGE_SETTINGS.instructions
-        )
+        categories = "\n".join(category for category in TRIAGE_SETTINGS.Categories)
+
         triage_rules = "\n".join(
             f"Category: {instruction.get("category")}\tDescription: {instruction.get("description")}"
             for instruction in TRIAGE_SETTINGS.instructions

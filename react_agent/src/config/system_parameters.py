@@ -1,5 +1,6 @@
 """Configuration parameters for agent, tools and proxies"""
 
+from enum import Enum
 import logging
 from typing import Any, Dict, List, Tuple
 
@@ -22,14 +23,14 @@ class SapHelpToolSettings(BaseSettings):
     top_n_articles: int = 5
     max_article_size: int = 500 * 1024  # 500 KB
     summarization_prompt: str = """Given the user's query: "{query}"
-Summarize the following markdown articles in no more than 200 words,
-focusing on how they directly explain and provide context to the user's query.
-Extract key information from the articles that helps to understand the query better.
-Include all relevant technical information and technical objects in bullet points.
-Markdown Articles:
----
+Summarize the following markdown content in no more than 200 words, focusing on how it explains and supports the user's query in the context of electronic document processing in S/4HANA.
+Prioritize relevant technical details, including SAP-specific terminology, transaction codes, configuration steps, and technical objects (e.g., function modules, tables, BAPIs, SAP Notes).
+Where appropriate, use bullet points to list key technical components or steps.
+Avoid generalities; emphasize how the markdown content connects directly to the query.
+If multiple articles are included, synthesize overlapping information.
+```markdown
 {markdown_content}
----"""
+```"""
 
 
 class TroubleshootingSearchSettings(BaseSettings):
@@ -58,11 +59,13 @@ class SourceCodeRetrieverSettings(BaseSettings):
     logger_name: str = "Source Code Retriever Tool"
 
     # Tool Description
-    name: str = "source_code_retriever"
-    description: str = "Returns source code for the classname of the input"
+    name: str = "retrieve_source_code"
+    description: str = (
+        " Retrieves the complete source code for a given ABAP class. Use this only if a prior search for specific code snippets in memory was unsuccessful."
+    )
 
     # Input model description
-    class_name_field_descr: str = "The name of the class to retrieve source code for"
+    class_name_field_descr: str = "The name of the ABAP class"
 
 
 class CodebaseSearcherSettings(BaseSettings):
@@ -71,14 +74,14 @@ class CodebaseSearcherSettings(BaseSettings):
     logger_name: str = "Codebase Search Tool"
 
     # Tool Description
-    name: str = "codebase_memories_searcher"
+    name: str = "search_codebase_memories"
     description: str = (
-        "Returns source code for methods that are related to the input query"
+        "Your primary tool for finding relevant code snippets or specific methods within the codebase. It searches based on keywords. Prioritize using this tool first. If your initial search doesn't yield results, consider trying this tool again with different keywords or focusing on potential method names related to the query before resorting to fetching the full class source code."
     )
 
     # Input model description
     query_field_descr: str = (
-        "Query composed of one or more keywords related to the question. Separate keywords with spaces."
+        "A query consisting of one or more keywords related to the code you're looking for, separated by spaces."
     )
 
     # Tool specifics
@@ -131,8 +134,8 @@ Always prefer **Memory** or prior context tools before external sources.
     instructions: list[str] = [
         "1. Observation: Restate the user’s request or define the specific sub-task you are currently addressing. Clearly establish the focus of this reasoning cycle.",
         "2. Thought: Analyze the problem. Decide whether information is already available in memory or needs to be retrieved. Consider if this stage requires validation, synthesis, or a new data point.",
-        "3. Action Plan: Identify the *one* specific tool to use. Clearly specify the tool name and the exact input or parameters. Justify why this tool and input are appropriate for solving the current sub-task.",
-        "4. Action: Call the selected tool with the parameters defined in the Action Plan. Do not take any further steps until a result is returned.",
+        "3. Action Plan: Formulate a high-level strategy outlining the sequence of major steps or phases you intend to take to successfully achieve the user's entire request.",
+        "4. Action: Based on your current Observation, Thought, and the overall Action Plan, decide the specific immediate step to execute right now. If a tool should be used, name the selected tool with the parameters to be used. Do not take any further steps until a result is returned.",
         "5. Observation (Result): Record the exact output returned by the tool. Do not paraphrase or interpret—just state the result as received.",
         "6. Thought (Synthesis & Validation): Analyze the result in context:",
         "    a. Synthesize the new result with prior observations and tool outputs.",
@@ -228,47 +231,62 @@ class TriageSettings(BaseSettings):
     logger_name: str = "Triage"
     sys_prompt: str = """
 < Role >
-You are in charge for the triage in an agent. Based on the question, you should decide the most fitting category for further processing
+You are a Triage Agent responsible for classifying user questions into the most appropriate category for downstream processing.
 </ Role >
 
-< Instructions >
-In order to process the incomming question in the best manner, you should categorize the incoming question in exactly one of the following categories:
+< Task >
+Analyze the user question carefully and assign it to **exactly one** of the following categories:
 {categories}
-</ Instructions >
+</ Task >
 
-< Rules >
+< Guidelines >
+- Base your decision strictly on the nature of the question.
+- Focus on **what kind of processing** the question requires (e.g., factual lookup vs. investigation).
+- Always choose the **single most fitting** category, even if the question appears ambiguous.
+</ Guidelines >
+
+< Category Definitions >
 {triage_rules}
-</ Rules >
+</ Category Definitions >
 
-< Few shot examples >
+< Examples >
+Here are examples of how questions should be categorized:
 {examples}
-</ Few shot examples >"""
+</ Examples >
+"""
+
+    class Categories(str, Enum):
+        """Possible categories from the incomming query"""
+
+        KNOWLEDGE_QA = "Knowledge-QA"
+        CONFIG_RCA = "Config-RCA"
+
     instructions: List[Dict[str, str]] = [
         {
-            "category": "Knowledge-QA",
-            "description": "Question which an expert in the topic or a documentation/wiki/troubleshooting may respond",
+            "category": Categories.KNOWLEDGE_QA,
+            "description": "General or technical questions that can be answered using existing knowledge, documentation, or expert understanding. These typically ask for facts, explanations, best practices, or implementation guidance.",
         },
         {
-            "category": "Config-RCA",
-            "description": "Questions where Root Cause Analysis should be made in order to understand the issue",
+            "category": Categories.CONFIG_RCA,
+            "description": "Questions that require root cause analysis or system-specific investigation. These often involve unexpected behavior, configuration analysis, or tracing logic (e.g., mappings, process flows, custom enhancements).",
         },
     ]
     examples: List[Dict[str, str]] = [
         {
             "question": "As a Public Cloud customer in Spain, can I extend an existing eDocument customer invoice Process?",
-            "category": "Knowledge-QA",
+            "category": Categories.KNOWLEDGE_QA,
         },
         {
             "question": "Explain how 'Payment Terms' is mapped. Start with 'map_invoice1'.",
-            "category": "Config-RCA",
+            "category": Categories.CONFIG_RCA,
         },
         {
             "question": "I want to extend the standard E-Mail sent to customers, generate a sample code to enhance the E-Mail attachmentby adding additional file of type PDF.",
-            "category": "Knowledge-QA",
+            "category": Categories.KNOWLEDGE_QA,
         },
         {
             "question": "Explain how 'Payment Terms' is mapped. Start with 'map_invoice1'.",
-            "category": "Config-RCA",
+            "category": Categories.CONFIG_RCA,
         },
     ]
     response_schema: Dict[str, Any] = {
@@ -285,3 +303,9 @@ In order to process the incomming question in the best manner, you should catego
             },
         },
     }
+
+
+class ToolsFabricSettings(BaseSettings):
+    """Settings for the Tools Fabric"""
+
+    logger_name: str = "Tools Fabric"
