@@ -32,15 +32,11 @@ RUN apk del build-base && \
 # --- Copy Poetry Files ---
 # Copy the Poetry configuration files first for better caching.
 # Ensure these are in the same directory as your Dockerfile locally.
-COPY pyproject.toml ./
+COPY pyproject.toml poetry.lock ./
 
 # --- Dependency Management with Poetry ---
 # Install dependencies using Poetry
-# --no-cache: Disables caching
-# --sync: Removes packages not in the lock file (optional, but good practice)
-# --only coding_server: Install ONLY dependencies from the 'coding_server' group
-# --no-root: *** Do NOT install the root project itself. This fixes the README error. ***
-RUN poetry install
+RUN poetry install --only=coding_server --no-root
 
 # --- Create Directories Needed at Runtime ---
 # Create the logs directory that the application needs to write logs to
@@ -49,7 +45,6 @@ RUN mkdir -p /app/logs
 # --- Copy Specific Application Files with Structure ---
 # Copy only the necessary files, preserving their original directory structure
 # relative to the project root.
-# Create the necessary directories first (if not already created by the logs dir step)
 RUN mkdir -p react_agent/src/mcp \
     react_agent/src/agent_tools \
     react_agent/src/config \
@@ -65,8 +60,7 @@ COPY react_agent/src/config/system_parameters.py ./react_agent/src/config/
 COPY react_agent/src/util/logger.py ./react_agent/src/util/
 COPY react_agent/src/util/memory_manager.py ./react_agent/src/util/
 COPY react_agent/src/util/sap_system_proxy.py ./react_agent/src/util/
-COPY react_agent/src/scripts/load_abap_code.py ./react_agent/src/scripts/
-COPY react_agent/src/scripts/resources/abap_source.txt ./react_agent/src/scripts/resources/
+COPY .env .
 
 # --- Configure Python Path ---
 # Set PYTHONPATH to include the current working directory (/app).

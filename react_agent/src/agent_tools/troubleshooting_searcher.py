@@ -8,7 +8,6 @@ from langchain.tools.base import BaseTool
 
 from react_agent.src.util.logger import LoggerSingleton
 from react_agent.src.util.memory_manager import MemoryManager
-from react_agent.src.scripts.load_troubleshooting import load_memories
 
 from react_agent.src.config.system_parameters import TroubleshootingSearchSettings
 
@@ -39,11 +38,6 @@ class TroubleshootingSearcher(BaseTool):
         mem_manager = MemoryManager(
             memory_store_type="Postgres", namespace=TOOL_SETTINGS.namespace
         )
-        LOGGER.info(
-            "Loading memories from postgres store with namespace %s",
-            mem_manager.namespace,
-        )
-        load_memories(mem_manager)
 
         memories = mem_manager.search_memories(query=query)
 

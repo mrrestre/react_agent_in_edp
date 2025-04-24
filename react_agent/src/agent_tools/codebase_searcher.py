@@ -10,8 +10,6 @@ from react_agent.src.config.system_parameters import CodebaseSearcherSettings
 from react_agent.src.util.logger import LoggerSingleton
 from react_agent.src.util.memory_manager import MemoryManager
 
-from react_agent.src.scripts.load_abap_code import load_abap_code
-
 
 TOOL_SETTINGS = CodebaseSearcherSettings()
 LOGGER = LoggerSingleton.get_logger(TOOL_SETTINGS.logger_name)
@@ -40,11 +38,6 @@ class CodebaseSearcher(BaseTool):
         mem_manager = MemoryManager(
             memory_store_type="Postgres", namespace=TOOL_SETTINGS.namespace
         )
-        LOGGER.info(
-            "Loading memories from postgres store with namespace %s",
-            mem_manager.namespace,
-        )
-        load_abap_code(mem_manager)
 
         memories = mem_manager.search_memories(query=query)
 
