@@ -53,9 +53,7 @@ class SapHelpSearcher(BaseTool):
             LOGGER.error("Cannot perform search, whitout a valid query")
             raise ToolException("Cannot perform search, whitout a valid query")
 
-        search_results = self.fetch_articles_with_query(
-            query=query, top_n=TOOL_SETTINGS.top_n_articles
-        )
+        search_results = self.fetch_articles_with_query(query=query)
 
         if search_results:
             for result in search_results:
@@ -101,19 +99,18 @@ class SapHelpSearcher(BaseTool):
             prompt = "".join(words[: int(len(words) / 2)])
             return LLM_PROXY.invoke(input=prompt)
 
-    def fetch_articles_with_query(self, query: str, top_n: int) -> list:
+    def fetch_articles_with_query(self, query: str) -> list:
         """Return top n articles for query in sap.help"""
         LOGGER.info("Searching for articles with query: %s", query)
 
         search_query_params_dic = {
             "area": "content",
-            "language": "en-US",
-            "state": "PRODUCTION",
+            "language": TOOL_SETTINGS.language,
+            "state": TOOL_SETTINGS.article_state,
             "q": query,
             "transtype": "standard,html,pdf,others",
-            "product": "SAP_S4HANA_ON-PREMISE",
-            "to": "19&advancedSearch=0",
-            "excludeNotSearchable": "1",
+            "product": TOOL_SETTINGS.product_name,
+            "to": TOOL_SETTINGS.top_n_articles,
         }
 
         search_query_str = urlencode(search_query_params_dic)
@@ -127,7 +124,7 @@ class SapHelpSearcher(BaseTool):
         response_json = server_response.json()
 
         # Get the first n results (Most relevant articles on top)
-        search_results = response_json["data"]["results"][:top_n]
+        search_results = response_json["data"]["results"]
 
         return search_results
 
@@ -137,9 +134,9 @@ class SapHelpSearcher(BaseTool):
 
         topic_query_params_dic = {
             "version": "LATEST",
-            "language": "en-US",
-            "state": "PRODUCTION",
-            "product": "SAP_S4HANA_ON-PREMISE",
+            "language": TOOL_SETTINGS.language,
+            "state": TOOL_SETTINGS.article_state,
+            "product": TOOL_SETTINGS.product_name,
             "topic": topic_loio,
         }
         topic_query_str = urlencode(topic_query_params_dic)
@@ -163,7 +160,10 @@ class SapHelpSearcher(BaseTool):
         if response_content_size < TOOL_SETTINGS.max_article_size and response_json[
             "data"
         ]["content"].get("content"):
-
+            LOGGER.info(
+                "Adding content of article with loio %s to markdown file",
+                topic_loio,
+            )
             # Transform content to markdown (from HTML)
             return md(
                 response_json["data"]["content"]["content"],

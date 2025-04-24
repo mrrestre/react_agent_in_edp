@@ -13,24 +13,38 @@ class SapHelpToolSettings(BaseSettings):
     """Settings for SAP Help Tool"""
 
     logger_name: str = "SAP Help Tool"
+
+    # Tool Description
     name: str = "get_doc_summary"
     description: str = (
         "Searches a knowledge database using a short query (max 5 words) and returns a concise summary of the relevant information found."
     )
+    # Input model description
     query_field_descr: str = (
         "A query composed of up to 5 words, each representing a technical object name. Words should be space-separated."
     )
-    top_n_articles: int = 5
+    # Tool specifics
+    product_name: str = "SAP_S4HANA_ON-PREMISE"
+    language: str = "en-US"
+    article_state: str = "PRODUCTION"
+    top_n_articles: int = 7
     max_article_size: int = 500 * 1024  # 500 KB
-    summarization_prompt: str = """Given the user's query: "{query}"
-Summarize the following markdown content in no more than 200 words, focusing on how it explains and supports the user's query in the context of electronic document processing in S/4HANA.
+    summarization_prompt: str = """<Role>
+You are an expert in in Electronic Document Processing, with deep domain knowledge in SAP Document and Reporting Compliance, Peppol, UBL, and eInvoicing standards.
+</Role>
+
+<Task>
+Given the user's query: "{query}"
+Summarize the following markdown content in no more than 500 words, focusing on how it explains and supports the user's query in the context of electronic document processing in S/4HANA.
 Prioritize relevant technical details, including SAP-specific terminology, transaction codes, configuration steps, and technical objects (e.g., function modules, tables, BAPIs, SAP Notes).
 Where appropriate, use bullet points to list key technical components or steps.
 Avoid generalities; emphasize how the markdown content connects directly to the query.
 If multiple articles are included, synthesize overlapping information.
 ```markdown
 {markdown_content}
-```"""
+```
+</Task>
+"""
 
 
 class TroubleshootingSearchSettings(BaseSettings):
