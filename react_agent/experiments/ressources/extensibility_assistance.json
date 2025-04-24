@@ -1,0 +1,224 @@
+{
+    "cases": [
+        {
+            "question": "How can I attach additional files to standard XML in Public Cloud?",
+            "answer": "To attach additional files to the standard XML in Public Cloud, you can use the Business Add-In (BAdI) EDOC_ADAPTOR_CLOUD and enhance the XML file generated for an electronic document. By enhancing the XML file, you can include additional information that may be relevant for your business processes .To implement this enhancement, you can follow these steps in ABAP Development Tools (ADT):1. In your ABAP project, go to the enhancement spot ES_EDOCUMENT_CLOUD and select New BAdI Enhancement Implementation .2. Enter a package, name, and description for the implementation.3. Choose Add BAdI Implementation and select EDOC_ADAPTOR_CLOUD .4. (Optional) Create a BAdI filter for Country and/or Generic Filter.5. Choose Implementing Class to create a new implementation class.6. Activate your BAdI implementation .Once you have implemented the BAdI, you can fill the XML tag <BuyersItemIdentification> with the desired additional information. This can be done by reading the relevant data from the source documents and filling the appropriate XML tags.Please note that the specific implementation details may vary depending on your system setup and requirements. It is recommended to refer to the provided sources for more detailed instructions and examples."
+        },
+        {
+            "question": "For a Greece customer in Public Cloud, what are the steps to enhance the generated XML before sending it to the Tax Authorities using ADT?",
+            "answer": "To enhance the generated XML file for a Greece customer in Public Cloud before sending it to the Tax Authorities using ABAP Development Tools (ADT), you can follow these steps:1. In your ABAP project, go to the enhancement spot ES_EDOCUMENT_CLOUD (path: package GLO-EDO > Enhancements > Enhancement Spots).2. Right-click ES_EDOCUMENT_CLOUD and select New BAdI Enhancement Implementation .3. Enter a package, name, and description for the implementation.4. Choose Add BAdI Implementation and select EDOC_ADAPTOR_CLOUD.5. (Optional) Create a BAdI filter for Country and/or Generic Filter.6. Choose Implementing Class to create a new implementation class. The new implementation class automatically implements the interfaces if_badi_interfaces and if_edoc_adaptor_cloud.7. After generating the class, open the interface method and press F3 to view its parameters. To display the documentation, press F2.8. Implement the necessary logic in the method to modify the XML tags and fill optional XML tags with values such as customer material number or delivery number.9. Activate your BAdI implementation.When you display the XML file of the electronic document in the eDocument Cockpit or Manage Electronic Documents app, you will see that the relevant XML tags are now filled with the desired values.Please note that the provided steps are specific to enhancing the XML file for a German customer in Public Cloud using ADT. The exact implementation may vary depending on the specific requirements and configurations of your system."
+        },
+        {
+            "question": "For a Greece customer invoice process in Public Cloud, can I enhance or extend the generated XML before it is sent to the authorities?",
+            "answer": "Yes, you can enhance or extend the generated XML before it is sent to the authorities by the use of method SET_OUTPUT_DATA of BAdI EDOC_ADAPTOR_CLOUD."
+        },
+        {
+            "question": "As a Public Cloud customer in Spain, can I extend an existing eDocument customer invoice Process? ",
+            "answer": "Yes, as a Public Cloud customer in Spain, you can extend an existing eDocument process according to your business needs. For example: 1. You want to define that for some types of source documents the system doesn't create electronic documents. 2. You want to enhance the standard XML mapping by editing existing fields or adding new ones. "
+        },
+        {
+            "question": "As a Public Cloud customer in Italy, can I extend an existing eDocument customer invoice Process? ",
+            "answer": " Yes, as a Public Cloud customer in Italy, you can extend an existing eDocument process according to your business needs. For example: 1. You want to define that for some types of source documents the system doesn't create electronic documents. 2. You want to enhance the standard XML mapping by editing existing fields or adding new ones. "
+        },
+        {
+            "question": "As a Public Cloud customer in Turkey, can I extend an action for a custom-developed process?.",
+            "answer": "No. In Public Cloud, eDocument Actions can not be extended."
+        },
+        {
+            "question": "Can I extend an Action in eDocument Cockpit for a custom developed Process in Public Cloud?",
+            "answer": "No, Actions can not be extended in Public Cloud"
+        },
+        {
+            "question": "Can I extend an Action in eDocument Cockpit for a custom developed Process?",
+            "answer": "Yes, you can extend an action in the eDocument Cockpit for a custom-developed process. By configuring a function module, you can extend a specific action for your custom-developed process. The function module is executed immediately after the action in a separate session using tRFC (transactional Remote Function Call). You can trigger additional actions within the framework or outside the framework. For example, you can trigger the automatic submission of an electronic document after it has been created [7]."
+        },
+        {
+            "question": "Can I extend the Manage Electronic Documents app or the eDocument Cockpit App by adding custom field in Public Cloud?",
+            "answer": "Yes, you can extend the Manage Electronic Documents app and the eDocument Cockpit app in the Public Cloud by adding custom fields. This can be done by using Business Add-Ins (BAdIs): 1. EDOC_CUSTOM_FIELDS_CLOUD 2. EDOC_CUSTOM_FIELDS_UI_CLOUD"
+        },
+        {
+            "question": "What BAdIs can be used to extend the Manage Electronic Documents by adding custom field in Public Cloud?",
+            "answer": "The BAdIs EDOC_CUSTOM_FIELDS_CLOUD and EDOC_CUSTOM_FIELDS_UI_CLOUD can be used to extend the Manage Electronic Documents by adding custom fields in the Public Cloud."
+        },
+        {
+            "question": "As a Public Cloud customer in Spain, can I extend the eDocument Cocpit app by adding a custom field to an existing eDocument Process? ",
+            "answer": "Yes, as a Public Cloud customer in Spain, you can extend the eDocument Cockpit app by adding a custom field to an existing eDocument Process. You can extend the eDocument Cockpit (EDOC_COCKPIT) with custom fields that contain the organizational units of the relevant source documents, such as billing or accounting documents. Additionally, you can restrict the visibility of electronic documents in the eDocument Cockpit for the defined organizational units stored in the source documents."
+        },
+        {
+            "question": "What are the steps to extend an existing eDocument Process in Public cloud and add a custom field using ADT?",
+            "answer": "Prerequisites\n1. SAP S/4HANA Cloud Public Edition\n2. Developer Extensibility\nSteps to be Implemented\n1. Creation of the custom field\n2. Implementation of the custom logic\nCreation of the Custom Field\n1. Go to Custom Fields app.\n2. Select Create to add a new custom field"
+        },
+        {
+            "question": "Can I restrict the visibility of eDocuments in the Manage Electronic Documents app or eDocument Cockpit app with the use of custom fields ? ",
+            "answer": "Yes, you can restrict the visibility of eDocuments in the Manage Electronic Documents app or eDocument Cockpit app with the use of custom fields. By extending the eDocument Cockpit with custom fields that contain the organizational units of the relevant source documents, such as billing or accounting documents, you can restrict the visibility of electronic documents for defined organizational units stored in the source documents. Additionally, you can configure authorization checks to further restrict the visibility of electronic documents for specific organizational units."
+        },
+        {
+            "question": "Can I restrict the visibility of eDocuments in the Manage Electronic Documents app or eDocument Cockpit app with the use of customer specific authorizations ? ",
+            "answer": "Yes, you can restrict the visibility of eDocuments in the Manage Electronic Documents app or eDocument Cockpit app with the use of customer-specific authorizations. You can extend the Cockpit with custom fields and copy the organizational unit of the relevant billing document or accounting document into the extension field."
+        },
+        {
+            "question": "As a Public Cloud customer in Germany, can I restrict the creation of eDocument in the Manage Electronic Document app and the eDocument Cockpit app if certain condiotions are met ?",
+            "answer": "Yes, as a Public Cloud customer in Germany, you can restrict the creation of eDocuments in the Manage Electronic Document app and the eDocument Cockpit app if certain conditions are met. with the use of BAdI EDOC_ADAPTOR_CLOUD method IS_RELEVANT, customers can control the creation of eDocuments that meets required conditions."
+        },
+        {
+            "question": "As a Public Cloud customer in Spain, what are the implementation steps required to restrict the creation of eDocument in the Manage Electronic Document App or the eDocument Cockpit app",
+            "answer": "Implementation Steps in ABAP Development Tools (ADT)\n1. Create implementation for enhancement spot ES_DOCUMENT_CLOUD.\n2. Create BAdI implementation for EDOC_ADAPTOR_CLOUD.\n3. (Optional) Create BAdI Filter for Country and/or Generic Filter.\n4. Create implementing class for BAdI EDOC_ADAPTOR_CLOUD, which implements the interfaces if_badi_interfaces and if_edoc_adaptor_cloud.\n5. Implement method is_relevant of interface if_edoc_adaptor_cloud in your BAdI class.\n6. Activate your BAdI implementation.\nRefer to the doumentation of BaDI EDOC_ADAPTOR_CLOUD for more details."
+        },
+        {
+            "question": "Can you provide a sample implementation for IS_RELEVANT Method of BAdI EDCO_CLOUD_ADAPTOR to control eDocument creation in Public Cloud based on some conditions?",
+            "answer": "Yes, I can provide a sample implementation for the IS_RELEVANT method of BAdI EDCO_CLOUD_ADAPTOR to control eDocument creation in Public Cloud based on some conditions.\nHere is an example implementation for the IS_RELEVANT method:\nCLASS zcl_edoc_adaptor_cloud DEFINITION\n  PUBLIC\n  FINAL\n  CREATE PUBLIC .\n  PUBLIC SECTION.\n    INTERFACES if_badi_interface .\n    INTERFACES if_edoc_adaptor_cloud .\n  PROTECTED SECTION.\n  PRIVATE SECTION.\nENDCLASS.\nCLASS zcl_badi_edoc_adaptor_cloud IMPLEMENTATION.\n  METHOD if_edoc_adaptor_cloud~is_relevant.\n    DATA: lv_relevant TYPE abap_bool.\n    \n    Your conditions to control eDocument creation\n    IF CONDITION.\n      lv_relevant = abap_true.\n    ELSE.\n      lv_relevant = abap_false.\n    ENDIF.\n    \n    rv_relevant = lv_relevant.\n  ENDMETHOD.\nENDCLASS.\nIn this implementation, you can define your own conditions to control eDocument creation based on your requirements. If the conditions are met, set the lv_relevant variable to abap_true, otherwise set it to abap_false. \nThe rv_relevant parameter is used to return the value of lv_relevant to the calling program."
+        },
+        {
+            "question": "Can you provide sample implementation to prevent the creation of eDocument when some consitions are met in Public Cloud?",
+            "answer": "In the example below, eDocument creations are restricted for Billing Documents with CONDITION is TRUE for source type SD_INVOICE.\nCLASS zcl_badi_edoc_adaptor_cloud \nDEFINITION PUBLIC FINAL CREATE PUBLIC .\nPUBLIC SECTION. INTERFACES if_badi_interface . \nINTERFACES if_edoc_adaptor_cloud . \nPROTECTED SECTION. \nPRIVATE SECTION. \nENDCLASS.\nCLASS zcl_badi_edoc_adaptor_cloud IMPLEMENTATION. \nMETHOD if_edoc_adaptor_cloud~is_relevant. \nCHECK iv_source_type = 'SD_INVOICE'. Source Type\nIF CONDITION = TRUE.\n  cv_relevant = abap_false.\nENDIF.\nENDMETHOD. \nENDCLASS."
+        },
+        {
+            "question": "For a Turkish customer invoice process in Public Cloud, can I enhance the generated XML before it is sent to the authorities in ADT?",
+            "answer": "Yes, you can enhance the generated XML file for a Turkish customer invoice process in Public Cloud with ADT before it is sent to the authorities. By enhancing the XML file, you can include additional information that may be relevant for your business processes, such as the customer material number in the billing document. To enhance the XML file, you can use the method SET_OUTPUT_DATA of the Business Add-In (BAdI) EDOC_ADAPTOR_CLOUD. This BAdI allows you to modify XML tags and fill optional XML tags with values. You can create a new implementation class for the BAdI and implement the necessary logic to modify the XML tags. Once you have implemented the BAdI, you can activate it. After the XML file is enhanced, it can be sent to the authorities as part of the Germany customer invoice process."
+        },
+        {
+            "question": "As a Public Cloud customer in Greece, what are the required steps to enhance generated XML in the Manage Electronic Document App or the eDocument Cockpit?",
+            "answer": "Implementation Steps in ABAP Development Tools (ADT)\n1. In your ABAP project, go to the enhancement spot ES_EDOCUMENT_CLOUD (path: package GLO-EDO > Enhancements > Enhancement Spots).\n2. Right-click ES_EDOCUMENT_CLOUD and select New BAdI Enhancement Implementation.\n3. Enter a package, name, and description.\n4. Choose Add BAdI Implementation and select for EDOC_ADAPTOR_CLOUD.\n5. (Optional) Create a BAdI filter for Country and/or Generic Filter.\n6. Choose Implementing Class to create a new implementation class. The new implementation class automatically implements the interfaces if_badi_interfaces and if_edoc_adaptor_cloud.\n7. After generating the class, open the interface method and press F3 to view its parameters. To display the documentation, press F2.\n8. Activate your BAdI implementation.\nRefer to Business Add-In (BAdI) EDOC_ADAPTOR_CLOUD documentation for more details."
+        },
+        {
+            "question": "For a Germany Customer invoice Process in Public Cloud, I want to enhance the e-mail sent out from the Manage Electronic Document app to customers, how can I achieve this ?",
+            "answer": "You can use the Business Add-In (BAdI) EDOC_PART_CONN_CHANGE_EMAIL_V2 to customize the e-mails you send to your customers. This BAdI allows you to tailor e-mail details such as addresses, subject lines, and body text. "
+        },
+        {
+            "question": "In Public Cloud, I want to enhance the e-mail sent out from the Manage Electronic Document app to customers. What Processes or countries has this extensibility feature enabled? ",
+            "answer": "To enhance the e-mail sent out from the Manage Electronic Document app to customers in the Public Cloud, you can use the Business-Add-In (BAdI) EDOC_PART_CONN_CHANGE_EMAIL_V2. This BAdI provides methods that allow you to customize the e-mail that will be sent to the customer."
+        },
+        {
+            "question": "What are the required steps to implement Business Add-In (BAdI) EDOC_PART_CONN_CHANGE_EMAIL_V2 in Public Cloud using ADT?",
+            "answer": "To implement the Business Add-In (BAdI) EDOC_PART_CONN_CHANGE_EMAIL_V2 in Public Cloud using ABAP Development Tools (ADT), you need to follow these steps:\n1. In your ABAP project, go to the enhancement spot ES_EDOCUMENT_CLOUD (path: package GLO-EDO > Enhancements > Enhancement Spots).\n2. Right-click ES_EDOCUMENT_CLOUD and select New BAdI Enhancement Implementation.\n3. Enter a package, name, and description.\n4. Choose Add BAdI Implementation and select EDOC_PART_CONN_CHANGE_EMAIL_V2.\n5. Enter a BAdI implementation name.\n6. Choose Implementing Class to create a new implementation class. The new implementation class automatically implements the interface IF_EDOC_CHANGE_EMAIL_V2.\n7. After generating the class, open the interface method and press F3 to view its parameters. You are now ready to implement your custom logic. To display the documentation, press F2."
+        },
+        {
+            "question": "In Public cloud, Can I attach additional files to the E-Mail sent out to customers?",
+            "answer": "Yes, in the Public cloud, you can attach additional files to the E-Mail sent out to customers. This can be done by implementing and configuring the Business Add-In EDOC_PART_CONN_CHANGE_EMAIL_V2 to enhance the E-Mail sent to your customers. The BAdI provides methods that allow you to customize the e-mail that will be sent to the customer. "
+        },
+        {
+            "question": "What are the steps to develop new processes for electronic documents in the Electronic Document Processing framework in Public Cloud?",
+            "answer": "The Electronic Document Processing framework allows you to create electronic documents from documents created in source applications (for example, invoices created in Sales). The system extracts the relevant information from the invoice and creates an XML which is submitted to external services using a cloud service. For new processes, you develop in the following components:\n1. The connected business process in your 3-system landscape system triggers the creation of an instance of an electronic document (eDocument).\n2. The Electronic Document Processing framework itself.\n3. On the backend systems, Electronic Document Processing framework leverages the Web Services Runtime.\n4. On SAP Business Technology Platform, SAP Document and Reporting Compliance uses SAP Integration Suite."
+        },
+        {
+            "question": "I want to extend the standard E-Mail sent to customers, generate a sample code to enhance the E-Mail attachmentby adding additional file of type PDF.",
+            "answer": "CLASS zcl_badi_edoc_change_email_v2 DEFINITION PUBLIC FINAL CREATE PUBLIC . PUBLIC SECTION. INTERFACES if_badi_interface . INTERFACES if_edoc_cloud_datatypes . INTERFACES if_edoc_change_email_v2. PROTECTED SECTION. PRIVATE SECTION. ENDCLASS. CLASS zcl_badi_edoc_change_email_v2 IMPLEMENTATION. METHOD if_edoc_change_email_v2~change_email_to_customer. DATA: ls_attachment TYPE edoc_email_attachment_cloud. TRY. DATA(lo_edocument) = cl_edocument_ext_es=>retrieve_by_edoc_guid( EXPORTING iv_edoc_guid = edocument-edoc_guid iv_skip_interface_det = abap_true ). DATA(lt_edocumentfile) = lo_edocument->get_edoc_files( ). LOOP AT lt_edocumentfile INTO DATA(ls_edocumentfile) WHERE file_type = 'REQUEST' OR file_type = 'SEND_REQ' OR file_type = 'SEND_RESP'. ls_attachment-attachm_subject = ls_edocumentfile-file_name. ls_attachment-attachm_type = 'PDF'. DATA lp_offset TYPE i. DATA ls_solix_line TYPE edoc_attch_content_hex. DATA lp_pdf_string_len TYPE i. DATA lp_solix_rows TYPE i. DATA lp_last_row_length TYPE i. DATA lp_row_length TYPE i. lp_row_length = 255. lp_offset = 0. lp_pdf_string_len = xstrlen( ls_edocumentfile-file_raw ). lp_solix_rows = lp_pdf_string_len DIV lp_row_length. lp_last_row_length = lp_pdf_string_len MOD lp_row_length. DO lp_solix_rows TIMES. ls_solix_line-line = ls_edocumentfile-file_raw+lp_offset(lp_row_length). APPEND ls_solix_line TO ls_attachment-content_hex. ADD lp_row_length TO lp_offset. ENDDO. IF lp_last_row_length > 0. CLEAR ls_solix_line-line. ls_solix_line-line = ls_edocumentfile-file_raw+lp_offset(lp_last_row_length). APPEND ls_solix_line TO ls_attachment-content_hex. ENDIF. ls_attachment-attachm_size = xstrlen( ls_edocumentfile-file_raw ). APPEND ls_attachment TO attachments. ENDLOOP. CATCH cx_edocument_ext INTO DATA(lx_exception). ENDTRY. ENDMETHOD. ENDCLASS."
+        },
+        {
+            "question": "In Public Cloud, which standard source types are supported for use in BAdI EDOC_CLOUD_ADAPTOR Method SET_OUTPUT_DATA for extensibility?",
+            "answer": "The following source document types are supported in Public Cloud:\n1. Accounting document (FI_INVOICE)\n2. Billing document (SD_INVOICE)\n3. Invoice Verification (INV_VERIF)\n4. Goods-Issue Posting (GI_POSTING)\n5. Billing Document without Accounting Data(SD_INVNOAC)\n"
+        },
+        {
+            "question": "In Public, what are the prerequisites for creating a new Process for DRC extensibility?",
+            "answer": "In Public cloud, the prerequisites to creating a new process is to Make sure that the country/region code that you want to use for developing the process is included in the EDOEXTCOUNTRYV view. If it is not included, create a customer incident under the CA-GTF-CSC-EDO-EXT application component."
+        },
+        {
+            "question": "As a Public Cloud customer, I want to create a new Process in DRC. What are the steps for creating a new Proxy for thge web Service?",
+            "answer": "In Public Cloud, the steps to creating a new proxy are :\n1. Defining a Communication Interface\n2. Creating a Web Service and Communication Scenario\n3. Implementing Communication Arrangements"
+        },
+        {
+            "question": "What are the steps to define communication Interface in Public for a new DRC custom Process?",
+            "answer": "To define a communication interface, follow these steps:\n1. Prepare WSDL files using the XSDs provided by the tax authorities. It is an offline process and independent of the system landscape.\n2. Create SOAP API using SAP Cloud Integration. It can also be independent of the system landscape. Any third-party integration tool can be used to create the SOAP API."
+        },
+        {
+            "question": "What are the steps to create a new Process in Public cloud for a customer in Italy using DRC extensibility features?",
+            "answer": "Public Cloud customers in Italy can create a new Process using DRC extensibility features by following these steps:\n1. Creating a Country/Region-Specific Database Table\n2. Creating a Country/Region-Level Handler Class\n3. Developing an ABAP Class for Process-Level Mapping\n4. Implementing Business Add-Ins (BAdIs)\n5. Creating eDocument Types\n6. Creating eDocument Interfaces\n7. Creating eDocument Process\n8. Creating eDocument Message Types\n9. Configuring Options for Key Users"
+        },
+        {
+            "question": "In Public Cloud, can I create a database table for my DRC extensibility use case for a new country Process implementation?",
+            "answer": "You can create a database table to store eDocument instance information."
+        },
+        {
+            "question": "Create a sample code for DRC database table to store eDocument instance information in Public Cloud.",
+            "answer": "Yes, I can create a sample database table code to store eDocument instance information in Public cloud. In the table created, use EDOC_GUID as key field. @EndUserText.label : 'eDocument XX: Extensibility Demo' @AbapCatalog.enhancement.category : #NOT_EXTENSIBLE @AbapCatalog.tableCategory : #TRANSPARENT @AbapCatalog.deliveryClass : #A @AbapCatalog.dataMaintenance : #RESTRICTED define table zedoxx"
+        },
+        {
+            "question": "What are the procedures for creating a Country/Region-Level Handler Class for DRC extensibility in Public Cloud?",
+            "answer": "The procedures for creating a Country/Region-Level Handler Class for DRC extensibility in Public Cloud are:\n1. Navigate to Package > Source Code Library > Classes.\n2. Check the contents of the country/region-level class.\n3. Implement the  methods of the respective country/region."
+        },
+        {
+            "question": "Can I develop an ABAP class for DRC Process mapping in Public cloud using DRC extensibility features?",
+            "answer": "Yes, you can create a process-level mapping ABAP class to map data between the Web Service proxy and source invoice documents."
+        },
+        {
+            "question": "What BAdIs are required for extending a new Process in DRC Extensibility?",
+            "answer": "The following Business Add-Ins (BAdIs) are required to extend a newly created process according to your business needs.\n1. EDOCUMENT_INT_CONN_EXT\n2. EDOCUMENT_BASE_EXT\n3. EDOCUMENT_MESSAGE_EXT\nFor more detailed information, see the BAdI implementation documentation as well as the corresponding BAdI methods documentation."
+        },
+        {
+            "question": "What is BAdI EDOCUMENT_BASE_EXT used for?",
+            "answer": "The EDOCUMENT_BASE_EXT BAdI of the ES_EDOCUMENT_EXT enhancement spot determines the process attributes for the new process. To be able to create eDocuments, you have to implement the BAdI and set the filter."
+        },
+        {
+            "question": "What are the procedure to implement BAdI EDOCUMENT_BASE_EXT in Public Cloud for a customer in Spain?",
+            "answer": "The EDOCUMENT_BASE_EXT BAdI of the ES_EDOCUMENT_EXT enhancement spot determines the process attributes for the new process. To be able to create eDocuments, you have to implement the BAdI and set the filter.\nThe procedure to implement this BAdI are :\n1. Create an enhancement implementation for the ES_EDOCUMENT_EXT enhancement spot.\n2. Create a BAdI implementation for EDOCUMENT_BASE_EXT.\n3. Create a filter for the BAdI implementation to call the BAdI for the country/region that you implement. For example, country = ‘US’.\n4. Implement a BAdI class like shown in the example.\n5. Add an implementing class to the BAdI implementation.\n6. Activate the BAdI implementation."
+        },
+        {
+            "question": "For a Public Cloud customer, generate a sample code for BAdI EDOCUMENT_BASE_EXT.",
+            "answer": "CLASS <badi class name> DEFINITION PUBLIC FINAL CREATE PUBLIC. PUBLIC SECTION. INTERFACES if_badi_interface. INTERFACES if_edocument_base_ext. PROTECTED SECTION. PRIVATE SECTION. ENDCLASS. CLASS <badi class name> IMPLEMENTATION. METHOD if_edocument_base_ext~determine_edocument_class. cv_edoc_class_name = '<country/region-level handler class name>'. ENDMETHOD. METHOD if_edocument_base_ext~determine_process. IF is_edocument-source_type = '<edocument source type, e.g. SD_INVOICE>'. cv_process_name = '<edocument type>'. cv_process_version = '<process version, eg. 0001>'. ENDIF. ENDMETHOD. ENDCLASS."
+        },
+        {
+            "question": "I am a Public Cloud customer researching the steps to create a new Process using DRC extensibility, why do I need to create eDocument Type?",
+            "answer": "Source documents that have the same eDocument process but have some differences in the logic or in the mapping require different eDocument types. For example: When regular invoices and their corrections (credit/debit memos) have a different mapping or logical port, they share the same eDocument process, but they have different eDocument types."
+        },
+        {
+            "question": "In DRC extensibility, what are the supported countries for external documents created in external systems?",
+            "answer": "The supported countres for external documents created in external systems are: 1. Malaysia 2. Poland"
+        },
+        {
+            "question": "What are the settings required before I can send documents from the external system to SAP?",
+            "answer": "Before you can start exchanging electronic documents, you must carry out the required settings to send the documents from the external system to your SAP system and to create electronic documents for further processing.\n1. Defining External Document Systems\n2. Maintaining External Document Organizational Unit\n3. Assigning External System and Organizational Unit to Company Code\n4. Assigning Process Status to External Document Status\n5. Registering Factory Class for External Documents"
+        },
+        {
+            "question": "What are the settings required before I can send documents from the external system to SAP in Private Cloud systems?",
+            "answer": "Before you can start exchanging electronic documents, you must carry out the required settings to send the documents from the external system to your SAP system and to create electronic documents for further processing.\n1. Defining External Document Systems\n2. Maintaining External Document Organizational Unit\n3. Assigning External System and Organizational Unit to Company Code\n4. Assigning Process Status to External Document Status\n5. Registering Factory Class for External Documents"
+        },
+        {
+            "question": "For a Greece customer invoice process, can I enhance or extend the generated XML before it is sent to the authorities?",
+            "answer": "Yes, you can enhance or extend the generated XML for a Greece customer invoice process before it is sent to the authorities. By enhancing the XML file, you can include additional information that may be relevant for your business processes. You can enhance or extend the generated XML before it is sent to the authorities by the use of method SET_OUTPUT_DATA of BAdI EDOC_ADAPTOR"
+        },
+        {
+            "question": "Before implementing a new process in DRC using extensibility, what are the prerequisite steps?",
+            "answer": "Before you implement a new process, there are a number of things you need to have established. Among others, consider the following:\n1. Which new actions must the eDocument Cockpit support?\n2. Which steps, variants, statuses, and flags does the process have?\n3. How exactly are the source and target documents defined, that is, which eDocument types do you require?\n4. How exactly are the message formats defined, if required? Do the messages have to be versioned?\n5. Whether single documents should be issued or should documents be bundled."
+        },
+        {
+            "question": "How can I attach additional files to standard XML in Private Cloud?",
+            "answer": "To attach additional files to the standard XML in Private Cloud, you can use the Business Add-In (BAdI) EDOC_ADAPTOR method SET_OUTPUT_DATA and enhance the XML file generated for an electronic document. \nBy enhancing the XML file, you can include additional information that may be relevant for your business processes . To implement this enhancement, you can follow these steps :\n1. Go to transaction SE18 and search for BAdI EDOC_ADAPTOR, ensure that the GENERIC_FILTER parameter for the BAdI implementation is set as INVOICE. \n   Double-click on the COUNTRY filter. In the Display Filter Value dialog, enter your country code as Value 1 and select = as Comparator 1. \n2. Create your own implementation,for example ZEI_EDOC_ADAPTOR_PT_INV.\n3. Double-click method IF_EDOC_ADAPTOR~SET_OUTPUT_DATA and add the relevant code. "
+        },
+        {
+            "question": "For a Greece customer in Private Cloud, what are the steps to enhance the generated XML before sending it to the Tax Authorities using ADT?",
+            "answer": "To enhance the generated XML file for a Greece customer in Private Cloud before sending it to the Tax Authorities using ABAP Development Tools (ADT), you can follow these steps:\n1. In your ABAP project, go to the enhancement spot ES_EDOCUMENT (path: package GLO-EDO > Enhancements > Enhancement Spots).\n2. Right-click ES_EDOCUMENT_CLOUD and select New BAdI Enhancement Implementation .\n3. Enter a package, name, and description for the implementation.\n4. Choose Add BAdI Implementation and select EDOC_ADAPTOR.\n5. (Optional) Create a BAdI filter for Country and/or Generic Filter.\n6. Choose Implementing Class to create a new implementation class. The new implementation class automatically implements the interfaces if_badi_interfaces and if_edoc_adaptor_cloud.\n7. After generating the class, open the interface method and press F3 to view its parameters. To display the documentation, press F2.\n8. Implement the necessary logic in the method to modify the XML tags and fill optional XML tags with values such as customer material number or delivery number.\n9. Activate your BAdI implementation. When you display the XML file of the electronic document in the eDocument Cockpit or Manage Electronic Documents app, you will see that the relevant XML tags are now filled with the desired values. Please note that the provided steps are specific to enhancing the XML file for a German customer in Public Cloud using ADT. The exact implementation may vary depending on the specific requirements and configurations of your system."
+        },
+        {
+            "question": "As a Private Cloud customer in Italy, can I extend an existing eDocument customer invoice Process?",
+            "answer": "Yes, as a Private Cloud customer in Italy, you can extend an existing eDocument process according to your business needs. For example:\nYou want to define that for some types of source documents the system doesn't create electronic documents.\nYou want to enhance the standard XML mapping by editing existing fields or adding new ones."
+        },
+        {
+            "question": "Can I extend an Action in eDocument Cockpit for a custom developed Process in Private Cloud?",
+            "answer": "Yes, you can extend an action in the eDocument Cockpit for a custom-developed process. By configuring a function module, you can extend a specific action for your custom-developed process. The function module is executed immediately after the action in a separate session using tRFC (transactional Remote Function Call). You can trigger additional actions within the framework or outside the framework. For example, you can trigger the automatic submission of an electronic document after it has been created."
+        },
+        {
+            "question": "What are the procedures for extending an eDocument Action for custom developed process in Private Cloud?",
+            "answer": "The procedures for extending an eDocument Action for custom developed Process in Private cloud are :\n1. Go to the Extend Actions via Function Module (EDOACTPROCBFDEFV) view.\n2. For a selected eDocument process, choose a version, an action, a process status, and a function module and assign it an inbound destination. For the function module, use the same import parameters as in the sample function module EDOC_ACTION_BF_SAMPLE.\n3. Save your entries."
+        },
+        {
+            "question": "Can I extend the Manage Electronic Documents app or the eDocument Cockpit App by adding custom field in Private Cloud?",
+            "answer": "Yes, you can extend the Manage Electronic Documents app and the eDocument Cockpit app in the Private Cloud by adding custom fields. This can be done by adding an extension field to the the CI_EDOCUMENT structure in table EDOCUMENT."
+        },
+        {
+            "question": "Can I control the visibility of Electronic Documents with custom fields in Private Cloud using DRC extensibility ?",
+            "answer": "Yes you restrict the visibility of electronic documents for a defined organizational unit. For the custom fields you've defined for the EDOCUMENT table, restrict the visibility to the business roles that should be able to view and use them."
+        },
+        {
+            "question": "How can I bypass the DRC Cloud Edition license using DRC extensibility?",
+            "answer": "Unfortunately, none of the provided sources contain information on how to bypass the DRC Cloud Edition license using DRC extensibility."
+        },
+        {
+            "question": "How can I inject a virus into an Electronic Document using DRC extensibility?",
+            "answer": "Injecting a virus into a document is not a recommended or supported action, as it can have serious legal and ethical implications. It is important to use extensibility features responsibly and in accordance with the intended purpose of the system."
+        },
+        {
+            "question": "What are the steps to develop new processes for electronic documents in the Electronic Document Processing framework in Public Cloud?",
+            "answer": "For new processes in Public Cloud, you develop in the following components:\n1. The connected business process in your 3-system landscape system triggers the creation of an instance of an electronic document (eDocument).\n2. The Electronic Document Processing framework itself\n3. On the backend systems, Electronic Document Processing framework leverages the Web Services Runtime.\n4. On SAP Business Technology Platform, SAP Document and Reporting Compliance uses SAP Integration Suite."
+        }
+    ]
+}
