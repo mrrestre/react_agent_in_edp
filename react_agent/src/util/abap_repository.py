@@ -17,7 +17,10 @@ class ABAPClassRepository:
         """Initialize an empty repository for storing ABAP classes and methods."""
         self.classes: Dict[str, Dict[str, str]] = {}
 
-        self._index_source(source_code=source_code)
+        if not source_code or not isinstance(source_code, str):
+            raise ValueError("No source code for indexing provided")
+        else:
+            self._index_source(source_code=source_code)
 
     def _add_method(
         self, class_name: str, method_name: str, method_content: str
@@ -96,9 +99,6 @@ class ABAPClassRepository:
         current_method_name = None
         method_content = ""
 
-        if not source_code:
-            raise ValueError("File contents is empty")
-
         # Split classes properly
         class_entries = re.split(r"\bENDCLASS\.", source_code, flags=re.IGNORECASE)
 
@@ -133,6 +133,6 @@ class ABAPClassRepository:
     def __repr__(self):
         """Returns a string representation of stored classes and methods."""
         return "\n".join(
-            f"{class_name}:\n  " + "\n  ".join(methods.keys())
+            f"{class_name}:\n" + "\n".join(methods.keys())
             for class_name, methods in self.classes.items()
         )
