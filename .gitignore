@@ -14,6 +14,10 @@ logs/*
 .aicore
 .aicore/*
 
+# VS Code
+.vscode
+.vscode/*
+
 # REST Collections
 react_agent/req_collections/deploy_model.rest
 

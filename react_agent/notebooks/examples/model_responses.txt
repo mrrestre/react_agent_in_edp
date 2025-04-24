@@ -1,6 +1,0 @@
-Response from model gpt-4o:
-{"search_query":"Calcium CT score relation to high cholesterol","justification":"The user wants to understand the relationship between Calcium CT scores and high cholesterol. This search query is designed to find sources that explain how calcium scores, which measure the amount of calcified plaque in the coronary arteries, are related to cholesterol levels and cardiovascular risk."}
---------------------------------------------------------------------------------
-Response from model gemini-1.5-pro:
-{"justification": "A Calcium CT score is used to assess the risk of heart disease, and high cholesterol is a known risk factor for heart disease.  Therefore, it's relevant to explore the relationship between the two.", "search_query": "calcium CT score and high cholesterol correlation"}
---------------------------------------------------------------------------------
