@@ -5,6 +5,7 @@ from typing import Type
 from pydantic import BaseModel, Field
 
 from langchain.tools.base import BaseTool
+from langchain_core.tools import ToolException
 
 from react_agent.src.config.system_parameters import CodebaseSearcherSettings
 from react_agent.src.util.logger import LoggerSingleton
@@ -34,6 +35,9 @@ class CodebaseSearcher(BaseTool):
     def _run(self, query: str) -> str:
         """Search for most fitting source code snippets to query in memory store"""
         LOGGER.info("Searching for most fitting memories to query")
+
+        if query == "" or not isinstance(query, str):
+            raise ToolException("Cannot perform search, whitout a valid query")
 
         mem_manager = MemoryManager(
             memory_store_type="Postgres", namespace=TOOL_SETTINGS.namespace
