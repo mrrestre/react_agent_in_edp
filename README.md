@@ -1,3 +1,4 @@
+# Creating a local database for storing vectors
 For setting a Postgres DB for the memory management follow:
 https://medium.com/@adarsh.ajay/setting-up-postgresql-with-pgvector-in-docker-a-step-by-step-guide-d4203f6456bd
 
@@ -21,3 +22,11 @@ CREATE EXTENSION vector;
 
 5. Run this command to test that it worked (If something is shown, then it worked)
 SELECT * FROM pg_extension;
+
+# MCP
+## Starting servers
+poetry run python react_agent/src/mcp/code_server.py
+poetry run python react_agent/src/mcp/qa_server.py
+
+## Start MCP inspector
+npx @modelcontextprotocol/inspector
