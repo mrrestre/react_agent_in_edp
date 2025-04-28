@@ -1,5 +1,6 @@
+"""Creation of atomic facts from a given text using LLM."""
+
 import json
-import re
 
 from experiments.util.fact_score.settings import FactScoreSettings
 from react_agent.src.util.llm_proxy import LLM_PROXY
@@ -8,6 +9,8 @@ FACT_GENERATOR_SETTINGS = FactScoreSettings()
 
 
 class AtomicFactGenerator:
+    """Class to generate atomic facts from a given text using LLM."""
+
     def __init__(self) -> None:
         # Examples (demonstrations) that is used in prompt generation
         self.demons: list[dict[str, list[str]]] = self.load_demons()
@@ -21,13 +24,19 @@ class AtomicFactGenerator:
             list: A list of examples (demonstrations).
         """
         with open(
-            FACT_GENERATOR_SETTINGS.path_to_example_demos, encoding="utf-8"
+            FACT_GENERATOR_SETTINGS.path_to_example_demons, encoding="utf-8"
         ) as file:
             demons: list[dict[str, list[str]]] = json.load(file)
 
         return demons
 
     async def get_atomic_facts(self, text: str) -> list[str]:
+        """
+        Generate atomic facts from the given text using LLM.
+        The text is passed to the LLM, and the output is parsed to extract atomic facts.
+        The output is cleaned and returned as a list of sentences.
+        The prompt is generated using the examples (demonstrations) loaded from the JSON file.
+        """
         atoms = None
 
         examples = "\n".join(
@@ -35,7 +44,7 @@ class AtomicFactGenerator:
             for demon in self.demons
         )
 
-        prompt = FACT_GENERATOR_SETTINGS.sys_prompt.format(
+        prompt = FACT_GENERATOR_SETTINGS.fact_gen_prompt.format(
             n=FACT_GENERATOR_SETTINGS.number_of_facts,
             examples=examples,
             text=text,
