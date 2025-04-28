@@ -37,7 +37,9 @@ class Triage:
 
         _ = load_dotenv()
 
-    def triage_user_message(self, user_message: str) -> dict[str, str]:
+    def triage_user_message(
+        self, user_message: str, debug: bool = False
+    ) -> dict[str, str]:
         """Route the input question to the appropriate category
         based on its content."""
         LOGGER.info("Triaging user message: %s", user_message)
@@ -45,6 +47,9 @@ class Triage:
         orchestration_url = os.getenv("ORCHESTRATION_URL")
 
         template = self._prepare_template()
+
+        if debug:
+            print(f"System prompt: {template.messages[0].content}")
 
         config = OrchestrationConfig(template=template, llm=self.llm)
 
@@ -61,10 +66,7 @@ class Triage:
             result.orchestration_result.choices[0].message.content
         )
 
-        return {
-            "user_query": response_object.get("properties").get("user_query"),
-            "category": response_object.get("properties").get("category"),
-        }
+        return response_object
 
     def _prepare_template(self) -> Template:
         """Prepare the promp for the orchestration api call"""
@@ -76,8 +78,7 @@ class Triage:
             for instruction in TRIAGE_SETTINGS.instructions
         )
         examples = "\n".join(
-            f"Question: {example.get("question")}\tCategory{example.get("category")}"
-            for example in TRIAGE_SETTINGS.examples
+            json.dumps(example, indent=4) for example in TRIAGE_SETTINGS.examples
         )
 
         sys_prompt_template = PromptTemplate.from_template(TRIAGE_SETTINGS.sys_prompt)

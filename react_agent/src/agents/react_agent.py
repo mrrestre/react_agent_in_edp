@@ -8,9 +8,8 @@ from langgraph.prebuilt import create_react_agent
 from pydantic import BaseModel, Field
 
 
-from react_agent.src.util.llm_proxy import LLM_PROXY
-
 from react_agent.src.config.system_parameters import AgentSettings
+from react_agent.src.util.llm_proxy import LLM_PROXY
 from react_agent.src.util.logger import LoggerSingleton
 
 AGENT_SETTINGS = AgentSettings()
