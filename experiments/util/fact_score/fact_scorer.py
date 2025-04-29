@@ -1,7 +1,7 @@
 """Class to score facts based on a knowledge source."""
 
 import json
-
+import os
 
 from experiments.util.fact_score.settings import FactScoreSettings
 from react_agent.src.util.llm_proxy import LLM_PROXY
@@ -37,9 +37,12 @@ class FactScorer:
         Returns:
             list: A list of examples (demonstrations).
         """
-        with open(FACT_SCORE_SETTINGS.path_to_scoring_demons, encoding="utf-8") as file:
-            demons: list[dict[str, str]] = json.load(file)
+        file_path = os.path.abspath(
+            os.path.dirname(__file__) + FACT_SCORE_SETTINGS.path_to_scoring_demons
+        )
 
+        with open(file_path, encoding="utf-8") as file:
+            demons: list[dict[str, str]] = json.load(file)
         return demons
 
     def prepare_prompt(self, fact: str, knowlede_source: str) -> str:

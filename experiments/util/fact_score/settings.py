@@ -1,6 +1,5 @@
 """Settings for the FactScore module."""
 
-from typing import Any, Dict
 from pydantic_settings import BaseSettings
 
 
@@ -8,8 +7,8 @@ class FactScoreSettings(BaseSettings):
     """Settings for the FactScore module."""
 
     number_of_facts: int = 10
-    path_to_example_demons: str = "./ressources/atomic_facts_demons.json"
-    path_to_scoring_demons: str = "./ressources/fact_scorer_demons.json"
+    path_to_example_demons: str = "/ressources/atomic_facts_demons.json"
+    path_to_scoring_demons: str = "/ressources/fact_scorer_demons.json"
 
     fact_gen_prompt: str = """You are an atomic fact extraction assistant.
 Given the following text, extract at most {n} of the most important and relevant atomic facts.
