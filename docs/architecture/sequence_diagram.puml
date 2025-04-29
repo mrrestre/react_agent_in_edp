@@ -1,0 +1,37 @@
+@startuml AgenticPipeline
+
+actor User
+
+participant "Triage Agent" as Triage
+participant "Tool Factory" as Factory
+participant "ReAct Agent" as ReAct
+control "Tools-Pool" as Tools
+
+== Message Intake ==
+User -> Triage: User Message
+
+== Categorization ==
+Triage -> Triage: Categorize message
+Triage -> Factory: Category Info + User Message
+
+== Tool Preparation ==
+Factory -> Factory: Load/Create Tools
+Factory -> Tools: Initialize tools-pool for category
+
+== Agent Preparation ==
+Tools -> ReAct: Load tools
+
+== Reasoning ==
+ReAct -> ReAct: Analyze user message message
+ReAct -> ReAct: Generate Action Plan
+
+loop Thought/Action/Observation
+    ReAct -> ReAct: Generate Thought
+    ReAct -> Tools: Perform Action using Tool
+    Tools -> ReAct: Return Observation
+end
+
+== Final Response ==
+ReAct -> User: Final Answer
+
+@enduml
