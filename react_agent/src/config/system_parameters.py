@@ -24,27 +24,47 @@ class SapHelpToolSettings(BaseSettings):
         "A query composed of up to 5 words, each representing a technical object name. Words should be space-separated."
     )
     # Tool specifics
-    product_name: str = "SAP_S4HANA_ON-PREMISE"
+    product_name: str = "SAP_S4HANA_CLOUD"
     language: str = "en-US"
     article_state: str = "PRODUCTION"
-    top_n_articles: int = 7
-    max_article_size: int = 500 * 1024  # 500 KB
-    summarization_prompt: str = """<Role>
-You are an expert in in Electronic Document Processing, with deep domain knowledge in SAP Document and Reporting Compliance, Peppol, UBL, and eInvoicing standards.
-</Role>
+    top_n_articles: int = 10
+    max_article_size: int = 800 * 1024  # 800 KB
+    max_num_words: int = 1000
+    summarization_prompt: str = """## Role
+You are an expert in Electronic Document Processing, with deep domain knowledge in:
+- SAP Document and Reporting Compliance
+- Peppol, UBL, and other eInvoicing standards
+- SAP S/4HANA configuration and technical architecture
 
-<Task>
-Given the user's query: "{query}"
-Summarize the following markdown content in no more than 500 words, focusing on how it explains and supports the user's query in the context of electronic document processing in S/4HANA.
-Prioritize relevant technical details, including SAP-specific terminology, transaction codes, configuration steps, and technical objects (e.g., function modules, tables, BAPIs, SAP Notes).
-Where appropriate, use bullet points to list key technical components or steps.
-Avoid generalities; emphasize how the markdown content connects directly to the query.
-If multiple articles are included, synthesize overlapping information.
+## Task
+Your job is to summarize **the technical content** of the following markdown article(s), focusing on how they address the user's specific query.
+
+### User Query:
+"{query}"
+
+### Instructions:
+- Summarize in **no more than {max_num_words} words**
+- Focus on **how the markdown content answers or relates to the query**
+- Emphasize **technical elements**:
+    - SAP transaction codes
+    - Configuration paths or steps
+    - Technical objects (e.g., function modules, tables, BAPIs, SAP Notes)
+- When appropriate, use **bullet points** for:
+    - Configuration steps
+    - Key SAP terms or components
+    - Implementation hints
+
+### Synthesis Guidelines:
+- If multiple articles are present:
+    - Combine overlapping information
+    - Eliminate redundancy
+- Avoid generalities or unrelated info
+- Prefer **concrete mappings** between content and the query
+
+### Input Markdown:
 ```markdown
 {markdown_content}
-```
-</Task>
-"""
+```"""
 
 
 class TroubleshootingSearchSettings(BaseSettings):
@@ -240,7 +260,7 @@ class MemoryManagerSettings(BaseSettings):
     postgres_conn_string: str = (
         "postgresql://react_agent:react_agent@localhost:5432/troubleshooting"
     )
-    memories_to_retrieve: int = 3
+    memories_to_retrieve: int = 6
 
 
 class TriageSettings(BaseSettings):

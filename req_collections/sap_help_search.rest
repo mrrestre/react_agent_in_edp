@@ -1,17 +1,15 @@
 @QUERY=SAP S/4HANA Cloud Peppol Exchange client certificate upload format
-@PRODUCT=SAP_S4HANA_ON-PREMISE
+@PRODUCT=SAP_S4HANA_CLOUD
 
 # @name GetSAPHelpArticles
 GET https://help.sap.com/http.svc/elasticsearch
     ?area=content
-    &version=
     &language=en-US
     &state=PRODUCTION
     &q={{QUERY}}
     &transtype=standard,html,pdf,others
     &product={{PRODUCT}}
-    &to=19&advancedSearch=0
-    &excludeNotSearchable=1 HTTP/1.1
+    &to=10 HTTP/1.1
 Content-Type: application/json
 
 @TOPIC_LOIO = {{GetSAPHelpArticles.response.body.data.results[:0].loio}}

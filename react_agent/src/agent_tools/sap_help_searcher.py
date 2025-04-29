@@ -58,7 +58,7 @@ class SapHelpSearcher(BaseTool):
         if search_results:
             for result in search_results:
                 # Only check articles where loio is present
-                if result.get("loio"):
+                if result.get("loio") is not "":
                     # Add article to markdown containing all article content
                     all_articles_markdown += self.fetch_article(
                         topic_loio=result.get("loio")
@@ -88,7 +88,11 @@ class SapHelpSearcher(BaseTool):
         )
 
         # Format the prompt with your markdown content
-        prompt = prompt_template.format(markdown_content=markdown_content, query=query)
+        prompt = prompt_template.format(
+            markdown_content=markdown_content,
+            query=query,
+            max_num_words=TOOL_SETTINGS.max_num_words,
+        )
 
         # Try using the information from all articles, if it fails, try using the half of it
         try:
@@ -118,8 +122,16 @@ class SapHelpSearcher(BaseTool):
 
         # Make a GET request to the new URL
         server_response = requests.get(search_url, timeout=10)
+
         # Ensure the request was successful
-        server_response.raise_for_status()
+        try:
+            server_response.raise_for_status()
+        except requests.exceptions.HTTPError as err:
+            LOGGER.error("HTTP error occurred: %s", err)
+            raise ToolException(
+                f"Error occurred while fetching articles from SAP Help, error: {err}"
+            ) from err
+
         # Load the JSON response
         response_json = server_response.json()
 
@@ -149,7 +161,11 @@ class SapHelpSearcher(BaseTool):
         server_response = requests.get(article_content_url, timeout=10)
 
         # Ensure the request was successful
-        server_response.raise_for_status()
+        try:
+            server_response.raise_for_status()
+        except requests.exceptions.HTTPError as err:
+            LOGGER.error("HTTP error occurred: %s", err)
+            return ""
 
         # Load the JSON response
         response_json = server_response.json()
