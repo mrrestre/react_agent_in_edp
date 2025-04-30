@@ -10,7 +10,9 @@ from react_agent.src.util.memory_manager import MemoryManager
 CODE_SEARCHER_SETTINGS = CodebaseSearcherSettings()
 
 MEMORY_MANAGER = MemoryManager(
-    memory_store_type="Postgres", namespace=CODE_SEARCHER_SETTINGS.namespace
+    memory_store_type="Postgres",
+    namespace=CODE_SEARCHER_SETTINGS.namespace,
+    embedding_fields=["description"],
 )
 
 

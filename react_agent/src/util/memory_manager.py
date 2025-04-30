@@ -1,6 +1,6 @@
 """Utility functions for managing long term memory"""
 
-from typing import Literal, Tuple
+from typing import Literal, Optional, Tuple
 from langgraph.store.memory import InMemoryStore
 from langgraph.store.postgres import PostgresStore
 
@@ -21,7 +21,10 @@ class MemoryManager:
     MEMORY_STORE_TYPES = Literal["Memory", "Postgres"]
 
     def __init__(
-        self, memory_store_type: MEMORY_STORE_TYPES, namespace: Tuple[str, str]
+        self,
+        memory_store_type: MEMORY_STORE_TYPES,
+        namespace: Tuple[str, str],
+        embedding_fields: Optional[list[str]] = None,
     ):
         self.memory_type = memory_store_type
 
@@ -38,12 +41,13 @@ class MemoryManager:
             self.conn = Connection.connect(
                 SETTINGS.postgres_conn_string, autocommit=True
             )
+            fields = embedding_fields if embedding_fields else ["text"]
             self.store = PostgresStore(
                 conn=self.conn,
                 index={
                     "embed": embedding_model,
                     "dims": SETTINGS.dimensions,
-                    "fields": ["text"],
+                    "fields": fields,
                 },
             )
             self.store.setup()

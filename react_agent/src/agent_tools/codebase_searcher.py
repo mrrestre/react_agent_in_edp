@@ -47,6 +47,6 @@ class CodebaseSearcher(BaseTool):
 
         response = ""
         for memory in memories:
-            response += f"{memory.value['code']}\n"
+            response += f"{memory.value['code']}\n\n"
 
         return response

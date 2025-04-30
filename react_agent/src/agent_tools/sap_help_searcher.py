@@ -58,7 +58,7 @@ class SapHelpSearcher(BaseTool):
         if search_results:
             for result in search_results:
                 # Only check articles where loio is present
-                if result.get("loio") is not "":
+                if result.get("loio") != "":
                     # Add article to markdown containing all article content
                     all_articles_markdown += self.fetch_article(
                         topic_loio=result.get("loio")

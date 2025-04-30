@@ -10,7 +10,9 @@ from react_agent.src.config.system_parameters import TroubleshootingSearchSettin
 TOOL_SETTINGS = TroubleshootingSearchSettings()
 
 MEMORY_MANAGER = MemoryManager(
-    memory_store_type="Postgres", namespace=TOOL_SETTINGS.namespace
+    memory_store_type="Postgres",
+    namespace=TOOL_SETTINGS.namespace,
+    embedding_fields=["text"],
 )
 
 

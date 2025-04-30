@@ -1,7 +1,7 @@
 """Class for indexing and accessing methods and class from a txt file"""
 
 import re
-from typing import Dict
+from typing import Dict, Optional
 
 from react_agent.src.config.system_parameters import ABAPRepositorySettings
 from react_agent.src.util.logger import LoggerSingleton
@@ -10,12 +10,39 @@ SETTINGS = ABAPRepositorySettings()
 LOGGER = LoggerSingleton.get_logger(SETTINGS.logger_name)
 
 
+class ClassInheritance:
+    """Class for storing class inheritance"""
+
+    def __init__(
+        self,
+        parent_class: Optional[str] = None,
+        children_classes: Optional[list[str]] = None,
+    ):
+        self.parent_class = parent_class if parent_class else ""
+        self.children_classes = children_classes if children_classes else []
+
+    def add_child_class(self, child_class: str):
+        """Adds a child class to the list of children classes."""
+        if child_class not in self.children_classes:
+            self.children_classes.append(child_class)
+
+    def set_parent_class(self, parent_class: str):
+        """Sets the parent class."""
+        if parent_class not in self.children_classes:
+            self.parent_class = parent_class
+
+    def __repr__(self):
+        """Returns a string representation of the class inheritance."""
+        return f"Parent Class: {self.parent_class}\tChildren Classes: {', '.join(self.children_classes)}"
+
+
 class ABAPClassRepository:
     """Class for indexing and accessing methods and class from a txt file"""
 
     def __init__(self, source_code: str):
         """Initialize an empty repository for storing ABAP classes and methods."""
         self.classes: Dict[str, Dict[str, str]] = {}
+        self.inheritance: Dict[str, ClassInheritance] = {}
 
         if not source_code or not isinstance(source_code, str):
             raise ValueError("No source code for indexing provided")
@@ -83,7 +110,7 @@ class ABAPClassRepository:
                 f"Method with name {method_name} does not exists in class {class_name}"
             )
 
-        return f"Class: {class_name}\nMethod Name: {method_name}\nMethod Implementation:\n{method_content}"
+        return f"Class: {class_name}\nInheritance: {self.get_inheritance_for_class(class_name=class_name)}\nMethod Name: {method_name}\nMethod Implementation:\n{method_content}"
 
     def list_indexed_classes(self) -> list[str]:
         """Returns a list of all stored class names."""
@@ -94,6 +121,9 @@ class ABAPClassRepository:
         LOGGER.info("Indexing source file")
         class_name_pattern = r"\bCLASS\s+([A-Za-z0-9_]{1,30})\s+IMPLEMENTATION"
         method_name_pattern = r"\bMETHOD\s+([A-Za-z0-9_]+)\s*\."
+        inheriting_pattern = (
+            r"class\s+(\w+)\s+definition(?:.|\s)*?inheriting\s+from\s+(\w+)"
+        )
 
         current_class_name = None
         current_method_name = None
@@ -103,6 +133,21 @@ class ABAPClassRepository:
         class_entries = re.split(r"\bENDCLASS\.", source_code, flags=re.IGNORECASE)
 
         for class_entry in class_entries:
+            # Check if the class inherits from another class
+            inheriting_match = re.search(inheriting_pattern, class_entry, re.IGNORECASE)
+            if inheriting_match:
+                class_name = inheriting_match.group(1).lower()
+                parent_class = inheriting_match.group(2).lower()
+
+                if class_name and parent_class:
+                    self.inheritance[class_name] = ClassInheritance(
+                        parent_class=parent_class
+                    )
+                    if parent_class not in self.inheritance:
+                        self.inheritance[parent_class] = ClassInheritance()
+
+                    self.inheritance[parent_class].add_child_class(class_name)
+
             class_entry.strip(" \n")
             class_match = re.search(class_name_pattern, class_entry, re.IGNORECASE)
             if class_match:
@@ -129,6 +174,13 @@ class ABAPClassRepository:
                         )
                 else:
                     continue
+
+    def get_inheritance_for_class(self, class_name: str) -> ClassInheritance:
+        """Returns the inheritance information for a given class."""
+        LOGGER.info("Getting inheritance for class: %s", class_name)
+        class_name = class_name.lower()
+
+        return self.inheritance[class_name]
 
     def __repr__(self):
         """Returns a string representation of stored classes and methods."""
