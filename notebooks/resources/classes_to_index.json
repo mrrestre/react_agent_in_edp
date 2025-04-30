@@ -1,0 +1,60 @@
+{
+    "classes": [
+        {
+            "name": "CL_EDOC_MAP_AIF",
+            "description": "eDocument Mapping AIF"
+        },
+        {
+            "name": "CL_EDOC_MAP_UBL",
+            "description": "eDocument Mapping UBL"
+        },
+        {
+            "name": "CL_EDOC_MAP_UBL_CA",
+            "description": "eDocument Mapping UBL - FICA"
+        },
+        {
+            "name": "CL_EDOC_MAP_UBL_CI",
+            "description": "eDocument Mapping UBL - CI"
+        },
+        {
+            "name": "CL_EDOC_MAP_UBL_DBNA",
+            "description": "eDocument DBNA Mapping Class"
+        },
+        {
+            "name": "CL_EDOC_MAP_UBL_FI",
+            "description": "eDocument Mapping UBL FI"
+        },
+        {
+            "name": "CL_EDOC_MAP_UBL_FILE",
+            "description": "eDocument Mapping UBL: External Files"
+        },
+        {
+            "name": "CL_EDOC_MAP_UBL_LIV",
+            "description": "eDocument UBL: Logistics Invoice Verification"
+        },
+        {
+            "name": "CL_EDOC_MAP_UBL_ORD",
+            "description": "eDocument Mapping UBL"
+        },
+        {
+            "name": "CL_EDOC_MAP_UBL_SD",
+            "description": "eDocument Mapping UBL SD"
+        },
+        {
+            "name": "CL_EDOC_MAP_UBL_STLMT",
+            "description": "UBL mapping for Settlement Document"
+        },
+        {
+            "name": "CL_REEX_EDOC_MAP_UBL_EU",
+            "description": "eDocument Mapping Class UBL EU"
+        },
+        {
+            "name": "CL_EDOCUMENT_EU_DB",
+            "description": "eDocument EU: DB Handler"
+        },
+        {
+            "name": "CL_EDOCUMENT_DB",
+            "description": "eDocument: DB Handler"
+        }
+    ]
+}
