@@ -15,10 +15,11 @@ class SapHelpToolSettings(BaseSettings):
     logger_name: str = "SAP Help Tool"
 
     # Tool Description
-    name: str = "get_doc_summary"
-    description: str = (
-        "Searches a knowledge database using a short query (max 5 words) and returns a concise summary of the relevant information found."
-    )
+    name: str = "sap_help_lookup"
+    description: str = """Queries official SAP Help documentation using a short keyword-based prompt and returns concise summaries of the most relevant articles.
+Use this tool when seeking official descriptions, configurations, or usage guidelines for SAP components, features, or APIs.
+Best used for factual or definitional queries; avoid for error diagnosis or troubleshooting."""
+
     # Input model description
     query_field_descr: str = (
         "A query composed of up to 5 words, each representing a technical object name. Words should be space-separated."
@@ -73,10 +74,9 @@ class TroubleshootingSearchSettings(BaseSettings):
     logger_name: str = "Troubleshooting Search Tool"
 
     # Tool Description
-    name: str = "retrieve_troubleshooting_guide"
-    description: str = (
-        "Retrieves relevant knowledge from a specialized knowledge base using semantic similarity to match the query."
-    )
+    name: str = "edp_troubleshooting_search"
+    description: str = """Retrieves troubleshooting information related to the Electronic Document Processing (EDP) using semantic similarity.
+Returns chunks of potentially relevant diagnostic guidance and known issue resolutions."""
 
     # Input model description
     query_field_descr: str = (
@@ -90,16 +90,17 @@ class TroubleshootingSearchSettings(BaseSettings):
 class SourceCodeRetrieverSettings(BaseSettings):
     """Settings for Source Code Retriever"""
 
-    logger_name: str = "Source Code Retriever Tool"
+    logger_name: str = "Source Code Retriever Tool (XCO)"
 
     # Tool Description
-    name: str = "retrieve_source_code"
-    description: str = (
-        " Retrieves the complete source code for a given ABAP class. Use this only if a prior search for specific code snippets in memory was unsuccessful."
-    )
+    name: str = "external_class_code_lookup"
+    description: str = """This is a fallback tool. Do not use unless the class is known to be missing from the pre-indexed dataset.
+Retrieves the full source code of an ABAP class by querying an external repository.
+Use this tool only when the target class is not found in the pre-indexed codebase or when previous method-specific tools return no results.
+Returns the complete class source as plain text."""
 
     # Input model description
-    class_name_field_descr: str = "The name of the ABAP class"
+    class_name_field_descr: str = "The exact name of an ABAP class"
 
 
 class CodebaseSearcherSettings(BaseSettings):
@@ -108,14 +109,16 @@ class CodebaseSearcherSettings(BaseSettings):
     logger_name: str = "Codebase Search Tool"
 
     # Tool Description
-    name: str = "search_codebase_memories"
-    description: str = (
-        "Your primary tool for finding relevant code snippets or specific methods within the codebase. It searches based on keywords. Prioritize using this tool first. If your initial search doesn't yield results, consider trying this tool again with different keywords or focusing on potential method names related to the query before resorting to fetching the full class source code."
-    )
+    name: str = "abap_method_codebase_search"
+    description: str = """Tool for retrieving ABAP methods relevant to a natural language query, based on semantic similarity with method descriptions in a pre-indexed codebase.
+Returns a ranked list of matching methods with following attributes: class name, method name, parent class, implemented interfaces, method implementation.
+This is the preferred tool for finding code snippets or implementations.
+Use this before any full-class or external code retrieval tools.
+Repeated calls with different inputs are valid and may return distinct results."""
 
     # Input model description
     query_field_descr: str = (
-        "A query consisting of one or more keywords related to the code you're looking for, separated by spaces."
+        "A query consisting of at most five keywords related to the code you're looking for, separated by spaces."
     )
 
     # Tool specifics
@@ -138,6 +141,7 @@ You are an expert in Electronic Document Processing, with deep domain knowledge 
 Use a reason-and-act (ReAct) approach to answer user questions with clear, well-supported reasoning chains, and tool-validated outputs. Final answers must reflect insights derived from specific tool calls.
 
 # Instructions
+**You will operate in a strict step-by-step loop. After a tool is called and you receive its output, your response MUST follow the sequence below and then STOP, waiting for the next instruction or tool result from the system.**
 {react_instructions}
 
 Always follow these behavioral standards:
@@ -180,10 +184,10 @@ You have access to the following tools to gather facts, retrieve relevant data, 
         "7. Final Answer:",
         "    - Summarize key findings based on specific tool outputs.",
         "    - Explain how tools and results supported the answer.",
-        "    - If the answer is highly technical, provide both a technical explanation and a plain-language summary for a broader audience.",
+        "    - If the answer is technical, provide both a technical explanation and a plain-language summary for a broader audience.",
         "    - Whenever applicable, include short examples (such as snippets, samples, or template outputs) to illustrate key points.",
         "    - Mention any remaining uncertainties or limitations.",
-        "    - Offer suggested next steps if uncertainties remain.",
+        "    - After the Final Answer was generated, send a stop signal to the system to indicate that the task is complete.",
     ]
 
     # Output schema
