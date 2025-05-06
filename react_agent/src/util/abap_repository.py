@@ -14,26 +14,26 @@ class ClassInheritance:
     """Class for storing class inheritance"""
 
     def __init__(
-        self,
-        parent_class: Optional[str] = None,
-        children_classes: Optional[list[str]] = None,
+        self, parent_class: Optional[str] = None, interfaces: Optional[list[str]] = None
     ):
-        self.parent_class = parent_class if parent_class else ""
-        self.children_classes = children_classes if children_classes else []
-
-    def add_child_class(self, child_class: str):
-        """Adds a child class to the list of children classes."""
-        if child_class not in self.children_classes:
-            self.children_classes.append(child_class)
+        self.parent_class = parent_class.lower() if parent_class else ""
+        self.interfaces = interfaces if interfaces else []
 
     def set_parent_class(self, parent_class: str):
         """Sets the parent class."""
-        if parent_class not in self.children_classes:
+        if parent_class and self.parent_class == "":
             self.parent_class = parent_class
+
+    def add_interface(self, interface: str):
+        """Adds an interface to the class."""
+        if interface not in self.interfaces:
+            self.interfaces.append(interface)
 
     def __repr__(self):
         """Returns a string representation of the class inheritance."""
-        return f"Parent Class: {self.parent_class}\tChildren Classes: {', '.join(self.children_classes)}"
+        str_representation = f"Parent Class: {self.parent_class if self.parent_class != '' else 'None'}\n"
+        str_representation += f"Implemented Interfaces: {', '.join(self.interfaces) if len(self.interfaces) > 0 else 'None'}"
+        return str_representation
 
 
 class ABAPClassRepository:
@@ -119,41 +119,53 @@ class ABAPClassRepository:
     def _index_source(self, source_code: str) -> None:
         """Indexes ABAP classes and methods from a source file."""
         LOGGER.info("Indexing source file")
-        class_name_pattern = r"\bCLASS\s+([A-Za-z0-9_]{1,30})\s+IMPLEMENTATION"
+        class_def_pattern = r"\bCLASS\s+([A-Za-z0-9_]{1,30})\s+DEFINITION"
+        class_impl_pattern = r"\bCLASS\s+([A-Za-z0-9_]{1,30})\s+IMPLEMENTATION"
         method_name_pattern = r"\bMETHOD\s+([A-Za-z0-9_]+)\s*\."
-        inheriting_pattern = (
-            r"class\s+(\w+)\s+definition(?:.|\s)*?inheriting\s+from\s+(\w+)"
-        )
-
-        current_class_name = None
-        current_method_name = None
-        method_content = ""
+        inheriting_pattern = r"class\s+\w+\s+definition.*?inheriting\s+from\s+(\w+)"
+        interfaces_pattern = r"\bINTERFACES\s+(\w+)\s*\."
 
         # Split classes properly
         class_entries = re.split(r"\bENDCLASS\.", source_code, flags=re.IGNORECASE)
 
+        current_class_name = ""
+        current_method_name = ""
+        method_content = ""
+
         for class_entry in class_entries:
-            # Check if the class inherits from another class
-            inheriting_match = re.search(inheriting_pattern, class_entry, re.IGNORECASE)
-            if inheriting_match:
-                class_name = inheriting_match.group(1).lower()
-                parent_class = inheriting_match.group(2).lower()
 
-                if class_name and parent_class:
-                    self.inheritance[class_name] = ClassInheritance(
-                        parent_class=parent_class
-                    )
-                    if parent_class not in self.inheritance:
-                        self.inheritance[parent_class] = ClassInheritance()
+            class_def_match = re.search(class_def_pattern, class_entry, re.IGNORECASE)
+            if class_def_match:
+                current_class_name = class_def_match.group(1).lower()
+                class_inheritance = ClassInheritance()
 
-                    self.inheritance[parent_class].add_child_class(class_name)
+                # Check if the class inherits from another class
+                inheriting_match = re.search(
+                    inheriting_pattern, class_entry, re.IGNORECASE | re.DOTALL
+                )
+                if inheriting_match:
+                    parent_class = inheriting_match.group(1).lower()
 
-            class_entry.strip(" \n")
-            class_match = re.search(class_name_pattern, class_entry, re.IGNORECASE)
-            if class_match:
-                current_class_name = class_match.group(1)
-            else:
+                    class_inheritance.set_parent_class(parent_class=parent_class)
+
+                # Check for interfaces and add them to the class inheritance
+                interfaces_matches = re.findall(
+                    interfaces_pattern, class_entry, flags=re.IGNORECASE
+                )
+                if interfaces_matches:
+                    for interface in interfaces_matches:
+                        class_inheritance.add_interface(interface=interface.lower())
+
+                self.inheritance[current_class_name] = class_inheritance
+
+                # Continue to the next entry since what is needed from the class definition is already extracted
                 continue
+
+            # Search for the implementation if the class
+            class_entry.strip(" \n")
+            class_impl_match = re.search(class_impl_pattern, class_entry, re.IGNORECASE)
+            if class_impl_match:
+                current_class_name = class_impl_match.group(1).lower()
 
             # Split method content using the method pattern
             method_entries = re.split(r"ENDMETHOD\.", class_entry, flags=re.IGNORECASE)

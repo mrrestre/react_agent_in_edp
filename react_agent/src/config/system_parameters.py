@@ -220,7 +220,8 @@ class CodeSummarizerSettings(BaseSettings):
     """Settings for the Code Summarizer"""
 
     logger_name: str = "Code Summarizer"
-    prompt_template: str = """As an expert in ABAP development, provide a concise summary (1-2 sentences) of the primary purpose and key functionality of the following ABAP method.
+    prompt_template: str = """As an expert in ABAP development, provide a concise summary (2-3 sentences) of the primary purpose and key functionality of the following ABAP method.
+Take into account the description of the class as context.
 ABAP Method Source Code:
 ```abap
 {source_code}
