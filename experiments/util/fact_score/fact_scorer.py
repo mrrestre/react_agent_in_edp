@@ -2,6 +2,7 @@
 
 import json
 import os
+from typing import Optional
 
 from experiments.util.fact_score.settings import FactScoreSettings
 from react_agent.src.util.llm_proxy import LLM_PROXY
@@ -114,10 +115,14 @@ class FactScorer:
 
         return decisions
 
-    async def get_fact_score(self, facts: list[str], knowledge_source: str) -> float:
+    async def get_fact_score(
+        self, facts: list[str], knowledge_source: str, debug: Optional[bool] = False
+    ) -> float:
         """
         Calculates the score of each atomic fact based on the knowledge source.
         The score is calculated by the amount of facts supported by amount of total facts.
+        The score is between 0 and 1, where 1 means all facts are supported by the knowledge source.
+        The debug flag is used to print the details of the classification.
 
         Args:
             facts (list): A list of atomic  to be scored.
@@ -127,6 +132,15 @@ class FactScorer:
             float: The score of the atomic facts.
         """
         decisions = await self.classify_facts_in_context(facts, knowledge_source)
+
+        if debug:
+            for decision in decisions:
+                print(f"Fact: {decision.fact}")
+                print(f"Is contained: {decision.is_contained}")
+                print(f"Reason: {decision.reason}")
+                print()
+
+        # Calculate the score
         score = sum(1 for decision in decisions if decision.is_contained) / len(
             decisions
         )

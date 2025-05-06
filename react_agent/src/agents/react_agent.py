@@ -1,6 +1,8 @@
 """Description: ReAct Agent class to manage the React Agent and its tools."""
 
+from typing import Optional
 from langchain_core.tools import StructuredTool
+from langchain_core.messages import BaseMessage
 from langchain.tools.base import BaseTool
 from langchain.prompts import PromptTemplate
 from langgraph.prebuilt import create_react_agent
@@ -33,10 +35,10 @@ class ReActAgent:
         self,
         tool_list: list[BaseTool],
     ):
-        self.response_message = None
-        self.response_metadata = None
+        self.last_agent_response: str = ""
+        self.response_metadata: BaseMessage = None
 
-        self.tools = tool_list
+        self.tools: list[BaseTool] = tool_list
 
         self.agent = create_react_agent(
             model=LLM_PROXY._llm,
@@ -75,57 +77,87 @@ class ReActAgent:
             LOGGER.debug("Tool Name: %s", tool.name)
         return "\n".join(tool_strings)
 
-    def get_agent_graph(self) -> str:
+    def get_agent_graph(self) -> bytes:
         """Get the agent's graph in Mermaid format."""
         return self.agent.get_graph().draw_mermaid_png()
 
-    def run_and_print_agent_stream(self, user_message: str) -> None:
-        """Evaluates user input and print the agent's stream of messages."""
+    def run_agent_with_input(
+        self, user_message: str, debug: Optional[bool] = False
+    ) -> str:
+        """Evaluates user input if debug print the agent's stream of messages."""
         LOGGER.info(
             "Running agent synchronously with user message: %s",
             user_message.replace("\n", ""),
         )
+        agent_final_message = None
+
         input_object = {"messages": [("user", user_message)]}
 
         config_object = {
             "recursion_limit": AGENT_SETTINGS.max_iterations,
         }
 
-        for s in self.agent.stream(
-            input=input_object, stream_mode="values", config=config_object
-        ):
-            message = s["messages"][-1]
-            if isinstance(message, tuple):
-                print(message)
-            else:
-                message.pretty_print()
+        if debug:
+            for graph_response in self.agent.stream(
+                input=input_object, stream_mode="values", config=config_object
+            ):
+                message = graph_response["messages"][-1]
+                if isinstance(message, tuple):
+                    print(message)
+                else:
+                    message.pretty_print()
 
-            LLM_PROXY.update_llm_usage(message)
-            self.response_message = message
-            self.response_metadata = s
+                agent_final_message = message
+        else:
+            graph_response = self.agent.invoke(input=input_object, config=config_object)
 
-        LOGGER.info("Agent final response: %s", self.response_message)
+            # Get the last message from the response (final answer)
+            agent_final_message = graph_response["messages"][-1]
 
-    async def arun_and_print_agent_stream(self, user_message: str) -> None:
-        """Evaluates user input and print stream of messages in an asynchronus manner."""
+        LLM_PROXY.update_llm_usage(agent_final_message)
+        self.response_metadata = graph_response
+        self.last_agent_response = agent_final_message.content
+
+        LOGGER.info("Agent final response: %s", self.last_agent_response)
+        return self.last_agent_response
+
+    async def arun_agent_with_input(
+        self, user_message: str, debug: Optional[bool] = False
+    ) -> str:
+        """Evaluates user input if debug print stream of messages in an asynchronus manner."""
         LOGGER.info(
             "Running agent asynchronously with user message: %s",
             user_message.replace("\n", ""),
         )
+        agent_final_message = None
+
         input_object = {"messages": [("user", user_message)]}
 
         config_object = {"recursion_limit": AGENT_SETTINGS.max_iterations}
 
-        async for output in self.agent.astream(
-            input=input_object, stream_mode="values", config=config_object
-        ):
-            message = output["messages"][-1]
-            if isinstance(message, tuple):
-                print(message)
-            else:
-                message.pretty_print()
+        if debug:
+            async for graph_response in self.agent.astream(
+                input=input_object, stream_mode="values", config=config_object
+            ):
+                message = graph_response["messages"][-1]
+                if isinstance(message, tuple):
+                    print(message)
+                else:
+                    message.pretty_print()
 
-            self.response_message = message
-            self.response_metadata = output
+                agent_final_message = message
 
-        LOGGER.info("Agent final response: %s", self.response_message)
+        else:
+            graph_response = await self.agent.ainvoke(
+                input=input_object, config=config_object
+            )
+            # Get the last message from the response (final answer)
+            agent_final_message = graph_response["messages"][-1]
+
+        LLM_PROXY.update_llm_usage(agent_final_message)
+
+        self.response_metadata = graph_response
+        self.last_agent_response = agent_final_message.content
+
+        LOGGER.info("Agent final response: %s", self.last_agent_response)
+        return self.last_agent_response
