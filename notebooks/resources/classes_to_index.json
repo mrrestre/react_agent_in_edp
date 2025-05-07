@@ -25,6 +25,14 @@
             "description": "eDocument Mapping UBL FI"
         },
         {
+            "name": "CL_EDOC_MAP_UBL_FR",
+            "description": "eDocument EU France Mapping Class"
+        },
+        {
+            "name": "CL_EDOCUMENT_FR_INV",
+            "description": ""
+        },
+        {
             "name": "CL_EDOC_MAP_UBL_FILE",
             "description": "eDocument Mapping UBL: External Files"
         },
