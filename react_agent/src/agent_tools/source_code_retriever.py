@@ -44,5 +44,5 @@ class SourceCodeRetriever(BaseTool):
             raise ToolException(error)
 
     def _query_xco2_service(self, class_name: str) -> str:
-        response = SAPSystemProxy().get_endpoint_https(f"classes('{class_name}')")
+        response = SAPSystemProxy.get_endpoint_https(f"classes('{class_name}')")
         return response.get("code")
