@@ -20,7 +20,7 @@ dependencies = [
     "tiktoken (>=0.9.0,<0.10.0)",
     "langgraph-checkpoint-postgres (>=2.0.19,<3.0.0)",
     "psycopg (>=3.2.6,<4.0.0)",
-    "langchain-mcp-adapters (>=0.0.7,<0.0.8)",
+    "langchain-mcp-adapters (>=0.0.10,<0.0.11)",
     "mcp[cli] (>=1.6.0,<2.0.0)",
     "generative-ai-hub-sdk[all] (>=4.10.2,<5.0.0)",
 ]
@@ -30,16 +30,6 @@ pytest = "^8.3.5"
 pytest-cov = "^6.1.1"
 pandas = "^2.2.3"
 openpyxl = "^3.1.5"
-
-[tool.poetry.group.coding_server.dependencies]
-langchain-mcp-adapters = ">=0.0.7,<0.0.8" 
-mcp = ">=1.6.0,<2.0.0" 
-pydantic = ">=2.9.2,<3.0.0" 
-markdownify = ">=1.1.0,<2.0.0" 
-langgraph-checkpoint-postgres = ">=2.0.19,<3.0.0" 
-langchain = ">=0.3.21,<0.4.0"
-psycopg = "3.2.6,<4.0.0"
-dotenv = "^0.9.9"
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]

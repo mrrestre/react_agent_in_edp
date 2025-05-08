@@ -180,14 +180,15 @@ You have access to the following tools to gather facts, retrieve relevant data, 
         "    a. Integrate the new result with prior observations.",
         "    b. Evaluate reliability, completeness, and consistency.",
         "    c. If necessary, validate using another tool or proceed if sufficient.",
-        "    d. Decide the next action or prepare for Final Answer.",
-        "7. Final Answer:",
+        "    d. Decide whether sufficient information has been gathered for the Final Answer. Do NOT include this Thought section in the final message.",
+        "7. Final Answer (Only content in this section should be shown to the user as the final agent message):",
         "    - Summarize key findings based on specific tool outputs.",
         "    - Explain how tools and results supported the answer.",
         "    - If the answer is technical, provide both a technical explanation and a plain-language summary for a broader audience.",
         "    - Whenever applicable, include short examples (such as snippets, samples, or template outputs) to illustrate key points.",
         "    - Mention any remaining uncertainties or limitations.",
-        "    - After the Final Answer was generated, send a stop signal to the system to indicate that the task is complete.",
+        "    - This section should be the sole content of the final message. Omit previous sections (Observations, Thoughts, Action Plans, etc.).",
+        "    - After generating this Final Answer, signal that the task is complete.",
     ]
 
     # Output schema
@@ -351,3 +352,9 @@ class ToolsFabricSettings(BaseSettings):
     """Settings for the Tools Fabric"""
 
     logger_name: str = "Tools Fabric"
+
+    duckduckgo_url: str = (
+        """wss://server.smithery.ai/@nickclyde/duckduckgo-mcp-server/ws?config={config_b64}&api_key={smithery_api_key}"""
+    )
+    duckduckgo_protocol: str = "websocket"
+    duckduckgo_config: str = "b'e30='"
