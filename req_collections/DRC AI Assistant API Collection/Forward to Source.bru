@@ -1,0 +1,32 @@
+meta {
+  name: Forward to Source
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{base_url}}/api/v1/forward_to_source?source_url=my-url&response_session_id=my-response-session-id&chunk_id=my-chunk-id&is_inline_source=false
+  body: none
+  auth: bearer
+}
+
+params:query {
+  source_url: url
+  response_session_id: response-session-id
+  chunk_id: chunk-id
+  is_inline_source: false
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{drcceAiToken}}
+}
+
+tests {
+  test("Status code is 200", function () {
+      expect(res.getStatus()).to.equal(200);
+  });
+}

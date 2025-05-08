@@ -1,0 +1,30 @@
+meta {
+  name: Search (Peppol Support)
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/api/v1/search
+  body: json
+  auth: bearer
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{drcceAiToken}}
+}
+
+body:json {
+  {"prompt_introduction": "You are a Support Engineer working in the context of PEPPOL (Pan-European Public Procurement OnLine).\nYou are given information and troubleshooting guides to help solve issues.","collection_id": "40259c10-14b6-4396-8273-967ae1fa3229","chat_entries": [{"role": "user","content": "One of our prospective customer in Finland is keen to receive electronic Invoice transmission from us. We checked and found that there is already a solution released for Finland. I have few questions before we start to go into the details of its functionality:\n\nHere is the main note: we found\n\n3256030 - Electronic Document Processing for Finland: Implementation Overview\n\n1)  As we believe this is SAP DRC solution, we as Seller do we have to do any registration with Peppol or is this taken care by SAP Solution?\n\n2) For now we have only one customer who would like to receive the invoices in electronically, rest would still continue to receive PDF from SAP ECC.  Would this customer have to get itself registered to Peppol Network.  Is this required and how?"}],"max_chunk_count_collection": 3,"max_chunk_count_sap_help": 3,"is_automated_query": true}
+}
+
+tests {
+  test("Status code is 200", function () {
+      expect(res.getStatus()).to.equal(200);
+  });
+}

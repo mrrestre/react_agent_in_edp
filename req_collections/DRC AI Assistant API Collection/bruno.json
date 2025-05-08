@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "DRC AI Assistant API Collection",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}

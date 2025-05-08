@@ -1,0 +1,37 @@
+meta {
+  name: RAGe
+  type: http
+  seq: 8
+}
+
+post {
+  url: {{baseUrl}}/api/v1/tools/rage-search/callback
+  body: json
+  auth: bearer
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{drcceAiToken}}
+}
+
+body:json {
+  {
+    "tenantId" : "",
+    "agentId" : "",
+    "chatId" : "",
+    "toolId" : "",
+    "toolInput": "{\"query\": \"SAP S/4HANA Cloud Peppol Exchange client certificate obtain\", \"cloud_type\": \"public_cloud\"}",
+    "callbackHistoryId": ""
+  }
+}
+
+tests {
+  test("Status code is 200", function () {
+      expect(res.getStatus()).to.equal(200);
+  });
+}

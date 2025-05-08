@@ -1,0 +1,25 @@
+meta {
+  name: Ratings
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{baseUrl}}/api/v1/ratings
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{drcceAiToken}}
+}
+
+body:json {
+  {"query": "test query", "llm_response": "For a more in-depth explanation, you can refer to the Expert Explanation Component [[5]](https://drcce-architecture-ai.b217766.stage.kyma.ondemand.com/api/v1/forward_to_source?source_url=https%3A%2F%2Fhelp.sap.com%2Fdocs%2FSAP_S4HANA_ON-PREMISE%2Fff6d35a34fbe4bea99e4ac41b0d5db03%2Fa07fb6535fe6b74ce10000000a174cb4.html%3Flocale%3Den-US%26state%3DPRODUCTION%26version%3D2023.002&response_session_id=537f5760-73a6-4a0d-ad17-4f504583353f&chunk_id=2216758202-0-1934&is_inline_source=True). This component provides hazardous substance experts and dangerous goods experts with immediate and subsequent explanations of how secondary data was determined. It visualizes in table form which primary data, rules, and conditions led to the results. The type and level of detail of the explanation can be controlled by the developer of the rule set using additional syntax elements within the rule set. The rule-set developer can choose to ignore values that are not relevant to the explanation, ensuring clarity.   To enable the generation of detailed explanations, you can use the user exit parameters EXPERT_EXPLANATION_DISPLAY and EXPERT_EXPLANATION_SAVE [[5]](https://drcce-architecture-ai.b217766.stage.kyma.ondemand.com/api/v1/forward_to_source?source_url=https%3A%2F%2Fhelp.sap.com%2Fdocs%2FSAP_S4HANA_ON-PREMISE%2Fff6d35a34fbe4bea99e4ac41b0d5db03%2Fa07fb6535fe6b74ce10000000a174cb4.html%3Flocale%3Den-US%26state%3DPRODUCTION%26version%3D2023.002&response_session_id=537f5760-73a6-4a0d-ad17-4f504583353f&chunk_id=2216758202-0-1934&is_inline_source=True).", "rating": "ok", "response_session_id": "82009a65-f0e3-45e8-b3be-4944e0ea8e24", "is_automated_query": true}
+}
+
+tests {
+  test("Status code is 200", function () {
+      expect(res.getStatus()).to.equal(200);
+  });
+}

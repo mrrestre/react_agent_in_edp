@@ -2,6 +2,7 @@
 
 from mcp.server.fastmcp import FastMCP
 
+from react_agent.src.agent_tools.documentation_retriever import DocumentationRetriever
 from react_agent.src.agent_tools.sap_help_searcher import SapHelpSearcher
 from react_agent.src.agent_tools.troubleshooting_searcher import TroubleshootingSearcher
 from react_agent.src.config.system_parameters import QAToolsServerSettings
@@ -17,7 +18,7 @@ if __name__ == "__main__":
         host=settings.host,
     )
 
-    tool_list = [SapHelpSearcher(), TroubleshootingSearcher()]
+    tool_list = [DocumentationRetriever(), TroubleshootingSearcher(), SapHelpSearcher()]
 
     for tool in tool_list:
         mcp.add_tool(

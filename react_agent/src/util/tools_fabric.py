@@ -4,6 +4,7 @@ import os
 from typing import Optional, Union
 
 from dotenv import load_dotenv
+from react_agent.src.agent_tools.documentation_retriever import DocumentationRetriever
 from react_agent.src.agent_tools.sap_help_searcher import SapHelpSearcher
 from react_agent.src.agent_tools.troubleshooting_searcher import TroubleshootingSearcher
 from react_agent.src.agent_tools.codebase_searcher import CodebaseSearcher
@@ -71,6 +72,7 @@ class ToolsFabric:
             tool_list = []
 
             if configuration == TRIAGE_SETTINGS.Categories.KNOWLEDGE_QA:
+                tool_list.append(DocumentationRetriever())
                 tool_list.append(TroubleshootingSearcher())
                 tool_list.append(SapHelpSearcher())
             if configuration == TRIAGE_SETTINGS.Categories.CONFIG_RCA:

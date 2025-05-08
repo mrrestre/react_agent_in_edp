@@ -16,9 +16,9 @@ class SapHelpToolSettings(BaseSettings):
 
     # Tool Description
     name: str = "sap_help_lookup"
-    description: str = """Queries official SAP Help documentation using a short keyword-based prompt and returns concise summaries of the most relevant articles.
-Use this tool when seeking official descriptions, configurations, or usage guidelines for SAP components, features, or APIs.
-Best used for factual or definitional queries; avoid for error diagnosis or troubleshooting."""
+    description: str = (
+        "Returns summaries of SAP Help articles based on keyword prompts, focusing on official feature descriptions and configuration documentation from SAP’s public documentation site."
+    )
 
     # Input model description
     query_field_descr: str = (
@@ -85,6 +85,28 @@ Returns chunks of potentially relevant diagnostic guidance and known issue resol
 
     # Tool specifics
     namespace: Tuple[str, str] = ("agent", "troubleshooting")
+
+
+class DocumentationRetrieverSettings(BaseSettings):
+    """Settings for Documentation Retriever"""
+
+    logger_name: str = "Documentation Retriever Tool"
+
+    # Tool Description
+    name: str = "sap_documentation_summary"
+    description: str = (
+        "Summarizes SAP documentation content from multiple trusted sources, including official guides, internal documentation, and expert references, to provide accurate and reliable answers to SAP-related queries."
+    )
+
+    # Input model description
+    query_field_descr: str = (
+        "Short, focused description of a specific concept, feature, configuration, or question you want answered using official documentation sources."
+    )
+
+    # Tool specifics
+    search_service_relative_path: str = "/api/v1/search"
+    oauth_token_path: str = "/oauth2/token?grant_type=client_credentials"
+    request_timeout: int = 60  # Timeout for the request in seconds
 
 
 class SourceCodeRetrieverSettings(BaseSettings):
@@ -163,19 +185,18 @@ You have access to the following tools to gather facts, retrieve relevant data, 
     rules: list[str] = [
         "1. Prioritize Memory Tools: Always first check if memory-based tools provide the necessary information. Prefer using these tools before external search tools or new data-fetching actions. If memory tool outputs appear incomplete, outdated, or unclear, plan to cross-validate using independent tools.",
         "2. Strict Sequential Execution: Execute only one tool action per reasoning cycle. Wait for the result before proceeding to the next Thought step.",
-        "3. Cross-Validation Principle: Whenever feasible and necessary for accuracy, cross-validate information obtained from one source by using a different, independent tool or method in a later reasoning cycle.",
+        "3. Cross-Validation Principle: Whenever feasible and necessary for accuracy, cross-validate information obtained from one source by using a different, independent tool in a later reasoning cycle.",
         "4. Avoid Redundant Calls: Do not call the same tool with identical parameters repeatedly unless retrying after a known transient error. For related explorations, adjust queries or use different parameters.",
         "5. Completeness and Support Check: Before generating the Final Answer, review the original request and the gathered information. Ensure all parts of the request have been addressed and are backed by specific observations or tool outputs.",
         "6. Task Focus: Ensure every Thought and Action contributes directly to solving the original request. Avoid irrelevant exploration.",
-        "7. Error Handling: If a tool call fails, record the exact error message. In the next Thought, decide how to recover (retry, adjust parameters, use another tool). If no tools successfully resolve the request after reasonable attempts, acknowledge the limitation respectfully in the Final Answer and suggest possible next steps if applicable.",
     ]
 
     instructions: list[str] = [
-        "1. Observation: Restate the user's request or define the sub-task being addressed. Clearly establish the current focus.",
-        "2. Thought: Analyze the problem. Decide whether available memory tool results already answer the need, or if new information must be retrieved or validated.",
+        "1. Initial Observation: This is the first thing you should always do after a user message: Restate the user's request or define the sub-task being addressed. Clearly establish the current focus.",
+        "2. Thought: Analyze the obsercation. Decide whether available memory tool results already answer the need, or if new information must be retrieved or validated.",
         "3. Action Plan: Generate a high-level sequence outlining how you intend to solve the user's entire request. Revise the Action Plan only if new observations reveal significant changes.",
         "4. Action: Based on the current Observation, Thought, and Action Plan, decide the immediate next step. Name the selected tool and parameters. Take no further action until the result is returned.",
-        "5. Observation (Result): Record the tool output exactly as received without paraphrasing.",
+        "5. Observation (From tool output): Record the tool output exactly as received without paraphrasing.",
         "6. Thought (Synthesis & Validation):",
         "    a. Integrate the new result with prior observations.",
         "    b. Evaluate reliability, completeness, and consistency.",
