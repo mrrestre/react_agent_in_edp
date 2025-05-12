@@ -13,7 +13,7 @@ from pydantic import BaseModel
 
 
 from react_agent.src.config.system_parameters import AgentSettings, LlmProxySettings
-from react_agent.src.util.llm_proxy import LLM_PROXY
+from react_agent.src.util.llm_proxy import LLM_PROXY, TokenConsumption
 from react_agent.src.util.logger import LoggerSingleton
 
 LLM_PROXY_SETTINGS = LlmProxySettings()
@@ -31,10 +31,12 @@ class ToolCall(BaseModel):
 class AgentRun(BaseModel):
     """Schema for the agent run data."""
 
-    final_output: str
-    tools_used: list[ToolCall]
-    excecution_time_seconds: float
-    model_used: str
+    final_output: str = ""
+    tools_used: list[ToolCall] = []
+    excecution_time_seconds: float = 0.0
+    model_used: str = ""
+    tokens_consumed: TokenConsumption = TokenConsumption()
+    llm_call_count: int = 0
 
     def pretty_print(self):
         """Print excecution summary nicely"""
@@ -42,7 +44,9 @@ class AgentRun(BaseModel):
         print("=" * 40)
         print(f"Final Output:\n{self.final_output.content}\n")
         print(f"Model Used:\n{self.model_used}\n")
-        print(f"Execution Time: {self.excecution_time_seconds} seconds\n")
+        print(f"Execution Time: \n{self.excecution_time_seconds} seconds\n")
+        self.tokens_consumed.pretty_print()
+        print(f"\nLLM call count: {self.llm_call_count}\n")
 
         print("Tools Used:")
         if not self.tools_used:
@@ -65,9 +69,6 @@ class ReActAgent:
         tool_list: list[BaseTool],
     ):
         self.run_data: AgentRun = AgentRun(
-            final_output="",
-            tools_used=[],
-            excecution_time_seconds=0.0,
             model_used=LLM_PROXY_SETTINGS.model,
         )
 
@@ -210,7 +211,9 @@ class ReActAgent:
                         continue
 
         LLM_PROXY.update_llm_usage(self.run_data.final_output)
+        self.run_data.llm_call_count = LLM_PROXY.get_call_count()
+        self.run_data.tokens_consumed = LLM_PROXY.get_token_usage()
 
-    def get_execution_metadata(self) -> AgentRun:
+    def get_execution_data(self) -> AgentRun:
         """Help function for getting execution metadata"""
         return self.run_data

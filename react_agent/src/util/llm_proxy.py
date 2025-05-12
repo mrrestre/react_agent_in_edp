@@ -18,6 +18,21 @@ LLM_PROXY_SETTINGS = LlmProxySettings()
 LOGGER = LoggerSingleton.get_logger(LLM_PROXY_SETTINGS.logger_name)
 
 
+class TokenConsumption(BaseModel):
+    """Model for token consuption"""
+
+    input_tokens: int = 0
+    output_tokens: int = 0
+    total_tokens: int = 0
+
+    def pretty_print(self):
+        """Token consumption summary nicely"""
+        print("Token Consumption Summary:")
+        print(f"Input Tokens: {self.input_tokens}")
+        print(f"Output Tokens: {self.output_tokens}")
+        print(f"Total Tokens: {self.total_tokens}")
+
+
 class LLMProxy:
     """
     Manages the initialization and invocation of a language model proxy.
@@ -37,11 +52,7 @@ class LLMProxy:
             temperature=LLM_PROXY_SETTINGS.temperature,
         )
 
-        self._token_usage: Dict[str, int] = {
-            "input_tokens": 0,
-            "output_tokens": 0,
-            "total_tokens": 0,
-        }
+        self._token_usage: TokenConsumption = TokenConsumption()
         self.call_count: int = 0
 
     def invoke(self, input: str, config: Optional[RunnableConfig] = None) -> str:
@@ -51,7 +62,7 @@ class LLMProxy:
             self._used_model,
         )
 
-        input_tokens_count = self.num_tokens_from_string(input)
+        input_tokens_count = self._num_tokens_from_string(input)
         if input_tokens_count < LLM_PROXY_SETTINGS.max_input_tokens:
             result = self._llm.invoke(input, config=config)
             self.update_llm_usage(result)
@@ -74,7 +85,7 @@ class LLMProxy:
             input,
         )
 
-        input_tokens_count = self.num_tokens_from_string(input)
+        input_tokens_count = self._num_tokens_from_string(input)
         if input_tokens_count < LLM_PROXY_SETTINGS.max_input_tokens:
             result = self._llm.invoke_with_structured_output(
                 input, output_type, config=config
@@ -86,7 +97,7 @@ class LLMProxy:
                 f"Too many input tokens, input tokens: {input_tokens_count}, max allowed: {LLM_PROXY_SETTINGS.max_input_tokens}"
             )
 
-    def num_tokens_from_string(self, string: str) -> int:
+    def _num_tokens_from_string(self, string: str) -> int:
         """Returns the number of tokens in a text string."""
         encoding = encoding_for_model(self._used_model)
         num_tokens = len(encoding.encode(string))
@@ -97,17 +108,17 @@ class LLMProxy:
         if isinstance(result, AIMessage) and result.usage_metadata:
             self.call_count += 1
 
-            self._token_usage["input_tokens"] += result.usage_metadata.get(
+            self._token_usage.input_tokens += result.usage_metadata.get(
                 "input_tokens", 0
             )
-            self._token_usage["output_tokens"] += result.usage_metadata.get(
+            self._token_usage.output_tokens += result.usage_metadata.get(
                 "output_tokens", 0
             )
-            self._token_usage["total_tokens"] += result.usage_metadata.get(
+            self._token_usage.total_tokens += result.usage_metadata.get(
                 "total_tokens", 0
             )
 
-    def get_token_usage(self) -> Dict[str, int]:
+    def get_token_usage(self) -> TokenConsumption:
         """Returns the current token usage metrics."""
         return self._token_usage
 
@@ -118,7 +129,7 @@ class LLMProxy:
     def print_usage(self) -> None:
         """Prints the current call count and token usage."""
         print(f"Call Count: {self.call_count}")
-        print(f"Token Usage: {self._token_usage}")
+        print(self._token_usage)
 
     def reset_call_count(self) -> None:
         """USE ONLY FOR UNIT TESTING - Resets the call count"""
