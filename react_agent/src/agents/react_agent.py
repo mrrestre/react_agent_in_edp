@@ -40,13 +40,31 @@ class ReActAgent:
 
     def create_sys_prompt(self) -> str:
         """Create the prompt for the agent based on AGENT_SYSTEM_PROMPT."""
-        sys_prompt_template = PromptTemplate.from_template(AGENT_SETTINGS.system_prompt)
+        if AGENT_SETTINGS.use_tool_rankings:
+            sys_prompt_template = PromptTemplate.from_template(
+                AGENT_SETTINGS.system_prompt_tool_rankings
+            )
 
-        return sys_prompt_template.format(
-            react_instructions=("\n").join(AGENT_SETTINGS.instructions),
-            tools=self.generate_tool_info_string(),
-            rules=("\n").join(AGENT_SETTINGS.rules),
-        )
+            tool_rankings = ""
+            for tool in self.available_tools:
+                tool_rankings += f"Tool name: {tool.name}, Ranking: {AGENT_SETTINGS.tool_rankings.get(tool.name)}\n"
+
+            return sys_prompt_template.format(
+                react_instructions=("\n").join(AGENT_SETTINGS.instructions),
+                tools=self.generate_tool_info_string(),
+                rules=("\n").join(AGENT_SETTINGS.rules_tool_rankings),
+                tool_rankings=tool_rankings,
+            )
+        else:
+            sys_prompt_template = PromptTemplate.from_template(
+                AGENT_SETTINGS.system_prompt
+            )
+
+            return sys_prompt_template.format(
+                react_instructions=("\n").join(AGENT_SETTINGS.instructions),
+                tools=self.generate_tool_info_string(),
+                rules=("\n").join(AGENT_SETTINGS.rules_tool_memory),
+            )
 
     def generate_tool_info_string(self) -> str:
         """Generates a string containing tool names, arg schemas, and descriptions."""

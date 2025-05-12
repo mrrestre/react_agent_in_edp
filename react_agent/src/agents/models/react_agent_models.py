@@ -23,11 +23,11 @@ class AgentRun(BaseModel):
     tokens_consumed: TokenConsumption = TokenConsumption()
     llm_call_count: int = 0
 
-    def pretty_print(self):
+    def pretty_print(self, include_output: bool = False):
         """Print excecution summary nicely"""
         print("Agent Run Summary")
-        print("=" * 40)
-        print(f"Final Output:\n{self.final_output}\n")
+        if include_output:
+            print(f"Final Output:\n{self.final_output}\n")
         print(f"Model Used:\n{self.model_used}\n")
         print(f"Execution Time: \n{self.excecution_time_seconds} seconds\n")
         self.tokens_consumed.pretty_print()

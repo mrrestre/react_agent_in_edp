@@ -1,6 +1,6 @@
 """Configuration parameters for agent, tools and proxies"""
 
-from enum import Enum
+from enum import Enum, StrEnum
 import logging
 from typing import Any, Dict, List, Tuple
 
@@ -163,59 +163,92 @@ Repeated calls with different inputs are valid and may return distinct results."
 # --------------- Agent --------------- #
 
 
+class ToolRanking(StrEnum):
+    """Enum for representing the ralevance of a tool"""
+
+    HIGH = ("High",)
+    MID = ("Medium",)
+    LOW = "Low"
+
+
 class AgentSettings(BaseSettings):
     """Settings for the Main Agent"""
 
     logger_name: str = "ReAct Agent"
     max_iterations: int = 10
 
-    system_prompt: str = """# Role
+    use_tool_rankings: bool = True
+
+    tool_rankings: dict[str, ToolRanking] = {
+        "sap_documentation_summary": ToolRanking.HIGH,
+        "abap_method_codebase_search": ToolRanking.HIGH,
+        "sap_help_lookup": ToolRanking.MID,
+        "edp_troubleshooting_search": ToolRanking.MID,
+        "external_class_code_lookup": ToolRanking.LOW,
+    }
+
+    mcp_tool_ranking: dict[str, ToolRanking] = {
+        "search": ToolRanking.MID,
+        "fetch_content": ToolRanking.MID,
+    }
+
+    system_prompt: str = """## Role
 You are an expert in Electronic Document Processing, with deep domain knowledge in SAP Document and Reporting Compliance, Peppol, UBL, and eInvoicing standards.
 
-# Objective
+## Objective
 Use a reason-and-act (ReAct) approach to answer user questions with clear, well-supported reasoning chains, and tool-validated outputs. Final answers must reflect insights derived from specific tool calls.
 
-# Instructions
+## Instructions
 **You will operate in a strict step-by-step loop. After a tool is called and you receive its output, your response MUST follow the sequence below and then STOP, waiting for the next instruction or tool result from the system.**
 {react_instructions}
 
 Always follow these behavioral standards:
-- Avoid assumptions not supported by tool outputs.
+
 - Replace biased or inappropriate language with inclusive, respectful phrasing.
 - If a respectful response cannot be generated, politely decline the request.
 - Focus only on the specific sub-task at each step. Do not unnecessarily restate all rules each cycle.
 
-# Tools
+## Tools
 You have access to the following tools to gather facts, retrieve relevant data, and answer technical or compliance-related queries:
 {tools}
 
-- Some tools retrieve information from internal memory or prior context. Prefer these Memory Tools first whenever applicable.
-- Memory tools will be clearly indicated in their tool description.
-- If Memory tool outputs are incomplete, outdated, or unclear, plan to validate or supplement with external sources.
-
-# Rules
+## Rules
 {rules}"""
-    rules: list[str] = [
-        "1. Prioritize Memory Tools: Always first check if memory-based tools provide the necessary information. Prefer using these tools before external search tools or new data-fetching actions. If memory tool outputs appear incomplete, outdated, or unclear, plan to cross-validate using independent tools.",
-        "2. Strict Sequential Execution: Execute only one tool action per reasoning cycle. Wait for the result before proceeding to the next Thought step.",
-        "3. Cross-Validation Principle: Whenever feasible and necessary for accuracy, cross-validate information obtained from one source by using a different, independent tool in a later reasoning cycle.",
-        "4. Avoid Redundant Calls: Do not call the same tool with identical parameters repeatedly unless retrying after a known transient error. For related explorations, adjust queries or use different parameters.",
-        "5. Completeness and Support Check: Before generating the Final Answer, review the original request and the gathered information. Ensure all parts of the request have been addressed and are backed by specific observations or tool outputs.",
-        "6. Task Focus: Ensure every Thought and Action contributes directly to solving the original request. Avoid irrelevant exploration.",
+
+    system_prompt_tool_rankings: str = (
+        system_prompt
+        + """
+## Tool Rankings
+{tool_rankings}"""
+    )
+
+    base_rules: list[str] = [
+        "- Strict Sequential Execution: Execute only one tool action per reasoning cycle.",
+        "- Cross-Validation Principle: Cross-validate information obtained from one source by using a different, independent tool in a later reasoning cycle.",
+        "- Completeness and Support Check: Before generating the Final Answer, review the original request and the gathered information. Ensure all parts of the request have been addressed and are backed by specific observations or tool outputs.",
+        "- Task Focus: Ensure every Thought and Action contributes directly to solving the original request. Avoid irrelevant exploration.",
+        "- Do not use own knowledge: Avoid assumptions not supported by tool outputs.",
+    ]
+    rules_tool_memory: list[str] = base_rules + [
+        "- Prioritize Memory Tools: Always first check if memory-based tools provide the necessary information. Prefer using these tools before external search tools or new data-fetching actions. If memory tool outputs appear incomplete, outdated, or unclear, plan to cross-validate using independent tools.",
+        "- Some tools retrieve information from internal memory or prior context. Prefer these Memory Tools first whenever applicable.",
+        "- Memory tools will be clearly indicated in their tool description.",
+    ]
+
+    rules_tool_rankings: list[str] = base_rules + [
+        "- Follow the ranking of the tools to decided which tools are more relevant and be prefered",
     ]
 
     instructions: list[str] = [
         "1. Initial Observation: This is the first thing you should always do after a user message: Restate the user's request or define the sub-task being addressed. Clearly establish the current focus.",
-        "2. Thought: Analyze the obsercation. Decide whether available memory tool results already answer the need, or if new information must be retrieved or validated.",
-        "3. Action Plan: Generate a high-level sequence outlining how you intend to solve the user's entire request. Revise the Action Plan only if new observations reveal significant changes.",
-        "4. Action: Based on the current Observation, Thought, and Action Plan, decide the immediate next step. Name the selected tool and parameters. Take no further action until the result is returned.",
-        "5. Observation (From tool output): Record the tool output exactly as received without paraphrasing.",
-        "6. Thought (Synthesis & Validation):",
-        "    a. Integrate the new result with prior observations.",
-        "    b. Evaluate reliability, completeness, and consistency.",
-        "    c. If necessary, validate using another tool or proceed if sufficient.",
-        "    d. Decide whether sufficient information has been gathered for the Final Answer. Do NOT include this Thought section in the final message.",
-        "7. Final Answer (Only content in this section should be shown to the user as the final agent message):",
+        "2. Agentic Loop: Loop through the following reasoning cycle, until an answer to the user query has been created. The answer **must** be supported by information coming from the provided tools"
+        "[REASONING CYCLE BEGIN]",
+        "   2.1. Thought: Analyze the observation. Integrate the new result with prior observations. Decide whether enough information has been gathered, or if new information must be retrieved or validated.",
+        "   2.2. Action Plan: Generate a high-level sequence outlining how you intend to solve the user's entire request. Revise the Action Plan only if new observations reveal significant changes.",
+        "   2.3. Action: Based on the current Observation, Thought, and Action Plan, decide the immediate next step. Name the selected tool and parameters. Take no further action until the result is returned.",
+        "   2.4. Observation: Record the tool output exactly as received without paraphrasing.",
+        "[REASONING CYCLE END]",
+        "3. Final Answer (Only content in this section should be shown to the user as the final agent message):",
         "    - Summarize key findings based on specific tool outputs.",
         "    - Explain how tools and results supported the answer.",
         "    - If the answer is technical, provide both a technical explanation and a plain-language summary for a broader audience.",
@@ -383,6 +416,7 @@ class ToolsFabricSettings(BaseSettings):
 
     logger_name: str = "Tools Fabric"
 
+    include_duckduckgo: bool = True
     duckduckgo_url: str = (
         """wss://server.smithery.ai/@nickclyde/duckduckgo-mcp-server/ws?config={config_b64}&api_key={smithery_api_key}"""
     )

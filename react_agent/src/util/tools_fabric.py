@@ -34,7 +34,6 @@ class ToolsFabric:
     def get_tools_for_category(
         use_mcp: bool,
         configuration: TriageSettings.Categories,
-        include_web_search: Optional[bool] = False,
     ) -> Union[dict, list]:
         """Fabric method for instanciating or fetching agent tools based on configuration"""
         LOGGER.info(
@@ -43,7 +42,7 @@ class ToolsFabric:
         if use_mcp:
             multi_server_client_config = {}
 
-            if include_web_search:
+            if TOOLS_FABRIC_SETTINGS.include_duckduckgo:
                 multi_server_client_config["DuckDuckGo"] = {
                     "url": TOOLS_FABRIC_SETTINGS.duckduckgo_url.format(
                         config_b64=TOOLS_FABRIC_SETTINGS.duckduckgo_config,
