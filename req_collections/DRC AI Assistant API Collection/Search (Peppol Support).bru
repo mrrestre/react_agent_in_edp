@@ -20,7 +20,30 @@ auth:bearer {
 }
 
 body:json {
-  {"prompt_introduction": "You are a Support Engineer working in the context of PEPPOL (Pan-European Public Procurement OnLine).\nYou are given information and troubleshooting guides to help solve issues.","collection_id": "40259c10-14b6-4396-8273-967ae1fa3229","chat_entries": [{"role": "user","content": "One of our prospective customer in Finland is keen to receive electronic Invoice transmission from us. We checked and found that there is already a solution released for Finland. I have few questions before we start to go into the details of its functionality:\n\nHere is the main note: we found\n\n3256030 - Electronic Document Processing for Finland: Implementation Overview\n\n1)  As we believe this is SAP DRC solution, we as Seller do we have to do any registration with Peppol or is this taken care by SAP Solution?\n\n2) For now we have only one customer who would like to receive the invoices in electronically, rest would still continue to receive PDF from SAP ECC.  Would this customer have to get itself registered to Peppol Network.  Is this required and how?"}],"max_chunk_count_collection": 3,"max_chunk_count_sap_help": 3,"is_automated_query": true}
+  {
+    "prompt_introduction": "You are a Support Engineer working in the context of PEPPOL (Pan-European Public Procurement OnLine).\nYou are given information and troubleshooting guides to help solve issues.",
+    "collection_id": "1c7ed0a2-9990-4564-ab1d-3e47dc07f74d",
+    "chat_entries": [
+      {
+        "role": "user",
+        "content": "One of our prospective customer in Finland is keen to receive electronic Invoice transmission from us. We checked and found that there is already a solution released for Finland. I have few questions before we start to go into the details of its functionality:\n\nHere is the main note: we found\n\n3256030 - Electronic Document Processing for Finland: Implementation Overview\n\n1)  As we believe this is SAP DRC solution, we as Seller do we have to do any registration with Peppol or is this taken care by SAP Solution?\n\n2) For now we have only one customer who would like to receive the invoices in electronically, rest would still continue to receive PDF from SAP ECC.  Would this customer have to get itself registered to Peppol Network.  Is this required and how?"
+      },
+      {
+        "role": "system",
+        "content": "Based on the information provided, here are the answers to the questions:  1) As a seller using the SAP DRC solution, you do not need to do any registration with Peppol. The registration process is taken care of by the SAP solution [[6]](https://drcce-architecture-ai.b217766.stage.kyma.ondemand.com/api/v1/forward_to_source?source_url=https%3A%2F%2Fhelp.sap.com%2Fdocs%2FSAP_S4HANA_ON-PREMISE%2F4e132486a4aa48479fa1f73c152633d6%2F53995972e8df4e468fd094f195de9360.html%3Flocale%3Den-US%26state%3DPRODUCTION%26version%3D2023.002&response_session_id=853f31a4-1300-4c99-9486-d79e29b9d5cf&chunk_id=2217043836-0-2478&is_inline_source=True).  2) Yes, the customer who wants to receive the invoices electronically would need to register themselves in the Peppol network [[3]](https://drcce-architecture-ai.b217766.stage.kyma.ondemand.com/api/v1/forward_to_source?source_url=https%3A%2F%2Fgithub.wdf.sap.corp%2Fslh-dc-platform%2Fpeppol-service-support-documentation%2Fblob%2Fmain%2Fsrc%2Fmd%2FBusiness%2520Partner%2520Scan%2520Report.md%23business-partner-scan-report&response_session_id=853f31a4-1300-4c99-9486-d79e29b9d5cf&chunk_id=8ad23d4b-dd73-417f-8da6-9b81245c668b&is_inline_source=True). They can do this by using the test environment (SMK) for reference customers or by following the steps outlined in the SAP Help Portal [[3]](https://drcce-architecture-ai.b217766.stage.kyma.ondemand.com/api/v1/forward_to_source?source_url=https%3A%2F%2Fgithub.wdf.sap.corp%2Fslh-dc-platform%2Fpeppol-service-support-documentation%2Fblob%2Fmain%2Fsrc%2Fmd%2FBusiness%2520Partner%2520Scan%2520Report.md%23business-partner-scan-report&response_session_id=853f31a4-1300-4c99-9486-d79e29b9d5cf&chunk_id=8ad23d4b-dd73-417f-8da6-9b81245c668b&is_inline_source=True)."
+      },
+      {
+        "role": "user",
+        "content": "Can you explain more in depth?"
+      }
+    ],
+    "chat_slots": {
+      "cloud_type": "private_cloud"
+    },
+    "max_chunk_count_collection": 3,
+    "max_chunk_count_sap_help": 3,
+    "is_automated_query": false
+  }
 }
 
 tests {

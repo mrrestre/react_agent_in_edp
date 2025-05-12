@@ -1,0 +1,34 @@
+[
+  {
+    "value":"How to Configure (Maintenance - Customer case support)",
+    "description":"Questions focused on guiding users through system settings, parameters, or configuration steps."
+  },
+  {
+    "value":"How to Develop (Maintenance - Customer case support)",
+    "description":"Instructions or guidance related to small custom developments or enhancements during support."
+  },
+  {
+    "value":"Documentation (Maintenance - Customer case support)",
+    "description":"Requests for references to official documentation, guides, or manuals."
+  },
+  {
+    "value":"Bug Analysis (Maintenance - Customer case support)",
+    "description":"Investigation of errors or unexpected behavior to determine root cause."
+  },
+  {
+    "value":"Bug Fixing (Maintenance - Customer case support)",
+    "description":"Actions or instructions to resolve known or identified issues, including patches or workarounds."
+  },
+  {
+    "value":"Analysis (Development)",
+    "description":"In-depth evaluation or design considerations for new features, requirements, or architectures."
+  },
+  {
+    "value":"Coding (Development)",
+    "description":"Code-level tasks such as implementing logic, creating extensions, or modifying interfaces."
+  },
+  {
+    "value":"Other",
+    "description":"Any question or task that doesn\u2019t fall into the defined categories above."
+  }
+]
