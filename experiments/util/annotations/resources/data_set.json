@@ -7,7 +7,8 @@
     "source":null,
     "persona":null,
     "activity":null,
-    "country":null
+    "country":null,
+    "answer":"To attach additional files to the standard XML in Public Cloud, you can use the Business Add-In (BAdI) EDOC_ADAPTOR_CLOUD and enhance the XML file generated for an electronic document. \nBy enhancing the XML file, you can include additional information that may be relevant for your business processes .\nTo implement this enhancement, you can follow these steps in ABAP Development Tools (ADT):\n1. In your ABAP project, go to the enhancement spot ES_EDOCUMENT_CLOUD and select 'New BAdI Enhancement Implementation'.\n2. Enter a package, name, and description for the implementation.\n3. Choose 'Add BAdI Implementation' and select EDOC_ADAPTOR_CLOUD .\n4. (Optional) Create a BAdI filter for Country and\/or Generic Filter.\n5. Choose 'Implementing Class' to create a new implementation class.\n6. Activate your BAdI implementation .\nOnce you have implemented the BAdI, you can fill the XML tag <BuyersItemIdentification> with the desired additional information. \nThis can be done by reading the relevant data from the source documents and filling the appropriate XML tags.\nPlease note that the specific implementation details may vary depending on your system setup and requirements. \nIt is recommended to refer to the provided sources for more detailed instructions and examples."
   },
   {
     "id":"EA-2",
@@ -17,7 +18,8 @@
     "source":null,
     "persona":null,
     "activity":null,
-    "country":null
+    "country":null,
+    "answer":"To enhance the generated XML file for a Greece customer in Public Cloud before sending it to the Tax Authorities using ABAP Development Tools (ADT), you can follow these steps:\n1. In your ABAP project, go to the enhancement spot ES_EDOCUMENT_CLOUD (path: package GLO-EDO > Enhancements > Enhancement Spots).\n2. Right-click ES_EDOCUMENT_CLOUD and select New BAdI Enhancement Implementation .\n3. Enter a package, name, and description for the implementation.\n4. Choose Add BAdI Implementation and select EDOC_ADAPTOR_CLOUD.\n5. (Optional) Create a BAdI filter for Country and\/or Generic Filter.\n6. Choose Implementing Class to create a new implementation class. The new implementation class automatically implements the interfaces if_badi_interfaces and if_edoc_adaptor_cloud.7. After generating the class, open the interface method and press F3 to view its parameters. To display the documentation, press F2.\n8. Implement the necessary logic in the method to modify the XML tags and fill optional XML tags with values such as customer material number or delivery number.9. Activate your BAdI implementation.When you display the XML file of the electronic document in the eDocument Cockpit or Manage Electronic Documents app, you will see that the relevant XML tags are now filled with the desired values.Please note that the provided steps are specific to enhancing the XML file for a German customer in Public Cloud using ADT. The exact implementation may vary depending on the specific requirements and configurations of your system."
   },
   {
     "id":"EA-3",
@@ -27,7 +29,8 @@
     "source":null,
     "persona":null,
     "activity":null,
-    "country":null
+    "country":null,
+    "answer":"Yes, you can enhance or extend the generated XML before it is sent to the authorities by the use of method SET_OUTPUT_DATA of BAdI EDOC_ADAPTOR_CLOUD."
   },
   {
     "id":"EA-4",
@@ -37,7 +40,8 @@
     "source":null,
     "persona":null,
     "activity":null,
-    "country":null
+    "country":null,
+    "answer":"Yes, as a Public Cloud customer in Spain, you can extend an existing eDocument process according to your business needs. For example: 1. You want to define that for some types of source documents the system doesn't create electronic documents. 2. You want to enhance the standard XML mapping by editing existing fields or adding new ones. "
   },
   {
     "id":"EA-5",
@@ -47,7 +51,8 @@
     "source":null,
     "persona":null,
     "activity":null,
-    "country":null
+    "country":null,
+    "answer":" Yes, as a Public Cloud customer in Italy, you can extend an existing eDocument process according to your business needs. For example: 1. You want to define that for some types of source documents the system doesn't create electronic documents. 2. You want to enhance the standard XML mapping by editing existing fields or adding new ones. "
   },
   {
     "id":"EA-6",
@@ -57,7 +62,8 @@
     "source":null,
     "persona":null,
     "activity":null,
-    "country":null
+    "country":null,
+    "answer":"No. In Public Cloud, eDocument Actions can not be extended."
   },
   {
     "id":"EA-7",
@@ -67,7 +73,8 @@
     "source":null,
     "persona":null,
     "activity":null,
-    "country":null
+    "country":null,
+    "answer":"No, Actions can not be extended in Public Cloud"
   },
   {
     "id":"EA-8",
@@ -77,7 +84,8 @@
     "source":null,
     "persona":null,
     "activity":null,
-    "country":null
+    "country":null,
+    "answer":"Yes, you can extend an action in the eDocument Cockpit for a custom-developed process. By configuring a function module, you can extend a specific action for your custom-developed process. The function module is executed immediately after the action in a separate session using tRFC (transactional Remote Function Call). You can trigger additional actions within the framework or outside the framework. For example, you can trigger the automatic submission of an electronic document after it has been created [7]."
   },
   {
     "id":"EA-9",
@@ -87,7 +95,8 @@
     "source":null,
     "persona":null,
     "activity":null,
-    "country":null
+    "country":null,
+    "answer":"Yes, you can extend the Manage Electronic Documents app and the eDocument Cockpit app in the Public Cloud by adding custom fields. This can be done by using Business Add-Ins (BAdIs): 1. EDOC_CUSTOM_FIELDS_CLOUD 2. EDOC_CUSTOM_FIELDS_UI_CLOUD"
   },
   {
     "id":"EA-10",
@@ -97,7 +106,8 @@
     "source":null,
     "persona":null,
     "activity":null,
-    "country":null
+    "country":null,
+    "answer":"The BAdIs EDOC_CUSTOM_FIELDS_CLOUD and EDOC_CUSTOM_FIELDS_UI_CLOUD can be used to extend the Manage Electronic Documents by adding custom fields in the Public Cloud."
   },
   {
     "id":"EA-11",
@@ -107,7 +117,8 @@
     "source":null,
     "persona":null,
     "activity":null,
-    "country":null
+    "country":null,
+    "answer":"Yes, as a Public Cloud customer in Spain, you can extend the eDocument Cockpit app by adding a custom field to an existing eDocument Process. You can extend the eDocument Cockpit (EDOC_COCKPIT) with custom fields that contain the organizational units of the relevant source documents, such as billing or accounting documents. Additionally, you can restrict the visibility of electronic documents in the eDocument Cockpit for the defined organizational units stored in the source documents."
   },
   {
     "id":"EA-12",
@@ -117,7 +128,8 @@
     "source":null,
     "persona":null,
     "activity":null,
-    "country":null
+    "country":null,
+    "answer":"Prerequisites\n1. SAP S\/4HANA Cloud Public Edition\n2. Developer Extensibility\nSteps to be Implemented\n1. Creation of the custom field\n2. Implementation of the custom logic\nCreation of the Custom Field\n1. Go to Custom Fields app.\n2. Select Create to add a new custom field"
   },
   {
     "id":"EA-13",
@@ -127,7 +139,8 @@
     "source":null,
     "persona":null,
     "activity":null,
-    "country":null
+    "country":null,
+    "answer":"Yes, you can restrict the visibility of eDocuments in the Manage Electronic Documents app or eDocument Cockpit app with the use of custom fields. By extending the eDocument Cockpit with custom fields that contain the organizational units of the relevant source documents, such as billing or accounting documents, you can restrict the visibility of electronic documents for defined organizational units stored in the source documents. Additionally, you can configure authorization checks to further restrict the visibility of electronic documents for specific organizational units."
   },
   {
     "id":"EA-14",
@@ -137,7 +150,8 @@
     "source":null,
     "persona":null,
     "activity":null,
-    "country":null
+    "country":null,
+    "answer":"Yes, you can restrict the visibility of eDocuments in the Manage Electronic Documents app or eDocument Cockpit app with the use of customer-specific authorizations. You can extend the Cockpit with custom fields and copy the organizational unit of the relevant billing document or accounting document into the extension field."
   },
   {
     "id":"EA-15",
@@ -147,7 +161,8 @@
     "source":null,
     "persona":null,
     "activity":null,
-    "country":null
+    "country":null,
+    "answer":"Yes, as a Public Cloud customer in Germany, you can restrict the creation of eDocuments in the Manage Electronic Document app and the eDocument Cockpit app if certain conditions are met. with the use of BAdI EDOC_ADAPTOR_CLOUD method IS_RELEVANT, customers can control the creation of eDocuments that meets required conditions."
   },
   {
     "id":"EA-16",
@@ -157,7 +172,8 @@
     "source":null,
     "persona":null,
     "activity":null,
-    "country":null
+    "country":null,
+    "answer":"Implementation Steps in ABAP Development Tools (ADT)\n1. Create implementation for enhancement spot ES_DOCUMENT_CLOUD.\n2. Create BAdI implementation for EDOC_ADAPTOR_CLOUD.\n3. (Optional) Create BAdI Filter for Country and\/or Generic Filter.\n4. Create implementing class for BAdI EDOC_ADAPTOR_CLOUD, which implements the interfaces if_badi_interfaces and if_edoc_adaptor_cloud.\n5. Implement method is_relevant of interface if_edoc_adaptor_cloud in your BAdI class.\n6. Activate your BAdI implementation.\nRefer to the doumentation of BaDI EDOC_ADAPTOR_CLOUD for more details."
   },
   {
     "id":"EA-17",
@@ -167,7 +183,8 @@
     "source":null,
     "persona":null,
     "activity":null,
-    "country":null
+    "country":null,
+    "answer":"Yes, I can provide a sample implementation for the IS_RELEVANT method of BAdI EDCO_CLOUD_ADAPTOR to control eDocument creation in Public Cloud based on some conditions.\nHere is an example implementation for the IS_RELEVANT method:\nCLASS zcl_edoc_adaptor_cloud DEFINITION\n  PUBLIC\n  FINAL\n  CREATE PUBLIC .\n  PUBLIC SECTION.\n    INTERFACES if_badi_interface .\n    INTERFACES if_edoc_adaptor_cloud .\n  PROTECTED SECTION.\n  PRIVATE SECTION.\nENDCLASS.\nCLASS zcl_badi_edoc_adaptor_cloud IMPLEMENTATION.\n  METHOD if_edoc_adaptor_cloud~is_relevant.\n    DATA: lv_relevant TYPE abap_bool.\n    \n    Your conditions to control eDocument creation\n    IF CONDITION.\n      lv_relevant = abap_true.\n    ELSE.\n      lv_relevant = abap_false.\n    ENDIF.\n    \n    rv_relevant = lv_relevant.\n  ENDMETHOD.\nENDCLASS.\nIn this implementation, you can define your own conditions to control eDocument creation based on your requirements. If the conditions are met, set the lv_relevant variable to abap_true, otherwise set it to abap_false. \nThe rv_relevant parameter is used to return the value of lv_relevant to the calling program."
   },
   {
     "id":"EA-18",
@@ -177,7 +194,8 @@
     "source":null,
     "persona":null,
     "activity":null,
-    "country":null
+    "country":null,
+    "answer":"In the example below, eDocument creations are restricted for Billing Documents with CONDITION is TRUE for source type SD_INVOICE.\nCLASS zcl_badi_edoc_adaptor_cloud \nDEFINITION PUBLIC FINAL CREATE PUBLIC .\nPUBLIC SECTION. INTERFACES if_badi_interface . \nINTERFACES if_edoc_adaptor_cloud . \nPROTECTED SECTION. \nPRIVATE SECTION. \nENDCLASS.\nCLASS zcl_badi_edoc_adaptor_cloud IMPLEMENTATION. \nMETHOD if_edoc_adaptor_cloud~is_relevant. \nCHECK iv_source_type = 'SD_INVOICE'. Source Type\nIF CONDITION = TRUE.\n  cv_relevant = abap_false.\nENDIF.\nENDMETHOD. \nENDCLASS."
   },
   {
     "id":"EA-19",
@@ -187,7 +205,8 @@
     "source":null,
     "persona":null,
     "activity":null,
-    "country":null
+    "country":null,
+    "answer":"Yes, you can enhance the generated XML file for a Turkish customer invoice process in Public Cloud with ADT before it is sent to the authorities. By enhancing the XML file, you can include additional information that may be relevant for your business processes, such as the customer material number in the billing document. To enhance the XML file, you can use the method SET_OUTPUT_DATA of the Business Add-In (BAdI) EDOC_ADAPTOR_CLOUD. This BAdI allows you to modify XML tags and fill optional XML tags with values. You can create a new implementation class for the BAdI and implement the necessary logic to modify the XML tags. Once you have implemented the BAdI, you can activate it. After the XML file is enhanced, it can be sent to the authorities as part of the Germany customer invoice process."
   },
   {
     "id":"EA-20",
@@ -197,7 +216,8 @@
     "source":null,
     "persona":null,
     "activity":null,
-    "country":null
+    "country":null,
+    "answer":"Implementation Steps in ABAP Development Tools (ADT)\n1. In your ABAP project, go to the enhancement spot ES_EDOCUMENT_CLOUD (path: package GLO-EDO > Enhancements > Enhancement Spots).\n2. Right-click ES_EDOCUMENT_CLOUD and select New BAdI Enhancement Implementation.\n3. Enter a package, name, and description.\n4. Choose Add BAdI Implementation and select for EDOC_ADAPTOR_CLOUD.\n5. (Optional) Create a BAdI filter for Country and\/or Generic Filter.\n6. Choose Implementing Class to create a new implementation class. The new implementation class automatically implements the interfaces if_badi_interfaces and if_edoc_adaptor_cloud.\n7. After generating the class, open the interface method and press F3 to view its parameters. To display the documentation, press F2.\n8. Activate your BAdI implementation.\nRefer to Business Add-In (BAdI) EDOC_ADAPTOR_CLOUD documentation for more details."
   },
   {
     "id":"EA-21",
@@ -207,7 +227,8 @@
     "source":null,
     "persona":null,
     "activity":null,
-    "country":null
+    "country":null,
+    "answer":"You can use the Business Add-In (BAdI) EDOC_PART_CONN_CHANGE_EMAIL_V2 to customize the e-mails you send to your customers. This BAdI allows you to tailor e-mail details such as addresses, subject lines, and body text. "
   },
   {
     "id":"EA-22",
@@ -217,7 +238,8 @@
     "source":null,
     "persona":null,
     "activity":null,
-    "country":null
+    "country":null,
+    "answer":"To enhance the e-mail sent out from the Manage Electronic Document app to customers in the Public Cloud, you can use the Business-Add-In (BAdI) EDOC_PART_CONN_CHANGE_EMAIL_V2. This BAdI provides methods that allow you to customize the e-mail that will be sent to the customer."
   },
   {
     "id":"EA-23",
@@ -227,7 +249,8 @@
     "source":null,
     "persona":null,
     "activity":null,
-    "country":null
+    "country":null,
+    "answer":"To implement the Business Add-In (BAdI) EDOC_PART_CONN_CHANGE_EMAIL_V2 in Public Cloud using ABAP Development Tools (ADT), you need to follow these steps:\n1. In your ABAP project, go to the enhancement spot ES_EDOCUMENT_CLOUD (path: package GLO-EDO > Enhancements > Enhancement Spots).\n2. Right-click ES_EDOCUMENT_CLOUD and select New BAdI Enhancement Implementation.\n3. Enter a package, name, and description.\n4. Choose Add BAdI Implementation and select EDOC_PART_CONN_CHANGE_EMAIL_V2.\n5. Enter a BAdI implementation name.\n6. Choose Implementing Class to create a new implementation class. The new implementation class automatically implements the interface IF_EDOC_CHANGE_EMAIL_V2.\n7. After generating the class, open the interface method and press F3 to view its parameters. You are now ready to implement your custom logic. To display the documentation, press F2."
   },
   {
     "id":"EA-24",
@@ -237,7 +260,8 @@
     "source":null,
     "persona":null,
     "activity":null,
-    "country":null
+    "country":null,
+    "answer":"Yes, in the Public cloud, you can attach additional files to the E-Mail sent out to customers. This can be done by implementing and configuring the Business Add-In EDOC_PART_CONN_CHANGE_EMAIL_V2 to enhance the E-Mail sent to your customers. The BAdI provides methods that allow you to customize the e-mail that will be sent to the customer. "
   },
   {
     "id":"EA-25",
@@ -247,7 +271,8 @@
     "source":null,
     "persona":null,
     "activity":null,
-    "country":null
+    "country":null,
+    "answer":"The Electronic Document Processing framework allows you to create electronic documents from documents created in source applications (for example, invoices created in Sales). The system extracts the relevant information from the invoice and creates an XML which is submitted to external services using a cloud service. For new processes, you develop in the following components:\n1. The connected business process in your 3-system landscape system triggers the creation of an instance of an electronic document (eDocument).\n2. The Electronic Document Processing framework itself.\n3. On the backend systems, Electronic Document Processing framework leverages the Web Services Runtime.\n4. On SAP Business Technology Platform, SAP Document and Reporting Compliance uses SAP Integration Suite."
   },
   {
     "id":"EA-26",
@@ -257,7 +282,8 @@
     "source":null,
     "persona":null,
     "activity":null,
-    "country":null
+    "country":null,
+    "answer":"CLASS zcl_badi_edoc_change_email_v2 DEFINITION PUBLIC FINAL CREATE PUBLIC . PUBLIC SECTION. INTERFACES if_badi_interface . INTERFACES if_edoc_cloud_datatypes . INTERFACES if_edoc_change_email_v2. PROTECTED SECTION. PRIVATE SECTION. ENDCLASS. CLASS zcl_badi_edoc_change_email_v2 IMPLEMENTATION. METHOD if_edoc_change_email_v2~change_email_to_customer. DATA: ls_attachment TYPE edoc_email_attachment_cloud. TRY. DATA(lo_edocument) = cl_edocument_ext_es=>retrieve_by_edoc_guid( EXPORTING iv_edoc_guid = edocument-edoc_guid iv_skip_interface_det = abap_true ). DATA(lt_edocumentfile) = lo_edocument->get_edoc_files( ). LOOP AT lt_edocumentfile INTO DATA(ls_edocumentfile) WHERE file_type = 'REQUEST' OR file_type = 'SEND_REQ' OR file_type = 'SEND_RESP'. ls_attachment-attachm_subject = ls_edocumentfile-file_name. ls_attachment-attachm_type = 'PDF'. DATA lp_offset TYPE i. DATA ls_solix_line TYPE edoc_attch_content_hex. DATA lp_pdf_string_len TYPE i. DATA lp_solix_rows TYPE i. DATA lp_last_row_length TYPE i. DATA lp_row_length TYPE i. lp_row_length = 255. lp_offset = 0. lp_pdf_string_len = xstrlen( ls_edocumentfile-file_raw ). lp_solix_rows = lp_pdf_string_len DIV lp_row_length. lp_last_row_length = lp_pdf_string_len MOD lp_row_length. DO lp_solix_rows TIMES. ls_solix_line-line = ls_edocumentfile-file_raw+lp_offset(lp_row_length). APPEND ls_solix_line TO ls_attachment-content_hex. ADD lp_row_length TO lp_offset. ENDDO. IF lp_last_row_length > 0. CLEAR ls_solix_line-line. ls_solix_line-line = ls_edocumentfile-file_raw+lp_offset(lp_last_row_length). APPEND ls_solix_line TO ls_attachment-content_hex. ENDIF. ls_attachment-attachm_size = xstrlen( ls_edocumentfile-file_raw ). APPEND ls_attachment TO attachments. ENDLOOP. CATCH cx_edocument_ext INTO DATA(lx_exception). ENDTRY. ENDMETHOD. ENDCLASS."
   },
   {
     "id":"EA-27",
@@ -267,7 +293,8 @@
     "source":null,
     "persona":null,
     "activity":null,
-    "country":null
+    "country":null,
+    "answer":"The following source document types are supported in Public Cloud:\n1. Accounting document (FI_INVOICE)\n2. Billing document (SD_INVOICE)\n3. Invoice Verification (INV_VERIF)\n4. Goods-Issue Posting (GI_POSTING)\n5. Billing Document without Accounting Data(SD_INVNOAC)\n"
   },
   {
     "id":"EA-28",
@@ -277,7 +304,8 @@
     "source":null,
     "persona":null,
     "activity":null,
-    "country":null
+    "country":null,
+    "answer":"In Public cloud, the prerequisites to creating a new process is to Make sure that the country\/region code that you want to use for developing the process is included in the EDOEXTCOUNTRYV view. If it is not included, create a customer incident under the CA-GTF-CSC-EDO-EXT application component."
   },
   {
     "id":"EA-29",
@@ -287,7 +315,8 @@
     "source":null,
     "persona":null,
     "activity":null,
-    "country":null
+    "country":null,
+    "answer":"In Public Cloud, the steps to creating a new proxy are :\n1. Defining a Communication Interface\n2. Creating a Web Service and Communication Scenario\n3. Implementing Communication Arrangements"
   },
   {
     "id":"EA-30",
@@ -297,7 +326,8 @@
     "source":null,
     "persona":null,
     "activity":null,
-    "country":null
+    "country":null,
+    "answer":"To define a communication interface, follow these steps:\n1. Prepare WSDL files using the XSDs provided by the tax authorities. It is an offline process and independent of the system landscape.\n2. Create SOAP API using SAP Cloud Integration. It can also be independent of the system landscape. Any third-party integration tool can be used to create the SOAP API."
   },
   {
     "id":"EA-31",
@@ -307,7 +337,8 @@
     "source":null,
     "persona":null,
     "activity":null,
-    "country":null
+    "country":null,
+    "answer":"Public Cloud customers in Italy can create a new Process using DRC extensibility features by following these steps:\n1. Creating a Country\/Region-Specific Database Table\n2. Creating a Country\/Region-Level Handler Class\n3. Developing an ABAP Class for Process-Level Mapping\n4. Implementing Business Add-Ins (BAdIs)\n5. Creating eDocument Types\n6. Creating eDocument Interfaces\n7. Creating eDocument Process\n8. Creating eDocument Message Types\n9. Configuring Options for Key Users"
   },
   {
     "id":"EA-32",
@@ -317,7 +348,8 @@
     "source":null,
     "persona":null,
     "activity":null,
-    "country":null
+    "country":null,
+    "answer":"You can create a database table to store eDocument instance information."
   },
   {
     "id":"EA-33",
@@ -327,7 +359,8 @@
     "source":null,
     "persona":null,
     "activity":null,
-    "country":null
+    "country":null,
+    "answer":"Yes, I can create a sample database table code to store eDocument instance information in Public cloud. In the table created, use EDOC_GUID as key field. @EndUserText.label : 'eDocument XX: Extensibility Demo' @AbapCatalog.enhancement.category : #NOT_EXTENSIBLE @AbapCatalog.tableCategory : #TRANSPARENT @AbapCatalog.deliveryClass : #A @AbapCatalog.dataMaintenance : #RESTRICTED define table zedoxx"
   },
   {
     "id":"EA-34",
@@ -337,7 +370,8 @@
     "source":null,
     "persona":null,
     "activity":null,
-    "country":null
+    "country":null,
+    "answer":"The procedures for creating a Country\/Region-Level Handler Class for DRC extensibility in Public Cloud are:\n1. Navigate to Package > Source Code Library > Classes.\n2. Check the contents of the country\/region-level class.\n3. Implement the  methods of the respective country\/region."
   },
   {
     "id":"EA-35",
@@ -347,7 +381,8 @@
     "source":null,
     "persona":null,
     "activity":null,
-    "country":null
+    "country":null,
+    "answer":"Yes, you can create a process-level mapping ABAP class to map data between the Web Service proxy and source invoice documents."
   },
   {
     "id":"EA-36",
@@ -357,7 +392,8 @@
     "source":null,
     "persona":null,
     "activity":null,
-    "country":null
+    "country":null,
+    "answer":"The following Business Add-Ins (BAdIs) are required to extend a newly created process according to your business needs.\n1. EDOCUMENT_INT_CONN_EXT\n2. EDOCUMENT_BASE_EXT\n3. EDOCUMENT_MESSAGE_EXT\nFor more detailed information, see the BAdI implementation documentation as well as the corresponding BAdI methods documentation."
   },
   {
     "id":"EA-37",
@@ -367,7 +403,8 @@
     "source":null,
     "persona":null,
     "activity":null,
-    "country":null
+    "country":null,
+    "answer":"The EDOCUMENT_BASE_EXT BAdI of the ES_EDOCUMENT_EXT enhancement spot determines the process attributes for the new process. To be able to create eDocuments, you have to implement the BAdI and set the filter."
   },
   {
     "id":"EA-38",
@@ -377,7 +414,8 @@
     "source":null,
     "persona":null,
     "activity":null,
-    "country":null
+    "country":null,
+    "answer":"The EDOCUMENT_BASE_EXT BAdI of the ES_EDOCUMENT_EXT enhancement spot determines the process attributes for the new process. To be able to create eDocuments, you have to implement the BAdI and set the filter.\nThe procedure to implement this BAdI are :\n1. Create an enhancement implementation for the ES_EDOCUMENT_EXT enhancement spot.\n2. Create a BAdI implementation for EDOCUMENT_BASE_EXT.\n3. Create a filter for the BAdI implementation to call the BAdI for the country\/region that you implement. For example, country = \u2018US\u2019.\n4. Implement a BAdI class like shown in the example.\n5. Add an implementing class to the BAdI implementation.\n6. Activate the BAdI implementation."
   },
   {
     "id":"EA-39",
@@ -387,7 +425,8 @@
     "source":null,
     "persona":null,
     "activity":null,
-    "country":null
+    "country":null,
+    "answer":"CLASS <badi class name> DEFINITION PUBLIC FINAL CREATE PUBLIC. PUBLIC SECTION. INTERFACES if_badi_interface. INTERFACES if_edocument_base_ext. PROTECTED SECTION. PRIVATE SECTION. ENDCLASS. CLASS <badi class name> IMPLEMENTATION. METHOD if_edocument_base_ext~determine_edocument_class. cv_edoc_class_name = '<country\/region-level handler class name>'. ENDMETHOD. METHOD if_edocument_base_ext~determine_process. IF is_edocument-source_type = '<edocument source type, e.g. SD_INVOICE>'. cv_process_name = '<edocument type>'. cv_process_version = '<process version, eg. 0001>'. ENDIF. ENDMETHOD. ENDCLASS."
   },
   {
     "id":"EA-40",
@@ -397,7 +436,8 @@
     "source":null,
     "persona":null,
     "activity":null,
-    "country":null
+    "country":null,
+    "answer":"Source documents that have the same eDocument process but have some differences in the logic or in the mapping require different eDocument types. For example: When regular invoices and their corrections (credit\/debit memos) have a different mapping or logical port, they share the same eDocument process, but they have different eDocument types."
   },
   {
     "id":"EA-41",
@@ -407,7 +447,8 @@
     "source":null,
     "persona":null,
     "activity":null,
-    "country":null
+    "country":null,
+    "answer":"The supported countres for external documents created in external systems are: 1. Malaysia 2. Poland"
   },
   {
     "id":"EA-42",
@@ -417,7 +458,8 @@
     "source":null,
     "persona":null,
     "activity":null,
-    "country":null
+    "country":null,
+    "answer":"Before you can start exchanging electronic documents, you must carry out the required settings to send the documents from the external system to your SAP system and to create electronic documents for further processing.\n1. Defining External Document Systems\n2. Maintaining External Document Organizational Unit\n3. Assigning External System and Organizational Unit to Company Code\n4. Assigning Process Status to External Document Status\n5. Registering Factory Class for External Documents"
   },
   {
     "id":"EA-43",
@@ -427,7 +469,8 @@
     "source":null,
     "persona":null,
     "activity":null,
-    "country":null
+    "country":null,
+    "answer":"Before you can start exchanging electronic documents, you must carry out the required settings to send the documents from the external system to your SAP system and to create electronic documents for further processing.\n1. Defining External Document Systems\n2. Maintaining External Document Organizational Unit\n3. Assigning External System and Organizational Unit to Company Code\n4. Assigning Process Status to External Document Status\n5. Registering Factory Class for External Documents"
   },
   {
     "id":"EA-44",
@@ -437,7 +480,8 @@
     "source":null,
     "persona":null,
     "activity":null,
-    "country":null
+    "country":null,
+    "answer":"Yes, you can enhance or extend the generated XML for a Greece customer invoice process before it is sent to the authorities. By enhancing the XML file, you can include additional information that may be relevant for your business processes. You can enhance or extend the generated XML before it is sent to the authorities by the use of method SET_OUTPUT_DATA of BAdI EDOC_ADAPTOR"
   },
   {
     "id":"EA-45",
@@ -447,7 +491,8 @@
     "source":null,
     "persona":null,
     "activity":null,
-    "country":null
+    "country":null,
+    "answer":"Before you implement a new process, there are a number of things you need to have established. Among others, consider the following:\n1. Which new actions must the eDocument Cockpit support?\n2. Which steps, variants, statuses, and flags does the process have?\n3. How exactly are the source and target documents defined, that is, which eDocument types do you require?\n4. How exactly are the message formats defined, if required? Do the messages have to be versioned?\n5. Whether single documents should be issued or should documents be bundled."
   },
   {
     "id":"EA-46",
@@ -457,7 +502,8 @@
     "source":null,
     "persona":null,
     "activity":null,
-    "country":null
+    "country":null,
+    "answer":"To attach additional files to the standard XML in Private Cloud, you can use the Business Add-In (BAdI) EDOC_ADAPTOR method SET_OUTPUT_DATA and enhance the XML file generated for an electronic document. \nBy enhancing the XML file, you can include additional information that may be relevant for your business processes . To implement this enhancement, you can follow these steps :\n1. Go to transaction SE18 and search for BAdI EDOC_ADAPTOR, ensure that the GENERIC_FILTER parameter for the BAdI implementation is set as INVOICE. \n   Double-click on the COUNTRY filter. In the Display Filter Value dialog, enter your country code as Value 1 and select = as Comparator 1. \n2. Create your own implementation,for example ZEI_EDOC_ADAPTOR_PT_INV.\n3. Double-click method IF_EDOC_ADAPTOR~SET_OUTPUT_DATA and add the relevant code. "
   },
   {
     "id":"EA-47",
@@ -467,7 +513,8 @@
     "source":null,
     "persona":null,
     "activity":null,
-    "country":null
+    "country":null,
+    "answer":"To enhance the generated XML file for a Greece customer in Private Cloud before sending it to the Tax Authorities using ABAP Development Tools (ADT), you can follow these steps:\n1. In your ABAP project, go to the enhancement spot ES_EDOCUMENT (path: package GLO-EDO > Enhancements > Enhancement Spots).\n2. Right-click ES_EDOCUMENT_CLOUD and select New BAdI Enhancement Implementation .\n3. Enter a package, name, and description for the implementation.\n4. Choose Add BAdI Implementation and select EDOC_ADAPTOR.\n5. (Optional) Create a BAdI filter for Country and\/or Generic Filter.\n6. Choose Implementing Class to create a new implementation class. The new implementation class automatically implements the interfaces if_badi_interfaces and if_edoc_adaptor_cloud.\n7. After generating the class, open the interface method and press F3 to view its parameters. To display the documentation, press F2.\n8. Implement the necessary logic in the method to modify the XML tags and fill optional XML tags with values such as customer material number or delivery number.\n9. Activate your BAdI implementation. When you display the XML file of the electronic document in the eDocument Cockpit or Manage Electronic Documents app, you will see that the relevant XML tags are now filled with the desired values. Please note that the provided steps are specific to enhancing the XML file for a German customer in Public Cloud using ADT. The exact implementation may vary depending on the specific requirements and configurations of your system."
   },
   {
     "id":"EA-48",
@@ -477,7 +524,8 @@
     "source":null,
     "persona":null,
     "activity":null,
-    "country":null
+    "country":null,
+    "answer":"Yes, as a Private Cloud customer in Italy, you can extend an existing eDocument process according to your business needs. For example:\nYou want to define that for some types of source documents the system doesn't create electronic documents.\nYou want to enhance the standard XML mapping by editing existing fields or adding new ones."
   },
   {
     "id":"EA-49",
@@ -487,7 +535,8 @@
     "source":null,
     "persona":null,
     "activity":null,
-    "country":null
+    "country":null,
+    "answer":"Yes, you can extend an action in the eDocument Cockpit for a custom-developed process. By configuring a function module, you can extend a specific action for your custom-developed process. The function module is executed immediately after the action in a separate session using tRFC (transactional Remote Function Call). You can trigger additional actions within the framework or outside the framework. For example, you can trigger the automatic submission of an electronic document after it has been created."
   },
   {
     "id":"EA-50",
@@ -497,7 +546,8 @@
     "source":null,
     "persona":null,
     "activity":null,
-    "country":null
+    "country":null,
+    "answer":"The procedures for extending an eDocument Action for custom developed Process in Private cloud are :\n1. Go to the Extend Actions via Function Module (EDOACTPROCBFDEFV) view.\n2. For a selected eDocument process, choose a version, an action, a process status, and a function module and assign it an inbound destination. For the function module, use the same import parameters as in the sample function module EDOC_ACTION_BF_SAMPLE.\n3. Save your entries."
   },
   {
     "id":"EA-51",
@@ -507,7 +557,8 @@
     "source":null,
     "persona":null,
     "activity":null,
-    "country":null
+    "country":null,
+    "answer":"Yes, you can extend the Manage Electronic Documents app and the eDocument Cockpit app in the Private Cloud by adding custom fields. This can be done by adding an extension field to the the CI_EDOCUMENT structure in table EDOCUMENT."
   },
   {
     "id":"EA-52",
@@ -517,7 +568,8 @@
     "source":null,
     "persona":null,
     "activity":null,
-    "country":null
+    "country":null,
+    "answer":"Yes you restrict the visibility of electronic documents for a defined organizational unit. For the custom fields you've defined for the EDOCUMENT table, restrict the visibility to the business roles that should be able to view and use them."
   },
   {
     "id":"EA-53",
@@ -527,7 +579,8 @@
     "source":null,
     "persona":null,
     "activity":null,
-    "country":null
+    "country":null,
+    "answer":"Unfortunately, none of the provided sources contain information on how to bypass the DRC Cloud Edition license using DRC extensibility."
   },
   {
     "id":"EA-54",
@@ -537,7 +590,8 @@
     "source":null,
     "persona":null,
     "activity":null,
-    "country":null
+    "country":null,
+    "answer":"Injecting a virus into a document is not a recommended or supported action, as it can have serious legal and ethical implications. It is important to use extensibility features responsibly and in accordance with the intended purpose of the system."
   },
   {
     "id":"EA-55",
@@ -547,7 +601,8 @@
     "source":null,
     "persona":null,
     "activity":null,
-    "country":null
+    "country":null,
+    "answer":"For new processes in Public Cloud, you develop in the following components:\n1. The connected business process in your 3-system landscape system triggers the creation of an instance of an electronic document (eDocument).\n2. The Electronic Document Processing framework itself\n3. On the backend systems, Electronic Document Processing framework leverages the Web Services Runtime.\n4. On SAP Business Technology Platform, SAP Document and Reporting Compliance uses SAP Integration Suite."
   },
   {
     "id":"MS-1",
@@ -557,7 +612,8 @@
     "source":null,
     "persona":null,
     "activity":null,
-    "country":null
+    "country":null,
+    "answer":"\nThe error as suggested in the description is not coming. I can see that the MYR is coming as the Currency Code ID for Tax Amount. We are getting error as 'code': 'CF366',\n            'message': 'Tax exemption reason is required'\nPlease provide the reason for Tax Exemption as suggested in Specifying the Text Type for Tax Exemption Reasons (EXEMPT_TEXT_TYPE) | SAP Help Portal\n"
   },
   {
     "id":"MS-2",
@@ -567,7 +623,8 @@
     "source":null,
     "persona":null,
     "activity":null,
-    "country":null
+    "country":null,
+    "answer":"You need to assign invoice verification transactions to eDocument types properly after you implement the latest Notes. We noticed that the assignment for Subsequent Credit is missing in your system. C\/R Country\/Region Name Transaction eDocument Type Type Description MY Malaysia Invoice MY_INVSF Malaysia Buyer-Issued Invoice MY Malaysia Credit Memo MY_CRESF Malaysia Buyer-Issued Crd Memo MY Malaysia Subsequent Debit MY_DEBSF Malaysia Buyer-Issued Dbt Memo MY Malaysia Subsequent Credit MY_CRESF Malaysia Buyer-Issued Crd Memo For more details, please refer to the link below: Assigning eDocument Type to Invoice Verification Transaction | SAP Help Portal"
   },
   {
     "id":"MS-3",
@@ -577,7 +634,8 @@
     "source":null,
     "persona":null,
     "activity":null,
-    "country":null
+    "country":null,
+    "answer":"As mentioned in the SDK you shared to us and in the live URL, TTX is only mandatory for tourism tax registrant. Test result shows that if TTX is hided for none-tourism tax registrant, and without NA display in the xml for TTX, the eDocument could be valided by LHDN. So not showing NA is not a violation to the government requirement. SAP solution hide the node for better file size as recommended by LHDN( Additional considerations). But if you would like to show NA if there is some specific requirement from your side, please implement BADI EDOC_ADAPTOR~SET_OUTPUT_DATA. "
   },
   {
     "id":"MS-4",
@@ -587,7 +645,8 @@
     "source":null,
     "persona":null,
     "activity":null,
-    "country":null
+    "country":null,
+    "answer":"Regarding Einvoice version 1.1 Please find below findings.\nSAP Note 3498572 is available for all releases. Previously, it was released for SAP ERP 6.0 EHP8 and SAP S\/4HANA 2021 only.\nDocument type version 1.1 is now supported by SAP. See the 'Note About Digital Signatures' section.\nNote About Digital Signatures\nThe validation of digital signatures is supported by document type version 1.1 only. You must use this version if you want to have your digital signatures validated. See the following documentation:\nSAP S\/4HANA: Specifying a Document Type Version (INVOICE_VERSION)\nSAP ERP: Specifying a Document Type Version (INVOICE_VERSION)\nThe only difference is that signature validation is enabled on v1.1, no further change from our side, customer can just change the configuration to test v1.1\nFind below link for further clarifications.\nhttps: \/\/sdk.myinvois.hasil.gov.my\/types\/"
   },
   {
     "id":"MS-5",
@@ -597,7 +656,8 @@
     "source":null,
     "persona":null,
     "activity":null,
-    "country":null
+    "country":null,
+    "answer":"If no fix value maintained for IMPORT_TEXT_TYPE, then system will read text using text ID F01 from PO since customs form is mandatory field requested by Government. lv_id = get_fix_value( EXPORTING iv_name = 'IMPORT_TEXT_TYPE' iv_err_msg_ind = abap_false ). IF lv_id IS INITIAL. \"Header Text lv_id = 'F01'. ENDIF. Please make sure no special characters maintained in PO text(text ID F01 ). Or maintain fix value for IMPORT_TEXT_TYPE to read text from other text field. Or changing value using BADI EDOC_ADAPTOR~SET_OUTPUT_DATA Fill or change eDocument data after mapping."
   },
   {
     "id":"PS-1",
@@ -607,7 +667,8 @@
     "source":null,
     "persona":null,
     "activity":null,
-    "country":null
+    "country":null,
+    "answer":"Seems like you are referring to the documentation for SAP Document and Reporting Compliance, cloud edition. As you are still using the Neo-version you have to refer to the documentation 'Maintaining Communication User In Peppol Exchange' to upload the Public client certificate. Please try to follow the steps in the documentation and upload the certificate in the Peppol Exchange service dashboard and let us know if you face any issues"
   },
   {
     "id":"PS-2",
@@ -617,7 +678,8 @@
     "source":null,
     "persona":null,
     "activity":null,
-    "country":null
+    "country":null,
+    "answer":"Based on the provided information, it appears that the wrong logical port and URL path have been determined for the CO_DCS_DCP_GENERIC_WEBSERVICE in the SOA Manager configuration. The incorrect URL path that has been determined is '\/cxf\/PeppolLookup', which is causing the error when trying to display HTML. We assume this comes from the currently registered logical port in EDOSOASERV.\nTo resolve this issue, the correct logical port and URL path need to be determined and updated in the SOA Manager configuration. The correct logical port to be maintained is 'EDO_DCS_DCP_GENERC_WEBSERVICE'. \nPlease follow these steps:\n1. Access SAP and navigate to 'SM30 -> EDOSOASERV (Defining SOA Services for Communication)'.\n2. Search for 'EU_GENERIC_WEBSERV' and specify 'EDO_DCS_DCP_GENERC_WEBSERVICE'.\n3. Check the URL path for the logical port 'CO_DCS_DCP_GENERIC_WEBSERVICE' \/ 'EDO_DCS_DCP_GENERC_WEBSERVICE' in the SOA Manager configuration with the correct URL path from https: \/\/help.sap.com\/docs\/cloud-edition\/sap-document-and-reporting-compliance-cloud-edition\/creating-logical-ports-in-soa-management-sap-s-4hana-network-exchange\nOnce the correct logical port and URL path have been determined and updated, the issue with generating HTML should be resolved."
   },
   {
     "id":"PS-3",
@@ -627,7 +689,8 @@
     "source":null,
     "persona":null,
     "activity":null,
-    "country":null
+    "country":null,
+    "answer":"Here are some hints that might be helpful. We haven't tried out those yet, but it may be worth to give it a try.\nextend EDOPROCFUNCASGV as indicated in Configure the eDocument Cockpit | SAP Help Portal \nextend EDOPROCFUNCARCV as indicated in Configure the eDocument Cockpit | SAP Help Portal \nalternatively, consider to override the HTML Display Function using some custom logic, e.g. show a follow-up Popup that let's the user decide whether the HTML or PDF shall be displayed or not - EDOACTIONUIPROCV as indicated in Configure the eDocument Cockpit | SAP Help Portal \nYou'll find some screenshots, including the Display PDF Action implementation for the Outgoing E-Mail Process"
   },
   {
     "id":"PS-4",
@@ -637,7 +700,8 @@
     "source":null,
     "persona":null,
     "activity":null,
-    "country":null
+    "country":null,
+    "answer":"Would you please log off and log in again? This will refresh to logon token and shall include the respective roles. Despite that, the error popup is a known issue, that might sometimes be shown without good reason. In this case, please use Shift + F5."
   },
   {
     "id":"PS-5",
@@ -647,7 +711,8 @@
     "source":null,
     "persona":null,
     "activity":null,
-    "country":null
+    "country":null,
+    "answer":"1. In the BTP Subaccount, go to Connectivity -> Destination and go to 'Certificates'\nChoose 'Generate New Certificate'\nCertificate Name - any meaningful name\nFile Extension 'PFX'\nRemember the Password\nSelect the new certificate in your destination to the backend system and provide Authentication 'Internet' and 'ClientCertificateAuthentication'\n your Certificate needs to be selected in 'Key Store Location'\nProvide the Password from above.\nSave the Destination\nExport the private certificate as PFX fileo\nVerify the path of your Destination, according to Creating Communication Arrangements | SAP Help Portal , ...Inbound Communication > Inbound Services | The system automatically creates the service URL when you create the communication arrangement. You must enter this URL in the Destination in SAP BTP. See Setting Up \nConnectivity....\n2. Open the certificate locally and import to your PC's key storeo\n provide your password when askedo\ngo to your local PC's Key Store ('Manage User Certificates' in Windows)\nfind your certificate and export it to your local drive\ndo not export the private key\n3.  In S\/4 HANA Cloud Switch to your Communication System with Communication Scenario SAP_COM_0529 (the current Communication system for Peppol Exchange)\nupload the certificate to your existing Communication User"
   },
   {
     "id":"PS-6",
@@ -657,7 +722,8 @@
     "source":null,
     "persona":null,
     "activity":null,
-    "country":null
+    "country":null,
+    "answer":"Based on the information provided, it seems that the core of the problem is the duplication of VAT IDs used as participant IDs across different systems (S4\/Hana and IS-U) for the same company, which is causing conflicts. Instead of using VAT IDs, consider using a more flexible identifier such as the Global Location Number (GLN). GLNs can be used across different systems without causing conflicts. This approach is particularly useful when you have multiple systems or company codes that need to be uniquely identified. For more details on this question, please refer to Peppol IDs in the context of SAP Document Complian... - SAP Community ."
   },
   {
     "id":"PS-7",
@@ -667,7 +733,8 @@
     "source":null,
     "persona":null,
     "activity":null,
-    "country":null
+    "country":null,
+    "answer":"I can see your system PG1, but unfortunately I cannot find any login information. The problem seems to be related to a service binding. Depending on which Peppol service you are using\nConfiguring Connections to Service | SAP Help Portal (Peppol Exchange Service for the Cloud Edition of SAP Document and Reporting Compliance) or Authentication Types for the Service Binding | SAP Help Portal (Document and Reporting Complaince, Cloud Edition) must be checked. My guess is that the client certification used by PG1 has expired, but I cannot check this without access to the system."
   },
   {
     "id":"PS-8",
@@ -677,6 +744,7 @@
     "source":null,
     "persona":null,
     "activity":null,
-    "country":null
+    "country":null,
+    "answer":"The error message 'HTTP response '401: Unauthorized' indicates that the document is stuck in the 'Received by sender access point' status due to unauthorized access [[2]](https:\/\/drcce-architecture-ai.b217766.stage.kyma.ondemand.com\/api\/v1\/forward_to_source?source_url=https%3A%2F%2Fgithub.wdf.sap.corp%2Fslh-dc-platform%2Fpeppol-service-support-documentation%2Fblob%2Fmain%2Fsrc%2Fmd%2FPush%2520Response%2520is%2520not%2520received%2520or%2520processed%2520in%2520the%2520Backend.md%23push-response-not-processed---edocument-is-stuck-in-received-by-sender-access-point-or-request-acknowledged-yellow-indicator-cf&response_session_id=95cfefe1-d8c3-4f5f-80cd-4302e701507d&chunk_id=81afe245-08ff-43ac-a10a-c58edb6c915f&is_inline_source=True). This error occurs when the customer is using an S\/4 HANA Public Cloud backend and there is an issue with the authentication method and certificates [[1]](https:\/\/drcce-architecture-ai.b217766.stage.kyma.ondemand.com\/api\/v1\/forward_to_source?source_url=https%3A%2F%2Fgithub.wdf.sap.corp%2Fslh-dc-platform%2Fpeppol-service-support-documentation%2Fblob%2Fmain%2Fsrc%2Fmd%2FPush%2520Response%2520is%2520not%2520received%2520or%2520processed%2520in%2520the%2520Backend.md%23submitting-the-document-stuck-in-sending-requested-s4-hana-on-premise--erp&response_session_id=95cfefe1-d8c3-4f5f-80cd-4302e701507d&chunk_id=e39664e7-c70d-4894-b2d0-4d6c3743adba&is_inline_source=True).\nTo resolve this issue, the customer needs to ensure proper communication between SAP DRC and S\/4 HANA Cloud by setting up the correct authentication method and certificates [[1]](https: \/\/drcce-architecture-ai.b217766.stage.kyma.ondemand.com\/api\/v1\/forward_to_source?source_url=https%3A%2F%2Fgithub.wdf.sap.corp%2Fslh-dc-platform%2Fpeppol-service-support-documentation%2Fblob%2Fmain%2Fsrc%2Fmd%2FPush%2520Response%2520is%2520not%2520received%2520or%2520processed%2520in%2520the%2520Backend.md%23submitting-the-document-stuck-in-sending-requested-s4-hana-on-premise--erp&response_session_id=95cfefe1-d8c3-4f5f-80cd-4302e701507d&chunk_id=e39664e7-c70d-4894-b2d0-4d6c3743adba&is_inline_source=True). They should also check if the necessary SAP Notes are installed, especially the ones mentioned in the troubleshooting guide [[1]](https:\/\/drcce-architecture-ai.b217766.stage.kyma.ondemand.com\/api\/v1\/forward_to_source?source_url=https%3A%2F%2Fgithub.wdf.sap.corp%2Fslh-dc-platform%2Fpeppol-service-support-documentation%2Fblob%2Fmain%2Fsrc%2Fmd%2FPush%2520Response%2520is%2520not%2520received%2520or%2520processed%2520in%2520the%2520Backend.md%23submitting-the-document-stuck-in-sending-requested-s4-hana-on-premise--erp&response_session_id=95cfefe1-d8c3-4f5f-80cd-4302e701507d&chunk_id=e39664e7-c70d-4894-b2d0-4d6c3743adba&is_inline_source=True). If the issues persist, they can consider resubmitting the document after ensuring all configurations and prerequisites are correctly set up [[1]](https:\/\/drcce-architecture-ai.b217766.stage.kyma.ondemand.com\/api\/v1\/forward_to_source?source_url=https%3A%2F%2Fgithub.wdf.sap.corp%2Fslh-dc-platform%2Fpeppol-service-support-documentation%2Fblob%2Fmain%2Fsrc%2Fmd%2FPush%2520Response%2520is%2520not%2520received%2520or%2520processed%2520in%2520the%2520Backend.md%23submitting-the-document-stuck-in-sending-requested-s4-hana-on-premise--erp&response_session_id=95cfefe1-d8c3-4f5f-80cd-4302e701507d&chunk_id=e39664e7-c70d-4894-b2d0-4d6c3743adba&is_inline_source=True). Additionally, the customer can access the Document Monitor to get detailed information on the MPL ID and error message [[2]](https: \/\/drcce-architecture-ai.b217766.stage.kyma.ondemand.com\/api\/v1\/forward_to_source?source_url=https%3A%2F%2Fgithub.wdf.sap.corp%2Fslh-dc-platform%2Fpeppol-service-support-documentation%2Fblob%2Fmain%2Fsrc%2Fmd%2FPush%2520Response%2520is%2520not%2520received%2520or%2520processed%2520in%2520the%2520Backend.md%23push-response-not-processed---edocument-is-stuck-in-received-by-sender-access-point-or-request-acknowledged-yellow-indicator-cf&response_session_id=95cfefe1-d8c3-4f5f-80cd-4302e701507d&chunk_id=81afe245-08ff-43ac-a10a-c58edb6c915f&is_inline_source=True). If this information is not available, they can search for the Sender Participant ID in the internal tool Peppol Admin to identify the environment [[2]](https:\/\/drcce-architecture-ai.b217766.stage.kyma.ondemand.com\/api\/v1\/forward_to_source?source_url=https%3A%2F%2Fgithub.wdf.sap.corp%2Fslh-dc-platform%2Fpeppol-service-support-documentation%2Fblob%2Fmain%2Fsrc%2Fmd%2FPush%2520Response%2520is%2520not%2520received%2520or%2520processed%2520in%2520the%2520Backend.md%23push-response-not-processed---edocument-is-stuck-in-received-by-sender-access-point-or-request-acknowledged-yellow-indicator-cf&response_session_id=95cfefe1-d8c3-4f5f-80cd-4302e701507d&chunk_id=81afe245-08ff-43ac-a10a-c58edb6c915f&is_inline_source=True)."
   }
 ]
