@@ -212,11 +212,6 @@ You have access to the following tools to gather facts, retrieve relevant data, 
         "    - After generating this Final Answer, signal that the task is complete.",
     ]
 
-    # Output schema
-    final_output_description: str = "The final output of the agent"
-    reasoning_description: str = "The reasoning behind the final output"
-    tools_used_description: str = "The tools used by the agent to achieve the result"
-
 
 # --------------- MCP Servers --------------- #
 
