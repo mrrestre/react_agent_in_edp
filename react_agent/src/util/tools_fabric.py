@@ -52,31 +52,46 @@ class ToolsFabric:
                     "transport": TOOLS_FABRIC_SETTINGS.duckduckgo_protocol,
                 }
 
-            if configuration == TRIAGE_SETTINGS.Categories.KNOWLEDGE_QA:
-                qa_server_settings = QAToolsServerSettings()
+            match configuration:
+                case (
+                    TRIAGE_SETTINGS.Categories.KNOWLEDGE_QA
+                    | TRIAGE_SETTINGS.Categories.ALL
+                ):
+                    qa_server_settings = QAToolsServerSettings()
 
-                multi_server_client_config["QuestionAnsweringTools"] = {
-                    "url": f"http://{qa_server_settings.host}:{qa_server_settings.port}/{qa_server_settings.transport}",
-                    "transport": qa_server_settings.transport,
-                }
+                    multi_server_client_config["QuestionAnsweringTools"] = {
+                        "url": f"http://{qa_server_settings.host}:{qa_server_settings.port}/{qa_server_settings.transport}",
+                        "transport": qa_server_settings.transport,
+                    }
+                case (
+                    TRIAGE_SETTINGS.Categories.CONFIG_RCA
+                    | TRIAGE_SETTINGS.Categories.ALL
+                ):
+                    rca_server_settings = CodingToolsServerSettings()
 
-            if configuration == TRIAGE_SETTINGS.Categories.CONFIG_RCA:
-                rca_server_settings = CodingToolsServerSettings()
+                    multi_server_client_config["CodingTools"] = {
+                        "url": f"http://{rca_server_settings.host}:{rca_server_settings.port}/{rca_server_settings.transport}",
+                        "transport": rca_server_settings.transport,
+                    }
 
-                multi_server_client_config["CodingTools"] = {
-                    "url": f"http://{rca_server_settings.host}:{rca_server_settings.port}/{rca_server_settings.transport}",
-                    "transport": rca_server_settings.transport,
-                }
             return multi_server_client_config
         else:
             tool_list = []
 
-            if configuration == TRIAGE_SETTINGS.Categories.KNOWLEDGE_QA:
-                tool_list.append(DocumentationRetriever())
-                tool_list.append(TroubleshootingSearcher())
-                tool_list.append(SapHelpSearcher())
-            if configuration == TRIAGE_SETTINGS.Categories.CONFIG_RCA:
-                tool_list.append(CodebaseSearcher())
-                tool_list.append(SourceCodeRetriever())
+            match configuration:
+                case (
+                    TRIAGE_SETTINGS.Categories.KNOWLEDGE_QA
+                    | TRIAGE_SETTINGS.Categories.ALL
+                ):
+                    tool_list.append(DocumentationRetriever())
+                    tool_list.append(TroubleshootingSearcher())
+                    tool_list.append(SapHelpSearcher())
+
+                case (
+                    TRIAGE_SETTINGS.Categories.CONFIG_RCA
+                    | TRIAGE_SETTINGS.Categories.ALL
+                ):
+                    tool_list.append(CodebaseSearcher())
+                    tool_list.append(SourceCodeRetriever())
 
             return tool_list

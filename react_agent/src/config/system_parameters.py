@@ -332,6 +332,7 @@ Analyze the user question carefully and assign it to **exactly one** of the foll
 
         KNOWLEDGE_QA = "Knowledge-QA"
         CONFIG_RCA = "Config-RCA"
+        ALL = "All Tools"
 
     instructions: List[Dict[str, str]] = [
         {
