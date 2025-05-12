@@ -36,24 +36,20 @@ class ChatEntry(BaseModel):
 class ChatSlotContainer(BaseModel):
     """Model for the chat slot container."""
 
-    cloud_type: ChatSlotCloudType = ChatSlotCloudType.PRIVATE_CLOUD
+    cloud_type: ChatSlotCloudType
 
 
 class SearchRequestObject(BaseModel):
     """Model for the search request object."""
 
-    prompt_introduction: str = (
-        "You are a Support Engineer working in the context of Document Reporting and Compliance, cloud edition (DRCce).\nYou are given information and troubleshooting guides to help solve issues.\n"
-    )
+    prompt_introduction: str
     chat_entries: list[ChatEntry]
-    chat_slots: ChatSlotContainer = ChatSlotContainer(
-        cloud_type=ChatSlotCloudType.PUBLIC_CLOUD
+    chat_slots: ChatSlotContainer
+    collection_id: str
+    max_chunk_count_collection: (
+        int  # How many chunks of own collection (vector docs) should be included?
     )
-    collection_id: str = "70386ab8-eeac-452c-b2e6-cac902ca451c"
-    max_chunk_count_collection: int = (
-        6  # How many chunks of own collection (vector docs) should be included?
-    )
-    max_chunk_count_sap_help: int = 1  # How many chunks of SAP Help should be included?
+    max_chunk_count_sap_help: int  # How many chunks of SAP Help should be included?
 
 
 class ChunkSource(BaseModel):

@@ -6,6 +6,10 @@ from typing import Any, Dict, List, Tuple
 
 from pydantic_settings import BaseSettings
 
+from react_agent.src.agent_tools.models.documentation_retriever_models import (
+    ChatSlotCloudType,
+)
+
 # --------------- Agent Tools --------------- #
 
 
@@ -107,6 +111,15 @@ class DocumentationRetrieverSettings(BaseSettings):
     search_service_relative_path: str = "/api/v1/search"
     oauth_token_path: str = "/oauth2/token?grant_type=client_credentials"
     request_timeout: int = 60  # Timeout for the request in seconds
+
+    # Model parameters
+    prompt_introduction: str = (
+        "You are a Support Engineer working in the context of Document Reporting and Compliance, cloud edition (DRCce).\nYou are given information and troubleshooting guides to help solve issues.\n"
+    )
+    default_cloud_type: ChatSlotCloudType = ChatSlotCloudType.PUBLIC_CLOUD
+    collection_id: str = "70386ab8-eeac-452c-b2e6-cac902ca451c"
+    max_chunk_count_collection: int = 3
+    max_chunk_count_sap_help: int = 3
 
 
 class SourceCodeRetrieverSettings(BaseSettings):

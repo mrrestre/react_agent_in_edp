@@ -12,6 +12,7 @@ from dotenv import load_dotenv
 
 from react_agent.src.agent_tools.models.documentation_retriever_models import (
     ChatEntry,
+    ChatSlotContainer,
     OauthTokenResponse,
     SearchRequestObject,
     SearchResponseObject,
@@ -32,7 +33,7 @@ LOGGER = LoggerSingleton.get_logger(TOOL_SETTINGS.logger_name)
 class DocumentationRetrieverInputModel(BaseModel):
     """Input schema for documentation retriever"""
 
-    url: str = Field(
+    query: str = Field(
         ...,
         query=TOOL_SETTINGS.query_field_descr,
     )
@@ -48,7 +49,14 @@ class DocumentationRetriever(BaseTool):
     def _run(self, query: str) -> str:
 
         chat_entry = ChatEntry(content=query)
-        search_request_object = SearchRequestObject(chat_entries=[chat_entry])
+        search_request_object = SearchRequestObject(
+            prompt_introduction=TOOL_SETTINGS.prompt_introduction,
+            chat_slots=ChatSlotContainer(cloud_type=TOOL_SETTINGS.default_cloud_type),
+            collection_id=TOOL_SETTINGS.collection_id,
+            max_chunk_count_collection=TOOL_SETTINGS.max_chunk_count_collection,
+            max_chunk_count_sap_help=TOOL_SETTINGS.max_chunk_count_sap_help,
+            chat_entries=[chat_entry],
+        )
 
         remote_url = f"{DEPLOYED_BASE_URL}{TOOL_SETTINGS.search_service_relative_path}"
 
