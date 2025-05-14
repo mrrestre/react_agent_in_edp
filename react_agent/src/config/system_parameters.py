@@ -241,7 +241,7 @@ You have access to the following tools to gather facts, retrieve relevant data, 
 
     instructions: list[str] = [
         "1. Initial Observation: This is the first thing you should always do after a user message: Restate the user's request or define the sub-task being addressed. Clearly establish the current focus.",
-        "2. Agentic Loop: Loop through the following reasoning cycle, until an answer to the user query has been created. The answer **must** be supported by information coming from the provided tools"
+        "2. Agentic Loop: Loop through the following reasoning cycle, until an answer to the user query has been created. The answer **must** be supported by information coming from the provided tools",
         "[REASONING CYCLE BEGIN]",
         "   2.1. Thought: Analyze the observation. Integrate the new result with prior observations. Decide whether enough information has been gathered, or if new information must be retrieved or validated.",
         "   2.2. Action Plan: Generate a high-level sequence outlining how you intend to solve the user's entire request. Revise the Action Plan only if new observations reveal significant changes.",
