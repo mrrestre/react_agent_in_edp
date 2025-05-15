@@ -18,6 +18,7 @@ Given the following text, extract at most {n} of the most important and relevant
 - Focus on atomic facts that are central to the topic or critical for understanding the overall content.
 - Ignore minor details, opinions, or unverified claims unless they are core to the topic.
 - If fewer than {n} important facts exist, list only those that meet the criteria.
+- Do not add any aditional information not mentioned in the original knowledge source.
 
 ## Examples
 {examples}

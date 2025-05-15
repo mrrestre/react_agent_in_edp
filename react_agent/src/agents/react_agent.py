@@ -47,7 +47,10 @@ class ReActAgent:
 
             tool_rankings = ""
             for tool in self.available_tools:
-                tool_rankings += f"Tool name: {tool.name}, Ranking: {AGENT_SETTINGS.tool_rankings.get(tool.name)}\n"
+                if AGENT_SETTINGS.tool_rankings.get(tool.name):
+                    tool_rankings += f"Tool name: {tool.name}, Ranking: {AGENT_SETTINGS.tool_rankings.get(tool.name)}\n"
+                elif AGENT_SETTINGS.mcp_tool_ranking.get(tool.name):
+                    tool_rankings += f"Tool name: {tool.name}, Ranking: {AGENT_SETTINGS.mcp_tool_ranking.get(tool.name)}\n"
 
             return sys_prompt_template.format(
                 react_instructions=("\n").join(AGENT_SETTINGS.instructions),
@@ -124,11 +127,15 @@ class ReActAgent:
         )
 
         LOGGER.info("Agent final response: %s", self.run_data.final_output)
+        return message_list["messages"]
 
     async def arun_agent_with_input(
         self, user_message: str, debug: Optional[bool] = False
-    ) -> None:
-        """Evaluates user input if debug print stream of messages in an asynchronus manner."""
+    ) -> str:
+        """Evaluates user input if debug print stream of messages in an asynchronus manner.
+        The debug flags prints the execution trail of the agent
+        The return parameter contains the execution trail"""
+
         LOGGER.info(
             "Running agent asynchronously with user message: %s",
             user_message.replace("\n", ""),
@@ -160,11 +167,15 @@ class ReActAgent:
         )
 
         LOGGER.info("Agent final response: %s", self.run_data.final_output)
+        return message_list["messages"]
 
     def _post_process_agent_run(
         self, execution_messages: list[BaseMessage], run_time: float
-    ) -> None:
-        """Gather run information and extract final response"""
+    ) -> str:
+        """Gather run information and extract final response
+        The debug flags prints the execution trail of the agent
+        The return parameter contains the execution trail"""
+
         # Set the final agent message as the response from the run
         self.run_data.final_output = execution_messages[-1].content
         self.run_data.excecution_time_seconds = round(run_time, 3)

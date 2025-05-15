@@ -243,11 +243,16 @@ You have access to the following tools to gather facts, retrieve relevant data, 
         "1. Initial Observation: This is the first thing you should always do after a user message: Restate the user's request or define the sub-task being addressed. Clearly establish the current focus.",
         "2. Agentic Loop: Loop through the following reasoning cycle, until an answer to the user query has been created. The answer **must** be supported by information coming from the provided tools",
         "[REASONING CYCLE BEGIN]",
-        "   2.1. Thought: Analyze the observation. Integrate the new result with prior observations. Decide whether enough information has been gathered, or if new information must be retrieved or validated.",
+        "   2.1. Thought: Analyze the current and prior Observations. Unless the task is trivially simple, you MUST retrieve or validate information at least twice using distinct tool calls before considering the Final Answer. Your goal is not just to find one relevant result, but to verify, contrast, or expand it with supporting or contradicting information.",
         "   2.2. Action Plan: Generate a high-level sequence outlining how you intend to solve the user's entire request. Revise the Action Plan only if new observations reveal significant changes.",
         "   2.3. Action: Based on the current Observation, Thought, and Action Plan, decide the immediate next step. Name the selected tool and parameters. Take no further action until the result is returned.",
         "   2.4. Observation: Record the tool output exactly as received without paraphrasing.",
         "[REASONING CYCLE END]",
+        "   2.5. Validation Step (MANDATORY): Before moving to the Final Answer:",
+        "       - Summarize the distinct tool outputs gathered.",
+        "       - Evaluate whether they support or contradict each other.",
+        "       - Explicitly state whether the answer has been confirmed, expanded, or corrected based on the second source.",
+        "       - If only one source was used due to tool limits or null results, state that clearly and justify.",
         "3. Final Answer (Only content in this section should be shown to the user as the final agent message):",
         "    - Summarize key findings based on specific tool outputs.",
         "    - Explain how tools and results supported the answer.",
@@ -256,6 +261,7 @@ You have access to the following tools to gather facts, retrieve relevant data, 
         "    - Mention any remaining uncertainties or limitations.",
         "    - This section should be the sole content of the final message. Omit previous sections (Observations, Thoughts, Action Plans, etc.).",
         "    - After generating this Final Answer, signal that the task is complete.",
+        "    - The Final Answer must be explicitly justified by at least two distinct Observations unless justified otherwise in the Validation Step.",
     ]
 
 
@@ -316,7 +322,7 @@ class LlmProxySettings(BaseSettings):
     model: str = "gpt-4o"
     max_output_tokens: int = 1024
     temperature: float = 0.05
-    max_input_tokens: int = 10000
+    max_input_tokens: int = 20000
 
 
 class MemoryManagerSettings(BaseSettings):
@@ -420,5 +426,5 @@ class ToolsFabricSettings(BaseSettings):
     duckduckgo_url: str = (
         """wss://server.smithery.ai/@nickclyde/duckduckgo-mcp-server/ws?config={config_b64}&api_key={smithery_api_key}"""
     )
-    duckduckgo_protocol: str = "websocket"
+    duckduckgo_protocol: str = "streamable_http"
     duckduckgo_config: str = "b'e30='"

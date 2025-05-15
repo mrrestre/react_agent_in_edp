@@ -121,7 +121,7 @@ class ABAPClassRepository:
         LOGGER.info("Indexing source file")
         class_def_pattern = r"\bCLASS\s+([A-Za-z0-9_]{1,30})\s+DEFINITION"
         class_impl_pattern = r"\bCLASS\s+([A-Za-z0-9_]{1,30})\s+IMPLEMENTATION"
-        method_name_pattern = r"\bMETHOD\s+([A-Za-z0-9_]+)\s*\."
+        method_name_pattern = r"\bMETHOD\s+([A-Za-z0-9_~]+)\s*\."
         inheriting_pattern = r"class\s+\w+\s+definition.*?inheriting\s+from\s+(\w+)"
         interfaces_pattern = r"\bINTERFACES\s+(\w+)\s*\."
 

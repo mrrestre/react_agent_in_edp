@@ -1,6 +1,6 @@
 """Models for the react agent"""
 
-from typing import Optional
+from typing import Any, Optional
 from pydantic import BaseModel
 
 from react_agent.src.util.llm_proxy import TokenConsumption
@@ -10,7 +10,7 @@ class ToolCall(BaseModel):
     """Schema for tool call properties"""
 
     tool_name: str
-    arguments: Optional[dict[str, str]]
+    arguments: Optional[dict[str, Any]]
 
 
 class AgentRun(BaseModel):

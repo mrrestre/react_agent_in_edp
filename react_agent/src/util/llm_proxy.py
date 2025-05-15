@@ -1,6 +1,6 @@
 """Utility functions for proxying LLMs"""
 
-from typing import Optional, Dict, Type
+from typing import Optional, Type
 
 from gen_ai_hub.proxy.langchain import init_llm
 
