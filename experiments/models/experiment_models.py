@@ -3,6 +3,7 @@
 from typing import Optional
 from pydantic import BaseModel
 
+from experiments.util.fact_score.model.fact_score_models import FactClassification
 from react_agent.src.agents.models.react_agent_models import ToolCall
 from react_agent.src.util.llm_proxy import TokenConsumption
 
@@ -23,7 +24,7 @@ class LabeledQAPair(BaseModel):
 class LabeledQAPairFacts(LabeledQAPair):
     """Pydantic representation of a single question answer pair with facts"""
 
-    facts: list[str] = []
+    facts: list[FactClassification] = []
 
 
 class ExperimentResult(LabeledQAPairFacts):

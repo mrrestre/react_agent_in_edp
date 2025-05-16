@@ -9,16 +9,56 @@
         "activity": null,
         "country": null,
         "facts": [
-            "You can attach additional files to the standard XML in Public Cloud using the Business Add-In (BAdI) EDOC_ADAPTOR_CLOUD.",
-            "Enhancing the XML file allows inclusion of additional information relevant to business processes.",
-            "The enhancement is implemented using ABAP Development Tools (ADT).",
-            "The enhancement spot used is ES_EDOCUMENT_CLOUD.",
-            "You need to select 'New BAdI Enhancement Implementation' in your ABAP project.",
-            "The BAdI implementation requires a package, name, and description.",
-            "You choose 'Add BAdI Implementation' and select EDOC_ADAPTOR_CLOUD.",
-            "Optionally, you can create a BAdI filter for Country and/or Generic Filter.",
-            "You create a new implementation class by choosing 'Implementing Class'.",
-            "The XML tag <BuyersItemIdentification> can be filled with additional information by reading relevant data from source documents."
+            {
+                "fact": "You can use the Business Add-In (BAdI) EDOC_ADAPTOR_CLOUD to enhance the XML file in Public Cloud.",
+                "classification": "direct",
+                "id": "EA-1-1"
+            },
+            {
+                "fact": "Enhancing the XML file allows inclusion of additional information relevant to business processes.",
+                "classification": "direct",
+                "id": "EA-1-2"
+            },
+            {
+                "fact": "The enhancement is implemented using ABAP Development Tools (ADT).",
+                "classification": "supporting",
+                "id": "EA-1-3"
+            },
+            {
+                "fact": "The enhancement spot used is ES_EDOCUMENT_CLOUD.",
+                "classification": "supporting",
+                "id": "EA-1-4"
+            },
+            {
+                "fact": "You need to select 'New BAdI Enhancement Implementation' in your ABAP project.",
+                "classification": "supporting",
+                "id": "EA-1-5"
+            },
+            {
+                "fact": "You must enter a package, name, and description for the implementation.",
+                "classification": "supporting",
+                "id": "EA-1-6"
+            },
+            {
+                "fact": "You choose 'Add BAdI Implementation' and select EDOC_ADAPTOR_CLOUD.",
+                "classification": "supporting",
+                "id": "EA-1-7"
+            },
+            {
+                "fact": "Creating a BAdI filter for Country and/or Generic Filter is optional.",
+                "classification": "supporting",
+                "id": "EA-1-8"
+            },
+            {
+                "fact": "You choose 'Implementing Class' to create a new implementation class.",
+                "classification": "supporting",
+                "id": "EA-1-9"
+            },
+            {
+                "fact": "The XML tag <BuyersItemIdentification> can be filled with additional information.",
+                "classification": "direct",
+                "id": "EA-1-10"
+            }
         ]
     },
     {
@@ -31,16 +71,56 @@
         "activity": null,
         "country": null,
         "facts": [
-            "The task involves enhancing an XML file for a Greece customer in Public Cloud.",
-            "The enhancement is done using ABAP Development Tools (ADT).",
-            "The enhancement spot used is ES_EDOCUMENT_CLOUD.",
-            "A new BAdI Enhancement Implementation is created by right-clicking ES_EDOCUMENT_CLOUD.",
-            "The implementation involves selecting EDOC_ADAPTOR_CLOUD.",
-            "A BAdI filter can be optionally created for Country and/or Generic Filter.",
-            "A new implementation class is created, implementing interfaces if_badi_interfaces and if_edoc_adaptor_cloud.",
-            "Logic is implemented in the method to modify XML tags and fill optional XML tags with values.",
-            "The BAdI implementation is activated.",
-            "The XML file of the electronic document can be viewed in the eDocument Cockpit or Manage Electronic Documents app with the updated tags."
+            {
+                "fact": "Enhancement spot ES_EDOCUMENT_CLOUD is used in the ABAP project.",
+                "classification": "direct",
+                "id": "EA-2-1"
+            },
+            {
+                "fact": "New BAdI Enhancement Implementation is created by right-clicking ES_EDOCUMENT_CLOUD.",
+                "classification": "direct",
+                "id": "EA-2-2"
+            },
+            {
+                "fact": "A package, name, and description are entered for the implementation.",
+                "classification": "direct",
+                "id": "EA-2-3"
+            },
+            {
+                "fact": "EDOC_ADAPTOR_CLOUD is selected when adding BAdI Implementation.",
+                "classification": "direct",
+                "id": "EA-2-4"
+            },
+            {
+                "fact": "A BAdI filter for Country and/or Generic Filter can be created optionally.",
+                "classification": "supporting",
+                "id": "EA-2-5"
+            },
+            {
+                "fact": "Implementing Class is chosen to create a new implementation class.",
+                "classification": "direct",
+                "id": "EA-2-6"
+            },
+            {
+                "fact": "The new implementation class automatically implements interfaces if_badi_interfaces and if_edoc_adaptor_cloud.",
+                "classification": "supporting",
+                "id": "EA-2-7"
+            },
+            {
+                "fact": "Necessary logic is implemented in the method to modify XML tags and fill optional XML tags with values.",
+                "classification": "direct",
+                "id": "EA-2-8"
+            },
+            {
+                "fact": "BAdI implementation is activated.",
+                "classification": "direct",
+                "id": "EA-2-9"
+            },
+            {
+                "fact": "XML file of the electronic document can be displayed in the eDocument Cockpit or Manage Electronic Documents app.",
+                "classification": "supporting",
+                "id": "EA-2-10"
+            }
         ]
     },
     {
@@ -53,10 +133,21 @@
         "activity": null,
         "country": null,
         "facts": [
-            "You can enhance or extend the generated XML.",
-            "Enhancement or extension is done before the XML is sent to the authorities.",
-            "The method used for enhancement or extension is SET_OUTPUT_DATA.",
-            "SET_OUTPUT_DATA is a method of BAdI EDOC_ADAPTOR_CLOUD."
+            {
+                "fact": "You can enhance or extend the generated XML before it is sent to the authorities.",
+                "classification": "direct",
+                "id": "EA-3-1"
+            },
+            {
+                "fact": "The enhancement or extension is done using the method SET_OUTPUT_DATA.",
+                "classification": "supporting",
+                "id": "EA-3-2"
+            },
+            {
+                "fact": "The method SET_OUTPUT_DATA is part of BAdI EDOC_ADAPTOR_CLOUD.",
+                "classification": "supporting",
+                "id": "EA-3-3"
+            }
         ]
     },
     {
@@ -69,12 +160,26 @@
         "activity": null,
         "country": null,
         "facts": [
-            "Public Cloud customers in Spain can extend an existing eDocument process.",
-            "Extensions can be made according to business needs.",
-            "Customers can define that for some types of source documents, the system doesn't create electronic documents.",
-            "Customers can enhance the standard XML mapping.",
-            "Enhancements can include editing existing fields.",
-            "Enhancements can also include adding new fields."
+            {
+                "fact": "As a Public Cloud customer in Spain, you can extend an existing eDocument process.",
+                "classification": "direct",
+                "id": "EA-4-1"
+            },
+            {
+                "fact": "You can define that for some types of source documents the system doesn't create electronic documents.",
+                "classification": "supporting",
+                "id": "EA-4-2"
+            },
+            {
+                "fact": "You can enhance the standard XML mapping by editing existing fields.",
+                "classification": "supporting",
+                "id": "EA-4-3"
+            },
+            {
+                "fact": "You can enhance the standard XML mapping by adding new fields.",
+                "classification": "supporting",
+                "id": "EA-4-4"
+            }
         ]
     },
     {
@@ -87,12 +192,26 @@
         "activity": null,
         "country": null,
         "facts": [
-            "Public Cloud customers in Italy can extend an existing eDocument process.",
-            "Extensions can be made according to business needs.",
-            "Customers can define that for some types of source documents, the system doesn't create electronic documents.",
-            "Customers can enhance the standard XML mapping.",
-            "Enhancements can include editing existing fields.",
-            "Enhancements can also include adding new fields."
+            {
+                "fact": "As a Public Cloud customer in Italy, you can extend an existing eDocument process.",
+                "classification": "direct",
+                "id": "EA-5-1"
+            },
+            {
+                "fact": "You can define that for some types of source documents the system doesn't create electronic documents.",
+                "classification": "supporting",
+                "id": "EA-5-2"
+            },
+            {
+                "fact": "You can enhance the standard XML mapping by editing existing fields.",
+                "classification": "supporting",
+                "id": "EA-5-3"
+            },
+            {
+                "fact": "You can enhance the standard XML mapping by adding new fields.",
+                "classification": "supporting",
+                "id": "EA-5-4"
+            }
         ]
     },
     {
@@ -105,7 +224,11 @@
         "activity": null,
         "country": null,
         "facts": [
-            "In Public Cloud, eDocument Actions cannot be extended."
+            {
+                "fact": "In Public Cloud, eDocument Actions cannot be extended.",
+                "classification": "direct",
+                "id": "EA-6-1"
+            }
         ]
     },
     {
@@ -118,7 +241,11 @@
         "activity": null,
         "country": null,
         "facts": [
-            "Actions cannot be extended in Public Cloud."
+            {
+                "fact": "Actions cannot be extended in Public Cloud.",
+                "classification": "direct",
+                "id": "EA-7-1"
+            }
         ]
     },
     {
@@ -131,13 +258,41 @@
         "activity": null,
         "country": null,
         "facts": [
-            "You can extend an action in the eDocument Cockpit for a custom-developed process.",
-            "A function module can be configured to extend a specific action for a custom-developed process.",
-            "The function module is executed immediately after the action in a separate session.",
-            "Execution uses tRFC (transactional Remote Function Call).",
-            "Additional actions can be triggered within the framework.",
-            "Additional actions can also be triggered outside the framework.",
-            "An example of an additional action is the automatic submission of an electronic document after it has been created."
+            {
+                "fact": "You can extend an action in the eDocument Cockpit for a custom-developed process.",
+                "classification": "direct",
+                "id": "EA-8-1"
+            },
+            {
+                "fact": "A function module can be configured to extend a specific action.",
+                "classification": "supporting",
+                "id": "EA-8-2"
+            },
+            {
+                "fact": "The function module is executed immediately after the action in a separate session.",
+                "classification": "supporting",
+                "id": "EA-8-3"
+            },
+            {
+                "fact": "Execution uses tRFC (transactional Remote Function Call).",
+                "classification": "supporting",
+                "id": "EA-8-4"
+            },
+            {
+                "fact": "Additional actions can be triggered within the framework.",
+                "classification": "supporting",
+                "id": "EA-8-5"
+            },
+            {
+                "fact": "Additional actions can be triggered outside the framework.",
+                "classification": "supporting",
+                "id": "EA-8-6"
+            },
+            {
+                "fact": "You can trigger the automatic submission of an electronic document after it has been created.",
+                "classification": "supporting",
+                "id": "EA-8-7"
+            }
         ]
     },
     {
@@ -150,12 +305,31 @@
         "activity": null,
         "country": null,
         "facts": [
-            "The Manage Electronic Documents app can be extended in the Public Cloud.",
-            "The eDocument Cockpit app can be extended in the Public Cloud.",
-            "Custom fields can be added to these apps.",
-            "Business Add-Ins (BAdIs) are used for extending these apps.",
-            "The BAdI EDOC_CUSTOM_FIELDS_CLOUD is used for adding custom fields.",
-            "The BAdI EDOC_CUSTOM_FIELDS_UI_CLOUD is used for adding custom fields."
+            {
+                "fact": "You can extend the Manage Electronic Documents app in the Public Cloud by adding custom fields.",
+                "classification": "direct",
+                "id": "EA-9-1"
+            },
+            {
+                "fact": "You can extend the eDocument Cockpit app in the Public Cloud by adding custom fields.",
+                "classification": "direct",
+                "id": "EA-9-2"
+            },
+            {
+                "fact": "Extension can be done using Business Add-Ins (BAdIs).",
+                "classification": "supporting",
+                "id": "EA-9-3"
+            },
+            {
+                "fact": "EDOC_CUSTOM_FIELDS_CLOUD is a Business Add-In used for extension.",
+                "classification": "supporting",
+                "id": "EA-9-4"
+            },
+            {
+                "fact": "EDOC_CUSTOM_FIELDS_UI_CLOUD is another Business Add-In used for extension.",
+                "classification": "supporting",
+                "id": "EA-9-5"
+            }
         ]
     },
     {
@@ -168,10 +342,16 @@
         "activity": null,
         "country": null,
         "facts": [
-            "The BAdIs EDOC_CUSTOM_FIELDS_CLOUD and EDOC_CUSTOM_FIELDS_UI_CLOUD are mentioned.",
-            "These BAdIs can be used to extend the Manage Electronic Documents.",
-            "The extension involves adding custom fields.",
-            "The extension is applicable in the Public Cloud."
+            {
+                "fact": "The BAdI EDOC_CUSTOM_FIELDS_CLOUD can be used to extend Manage Electronic Documents by adding custom fields in Public Cloud.",
+                "classification": "direct",
+                "id": "EA-10-1"
+            },
+            {
+                "fact": "The BAdI EDOC_CUSTOM_FIELDS_UI_CLOUD can be used to extend Manage Electronic Documents by adding custom fields in Public Cloud.",
+                "classification": "direct",
+                "id": "EA-10-2"
+            }
         ]
     },
     {
@@ -184,14 +364,26 @@
         "activity": null,
         "country": null,
         "facts": [
-            "Public Cloud customers in Spain can extend the eDocument Cockpit app.",
-            "A custom field can be added to an existing eDocument Process.",
-            "The eDocument Cockpit can be extended with custom fields.",
-            "Custom fields can contain organizational units of relevant source documents.",
-            "Source documents can include billing documents.",
-            "Source documents can include accounting documents.",
-            "Visibility of electronic documents in the eDocument Cockpit can be restricted.",
-            "Restriction is based on defined organizational units stored in source documents."
+            {
+                "fact": "As a Public Cloud customer in Spain, you can extend the eDocument Cockpit app by adding a custom field to an existing eDocument Process.",
+                "classification": "direct",
+                "id": "EA-11-1"
+            },
+            {
+                "fact": "You can extend the eDocument Cockpit (EDOC_COCKPIT) with custom fields that contain the organizational units of the relevant source documents.",
+                "classification": "supporting",
+                "id": "EA-11-2"
+            },
+            {
+                "fact": "Relevant source documents include billing or accounting documents.",
+                "classification": "supporting",
+                "id": "EA-11-3"
+            },
+            {
+                "fact": "You can restrict the visibility of electronic documents in the eDocument Cockpit for the defined organizational units stored in the source documents.",
+                "classification": "supporting",
+                "id": "EA-11-4"
+            }
         ]
     },
     {
@@ -204,12 +396,36 @@
         "activity": null,
         "country": null,
         "facts": [
-            "Prerequisite: SAP S/4HANA Cloud Public Edition is required.",
-            "Prerequisite: Developer Extensibility is required.",
-            "Step: Creation of the custom field is necessary.",
-            "Step: Implementation of the custom logic is necessary.",
-            "To create a custom field, go to the Custom Fields app.",
-            "Select \"Create\" to add a new custom field."
+            {
+                "fact": "SAP S/4HANA Cloud Public Edition is a prerequisite.",
+                "classification": "supporting",
+                "id": "EA-12-1"
+            },
+            {
+                "fact": "Developer Extensibility is a prerequisite.",
+                "classification": "supporting",
+                "id": "EA-12-2"
+            },
+            {
+                "fact": "The first step is the creation of the custom field.",
+                "classification": "direct",
+                "id": "EA-12-3"
+            },
+            {
+                "fact": "The second step is the implementation of the custom logic.",
+                "classification": "direct",
+                "id": "EA-12-4"
+            },
+            {
+                "fact": "To create a custom field, go to the Custom Fields app.",
+                "classification": "direct",
+                "id": "EA-12-5"
+            },
+            {
+                "fact": "Select Create to add a new custom field.",
+                "classification": "direct",
+                "id": "EA-12-6"
+            }
         ]
     },
     {
@@ -222,15 +438,41 @@
         "activity": null,
         "country": null,
         "facts": [
-            "You can restrict the visibility of eDocuments in the Manage Electronic Documents app.",
-            "You can restrict the visibility of eDocuments in the eDocument Cockpit app.",
-            "Custom fields can be used to restrict visibility.",
-            "Custom fields can contain organizational units of relevant source documents.",
-            "Source documents can include billing documents.",
-            "Source documents can include accounting documents.",
-            "Visibility can be restricted for defined organizational units stored in source documents.",
-            "Authorization checks can be configured to further restrict visibility.",
-            "Authorization checks can restrict visibility for specific organizational units."
+            {
+                "fact": "You can restrict the visibility of eDocuments in the Manage Electronic Documents app with custom fields.",
+                "classification": "direct",
+                "id": "EA-13-1"
+            },
+            {
+                "fact": "You can restrict the visibility of eDocuments in the eDocument Cockpit app with custom fields.",
+                "classification": "direct",
+                "id": "EA-13-2"
+            },
+            {
+                "fact": "Custom fields can contain organizational units of relevant source documents.",
+                "classification": "supporting",
+                "id": "EA-13-3"
+            },
+            {
+                "fact": "Source documents can include billing or accounting documents.",
+                "classification": "supporting",
+                "id": "EA-13-4"
+            },
+            {
+                "fact": "Visibility of electronic documents can be restricted for defined organizational units stored in source documents.",
+                "classification": "supporting",
+                "id": "EA-13-5"
+            },
+            {
+                "fact": "Authorization checks can be configured to further restrict visibility of electronic documents.",
+                "classification": "supporting",
+                "id": "EA-13-6"
+            },
+            {
+                "fact": "Authorization checks can restrict visibility for specific organizational units.",
+                "classification": "supporting",
+                "id": "EA-13-7"
+            }
         ]
     },
     {
@@ -243,12 +485,31 @@
         "activity": null,
         "country": null,
         "facts": [
-            "You can restrict the visibility of eDocuments in the Manage Electronic Documents app.",
-            "You can restrict the visibility of eDocuments in the eDocument Cockpit app.",
-            "Customer-specific authorizations are used to restrict visibility.",
-            "The Cockpit can be extended with custom fields.",
-            "The organizational unit of the relevant billing document can be copied into the extension field.",
-            "The organizational unit of the relevant accounting document can be copied into the extension field."
+            {
+                "fact": "You can restrict the visibility of eDocuments in the Manage Electronic Documents app with customer-specific authorizations.",
+                "classification": "direct",
+                "id": "EA-14-1"
+            },
+            {
+                "fact": "You can restrict the visibility of eDocuments in the eDocument Cockpit app with customer-specific authorizations.",
+                "classification": "direct",
+                "id": "EA-14-2"
+            },
+            {
+                "fact": "You can extend the Cockpit with custom fields.",
+                "classification": "supporting",
+                "id": "EA-14-3"
+            },
+            {
+                "fact": "You can copy the organizational unit of the relevant billing document into the extension field.",
+                "classification": "supporting",
+                "id": "EA-14-4"
+            },
+            {
+                "fact": "You can copy the organizational unit of the relevant accounting document into the extension field.",
+                "classification": "supporting",
+                "id": "EA-14-5"
+            }
         ]
     },
     {
@@ -261,12 +522,31 @@
         "activity": null,
         "country": null,
         "facts": [
-            "Public Cloud customers in Germany can restrict the creation of eDocuments.",
-            "Restrictions can be applied in the Manage Electronic Document app.",
-            "Restrictions can also be applied in the eDocument Cockpit app.",
-            "Restrictions are based on certain conditions being met.",
-            "The BAdI EDOC_ADAPTOR_CLOUD method IS_RELEVANT is used for controlling eDocument creation.",
-            "Customers can control the creation of eDocuments that meet required conditions."
+            {
+                "fact": "As a Public Cloud customer in Germany, you can restrict the creation of eDocuments in the Manage Electronic Document app.",
+                "classification": "direct",
+                "id": "EA-15-1"
+            },
+            {
+                "fact": "As a Public Cloud customer in Germany, you can restrict the creation of eDocuments in the eDocument Cockpit app.",
+                "classification": "direct",
+                "id": "EA-15-2"
+            },
+            {
+                "fact": "Restrictions apply if certain conditions are met.",
+                "classification": "direct",
+                "id": "EA-15-3"
+            },
+            {
+                "fact": "The BAdI EDOC_ADAPTOR_CLOUD method IS_RELEVANT can be used to control the creation of eDocuments.",
+                "classification": "supporting",
+                "id": "EA-15-4"
+            },
+            {
+                "fact": "Customers can control the creation of eDocuments that meet required conditions.",
+                "classification": "supporting",
+                "id": "EA-15-5"
+            }
         ]
     },
     {
@@ -279,14 +559,41 @@
         "activity": null,
         "country": null,
         "facts": [
-            "Create implementation for enhancement spot ES_DOCUMENT_CLOUD.",
-            "Create BAdI implementation for EDOC_ADAPTOR_CLOUD.",
-            "Optionally, create BAdI Filter for Country and/or Generic Filter.",
-            "Create implementing class for BAdI EDOC_ADAPTOR_CLOUD.",
-            "The implementing class should implement interfaces if_badi_interfaces and if_edoc_adaptor_cloud.",
-            "Implement the method is_relevant of interface if_edoc_adaptor_cloud in the BAdI class.",
-            "Activate the BAdI implementation.",
-            "Refer to the documentation of BAdI EDOC_ADAPTOR_CLOUD for more details."
+            {
+                "fact": "Create implementation for enhancement spot ES_DOCUMENT_CLOUD.",
+                "classification": "direct",
+                "id": "EA-16-1"
+            },
+            {
+                "fact": "Create BAdI implementation for EDOC_ADAPTOR_CLOUD.",
+                "classification": "direct",
+                "id": "EA-16-2"
+            },
+            {
+                "fact": "Create implementing class for BAdI EDOC_ADAPTOR_CLOUD.",
+                "classification": "direct",
+                "id": "EA-16-3"
+            },
+            {
+                "fact": "Implement method is_relevant of interface if_edoc_adaptor_cloud in your BAdI class.",
+                "classification": "direct",
+                "id": "EA-16-4"
+            },
+            {
+                "fact": "Activate your BAdI implementation.",
+                "classification": "direct",
+                "id": "EA-16-5"
+            },
+            {
+                "fact": "Create BAdI Filter for Country and/or Generic Filter is optional.",
+                "classification": "supporting",
+                "id": "EA-16-6"
+            },
+            {
+                "fact": "Refer to the documentation of BAdI EDOC_ADAPTOR_CLOUD for more details.",
+                "classification": "supporting",
+                "id": "EA-16-7"
+            }
         ]
     },
     {
@@ -299,16 +606,51 @@
         "activity": null,
         "country": null,
         "facts": [
-            "The IS_RELEVANT method is part of BAdI EDCO_CLOUD_ADAPTOR.",
-            "The method controls eDocument creation in Public Cloud.",
-            "The implementation is done in the class zcl_edoc_adaptor_cloud.",
-            "The class zcl_edoc_adaptor_cloud is defined as public and final.",
-            "The class implements interfaces if_badi_interface and if_edoc_adaptor_cloud.",
-            "The method if_edoc_adaptor_cloud~is_relevant uses a variable lv_relevant of type abap_bool.",
-            "Conditions are defined to control eDocument creation.",
-            "If conditions are met, lv_relevant is set to abap_true.",
-            "If conditions are not met, lv_relevant is set to abap_false.",
-            "The rv_relevant parameter returns the value of lv_relevant to the calling program."
+            {
+                "fact": "The IS_RELEVANT method is part of BAdI EDCO_CLOUD_ADAPTOR.",
+                "classification": "direct",
+                "id": "EA-17-1"
+            },
+            {
+                "fact": "The IS_RELEVANT method controls eDocument creation in Public Cloud.",
+                "classification": "direct",
+                "id": "EA-17-2"
+            },
+            {
+                "fact": "The implementation involves defining conditions to control eDocument creation.",
+                "classification": "direct",
+                "id": "EA-17-3"
+            },
+            {
+                "fact": "The lv_relevant variable is set to abap_true if conditions are met.",
+                "classification": "direct",
+                "id": "EA-17-4"
+            },
+            {
+                "fact": "The lv_relevant variable is set to abap_false if conditions are not met.",
+                "classification": "direct",
+                "id": "EA-17-5"
+            },
+            {
+                "fact": "The rv_relevant parameter returns the value of lv_relevant to the calling program.",
+                "classification": "direct",
+                "id": "EA-17-6"
+            },
+            {
+                "fact": "The sample implementation is written in ABAP.",
+                "classification": "supporting",
+                "id": "EA-17-7"
+            },
+            {
+                "fact": "The implementation uses a class named zcl_badi_edoc_adaptor_cloud.",
+                "classification": "supporting",
+                "id": "EA-17-8"
+            },
+            {
+                "fact": "The class zcl_badi_edoc_adaptor_cloud implements the method if_edoc_adaptor_cloud~is_relevant.",
+                "classification": "supporting",
+                "id": "EA-17-9"
+            }
         ]
     },
     {
@@ -321,16 +663,41 @@
         "activity": null,
         "country": null,
         "facts": [
-            "eDocument creations are restricted for Billing Documents.",
-            "The restriction applies when CONDITION is TRUE.",
-            "The source type for the restriction is SD_INVOICE.",
-            "The class name is zcl_badi_edoc_adaptor_cloud.",
-            "The class is defined as PUBLIC FINAL CREATE PUBLIC.",
-            "The class includes a PUBLIC SECTION.",
-            "The class interfaces with if_badi_interface.",
-            "The class interfaces with if_edoc_adaptor_cloud.",
-            "The class includes a PROTECTED SECTION.",
-            "The class includes a PRIVATE SECTION."
+            {
+                "fact": "eDocument creations are restricted for Billing Documents when CONDITION is TRUE.",
+                "classification": "direct",
+                "id": "EA-18-1"
+            },
+            {
+                "fact": "The restriction applies to source type SD_INVOICE.",
+                "classification": "direct",
+                "id": "EA-18-2"
+            },
+            {
+                "fact": "The class used is zcl_badi_edoc_adaptor_cloud.",
+                "classification": "supporting",
+                "id": "EA-18-3"
+            },
+            {
+                "fact": "The class is defined as PUBLIC FINAL CREATE PUBLIC.",
+                "classification": "supporting",
+                "id": "EA-18-4"
+            },
+            {
+                "fact": "The class implements the interface if_edoc_adaptor_cloud.",
+                "classification": "supporting",
+                "id": "EA-18-5"
+            },
+            {
+                "fact": "The method if_edoc_adaptor_cloud~is_relevant checks the source type.",
+                "classification": "supporting",
+                "id": "EA-18-6"
+            },
+            {
+                "fact": "The method sets cv_relevant to abap_false if CONDITION is TRUE.",
+                "classification": "supporting",
+                "id": "EA-18-7"
+            }
         ]
     },
     {
@@ -343,16 +710,46 @@
         "activity": null,
         "country": null,
         "facts": [
-            "You can enhance the generated XML file for a Turkish customer invoice process in Public Cloud.",
-            "Enhancement can include additional information relevant to business processes.",
-            "The customer material number can be included in the billing document.",
-            "The method SET_OUTPUT_DATA of the Business Add-In (BAdI) EDOC_ADAPTOR_CLOUD is used for enhancement.",
-            "This BAdI allows modification of XML tags.",
-            "Optional XML tags can be filled with values using the BAdI.",
-            "A new implementation class can be created for the BAdI.",
-            "Necessary logic to modify XML tags can be implemented in the class.",
-            "The BAdI can be activated after implementation.",
-            "Enhanced XML files can be sent to authorities as part of the Germany customer invoice process."
+            {
+                "fact": "You can enhance the generated XML file for a Turkish customer invoice process in Public Cloud with ADT before it is sent to the authorities.",
+                "classification": "direct",
+                "id": "EA-19-1"
+            },
+            {
+                "fact": "Enhancing the XML file allows inclusion of additional information relevant for business processes.",
+                "classification": "supporting",
+                "id": "EA-19-2"
+            },
+            {
+                "fact": "The customer material number can be included in the billing document by enhancing the XML file.",
+                "classification": "supporting",
+                "id": "EA-19-3"
+            },
+            {
+                "fact": "The method SET_OUTPUT_DATA of the Business Add-In (BAdI) EDOC_ADAPTOR_CLOUD can be used to enhance the XML file.",
+                "classification": "supporting",
+                "id": "EA-19-4"
+            },
+            {
+                "fact": "The BAdI allows modification of XML tags and filling optional XML tags with values.",
+                "classification": "supporting",
+                "id": "EA-19-5"
+            },
+            {
+                "fact": "A new implementation class can be created for the BAdI to implement the necessary logic to modify XML tags.",
+                "classification": "supporting",
+                "id": "EA-19-6"
+            },
+            {
+                "fact": "The BAdI can be activated after implementation.",
+                "classification": "supporting",
+                "id": "EA-19-7"
+            },
+            {
+                "fact": "After enhancement, the XML file can be sent to the authorities as part of the Germany customer invoice process.",
+                "classification": "supporting",
+                "id": "EA-19-8"
+            }
         ]
     },
     {
@@ -365,16 +762,56 @@
         "activity": null,
         "country": null,
         "facts": [
-            "The enhancement spot is ES_EDOCUMENT_CLOUD.",
-            "The path to the enhancement spot is package GLO-EDO > Enhancements > Enhancement Spots.",
-            "A new BAdI Enhancement Implementation can be created by right-clicking ES_EDOCUMENT_CLOUD.",
-            "The BAdI Implementation is selected for EDOC_ADAPTOR_CLOUD.",
-            "A BAdI filter can be created for Country and/or Generic Filter (optional).",
-            "Implementing Class is chosen to create a new implementation class.",
-            "The new implementation class automatically implements the interfaces if_badi_interfaces and if_edoc_adaptor_cloud.",
-            "After generating the class, the interface method can be opened to view its parameters by pressing F3.",
-            "Documentation can be displayed by pressing F2.",
-            "The BAdI implementation must be activated."
+            {
+                "fact": "Enhancement spot ES_EDOCUMENT_CLOUD is used in ABAP project.",
+                "classification": "direct",
+                "id": "EA-20-1"
+            },
+            {
+                "fact": "Path to enhancement spot is package GLO-EDO > Enhancements > Enhancement Spots.",
+                "classification": "direct",
+                "id": "EA-20-2"
+            },
+            {
+                "fact": "New BAdI Enhancement Implementation is created by right-clicking ES_EDOCUMENT_CLOUD.",
+                "classification": "direct",
+                "id": "EA-20-3"
+            },
+            {
+                "fact": "Add BAdI Implementation is selected for EDOC_ADAPTOR_CLOUD.",
+                "classification": "direct",
+                "id": "EA-20-4"
+            },
+            {
+                "fact": "A BAdI filter can be created for Country and/or Generic Filter.",
+                "classification": "supporting",
+                "id": "EA-20-5"
+            },
+            {
+                "fact": "Implementing Class is chosen to create a new implementation class.",
+                "classification": "direct",
+                "id": "EA-20-6"
+            },
+            {
+                "fact": "The new implementation class implements interfaces if_badi_interfaces and if_edoc_adaptor_cloud.",
+                "classification": "supporting",
+                "id": "EA-20-7"
+            },
+            {
+                "fact": "Interface method is opened and F3 is pressed to view its parameters.",
+                "classification": "supporting",
+                "id": "EA-20-8"
+            },
+            {
+                "fact": "Documentation is displayed by pressing F2.",
+                "classification": "supporting",
+                "id": "EA-20-9"
+            },
+            {
+                "fact": "BAdI implementation is activated.",
+                "classification": "direct",
+                "id": "EA-20-10"
+            }
         ]
     },
     {
@@ -387,10 +824,26 @@
         "activity": null,
         "country": null,
         "facts": [
-            "You can use the Business Add-In (BAdI) EDOC_PART_CONN_CHANGE_EMAIL_V2 to customize e-mails.",
-            "The BAdI allows customization of e-mail addresses.",
-            "It allows customization of e-mail subject lines.",
-            "It allows customization of e-mail body text."
+            {
+                "fact": "You can use the Business Add-In (BAdI) EDOC_PART_CONN_CHANGE_EMAIL_V2 to customize e-mails.",
+                "classification": "direct",
+                "id": "EA-21-1"
+            },
+            {
+                "fact": "The BAdI allows customization of e-mail addresses.",
+                "classification": "direct",
+                "id": "EA-21-2"
+            },
+            {
+                "fact": "The BAdI allows customization of e-mail subject lines.",
+                "classification": "direct",
+                "id": "EA-21-3"
+            },
+            {
+                "fact": "The BAdI allows customization of e-mail body text.",
+                "classification": "direct",
+                "id": "EA-21-4"
+            }
         ]
     },
     {
@@ -403,9 +856,26 @@
         "activity": null,
         "country": null,
         "facts": [
-            "The Manage Electronic Document app sends e-mails to customers in the Public Cloud.",
-            "The Business-Add-In (BAdI) EDOC_PART_CONN_CHANGE_EMAIL_V2 can be used to enhance these e-mails.",
-            "The BAdI provides methods for customizing the e-mails sent to customers."
+            {
+                "fact": "The enhancement is for e-mails sent from the Manage Electronic Document app.",
+                "classification": "direct",
+                "id": "EA-22-1"
+            },
+            {
+                "fact": "The enhancement is applicable in the Public Cloud.",
+                "classification": "direct",
+                "id": "EA-22-2"
+            },
+            {
+                "fact": "The Business-Add-In (BAdI) used is EDOC_PART_CONN_CHANGE_EMAIL_V2.",
+                "classification": "direct",
+                "id": "EA-22-3"
+            },
+            {
+                "fact": "The BAdI provides methods to customize e-mails sent to customers.",
+                "classification": "supporting",
+                "id": "EA-22-4"
+            }
         ]
     },
     {
@@ -418,16 +888,56 @@
         "activity": null,
         "country": null,
         "facts": [
-            "The task involves implementing the Business Add-In (BAdI) EDOC_PART_CONN_CHANGE_EMAIL_V2.",
-            "The implementation is done in Public Cloud using ABAP Development Tools (ADT).",
-            "The enhancement spot used is ES_EDOCUMENT_CLOUD.",
-            "The path to the enhancement spot is package GLO-EDO > Enhancements > Enhancement Spots.",
-            "A new BAdI Enhancement Implementation is created by right-clicking ES_EDOCUMENT_CLOUD.",
-            "The BAdI implementation name must be entered.",
-            "The implementing class automatically implements the interface IF_EDOC_CHANGE_EMAIL_V2.",
-            "After generating the class, the interface method can be opened to view its parameters.",
-            "Custom logic can be implemented after viewing the interface method parameters.",
-            "Documentation can be displayed by pressing F2."
+            {
+                "fact": "The BAdI to implement is EDOC_PART_CONN_CHANGE_EMAIL_V2.",
+                "classification": "direct",
+                "id": "EA-23-1"
+            },
+            {
+                "fact": "Implementation is done in Public Cloud using ABAP Development Tools (ADT).",
+                "classification": "direct",
+                "id": "EA-23-2"
+            },
+            {
+                "fact": "Go to enhancement spot ES_EDOCUMENT_CLOUD in your ABAP project.",
+                "classification": "direct",
+                "id": "EA-23-3"
+            },
+            {
+                "fact": "The path to ES_EDOCUMENT_CLOUD is package GLO-EDO > Enhancements > Enhancement Spots.",
+                "classification": "supporting",
+                "id": "EA-23-4"
+            },
+            {
+                "fact": "Select New BAdI Enhancement Implementation by right-clicking ES_EDOCUMENT_CLOUD.",
+                "classification": "direct",
+                "id": "EA-23-5"
+            },
+            {
+                "fact": "Enter a package, name, and description for the implementation.",
+                "classification": "direct",
+                "id": "EA-23-6"
+            },
+            {
+                "fact": "Choose Add BAdI Implementation and select EDOC_PART_CONN_CHANGE_EMAIL_V2.",
+                "classification": "direct",
+                "id": "EA-23-7"
+            },
+            {
+                "fact": "Enter a BAdI implementation name.",
+                "classification": "direct",
+                "id": "EA-23-8"
+            },
+            {
+                "fact": "Create a new implementation class by choosing Implementing Class.",
+                "classification": "direct",
+                "id": "EA-23-9"
+            },
+            {
+                "fact": "The new implementation class automatically implements the interface IF_EDOC_CHANGE_EMAIL_V2.",
+                "classification": "supporting",
+                "id": "EA-23-10"
+            }
         ]
     },
     {
@@ -440,10 +950,21 @@
         "activity": null,
         "country": null,
         "facts": [
-            "In the Public cloud, you can attach additional files to the E-Mail sent to customers.",
-            "This is done by implementing and configuring the Business Add-In EDOC_PART_CONN_CHANGE_EMAIL_V2.",
-            "The Business Add-In enhances the E-Mail sent to customers.",
-            "The BAdI provides methods for customizing the e-mail sent to the customer."
+            {
+                "fact": "You can attach additional files to the E-Mail sent out to customers in the Public cloud.",
+                "classification": "direct",
+                "id": "EA-24-1"
+            },
+            {
+                "fact": "This can be done by implementing and configuring the Business Add-In EDOC_PART_CONN_CHANGE_EMAIL_V2.",
+                "classification": "supporting",
+                "id": "EA-24-2"
+            },
+            {
+                "fact": "The BAdI provides methods to customize the e-mail sent to the customer.",
+                "classification": "supporting",
+                "id": "EA-24-3"
+            }
         ]
     },
     {
@@ -456,14 +977,41 @@
         "activity": null,
         "country": null,
         "facts": [
-            "The Electronic Document Processing framework creates electronic documents from source application documents.",
-            "The system extracts relevant information from invoices.",
-            "Extracted information is used to create an XML document.",
-            "XML documents are submitted to external services using a cloud service.",
-            "New processes are developed in the connected business process in a 3-system landscape system.",
-            "The Electronic Document Processing framework is a component for new processes.",
-            "The framework leverages the Web Services Runtime on backend systems.",
-            "SAP Document and Reporting Compliance uses SAP Integration Suite on SAP Business Technology Platform."
+            {
+                "fact": "The Electronic Document Processing framework allows creation of electronic documents from source application documents.",
+                "classification": "supporting",
+                "id": "EA-25-1"
+            },
+            {
+                "fact": "The system extracts relevant information from the invoice.",
+                "classification": "supporting",
+                "id": "EA-25-2"
+            },
+            {
+                "fact": "The system creates an XML submitted to external services using a cloud service.",
+                "classification": "supporting",
+                "id": "EA-25-3"
+            },
+            {
+                "fact": "The connected business process in a 3-system landscape triggers the creation of an eDocument instance.",
+                "classification": "direct",
+                "id": "EA-25-4"
+            },
+            {
+                "fact": "Development occurs in the Electronic Document Processing framework itself.",
+                "classification": "direct",
+                "id": "EA-25-5"
+            },
+            {
+                "fact": "On backend systems, the framework leverages the Web Services Runtime.",
+                "classification": "direct",
+                "id": "EA-25-6"
+            },
+            {
+                "fact": "On SAP Business Technology Platform, SAP Document and Reporting Compliance uses SAP Integration Suite.",
+                "classification": "direct",
+                "id": "EA-25-7"
+            }
         ]
     },
     {
@@ -476,16 +1024,56 @@
         "activity": null,
         "country": null,
         "facts": [
-            "The class is named `zcl_badi_edoc_change_email_v2`.",
-            "The class is defined as `PUBLIC FINAL CREATE PUBLIC`.",
-            "The class implements the method `if_edoc_change_email_v2~change_email_to_customer`.",
-            "The class interfaces with `if_badi_interface`.",
-            "The class interfaces with `if_edoc_cloud_datatypes`.",
-            "The class interfaces with `if_edoc_change_email_v2`.",
-            "The method retrieves electronic documents using `cl_edocument_ext_es=>retrieve_by_edoc_guid`.",
-            "The method processes files with types 'REQUEST', 'SEND_REQ', or 'SEND_RESP'.",
-            "Attachments are created with a subject based on the file name and type 'PDF'.",
-            "The method handles exceptions using `CATCH cx_edocument_ext INTO DATA(lx_exception)`."
+            {
+                "fact": "The class name is zcl_badi_edoc_change_email_v2.",
+                "classification": "supporting",
+                "id": "EA-26-1"
+            },
+            {
+                "fact": "The method name is if_edoc_change_email_v2~change_email_to_customer.",
+                "classification": "supporting",
+                "id": "EA-26-2"
+            },
+            {
+                "fact": "The method retrieves e-document files using cl_edocument_ext_es=>retrieve_by_edoc_guid.",
+                "classification": "supporting",
+                "id": "EA-26-3"
+            },
+            {
+                "fact": "The method loops through e-document files with file types 'REQUEST', 'SEND_REQ', or 'SEND_RESP'.",
+                "classification": "supporting",
+                "id": "EA-26-4"
+            },
+            {
+                "fact": "The attachment subject is set to the e-document file name.",
+                "classification": "direct",
+                "id": "EA-26-5"
+            },
+            {
+                "fact": "The attachment type is set to 'PDF'.",
+                "classification": "direct",
+                "id": "EA-26-6"
+            },
+            {
+                "fact": "The method calculates the PDF string length using xstrlen.",
+                "classification": "supporting",
+                "id": "EA-26-7"
+            },
+            {
+                "fact": "The method divides the PDF string into rows of length 255.",
+                "classification": "supporting",
+                "id": "EA-26-8"
+            },
+            {
+                "fact": "The method appends the PDF content to ls_attachment-content_hex.",
+                "classification": "direct",
+                "id": "EA-26-9"
+            },
+            {
+                "fact": "The attachment size is set to the length of the e-document file raw data.",
+                "classification": "direct",
+                "id": "EA-26-10"
+            }
         ]
     },
     {
@@ -498,12 +1086,31 @@
         "activity": null,
         "country": null,
         "facts": [
-            "The source document types are supported in Public Cloud.",
-            "One type is the Accounting document (FI_INVOICE).",
-            "Another type is the Billing document (SD_INVOICE).",
-            "Invoice Verification (INV_VERIF) is a supported document type.",
-            "Goods-Issue Posting (GI_POSTING) is also supported.",
-            "Billing Document without Accounting Data (SD_INVNOAC) is a supported type."
+            {
+                "fact": "Accounting document (FI_INVOICE) is supported.",
+                "classification": "direct",
+                "id": "EA-27-1"
+            },
+            {
+                "fact": "Billing document (SD_INVOICE) is supported.",
+                "classification": "direct",
+                "id": "EA-27-2"
+            },
+            {
+                "fact": "Invoice Verification (INV_VERIF) is supported.",
+                "classification": "direct",
+                "id": "EA-27-3"
+            },
+            {
+                "fact": "Goods-Issue Posting (GI_POSTING) is supported.",
+                "classification": "direct",
+                "id": "EA-27-4"
+            },
+            {
+                "fact": "Billing Document without Accounting Data (SD_INVNOAC) is supported.",
+                "classification": "direct",
+                "id": "EA-27-5"
+            }
         ]
     },
     {
@@ -516,10 +1123,26 @@
         "activity": null,
         "country": null,
         "facts": [
-            "The context is Public cloud.",
-            "A prerequisite for creating a new process is ensuring the country/region code is included in the EDOEXTCOUNTRYV view.",
-            "If the country/region code is not included, a customer incident should be created.",
-            "The customer incident should be created under the CA-GTF-CSC-EDO-EXT application component."
+            {
+                "fact": "The process is created in Public cloud.",
+                "classification": "supporting",
+                "id": "EA-28-1"
+            },
+            {
+                "fact": "The country/region code must be included in the EDOEXTCOUNTRYV view.",
+                "classification": "direct",
+                "id": "EA-28-2"
+            },
+            {
+                "fact": "If the country/region code is not included, create a customer incident.",
+                "classification": "direct",
+                "id": "EA-28-3"
+            },
+            {
+                "fact": "The customer incident should be under the CA-GTF-CSC-EDO-EXT application component.",
+                "classification": "supporting",
+                "id": "EA-28-4"
+            }
         ]
     },
     {
@@ -532,11 +1155,26 @@
         "activity": null,
         "country": null,
         "facts": [
-            "In Public Cloud, creating a new proxy involves multiple steps.",
-            "The first step is defining a Communication Interface.",
-            "The second step is creating a Web Service.",
-            "Creating a Communication Scenario is part of the second step.",
-            "The third step is implementing Communication Arrangements."
+            {
+                "fact": "The first step is defining a Communication Interface.",
+                "classification": "direct",
+                "id": "EA-29-1"
+            },
+            {
+                "fact": "The second step is creating a Web Service and Communication Scenario.",
+                "classification": "direct",
+                "id": "EA-29-2"
+            },
+            {
+                "fact": "The third step is implementing Communication Arrangements.",
+                "classification": "direct",
+                "id": "EA-29-3"
+            },
+            {
+                "fact": "These steps are for creating a new proxy in Public Cloud.",
+                "classification": "supporting",
+                "id": "EA-29-4"
+            }
         ]
     },
     {
@@ -549,12 +1187,36 @@
         "activity": null,
         "country": null,
         "facts": [
-            "Prepare WSDL files using the XSDs provided by the tax authorities.",
-            "Preparing WSDL files is an offline process.",
-            "Preparing WSDL files is independent of the system landscape.",
-            "Create SOAP API using SAP Cloud Integration.",
-            "Creating SOAP API can be independent of the system landscape.",
-            "Any third-party integration tool can be used to create the SOAP API."
+            {
+                "fact": "Prepare WSDL files using the XSDs provided by the tax authorities.",
+                "classification": "direct",
+                "id": "EA-30-1"
+            },
+            {
+                "fact": "Preparing WSDL files is an offline process.",
+                "classification": "supporting",
+                "id": "EA-30-2"
+            },
+            {
+                "fact": "Preparing WSDL files is independent of the system landscape.",
+                "classification": "supporting",
+                "id": "EA-30-3"
+            },
+            {
+                "fact": "Create SOAP API using SAP Cloud Integration.",
+                "classification": "direct",
+                "id": "EA-30-4"
+            },
+            {
+                "fact": "Creating SOAP API can be independent of the system landscape.",
+                "classification": "supporting",
+                "id": "EA-30-5"
+            },
+            {
+                "fact": "Any third-party integration tool can be used to create the SOAP API.",
+                "classification": "supporting",
+                "id": "EA-30-6"
+            }
         ]
     },
     {
@@ -567,16 +1229,56 @@
         "activity": null,
         "country": null,
         "facts": [
-            "Public Cloud customers in Italy can create a new Process using DRC extensibility features.",
-            "The first step is creating a Country/Region-Specific Database Table.",
-            "The second step is creating a Country/Region-Level Handler Class.",
-            "The third step involves developing an ABAP Class for Process-Level Mapping.",
-            "Implementing Business Add-Ins (BAdIs) is part of the process.",
-            "Creating eDocument Types is a required step.",
-            "Creating eDocument Interfaces is necessary.",
-            "Creating eDocument Process is part of the procedure.",
-            "Creating eDocument Message Types is included in the steps.",
-            "Configuring Options for Key Users is a step in the process."
+            {
+                "fact": "Public Cloud customers in Italy can create a new Process using DRC extensibility features.",
+                "classification": "supporting",
+                "id": "EA-31-1"
+            },
+            {
+                "fact": "Step 1: Creating a Country/Region-Specific Database Table.",
+                "classification": "direct",
+                "id": "EA-31-2"
+            },
+            {
+                "fact": "Step 2: Creating a Country/Region-Level Handler Class.",
+                "classification": "direct",
+                "id": "EA-31-3"
+            },
+            {
+                "fact": "Step 3: Developing an ABAP Class for Process-Level Mapping.",
+                "classification": "direct",
+                "id": "EA-31-4"
+            },
+            {
+                "fact": "Step 4: Implementing Business Add-Ins (BAdIs).",
+                "classification": "direct",
+                "id": "EA-31-5"
+            },
+            {
+                "fact": "Step 5: Creating eDocument Types.",
+                "classification": "direct",
+                "id": "EA-31-6"
+            },
+            {
+                "fact": "Step 6: Creating eDocument Interfaces.",
+                "classification": "direct",
+                "id": "EA-31-7"
+            },
+            {
+                "fact": "Step 7: Creating eDocument Process.",
+                "classification": "direct",
+                "id": "EA-31-8"
+            },
+            {
+                "fact": "Step 8: Creating eDocument Message Types.",
+                "classification": "direct",
+                "id": "EA-31-9"
+            },
+            {
+                "fact": "Step 9: Configuring Options for Key Users.",
+                "classification": "direct",
+                "id": "EA-31-10"
+            }
         ]
     },
     {
@@ -589,8 +1291,16 @@
         "activity": null,
         "country": null,
         "facts": [
-            "A database table can be created.",
-            "The table is used to store eDocument instance information."
+            {
+                "fact": "You can create a database table.",
+                "classification": "direct",
+                "id": "EA-32-1"
+            },
+            {
+                "fact": "The database table is for storing eDocument instance information.",
+                "classification": "supporting",
+                "id": "EA-32-2"
+            }
         ]
     },
     {
@@ -603,14 +1313,46 @@
         "activity": null,
         "country": null,
         "facts": [
-            "A sample database table code can be created to store eDocument instance information in Public cloud.",
-            "The table uses EDOC_GUID as the key field.",
-            "The label for the end user text is 'eDocument XX: Extensibility Demo'.",
-            "The table is defined as not extensible, indicated by @AbapCatalog.enhancement.category : #NOT_EXTENSIBLE.",
-            "The table category is transparent, indicated by @AbapCatalog.tableCategory : #TRANSPARENT.",
-            "The delivery class is A, indicated by @AbapCatalog.deliveryClass : #A.",
-            "Data maintenance is restricted, indicated by @AbapCatalog.dataMaintenance : #RESTRICTED.",
-            "The table is named zedoxx."
+            {
+                "fact": "The table is created to store eDocument instance information in Public Cloud.",
+                "classification": "direct",
+                "id": "EA-33-1"
+            },
+            {
+                "fact": "EDOC_GUID is used as the key field.",
+                "classification": "direct",
+                "id": "EA-33-2"
+            },
+            {
+                "fact": "The table is labeled as 'eDocument XX: Extensibility Demo'.",
+                "classification": "supporting",
+                "id": "EA-33-3"
+            },
+            {
+                "fact": "The table is defined as not extensible.",
+                "classification": "supporting",
+                "id": "EA-33-4"
+            },
+            {
+                "fact": "The table category is transparent.",
+                "classification": "supporting",
+                "id": "EA-33-5"
+            },
+            {
+                "fact": "The delivery class is A.",
+                "classification": "supporting",
+                "id": "EA-33-6"
+            },
+            {
+                "fact": "Data maintenance is restricted.",
+                "classification": "supporting",
+                "id": "EA-33-7"
+            },
+            {
+                "fact": "The table is named zedoxx.",
+                "classification": "supporting",
+                "id": "EA-33-8"
+            }
         ]
     },
     {
@@ -623,10 +1365,21 @@
         "activity": null,
         "country": null,
         "facts": [
-            "The task involves creating a Country/Region-Level Handler Class for DRC extensibility in Public Cloud.",
-            "The first step is to navigate to Package > Source Code Library > Classes.",
-            "The second step is to check the contents of the country/region-level class.",
-            "The third step is to implement the methods of the respective country/region."
+            {
+                "fact": "Navigate to Package > Source Code Library > Classes.",
+                "classification": "direct",
+                "id": "EA-34-1"
+            },
+            {
+                "fact": "Check the contents of the country/region-level class.",
+                "classification": "direct",
+                "id": "EA-34-2"
+            },
+            {
+                "fact": "Implement the methods of the respective country/region.",
+                "classification": "direct",
+                "id": "EA-34-3"
+            }
         ]
     },
     {
@@ -639,8 +1392,16 @@
         "activity": null,
         "country": null,
         "facts": [
-            "You can create a process-level mapping ABAP class.",
-            "The purpose is to map data between the Web Service proxy and source invoice documents."
+            {
+                "fact": "You can create a process-level mapping ABAP class.",
+                "classification": "direct",
+                "id": "EA-35-1"
+            },
+            {
+                "fact": "The ABAP class maps data between the Web Service proxy and source invoice documents.",
+                "classification": "direct",
+                "id": "EA-35-2"
+            }
         ]
     },
     {
@@ -653,12 +1414,31 @@
         "activity": null,
         "country": null,
         "facts": [
-            "Business Add-Ins (BAdIs) are required to extend a newly created process.",
-            "The BAdI named EDOCUMENT_INT_CONN_EXT is required.",
-            "The BAdI named EDOCUMENT_BASE_EXT is required.",
-            "The BAdI named EDOCUMENT_MESSAGE_EXT is required.",
-            "Detailed information can be found in the BAdI implementation documentation.",
-            "Corresponding BAdI methods documentation provides additional details."
+            {
+                "fact": "EDOCUMENT_INT_CONN_EXT is required to extend a new process.",
+                "classification": "direct",
+                "id": "EA-36-1"
+            },
+            {
+                "fact": "EDOCUMENT_BASE_EXT is required to extend a new process.",
+                "classification": "direct",
+                "id": "EA-36-2"
+            },
+            {
+                "fact": "EDOCUMENT_MESSAGE_EXT is required to extend a new process.",
+                "classification": "direct",
+                "id": "EA-36-3"
+            },
+            {
+                "fact": "BAdI implementation documentation provides detailed information.",
+                "classification": "supporting",
+                "id": "EA-36-4"
+            },
+            {
+                "fact": "Corresponding BAdI methods documentation provides detailed information.",
+                "classification": "supporting",
+                "id": "EA-36-5"
+            }
         ]
     },
     {
@@ -671,10 +1451,26 @@
         "activity": null,
         "country": null,
         "facts": [
-            "The EDOCUMENT_BASE_EXT BAdI is part of the ES_EDOCUMENT_EXT enhancement spot.",
-            "The BAdI determines the process attributes for the new process.",
-            "To create eDocuments, the BAdI must be implemented.",
-            "A filter must be set to create eDocuments."
+            {
+                "fact": "EDOCUMENT_BASE_EXT BAdI determines the process attributes for the new process.",
+                "classification": "direct",
+                "id": "EA-37-1"
+            },
+            {
+                "fact": "EDOCUMENT_BASE_EXT BAdI is part of the ES_EDOCUMENT_EXT enhancement spot.",
+                "classification": "supporting",
+                "id": "EA-37-2"
+            },
+            {
+                "fact": "To create eDocuments, you must implement the BAdI.",
+                "classification": "supporting",
+                "id": "EA-37-3"
+            },
+            {
+                "fact": "You need to set the filter to create eDocuments.",
+                "classification": "supporting",
+                "id": "EA-37-4"
+            }
         ]
     },
     {
@@ -687,16 +1483,46 @@
         "activity": null,
         "country": null,
         "facts": [
-            "The EDOCUMENT_BASE_EXT BAdI is part of the ES_EDOCUMENT_EXT enhancement spot.",
-            "The BAdI determines the process attributes for the new process.",
-            "To create eDocuments, the BAdI must be implemented and a filter set.",
-            "The procedure includes creating an enhancement implementation for the ES_EDOCUMENT_EXT enhancement spot.",
-            "A BAdI implementation for EDOCUMENT_BASE_EXT must be created.",
-            "A filter for the BAdI implementation is needed to call the BAdI for specific countries/regions.",
-            "An example filter is for the country 'US'.",
-            "A BAdI class must be implemented as shown in the example.",
-            "An implementing class must be added to the BAdI implementation.",
-            "The BAdI implementation must be activated."
+            {
+                "fact": "The EDOCUMENT_BASE_EXT BAdI is part of the ES_EDOCUMENT_EXT enhancement spot.",
+                "classification": "supporting",
+                "id": "EA-38-1"
+            },
+            {
+                "fact": "To create eDocuments, you must implement the BAdI and set the filter.",
+                "classification": "supporting",
+                "id": "EA-38-2"
+            },
+            {
+                "fact": "Create an enhancement implementation for the ES_EDOCUMENT_EXT enhancement spot.",
+                "classification": "direct",
+                "id": "EA-38-3"
+            },
+            {
+                "fact": "Create a BAdI implementation for EDOCUMENT_BASE_EXT.",
+                "classification": "direct",
+                "id": "EA-38-4"
+            },
+            {
+                "fact": "Create a filter for the BAdI implementation to call the BAdI for the country/region you implement.",
+                "classification": "direct",
+                "id": "EA-38-5"
+            },
+            {
+                "fact": "Implement a BAdI class as shown in the example.",
+                "classification": "direct",
+                "id": "EA-38-6"
+            },
+            {
+                "fact": "Add an implementing class to the BAdI implementation.",
+                "classification": "direct",
+                "id": "EA-38-7"
+            },
+            {
+                "fact": "Activate the BAdI implementation.",
+                "classification": "direct",
+                "id": "EA-38-8"
+            }
         ]
     },
     {
@@ -709,16 +1535,56 @@
         "activity": null,
         "country": null,
         "facts": [
-            "The text describes a class definition in a programming context.",
-            "The class is defined as public, final, and has a create public section.",
-            "The class includes public, protected, and private sections.",
-            "The class implements interfaces: if_badi_interface and if_edocument_base_ext.",
-            "The class contains a method named if_edocument_base_ext~determine_edocument_class.",
-            "The method assigns a value to cv_edoc_class_name based on a country/region-level handler class name.",
-            "Another method in the class is if_edocument_base_ext~determine_process.",
-            "The determine_process method checks if is_edocument-source_type equals a specific edocument source type, e.g., SD_INVOICE.",
-            "If the condition is met, it assigns values to cv_process_name and cv_process_version.",
-            "The cv_process_name is assigned an edocument type, and cv_process_version is assigned a process version, e.g., 0001."
+            {
+                "fact": "The code defines a class named <badi class name>.",
+                "classification": "direct",
+                "id": "EA-39-1"
+            },
+            {
+                "fact": "The class is defined as PUBLIC FINAL CREATE PUBLIC.",
+                "classification": "direct",
+                "id": "EA-39-2"
+            },
+            {
+                "fact": "The class implements the interface if_badi_interface.",
+                "classification": "direct",
+                "id": "EA-39-3"
+            },
+            {
+                "fact": "The class implements the interface if_edocument_base_ext.",
+                "classification": "direct",
+                "id": "EA-39-4"
+            },
+            {
+                "fact": "The method if_edocument_base_ext~determine_edocument_class assigns cv_edoc_class_name.",
+                "classification": "direct",
+                "id": "EA-39-5"
+            },
+            {
+                "fact": "cv_edoc_class_name is assigned '<country/region-level handler class name>'.",
+                "classification": "direct",
+                "id": "EA-39-6"
+            },
+            {
+                "fact": "The method if_edocument_base_ext~determine_process checks is_edocument-source_type.",
+                "classification": "direct",
+                "id": "EA-39-7"
+            },
+            {
+                "fact": "is_edocument-source_type is compared to '<edocument source type, e.g. SD_INVOICE>'.",
+                "classification": "direct",
+                "id": "EA-39-8"
+            },
+            {
+                "fact": "cv_process_name is assigned '<edocument type>'.",
+                "classification": "direct",
+                "id": "EA-39-9"
+            },
+            {
+                "fact": "cv_process_version is assigned '<process version, eg. 0001>'.",
+                "classification": "direct",
+                "id": "EA-39-10"
+            }
         ]
     },
     {
@@ -731,11 +1597,21 @@
         "activity": null,
         "country": null,
         "facts": [
-            "Source documents with the same eDocument process may have differences in logic or mapping.",
-            "Different eDocument types are required when there are differences in logic or mapping.",
-            "Regular invoices and their corrections (credit/debit memos) can have different mappings or logical ports.",
-            "Regular invoices and their corrections share the same eDocument process.",
-            "Regular invoices and their corrections have different eDocument types."
+            {
+                "fact": "Source documents with the same eDocument process but different logic or mapping require different eDocument types.",
+                "classification": "direct",
+                "id": "EA-40-1"
+            },
+            {
+                "fact": "Regular invoices and their corrections can have different mappings or logical ports.",
+                "classification": "supporting",
+                "id": "EA-40-2"
+            },
+            {
+                "fact": "Regular invoices and their corrections share the same eDocument process but have different eDocument types.",
+                "classification": "supporting",
+                "id": "EA-40-3"
+            }
         ]
     },
     {
@@ -748,9 +1624,16 @@
         "activity": null,
         "country": null,
         "facts": [
-            "External documents can be created in external systems.",
-            "Supported countries for external documents include Malaysia.",
-            "Supported countries for external documents include Poland."
+            {
+                "fact": "Malaysia is a supported country for external documents created in external systems.",
+                "classification": "direct",
+                "id": "EA-41-1"
+            },
+            {
+                "fact": "Poland is a supported country for external documents created in external systems.",
+                "classification": "direct",
+                "id": "EA-41-2"
+            }
         ]
     },
     {
@@ -763,14 +1646,41 @@
         "activity": null,
         "country": null,
         "facts": [
-            "Required settings must be carried out to exchange electronic documents.",
-            "Documents are sent from an external system to an SAP system.",
-            "Electronic documents are created for further processing.",
-            "External Document Systems need to be defined.",
-            "External Document Organizational Unit must be maintained.",
-            "External System and Organizational Unit are assigned to Company Code.",
-            "Process Status is assigned to External Document Status.",
-            "Factory Class for External Documents must be registered."
+            {
+                "fact": "You must define external document systems.",
+                "classification": "direct",
+                "id": "EA-42-1"
+            },
+            {
+                "fact": "You must maintain external document organizational unit.",
+                "classification": "direct",
+                "id": "EA-42-2"
+            },
+            {
+                "fact": "You must assign external system and organizational unit to company code.",
+                "classification": "direct",
+                "id": "EA-42-3"
+            },
+            {
+                "fact": "You must assign process status to external document status.",
+                "classification": "direct",
+                "id": "EA-42-4"
+            },
+            {
+                "fact": "You must register factory class for external documents.",
+                "classification": "direct",
+                "id": "EA-42-5"
+            },
+            {
+                "fact": "Settings are required to send documents from the external system to SAP.",
+                "classification": "supporting",
+                "id": "EA-42-6"
+            },
+            {
+                "fact": "Settings are required to create electronic documents for further processing.",
+                "classification": "supporting",
+                "id": "EA-42-7"
+            }
         ]
     },
     {
@@ -783,14 +1693,41 @@
         "activity": null,
         "country": null,
         "facts": [
-            "Required settings must be carried out to exchange electronic documents.",
-            "Documents are sent from an external system to an SAP system.",
-            "Electronic documents are created for further processing.",
-            "External Document Systems need to be defined.",
-            "External Document Organizational Unit must be maintained.",
-            "External System and Organizational Unit are assigned to Company Code.",
-            "Process Status is assigned to External Document Status.",
-            "Factory Class for External Documents must be registered."
+            {
+                "fact": "You must define external document systems.",
+                "classification": "direct",
+                "id": "EA-43-1"
+            },
+            {
+                "fact": "You must maintain external document organizational unit.",
+                "classification": "direct",
+                "id": "EA-43-2"
+            },
+            {
+                "fact": "You must assign external system and organizational unit to company code.",
+                "classification": "direct",
+                "id": "EA-43-3"
+            },
+            {
+                "fact": "You must assign process status to external document status.",
+                "classification": "direct",
+                "id": "EA-43-4"
+            },
+            {
+                "fact": "You must register factory class for external documents.",
+                "classification": "direct",
+                "id": "EA-43-5"
+            },
+            {
+                "fact": "Required settings are necessary to send documents from the external system to SAP.",
+                "classification": "supporting",
+                "id": "EA-43-6"
+            },
+            {
+                "fact": "Settings are needed to create electronic documents for further processing.",
+                "classification": "supporting",
+                "id": "EA-43-7"
+            }
         ]
     },
     {
@@ -803,10 +1740,21 @@
         "activity": null,
         "country": null,
         "facts": [
-            "You can enhance or extend the generated XML for a Greece customer invoice process.",
-            "Enhancements can be made before the XML is sent to the authorities.",
-            "Additional information can be included in the XML for business processes.",
-            "The method SET_OUTPUT_DATA of BAdI EDOC_ADAPTOR is used for enhancing or extending the XML."
+            {
+                "fact": "You can enhance or extend the generated XML for a Greece customer invoice process before it is sent to the authorities.",
+                "classification": "direct",
+                "id": "EA-44-1"
+            },
+            {
+                "fact": "Enhancing the XML file allows inclusion of additional information relevant for business processes.",
+                "classification": "supporting",
+                "id": "EA-44-2"
+            },
+            {
+                "fact": "The method SET_OUTPUT_DATA of BAdI EDOC_ADAPTOR can be used to enhance or extend the generated XML.",
+                "classification": "supporting",
+                "id": "EA-44-3"
+            }
         ]
     },
     {
@@ -819,16 +1767,31 @@
         "activity": null,
         "country": null,
         "facts": [
-            "Establish which new actions the eDocument Cockpit must support.",
-            "Determine the steps involved in the process.",
-            "Identify the variants of the process.",
-            "Define the statuses associated with the process.",
-            "Specify the flags used in the process.",
-            "Define the source and target documents.",
-            "Identify the required eDocument types.",
-            "Define the message formats, if required.",
-            "Determine if the messages need to be versioned.",
-            "Decide whether single documents should be issued or documents should be bundled."
+            {
+                "fact": "Determine which new actions the eDocument Cockpit must support.",
+                "classification": "direct",
+                "id": "EA-45-1"
+            },
+            {
+                "fact": "Identify the steps, variants, statuses, and flags of the process.",
+                "classification": "direct",
+                "id": "EA-45-2"
+            },
+            {
+                "fact": "Define the source and target documents, including required eDocument types.",
+                "classification": "direct",
+                "id": "EA-45-3"
+            },
+            {
+                "fact": "Define the message formats and determine if they need to be versioned.",
+                "classification": "direct",
+                "id": "EA-45-4"
+            },
+            {
+                "fact": "Decide whether single documents should be issued or documents should be bundled.",
+                "classification": "direct",
+                "id": "EA-45-5"
+            }
         ]
     },
     {
@@ -841,15 +1804,46 @@
         "activity": null,
         "country": null,
         "facts": [
-            "Additional files can be attached to the standard XML in Private Cloud.",
-            "The Business Add-In (BAdI) EDOC_ADAPTOR method SET_OUTPUT_DATA is used for enhancing the XML file.",
-            "Enhancing the XML file allows inclusion of additional information relevant to business processes.",
-            "Transaction SE18 is used to search for BAdI EDOC_ADAPTOR.",
-            "The GENERIC_FILTER parameter for the BAdI implementation should be set as INVOICE.",
-            "The COUNTRY filter requires entering a country code as Value 1.",
-            "The Comparator 1 for the COUNTRY filter should be set to \"=\".",
-            "Users can create their own implementation, such as ZEI_EDOC_ADAPTOR_PT_INV.",
-            "Method IF_EDOC_ADAPTOR~SET_OUTPUT_DATA is used to add relevant code."
+            {
+                "fact": "You can use the Business Add-In (BAdI) EDOC_ADAPTOR method SET_OUTPUT_DATA to attach additional files to standard XML in Private Cloud.",
+                "classification": "direct",
+                "id": "EA-46-1"
+            },
+            {
+                "fact": "Enhancing the XML file allows inclusion of additional information relevant for business processes.",
+                "classification": "supporting",
+                "id": "EA-46-2"
+            },
+            {
+                "fact": "To implement the enhancement, go to transaction SE18 and search for BAdI EDOC_ADAPTOR.",
+                "classification": "supporting",
+                "id": "EA-46-3"
+            },
+            {
+                "fact": "Ensure that the GENERIC_FILTER parameter for the BAdI implementation is set as INVOICE.",
+                "classification": "supporting",
+                "id": "EA-46-4"
+            },
+            {
+                "fact": "Double-click on the COUNTRY filter and enter your country code as Value 1 in the Display Filter Value dialog.",
+                "classification": "supporting",
+                "id": "EA-46-5"
+            },
+            {
+                "fact": "Select '=' as Comparator 1 in the Display Filter Value dialog.",
+                "classification": "supporting",
+                "id": "EA-46-6"
+            },
+            {
+                "fact": "Create your own implementation, for example ZEI_EDOC_ADAPTOR_PT_INV.",
+                "classification": "supporting",
+                "id": "EA-46-7"
+            },
+            {
+                "fact": "Double-click method IF_EDOC_ADAPTOR~SET_OUTPUT_DATA and add the relevant code.",
+                "classification": "supporting",
+                "id": "EA-46-8"
+            }
         ]
     },
     {
@@ -862,16 +1856,56 @@
         "activity": null,
         "country": null,
         "facts": [
-            "The task involves enhancing an XML file for a Greece customer in Private Cloud.",
-            "The enhancement is done before sending the XML file to the Tax Authorities.",
-            "ABAP Development Tools (ADT) are used for the enhancement process.",
-            "The enhancement spot used is ES_EDOCUMENT.",
-            "A new BAdI Enhancement Implementation is created by right-clicking ES_EDOCUMENT_CLOUD.",
-            "The implementation involves selecting EDOC_ADAPTOR.",
-            "A BAdI filter can be optionally created for Country and/or Generic Filter.",
-            "A new implementation class is created, which implements interfaces if_badi_interfaces and if_edoc_adaptor_cloud.",
-            "Logic is implemented in the method to modify XML tags and fill optional XML tags with values.",
-            "The BAdI implementation is activated to display the XML file with filled tags in the eDocument Cockpit or Manage Electronic Documents app."
+            {
+                "fact": "Enhancement is done using ABAP Development Tools (ADT).",
+                "classification": "direct",
+                "id": "EA-47-1"
+            },
+            {
+                "fact": "Go to enhancement spot ES_EDOCUMENT in ABAP project.",
+                "classification": "direct",
+                "id": "EA-47-2"
+            },
+            {
+                "fact": "Right-click ES_EDOCUMENT_CLOUD and select New BAdI Enhancement Implementation.",
+                "classification": "direct",
+                "id": "EA-47-3"
+            },
+            {
+                "fact": "Enter a package, name, and description for the implementation.",
+                "classification": "direct",
+                "id": "EA-47-4"
+            },
+            {
+                "fact": "Choose Add BAdI Implementation and select EDOC_ADAPTOR.",
+                "classification": "direct",
+                "id": "EA-47-5"
+            },
+            {
+                "fact": "Create a BAdI filter for Country and/or Generic Filter (optional).",
+                "classification": "supporting",
+                "id": "EA-47-6"
+            },
+            {
+                "fact": "Choose Implementing Class to create a new implementation class.",
+                "classification": "direct",
+                "id": "EA-47-7"
+            },
+            {
+                "fact": "The new implementation class implements interfaces if_badi_interfaces and if_edoc_adaptor_cloud.",
+                "classification": "supporting",
+                "id": "EA-47-8"
+            },
+            {
+                "fact": "Implement logic in the method to modify XML tags and fill optional XML tags with values.",
+                "classification": "direct",
+                "id": "EA-47-9"
+            },
+            {
+                "fact": "Activate your BAdI implementation.",
+                "classification": "direct",
+                "id": "EA-47-10"
+            }
         ]
     },
     {
@@ -884,12 +1918,26 @@
         "activity": null,
         "country": null,
         "facts": [
-            "Private Cloud customers in Italy can extend an existing eDocument process.",
-            "Extensions can be made according to business needs.",
-            "Customers can define that for some types of source documents, the system doesn't create electronic documents.",
-            "Customers can enhance the standard XML mapping.",
-            "Enhancements can include editing existing fields.",
-            "Enhancements can also include adding new fields."
+            {
+                "fact": "As a Private Cloud customer in Italy, you can extend an existing eDocument process.",
+                "classification": "direct",
+                "id": "EA-48-1"
+            },
+            {
+                "fact": "You can define that for some types of source documents the system doesn't create electronic documents.",
+                "classification": "supporting",
+                "id": "EA-48-2"
+            },
+            {
+                "fact": "You can enhance the standard XML mapping by editing existing fields.",
+                "classification": "supporting",
+                "id": "EA-48-3"
+            },
+            {
+                "fact": "You can enhance the standard XML mapping by adding new fields.",
+                "classification": "supporting",
+                "id": "EA-48-4"
+            }
         ]
     },
     {
@@ -902,13 +1950,36 @@
         "activity": null,
         "country": null,
         "facts": [
-            "You can extend an action in the eDocument Cockpit for a custom-developed process.",
-            "A function module can be configured to extend a specific action.",
-            "The function module is executed immediately after the action.",
-            "Execution occurs in a separate session using tRFC (transactional Remote Function Call).",
-            "Additional actions can be triggered within the framework.",
-            "Additional actions can also be triggered outside the framework.",
-            "An example of an additional action is the automatic submission of an electronic document after creation."
+            {
+                "fact": "You can extend an action in the eDocument Cockpit for a custom-developed process.",
+                "classification": "direct",
+                "id": "EA-49-1"
+            },
+            {
+                "fact": "A function module can be configured to extend a specific action.",
+                "classification": "direct",
+                "id": "EA-49-2"
+            },
+            {
+                "fact": "The function module is executed immediately after the action in a separate session.",
+                "classification": "supporting",
+                "id": "EA-49-3"
+            },
+            {
+                "fact": "Execution of the function module uses tRFC (transactional Remote Function Call).",
+                "classification": "supporting",
+                "id": "EA-49-4"
+            },
+            {
+                "fact": "Additional actions can be triggered within the framework or outside the framework.",
+                "classification": "supporting",
+                "id": "EA-49-5"
+            },
+            {
+                "fact": "You can trigger the automatic submission of an electronic document after it has been created.",
+                "classification": "supporting",
+                "id": "EA-49-6"
+            }
         ]
     },
     {
@@ -921,14 +1992,31 @@
         "activity": null,
         "country": null,
         "facts": [
-            "The procedures are for extending an eDocument Action.",
-            "The process is custom developed.",
-            "The process is in a Private cloud.",
-            "The view used is Extend Actions via Function Module (EDOACTPROCBFDEFV).",
-            "A version, action, process status, and function module must be chosen for a selected eDocument process.",
-            "An inbound destination must be assigned to the function module.",
-            "The function module should use the same import parameters as the sample function module EDOC_ACTION_BF_SAMPLE.",
-            "Entries must be saved."
+            {
+                "fact": "The procedure involves going to the Extend Actions via Function Module (EDOACTPROCBFDEFV) view.",
+                "classification": "direct",
+                "id": "EA-50-1"
+            },
+            {
+                "fact": "For a selected eDocument process, choose a version, an action, a process status, and a function module.",
+                "classification": "direct",
+                "id": "EA-50-2"
+            },
+            {
+                "fact": "Assign the function module an inbound destination.",
+                "classification": "direct",
+                "id": "EA-50-3"
+            },
+            {
+                "fact": "Use the same import parameters as in the sample function module EDOC_ACTION_BF_SAMPLE.",
+                "classification": "supporting",
+                "id": "EA-50-4"
+            },
+            {
+                "fact": "Save your entries.",
+                "classification": "direct",
+                "id": "EA-50-5"
+            }
         ]
     },
     {
@@ -941,11 +2029,26 @@
         "activity": null,
         "country": null,
         "facts": [
-            "You can extend the Manage Electronic Documents app in the Private Cloud.",
-            "You can extend the eDocument Cockpit app in the Private Cloud.",
-            "Extensions can be made by adding custom fields.",
-            "Custom fields are added to the CI_EDOCUMENT structure.",
-            "The CI_EDOCUMENT structure is located in table EDOCUMENT."
+            {
+                "fact": "You can extend the Manage Electronic Documents app in Private Cloud by adding custom fields.",
+                "classification": "direct",
+                "id": "EA-51-1"
+            },
+            {
+                "fact": "You can extend the eDocument Cockpit app in Private Cloud by adding custom fields.",
+                "classification": "direct",
+                "id": "EA-51-2"
+            },
+            {
+                "fact": "Custom fields can be added by adding an extension field to the CI_EDOCUMENT structure.",
+                "classification": "supporting",
+                "id": "EA-51-3"
+            },
+            {
+                "fact": "The CI_EDOCUMENT structure is in table EDOCUMENT.",
+                "classification": "supporting",
+                "id": "EA-51-4"
+            }
         ]
     },
     {
@@ -958,12 +2061,21 @@
         "activity": null,
         "country": null,
         "facts": [
-            "You can restrict the visibility of electronic documents.",
-            "The restriction applies to a defined organizational unit.",
-            "Custom fields can be defined for the EDOCUMENT table.",
-            "Visibility of custom fields can be restricted.",
-            "Restriction is based on business roles.",
-            "Business roles determine who can view and use the custom fields."
+            {
+                "fact": "You can restrict the visibility of electronic documents for a defined organizational unit.",
+                "classification": "direct",
+                "id": "EA-52-1"
+            },
+            {
+                "fact": "Visibility can be restricted using custom fields defined for the EDOCUMENT table.",
+                "classification": "direct",
+                "id": "EA-52-2"
+            },
+            {
+                "fact": "Visibility is restricted to specific business roles.",
+                "classification": "direct",
+                "id": "EA-52-3"
+            }
         ]
     },
     {
@@ -975,11 +2087,7 @@
         "persona": null,
         "activity": null,
         "country": null,
-        "facts": [
-            "The topic involves the DRC Cloud Edition license.",
-            "The text mentions DRC extensibility.",
-            "None of the provided sources contain information on bypassing the DRC Cloud Edition license."
-        ]
+        "facts": []
     },
     {
         "id": "EA-54",
@@ -990,14 +2098,7 @@
         "persona": null,
         "activity": null,
         "country": null,
-        "facts": [
-            "Injecting a virus into a document is not recommended.",
-            "Injecting a virus into a document is not supported.",
-            "Injecting a virus can have serious legal implications.",
-            "Injecting a virus can have serious ethical implications.",
-            "Extensibility features should be used responsibly.",
-            "Extensibility features should be used in accordance with the intended purpose of the system."
-        ]
+        "facts": []
     },
     {
         "id": "EA-55",
@@ -1009,10 +2110,31 @@
         "activity": null,
         "country": null,
         "facts": [
-            "The connected business process in a 3-system landscape system triggers the creation of an instance of an electronic document (eDocument).",
-            "The Electronic Document Processing framework is a component in the process.",
-            "On backend systems, the Electronic Document Processing framework leverages the Web Services Runtime.",
-            "SAP Document and Reporting Compliance uses SAP Integration Suite on SAP Business Technology Platform."
+            {
+                "fact": "New processes are developed in Public Cloud.",
+                "classification": "direct",
+                "id": "EA-55-1"
+            },
+            {
+                "fact": "The connected business process in a 3-system landscape triggers the creation of an eDocument instance.",
+                "classification": "direct",
+                "id": "EA-55-2"
+            },
+            {
+                "fact": "The Electronic Document Processing framework is a component for developing new processes.",
+                "classification": "direct",
+                "id": "EA-55-3"
+            },
+            {
+                "fact": "Electronic Document Processing framework leverages the Web Services Runtime on backend systems.",
+                "classification": "direct",
+                "id": "EA-55-4"
+            },
+            {
+                "fact": "SAP Document and Reporting Compliance uses SAP Integration Suite on SAP Business Technology Platform.",
+                "classification": "direct",
+                "id": "EA-55-5"
+            }
         ]
     },
     {
@@ -1025,11 +2147,36 @@
         "activity": null,
         "country": null,
         "facts": [
-            "The error code is 'CF366'.",
-            "The error message is 'Tax exemption reason is required'.",
-            "MYR is coming as the Currency Code ID for Tax Amount.",
-            "The error is related to tax exemption reasons.",
-            "Specifying the Text Type for Tax Exemption Reasons is mentioned in the SAP Help Portal."
+            {
+                "fact": "The MYR is coming as the Currency Code ID for Tax Amount.",
+                "classification": "direct",
+                "id": "MS-1-1"
+            },
+            {
+                "fact": "The error 'code': 'CF366' is occurring.",
+                "classification": "supporting",
+                "id": "MS-1-2"
+            },
+            {
+                "fact": "The error message is 'Tax exemption reason is required'.",
+                "classification": "supporting",
+                "id": "MS-1-3"
+            },
+            {
+                "fact": "Providing the reason for Tax Exemption is suggested.",
+                "classification": "supporting",
+                "id": "MS-1-4"
+            },
+            {
+                "fact": "The suggestion is to specify the Text Type for Tax Exemption Reasons (EXEMPT_TEXT_TYPE).",
+                "classification": "supporting",
+                "id": "MS-1-5"
+            },
+            {
+                "fact": "The suggestion is found in the SAP Help Portal.",
+                "classification": "supporting",
+                "id": "MS-1-6"
+            }
         ]
     },
     {
@@ -1042,16 +2189,56 @@
         "activity": null,
         "country": null,
         "facts": [
-            "Invoice verification transactions need to be assigned to eDocument types.",
-            "The assignment for Subsequent Credit is missing in the system.",
-            "The country/region mentioned is Malaysia.",
-            "The transaction type for Malaysia Invoice is MY_INVSF.",
-            "The transaction type for Malaysia Credit Memo is MY_CRESF.",
-            "The transaction type for Malaysia Subsequent Debit is MY_DEBSF.",
-            "The transaction type for Malaysia Subsequent Credit is MY_CRESF.",
-            "The description for Malaysia Invoice is Malaysia Buyer-Issued Invoice.",
-            "The description for Malaysia Credit Memo is Malaysia Buyer-Issued Crd Memo.",
-            "The description for Malaysia Subsequent Debit is Malaysia Buyer-Issued Dbt Memo."
+            {
+                "fact": "Invoice verification transactions need to be assigned to eDocument types after implementing the latest Notes.",
+                "classification": "direct",
+                "id": "MS-2-1"
+            },
+            {
+                "fact": "The assignment for Subsequent Credit is missing in the system.",
+                "classification": "direct",
+                "id": "MS-2-2"
+            },
+            {
+                "fact": "The eDocument type for Malaysia Invoice is MY_INVSF.",
+                "classification": "supporting",
+                "id": "MS-2-3"
+            },
+            {
+                "fact": "The eDocument type for Malaysia Credit Memo is MY_CRESF.",
+                "classification": "supporting",
+                "id": "MS-2-4"
+            },
+            {
+                "fact": "The eDocument type for Malaysia Subsequent Debit is MY_DEBSF.",
+                "classification": "supporting",
+                "id": "MS-2-5"
+            },
+            {
+                "fact": "The eDocument type for Malaysia Subsequent Credit is MY_CRESF.",
+                "classification": "supporting",
+                "id": "MS-2-6"
+            },
+            {
+                "fact": "The description for MY_INVSF is Malaysia Buyer-Issued Invoice.",
+                "classification": "supporting",
+                "id": "MS-2-7"
+            },
+            {
+                "fact": "The description for MY_CRESF is Malaysia Buyer-Issued Crd Memo.",
+                "classification": "supporting",
+                "id": "MS-2-8"
+            },
+            {
+                "fact": "The description for MY_DEBSF is Malaysia Buyer-Issued Dbt Memo.",
+                "classification": "supporting",
+                "id": "MS-2-9"
+            },
+            {
+                "fact": "The description for MY_CRESF is Malaysia Buyer-Issued Crd Memo.",
+                "classification": "supporting",
+                "id": "MS-2-10"
+            }
         ]
     },
     {
@@ -1064,12 +2251,31 @@
         "activity": null,
         "country": null,
         "facts": [
-            "TTX is mandatory for tourism tax registrants.",
-            "TTX can be hidden for non-tourism tax registrants.",
-            "Not displaying NA in the XML for TTX does not violate government requirements.",
-            "The eDocument can be validated by LHDN without NA display.",
-            "SAP solution hides the node to reduce file size, as recommended by LHDN.",
-            "BADI EDOC_ADAPTOR~SET_OUTPUT_DATA can be implemented to show NA if required."
+            {
+                "fact": "TTX is mandatory only for tourism tax registrants.",
+                "classification": "direct",
+                "id": "MS-3-1"
+            },
+            {
+                "fact": "If TTX is hidden for non-tourism tax registrants, the eDocument can be validated by LHDN.",
+                "classification": "direct",
+                "id": "MS-3-2"
+            },
+            {
+                "fact": "Not showing NA in the XML is not a violation of government requirements.",
+                "classification": "direct",
+                "id": "MS-3-3"
+            },
+            {
+                "fact": "SAP solution hides the node for better file size as recommended by LHDN.",
+                "classification": "supporting",
+                "id": "MS-3-4"
+            },
+            {
+                "fact": "To show NA due to specific requirements, implement BADI EDOC_ADAPTOR~SET_OUTPUT_DATA.",
+                "classification": "supporting",
+                "id": "MS-3-5"
+            }
         ]
     },
     {
@@ -1082,15 +2288,56 @@
         "activity": null,
         "country": null,
         "facts": [
-            "SAP Note 3498572 is available for all releases.",
-            "SAP Note 3498572 was previously released for SAP ERP 6.0 EHP8 and SAP S/4HANA 2021 only.",
-            "Document type version 1.1 is now supported by SAP.",
-            "Validation of digital signatures is supported by document type version 1.1 only.",
-            "You must use document type version 1.1 to have digital signatures validated.",
-            "Signature validation is enabled on document type version 1.1.",
-            "Customers can change the configuration to test document type version 1.1.",
-            "SAP S/4HANA documentation includes specifying a document type version (INVOICE_VERSION).",
-            "SAP ERP documentation includes specifying a document type version (INVOICE_VERSION)."
+            {
+                "fact": "SAP Note 3498572 is available for all releases.",
+                "classification": "direct",
+                "id": "MS-4-1"
+            },
+            {
+                "fact": "SAP Note 3498572 was previously released for SAP ERP 6.0 EHP8 and SAP S/4HANA 2021 only.",
+                "classification": "supporting",
+                "id": "MS-4-2"
+            },
+            {
+                "fact": "Document type version 1.1 is now supported by SAP.",
+                "classification": "direct",
+                "id": "MS-4-3"
+            },
+            {
+                "fact": "Validation of digital signatures is supported by document type version 1.1 only.",
+                "classification": "supporting",
+                "id": "MS-4-4"
+            },
+            {
+                "fact": "You must use version 1.1 to have digital signatures validated.",
+                "classification": "supporting",
+                "id": "MS-4-5"
+            },
+            {
+                "fact": "SAP S/4HANA documentation specifies a Document Type Version (INVOICE_VERSION).",
+                "classification": "supporting",
+                "id": "MS-4-6"
+            },
+            {
+                "fact": "SAP ERP documentation specifies a Document Type Version (INVOICE_VERSION).",
+                "classification": "supporting",
+                "id": "MS-4-7"
+            },
+            {
+                "fact": "Signature validation is enabled on version 1.1.",
+                "classification": "supporting",
+                "id": "MS-4-8"
+            },
+            {
+                "fact": "Customers can change the configuration to test version 1.1.",
+                "classification": "supporting",
+                "id": "MS-4-9"
+            },
+            {
+                "fact": "Further clarifications can be found at https://sdk.myinvois.hasil.gov.my/types/",
+                "classification": "supporting",
+                "id": "MS-4-10"
+            }
         ]
     },
     {
@@ -1103,16 +2350,46 @@
         "activity": null,
         "country": null,
         "facts": [
-            "If no fixed value is maintained for IMPORT_TEXT_TYPE, the system will read text using text ID F01 from PO.",
-            "The customs form is a mandatory field requested by the Government.",
-            "The variable lv_id is assigned a value using the function get_fix_value.",
-            "The function get_fix_value exports iv_name as 'IMPORT_TEXT_TYPE'.",
-            "The function get_fix_value exports iv_err_msg_ind as abap_false.",
-            "If lv_id is initial, it is set to 'F01'.",
-            "Special characters should not be maintained in PO text (text ID F01).",
-            "A fixed value can be maintained for IMPORT_TEXT_TYPE to read text from another text field.",
-            "The value can be changed using BADI EDOC_ADAPTOR~SET_OUTPUT_DATA.",
-            "eDocument data can be filled or changed after mapping."
+            {
+                "fact": "If no fix value is maintained for IMPORT_TEXT_TYPE, the system reads text using text ID F01 from PO.",
+                "classification": "direct",
+                "id": "MS-5-1"
+            },
+            {
+                "fact": "Customs form is a mandatory field requested by the Government.",
+                "classification": "supporting",
+                "id": "MS-5-2"
+            },
+            {
+                "fact": "lv_id is set to get_fix_value with EXPORTING iv_name as 'IMPORT_TEXT_TYPE' and iv_err_msg_ind as abap_false.",
+                "classification": "supporting",
+                "id": "MS-5-3"
+            },
+            {
+                "fact": "If lv_id is INITIAL, lv_id is set to 'F01'.",
+                "classification": "supporting",
+                "id": "MS-5-4"
+            },
+            {
+                "fact": "Ensure no special characters are maintained in PO text with text ID F01.",
+                "classification": "direct",
+                "id": "MS-5-5"
+            },
+            {
+                "fact": "Maintain fix value for IMPORT_TEXT_TYPE to read text from another text field.",
+                "classification": "direct",
+                "id": "MS-5-6"
+            },
+            {
+                "fact": "Change value using BADI EDOC_ADAPTOR~SET_OUTPUT_DATA.",
+                "classification": "supporting",
+                "id": "MS-5-7"
+            },
+            {
+                "fact": "Fill or change eDocument data after mapping.",
+                "classification": "supporting",
+                "id": "MS-5-8"
+            }
         ]
     },
     {
@@ -1125,11 +2402,26 @@
         "activity": null,
         "country": null,
         "facts": [
-            "The text refers to SAP Document and Reporting Compliance, cloud edition.",
-            "The user is using the Neo-version.",
-            "The documentation 'Maintaining Communication User In Peppol Exchange' is relevant.",
-            "The task involves uploading the Public client certificate.",
-            "The certificate should be uploaded in the Peppol Exchange service dashboard."
+            {
+                "fact": "The user is using the Neo-version of SAP Document and Reporting Compliance.",
+                "classification": "supporting",
+                "id": "PS-1-1"
+            },
+            {
+                "fact": "The documentation 'Maintaining Communication User In Peppol Exchange' is relevant for uploading the Public client certificate.",
+                "classification": "direct",
+                "id": "PS-1-2"
+            },
+            {
+                "fact": "The certificate should be uploaded in the Peppol Exchange service dashboard.",
+                "classification": "direct",
+                "id": "PS-1-3"
+            },
+            {
+                "fact": "The user should follow the steps in the documentation to upload the certificate.",
+                "classification": "direct",
+                "id": "PS-1-4"
+            }
         ]
     },
     {
@@ -1142,16 +2434,51 @@
         "activity": null,
         "country": null,
         "facts": [
-            "The wrong logical port and URL path have been determined for CO_DCS_DCP_GENERIC_WEBSERVICE in the SOA Manager configuration.",
-            "The incorrect URL path causing the error is '/cxf/PeppolLookup'.",
-            "The error occurs when trying to display HTML.",
-            "The issue is assumed to come from the currently registered logical port in EDOSOASERV.",
-            "The correct logical port to be maintained is 'EDO_DCS_DCP_GENERC_WEBSERVICE'.",
-            "To resolve the issue, the correct logical port and URL path need to be updated in the SOA Manager configuration.",
-            "Access SAP and navigate to 'SM30 -> EDOSOASERV (Defining SOA Services for Communication)'.",
-            "Search for 'EU_GENERIC_WEBSERV' and specify 'EDO_DCS_DCP_GENERC_WEBSERVICE'.",
-            "Check the URL path for the logical port 'CO_DCS_DCP_GENERIC_WEBSERVICE' / 'EDO_DCS_DCP_GENERC_WEBSERVICE' in the SOA Manager configuration.",
-            "Once updated, the issue with generating HTML should be resolved."
+            {
+                "fact": "The wrong logical port and URL path have been determined for CO_DCS_DCP_GENERIC_WEBSERVICE in the SOA Manager configuration.",
+                "classification": "direct",
+                "id": "PS-2-1"
+            },
+            {
+                "fact": "The incorrect URL path determined is '/cxf/PeppolLookup'.",
+                "classification": "direct",
+                "id": "PS-2-2"
+            },
+            {
+                "fact": "The error occurs when trying to display HTML.",
+                "classification": "direct",
+                "id": "PS-2-3"
+            },
+            {
+                "fact": "The correct logical port to be maintained is 'EDO_DCS_DCP_GENERC_WEBSERVICE'.",
+                "classification": "direct",
+                "id": "PS-2-4"
+            },
+            {
+                "fact": "Access SAP and navigate to 'SM30 -> EDOSOASERV (Defining SOA Services for Communication)'.",
+                "classification": "supporting",
+                "id": "PS-2-5"
+            },
+            {
+                "fact": "Search for 'EU_GENERIC_WEBSERV' and specify 'EDO_DCS_DCP_GENERC_WEBSERVICE'.",
+                "classification": "supporting",
+                "id": "PS-2-6"
+            },
+            {
+                "fact": "Check the URL path for the logical port 'CO_DCS_DCP_GENERIC_WEBSERVICE' / 'EDO_DCS_DCP_GENERC_WEBSERVICE' in the SOA Manager configuration.",
+                "classification": "supporting",
+                "id": "PS-2-7"
+            },
+            {
+                "fact": "The correct URL path can be found at https://help.sap.com/docs/cloud-edition/sap-document-and-reporting-compliance-cloud-edition/creating-logical-ports-in-soa-management-sap-s-4hana-network-exchange.",
+                "classification": "supporting",
+                "id": "PS-2-8"
+            },
+            {
+                "fact": "Updating the correct logical port and URL path should resolve the issue with generating HTML.",
+                "classification": "supporting",
+                "id": "PS-2-9"
+            }
         ]
     },
     {
@@ -1164,12 +2491,36 @@
         "activity": null,
         "country": null,
         "facts": [
-            "Extend EDOPROCFUNCASGV as indicated in Configure the eDocument Cockpit | SAP Help Portal.",
-            "Extend EDOPROCFUNCARCV as indicated in Configure the eDocument Cockpit | SAP Help Portal.",
-            "Consider overriding the HTML Display Function using custom logic.",
-            "Custom logic can include showing a follow-up popup for user decision on HTML or PDF display.",
-            "EDOACTIONUIPROCV is indicated in Configure the eDocument Cockpit | SAP Help Portal.",
-            "Screenshots include the Display PDF Action implementation for the Outgoing E-Mail Process."
+            {
+                "fact": "Extend EDOPROCFUNCASGV as indicated in Configure the eDocument Cockpit.",
+                "classification": "direct",
+                "id": "PS-3-1"
+            },
+            {
+                "fact": "Extend EDOPROCFUNCARCV as indicated in Configure the eDocument Cockpit.",
+                "classification": "direct",
+                "id": "PS-3-2"
+            },
+            {
+                "fact": "Consider overriding the HTML Display Function using custom logic.",
+                "classification": "direct",
+                "id": "PS-3-3"
+            },
+            {
+                "fact": "Custom logic could include showing a follow-up popup for user choice between HTML or PDF display.",
+                "classification": "direct",
+                "id": "PS-3-4"
+            },
+            {
+                "fact": "EDOACTIONUIPROCV is indicated in Configure the eDocument Cockpit.",
+                "classification": "supporting",
+                "id": "PS-3-5"
+            },
+            {
+                "fact": "Screenshots include the Display PDF Action implementation for the Outgoing E-Mail Process.",
+                "classification": "supporting",
+                "id": "PS-3-6"
+            }
         ]
     },
     {
@@ -1182,11 +2533,31 @@
         "activity": null,
         "country": null,
         "facts": [
-            "Logging off and logging in again will refresh the logon token.",
-            "Refreshing the logon token will include the respective roles.",
-            "The error popup is a known issue.",
-            "The error popup might sometimes be shown without good reason.",
-            "Using Shift + F5 is suggested in this case."
+            {
+                "fact": "Logging off and logging in again refreshes the logon token.",
+                "classification": "supporting",
+                "id": "PS-4-1"
+            },
+            {
+                "fact": "Refreshing the logon token should include the respective roles.",
+                "classification": "supporting",
+                "id": "PS-4-2"
+            },
+            {
+                "fact": "The error popup is a known issue.",
+                "classification": "supporting",
+                "id": "PS-4-3"
+            },
+            {
+                "fact": "The error popup might sometimes be shown without good reason.",
+                "classification": "supporting",
+                "id": "PS-4-4"
+            },
+            {
+                "fact": "Using Shift + F5 can help resolve the issue.",
+                "classification": "supporting",
+                "id": "PS-4-5"
+            }
         ]
     },
     {
@@ -1199,16 +2570,56 @@
         "activity": null,
         "country": null,
         "facts": [
-            "In the BTP Subaccount, navigate to Connectivity -> Destination and select 'Certificates'.",
-            "Generate a new certificate with a meaningful name and file extension 'PFX'.",
-            "Remember the password for the certificate.",
-            "Select the new certificate in your destination to the backend system and provide Authentication 'Internet' and 'ClientCertificateAuthentication'.",
-            "The certificate needs to be selected in 'Key Store Location'.",
-            "Save the Destination after providing the password.",
-            "Export the private certificate as a PFX file.",
-            "Verify the path of your Destination according to Creating Communication Arrangements in SAP Help Portal.",
-            "Open the certificate locally and import it to your PC's key store.",
-            "In S/4 HANA Cloud, switch to your Communication System with Communication Scenario SAP_COM_0529 and upload the certificate to your existing Communication User."
+            {
+                "fact": "In the BTP Subaccount, go to Connectivity -> Destination and go to 'Certificates'.",
+                "classification": "supporting",
+                "id": "PS-5-1"
+            },
+            {
+                "fact": "Choose 'Generate New Certificate'.",
+                "classification": "supporting",
+                "id": "PS-5-2"
+            },
+            {
+                "fact": "Certificate Name can be any meaningful name.",
+                "classification": "supporting",
+                "id": "PS-5-3"
+            },
+            {
+                "fact": "File Extension should be 'PFX'.",
+                "classification": "direct",
+                "id": "PS-5-4"
+            },
+            {
+                "fact": "Remember the Password for the certificate.",
+                "classification": "supporting",
+                "id": "PS-5-5"
+            },
+            {
+                "fact": "Select the new certificate in your destination to the backend system.",
+                "classification": "supporting",
+                "id": "PS-5-6"
+            },
+            {
+                "fact": "Provide Authentication 'Internet' and 'ClientCertificateAuthentication'.",
+                "classification": "supporting",
+                "id": "PS-5-7"
+            },
+            {
+                "fact": "Your Certificate needs to be selected in 'Key Store Location'.",
+                "classification": "supporting",
+                "id": "PS-5-8"
+            },
+            {
+                "fact": "Export the private certificate as PFX file.",
+                "classification": "direct",
+                "id": "PS-5-9"
+            },
+            {
+                "fact": "Upload the certificate to your existing Communication User in S/4 HANA Cloud.",
+                "classification": "direct",
+                "id": "PS-5-10"
+            }
         ]
     },
     {
@@ -1221,14 +2632,46 @@
         "activity": null,
         "country": null,
         "facts": [
-            "The problem involves duplication of VAT IDs used as participant IDs across different systems.",
-            "The systems mentioned are S4/Hana and IS-U.",
-            "The duplication is causing conflicts.",
-            "VAT IDs are currently used as participant IDs.",
-            "A suggested alternative identifier is the Global Location Number (GLN).",
-            "GLNs can be used across different systems without causing conflicts.",
-            "GLNs are useful for uniquely identifying multiple systems or company codes.",
-            "Peppol IDs are mentioned in the context of SAP Document Compliance."
+            {
+                "fact": "The S4/Hana system and IS-U system have two clients each.",
+                "classification": "supporting",
+                "id": "PS-6-1"
+            },
+            {
+                "fact": "Each company has one participant-ID per system.",
+                "classification": "supporting",
+                "id": "PS-6-2"
+            },
+            {
+                "fact": "VAT ID is used for participant-ID.",
+                "classification": "supporting",
+                "id": "PS-6-3"
+            },
+            {
+                "fact": "Creating a participant-ID with the same VAT-ID causes an error.",
+                "classification": "direct",
+                "id": "PS-6-4"
+            },
+            {
+                "fact": "The error is due to duplication of VAT IDs across systems.",
+                "classification": "direct",
+                "id": "PS-6-5"
+            },
+            {
+                "fact": "Using Global Location Number (GLN) can prevent conflicts.",
+                "classification": "supporting",
+                "id": "PS-6-6"
+            },
+            {
+                "fact": "GLNs can be used across different systems without causing conflicts.",
+                "classification": "supporting",
+                "id": "PS-6-7"
+            },
+            {
+                "fact": "GLNs are useful for uniquely identifying multiple systems or company codes.",
+                "classification": "supporting",
+                "id": "PS-6-8"
+            }
         ]
     },
     {
@@ -1241,15 +2684,36 @@
         "activity": null,
         "country": null,
         "facts": [
-            "The system in question is PG1.",
-            "There is a problem related to a service binding.",
-            "The issue may be related to Peppol services.",
-            "Configuring Connections to Service is a relevant topic on the SAP Help Portal.",
-            "Authentication Types for the Service Binding is another relevant topic on the SAP Help Portal.",
-            "The Peppol Exchange Service is for the Cloud Edition of SAP Document and Reporting Compliance.",
-            "Document and Reporting Compliance is associated with the Cloud Edition.",
-            "The client certification used by PG1 may have expired.",
-            "Access to the system is required to check the client certification status."
+            {
+                "fact": "The system in question is PG1.",
+                "classification": "supporting",
+                "id": "PS-7-1"
+            },
+            {
+                "fact": "The problem seems to be related to a service binding.",
+                "classification": "direct",
+                "id": "PS-7-2"
+            },
+            {
+                "fact": "Configuring Connections to Service must be checked.",
+                "classification": "supporting",
+                "id": "PS-7-3"
+            },
+            {
+                "fact": "Authentication Types for the Service Binding must be checked.",
+                "classification": "supporting",
+                "id": "PS-7-4"
+            },
+            {
+                "fact": "The client certification used by PG1 may have expired.",
+                "classification": "supporting",
+                "id": "PS-7-5"
+            },
+            {
+                "fact": "The issue is related to Peppol service usage.",
+                "classification": "supporting",
+                "id": "PS-7-6"
+            }
         ]
     },
     {
@@ -1262,15 +2726,56 @@
         "activity": null,
         "country": null,
         "facts": [
-            "The error message 'HTTP response '401: Unauthorized' indicates unauthorized access.",
-            "The document is stuck in the 'Received by sender access point' status due to unauthorized access.",
-            "The error occurs when using an S/4 HANA Public Cloud backend.",
-            "The issue is related to the authentication method and certificates.",
-            "Proper communication between SAP DRC and S/4 HANA Cloud requires correct authentication and certificates.",
-            "Customers should check if necessary SAP Notes are installed.",
-            "Resubmitting the document may be considered after ensuring all configurations are correct.",
-            "The Document Monitor provides detailed information on the MPL ID and error message.",
-            "The Sender Participant ID can be searched in the Peppol Admin tool to identify the environment."
+            {
+                "fact": "The document is stuck in 'Received by sender access point' due to unauthorized access.",
+                "classification": "direct",
+                "id": "PS-8-1"
+            },
+            {
+                "fact": "The error message is 'HTTP response 401: Unauthorized'.",
+                "classification": "supporting",
+                "id": "PS-8-2"
+            },
+            {
+                "fact": "The customer is using an S/4 HANA Public Cloud backend.",
+                "classification": "supporting",
+                "id": "PS-8-3"
+            },
+            {
+                "fact": "There is an issue with the authentication method and certificates.",
+                "classification": "supporting",
+                "id": "PS-8-4"
+            },
+            {
+                "fact": "Proper communication between SAP DRC and S/4 HANA Cloud is needed.",
+                "classification": "supporting",
+                "id": "PS-8-5"
+            },
+            {
+                "fact": "Correct authentication method and certificates must be set up.",
+                "classification": "supporting",
+                "id": "PS-8-6"
+            },
+            {
+                "fact": "Necessary SAP Notes should be installed as mentioned in the troubleshooting guide.",
+                "classification": "supporting",
+                "id": "PS-8-7"
+            },
+            {
+                "fact": "Resubmitting the document may be considered after ensuring all configurations and prerequisites are correctly set up.",
+                "classification": "supporting",
+                "id": "PS-8-8"
+            },
+            {
+                "fact": "The customer can access the Document Monitor for detailed information on the MPL ID and error message.",
+                "classification": "supporting",
+                "id": "PS-8-9"
+            },
+            {
+                "fact": "If information is not available, the Sender Participant ID can be searched in the internal tool Peppol Admin to identify the environment.",
+                "classification": "supporting",
+                "id": "PS-8-10"
+            }
         ]
     }
 ]

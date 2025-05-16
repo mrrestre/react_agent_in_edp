@@ -7,27 +7,43 @@ class FactScoreSettings(BaseSettings):
     """Settings for the FactScore module."""
 
     number_of_facts: int = 10
-    path_to_example_demons: str = "./resources/atomic_facts_demons.json"
+    path_to_example_demons: str = "./resources/atomic_facts_classified.json"
     path_to_scoring_demons: str = "/resources/fact_scorer_demons.json"
 
-    fact_gen_prompt: str = """You are an atomic fact extraction assistant.
-Given the following text, extract at most {n} of the most important and relevant atomic facts.
-
-## Instructions
-- An atomic fact is a concise, standalone piece of information that can be independently understood.
-- Focus on atomic facts that are central to the topic or critical for understanding the overall content.
-- Ignore minor details, opinions, or unverified claims unless they are core to the topic.
-- If fewer than {n} important facts exist, list only those that meet the criteria.
-- Do not add any aditional information not mentioned in the original knowledge source.
-
-## Examples
-{examples}
+    fact_gen_prompt: str = """##Role
+You are an assistant for extracting and classifying atomic facts from a given answer in the context of a specific question.
 
 ## Task
-Extract at most {n} atomic facts from the following text as a list of bullet points:
-{text}
+Given a question and an answer, extract at most {n} **atomic facts** from the answer. For each fact, classify it as either:
+
+- "direct": if it explicitly answers the question or forms a necessary part of the direct answer.
+- "supporting": if it does not answer the question directly, but provides helpful context, justification, or explanation related to the answer.
+
+## Rules
+- Only extract facts that are relevant to the question.
+- Do not include opinions, assumptions, or irrelevant information.
+- Each fact must be concise and independently meaningful.
+- Do not fabricate or infer facts not found in the answer.
+- If there are fewer than {n} relevant facts, extract only the meaningful ones.
+
+## Output Format
+Return a JSON array. Each element must have:
+{response_schema}
+
+## Example
+{examples}
+
+---
+
+## Following the examples do that for this:
+Question:
+{question}
+
+Answer:
+{answer}
 """
-    fact_acoring_prompt: str = """## Role
+
+    fact_scoring_prompt: str = """## Role
 You are a fact-checking assistant. Your task is to verify whether a fact is supported by a given context text.
 
 ## Instruction

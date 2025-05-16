@@ -1,0 +1,108 @@
+[
+    {
+        "question": "What is the performance specification of the Turbo V6 engine?",
+        "answer": "The Turbo V6 engine boasts an impressive horsepower of 450 and a peak torque of 510 lb-ft, achieved between 2,500 and 5,500 rpm, equipped with a 10-speed automatic transmission and a dual-exhaust system, enhancing both performance and sound.",
+        "classified_facts": [
+            {
+                "fact": "It has a Turbo V6 engine.",
+                "classification": "direct"
+            },
+            {
+                "fact": "The horsepower is 450.",
+                "classification": "direct"
+            },
+            {
+                "fact": "The peak torque is 510 lb-ft.",
+                "classification": "direct"
+            },
+            {
+                "fact": "Peak torque occurs between 2,500 and 5,500 rpm.",
+                "classification": "direct"
+            },
+            {
+                "fact": "The vehicle has a 10-speed automatic transmission.",
+                "classification": "supporting"
+            },
+            {
+                "fact": "It features a dual-exhaust system.",
+                "classification": "supporting"
+            },
+            {
+                "fact": "The dual-exhaust system enhances performance.",
+                "classification": "supporting"
+            },
+            {
+                "fact": "The dual-exhaust system enhances sound.",
+                "classification": "supporting"
+            }
+        ]
+    },
+    {
+        "question": "When and why should coolant fluid be replaced?",
+        "answer": "According to the maintenance schedule in the owner's manual, the coolant fluid should be replaced every 40,000 miles or 4 years, whichever comes first, to ensure optimal engine performance and prevent overheating.",
+        "classified_facts": [
+            {
+                "fact": "Coolant fluid should be replaced every 40,000 miles.",
+                "classification": "direct"
+            },
+            {
+                "fact": "Alternatively, coolant fluid should be replaced every 4 years.",
+                "classification": "direct"
+            },
+            {
+                "fact": "Replacement is based on whichever milestone is reached first.",
+                "classification": "direct"
+            },
+            {
+                "fact": "The purpose is to ensure optimal engine performance.",
+                "classification": "supporting"
+            },
+            {
+                "fact": "Another purpose is to prevent overheating.",
+                "classification": "supporting"
+            },
+            {
+                "fact": "The coolant fluid replacement is mentioned in the maintenance schedule.",
+                "classification": "supporting"
+            },
+            {
+                "fact": "The owner's manual contains the maintenance schedule.",
+                "classification": "supporting"
+            }
+        ]
+    },
+    {
+        "question": "What safety features are included in the 2022 Virtue Sedan?",
+        "answer": "Featuring advanced safety technology, the 2022 Virtue Sedan incorporates an automatic emergency braking system, a lane-keeping assist feature, and adaptive cruise control, all designed to comply with the latest Euro NCAP safety standards.",
+        "classified_facts": [
+            {
+                "fact": "The model is the Virtue Sedan.",
+                "classification": "supporting"
+            },
+            {
+                "fact": "The model year is 2022.",
+                "classification": "supporting"
+            },
+            {
+                "fact": "It features advanced safety technology.",
+                "classification": "supporting"
+            },
+            {
+                "fact": "The technology includes an automatic emergency braking system.",
+                "classification": "direct"
+            },
+            {
+                "fact": "It also includes a lane-keeping assist feature.",
+                "classification": "direct"
+            },
+            {
+                "fact": "Adaptive cruise control is another included technology.",
+                "classification": "direct"
+            },
+            {
+                "fact": "All technologies are designed to comply with Euro NCAP safety standards.",
+                "classification": "supporting"
+            }
+        ]
+    }
+]
