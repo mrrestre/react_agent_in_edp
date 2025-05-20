@@ -1,7 +1,7 @@
-from enum import StrEnum
 from typing import Optional
 from langchain_core.prompts import PromptTemplate
 
+from experiments.models.experiment_models import LLMJudgeOutcome
 from react_agent.src.util.llm_proxy import LLM_PROXY
 
 PROMPT_TEMPLATE = """## Role
@@ -18,13 +18,6 @@ Generated Answer: {answer}
 Respond with only the value 1 for "Helpful" or the value 0 for "Not Helpful"."""
 
 
-class TrialOutcome(StrEnum):
-    """Enum for trial outcomes."""
-
-    HELPFUL = "Helpful"
-    NOT_HELPFUL = "Not Helpful"
-
-
 class LLMAsJudgeEvaluator:
     """Class to evaluate the helpfulness of a generated answer using an LLM."""
 
@@ -36,7 +29,7 @@ class LLMAsJudgeEvaluator:
 
         self.prompt_template = PromptTemplate.from_template(PROMPT_TEMPLATE)
 
-    def evaluate(self, question: str, generated_answer: str) -> TrialOutcome:
+    def evaluate(self, question: str, generated_answer: str) -> LLMJudgeOutcome:
         """Evaluate the helpfulness of a generated answer using an LLM.
         Args:
             question (str): The question to evaluate.
@@ -68,8 +61,8 @@ class LLMAsJudgeEvaluator:
 
         # Parse the response
         if response == 1 or response == "1":
-            return TrialOutcome.HELPFUL
+            return LLMJudgeOutcome.HELPFUL
         elif response == 0 or response == "0":
-            return TrialOutcome.NOT_HELPFUL
+            return LLMJudgeOutcome.NOT_HELPFUL
         else:
             raise ValueError(f"Unexpected response: {response}")

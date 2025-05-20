@@ -1,11 +1,19 @@
 """Models for data preprocessing"""
 
+from enum import StrEnum
 from typing import Optional
 from pydantic import BaseModel
 
 from experiments.fact_score.model.fact_score_models import FactClassification
 from react_agent.src.agents.models.react_agent_models import ToolCall
 from react_agent.src.util.llm_proxy import TokenConsumption
+
+
+class LLMJudgeOutcome(StrEnum):
+    """Enum for trial outcomes."""
+
+    HELPFUL = "Helpful"
+    NOT_HELPFUL = "Not Helpful"
 
 
 class LabeledQAPair(BaseModel):
@@ -30,11 +38,22 @@ class LabeledQAPairFacts(LabeledQAPair):
 class ExperimentResult(LabeledQAPairFacts):
     """Pydantic model containing the orignial labeld question, with the generated facts and the calculated scores"""
 
+    # Evaluation scores
     fact_score: float = 0.0
     bert_score: float = 0.0
+    llm_judge_outcome: LLMJudgeOutcome = LLMJudgeOutcome.NOT_HELPFUL
+    llm_judge_model: str = ""
 
+    # Result
+    generated_answer: str = ""
+
+    # Experiment setting
+    model_used: str = ""
+
+    # Runtime details
     tools_used: list[ToolCall] = []
     excecution_time_seconds: float = 0.0
-    model_used: str = ""
+
+    # LLM usage statistics
     tokens_consumed: TokenConsumption = TokenConsumption()
     llm_call_count: int = 0
