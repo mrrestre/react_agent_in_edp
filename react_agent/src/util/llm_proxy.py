@@ -1,9 +1,8 @@
-"""Logger utility for the react_agent project.
-This module provides a singleton logger instance that can be used throughout the project.
-"""
+"""LLM proxy for invoking language models and tracking usage."""
+
+from typing import Optional, Type
 
 import redis
-from typing import Optional, Type
 
 from gen_ai_hub.proxy.langchain import init_llm
 from langchain_core.runnables import RunnableConfig
@@ -31,11 +30,12 @@ class TokenConsumption(BaseModel):
     total_tokens: int = 0
 
 
-class LLMProxy:
+class LlmProxy:
     """Proxy class for LLM invocation and usage tracking."""
 
     def __init__(self):
         self._used_model = LLM_PROXY_SETTINGS.model
+        self.reset_usage()
         self._llm = init_llm(
             self._used_model,
             max_tokens=LLM_PROXY_SETTINGS.max_output_tokens,
@@ -115,6 +115,20 @@ class LLMProxy:
         key = f"llm_usage:{self._used_model}"
         _redis.delete(key)
 
+    def get_used_model(self) -> str:
+        """Get the model currently in use."""
+        return self._used_model
+
+    def set_new_model(self, model: str) -> None:
+        """Set the model to be used."""
+        self._used_model = model
+        self.reset_usage()
+        self._llm = init_llm(
+            self._used_model,
+            max_tokens=LLM_PROXY_SETTINGS.max_output_tokens,
+            temperature=LLM_PROXY_SETTINGS.temperature,
+        )
+
 
 # module‑level singleton
-LLM_PROXY = LLMProxy()
+LLM_PROXY = LlmProxy()

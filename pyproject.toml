@@ -23,6 +23,8 @@ dependencies = [
     "generative-ai-hub-sdk[all] (>=4.10.2,<5.0.0)",
     "langchain-mcp-adapters (>=0.0.11,<0.0.12)",
     "redis (>=6.1.0,<7.0.0)",
+    "bert-score (>=0.3.13,<0.4.0)",
+    "rouge-score (>=0.1.2,<0.2.0)",
 ]
 
 [tool.poetry.group.dev.dependencies]

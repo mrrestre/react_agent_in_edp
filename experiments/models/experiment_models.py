@@ -32,7 +32,6 @@ class ExperimentResult(LabeledQAPairFacts):
 
     fact_score: float = 0.0
     bert_score: float = 0.0
-    rouge_score: float = 0.0
 
     tools_used: list[ToolCall] = []
     excecution_time_seconds: float = 0.0
