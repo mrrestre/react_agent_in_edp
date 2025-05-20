@@ -2,12 +2,12 @@
 
 import json
 
-from experiments.util.fact_score.model.fact_score_models import (
+from experiments.fact_score.model.fact_score_models import (
     FactClassification,
     FactGeneratorExample,
 )
-from experiments.util.fact_score.settings import FactScoreSettings
-from experiments.util.fact_score.util import Util
+from experiments.fact_score.settings import FactScoreSettings
+from experiments.fact_score.util import Util
 from react_agent.src.util.llm_proxy import LLM_PROXY
 
 FACT_GENERATOR_SETTINGS = FactScoreSettings()
@@ -40,9 +40,9 @@ class AtomicFactGenerator:
         self, question: str, answer: str, question_id: str
     ) -> list[FactClassification]:
         """
-        Generate atomic facts from the given text using LLM.
+        Generate atomic facts from the given answer using LLM and taking into account the question.
         The text is passed to the LLM, and the output is parsed to extract atomic facts.
-        The output is cleaned and returned as a list of sentences.
+        The output is cleaned and returned as a list of classifications.
         The prompt is generated using the examples (demonstrations) loaded from the JSON file.
         """
         classified_facts = None

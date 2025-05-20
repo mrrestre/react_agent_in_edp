@@ -4,15 +4,15 @@ import json
 import os
 from typing import Optional
 
-from experiments.util.fact_score.model.fact_score_models import (
+from experiments.fact_score.model.fact_score_models import (
     FactCategory,
     FactClassification,
     FactEvaluation,
     FactEvaluationExample,
     FactScoreResult,
 )
-from experiments.util.fact_score.settings import FactScoreSettings
-from experiments.util.fact_score.util import Util
+from experiments.fact_score.settings import FactScoreSettings
+from experiments.fact_score.util import Util
 from react_agent.src.util.llm_proxy import LLM_PROXY
 
 FACT_SCORE_SETTINGS = FactScoreSettings()
@@ -72,9 +72,11 @@ class FactScorer:
         The score is calculated by the amount of facts supported by amount of total facts.
 
         Args:
+            facts (list[FactClassification]): The list of atomic facts to be scored.
+            knowledge_source (str): The knowledge source to be used for scoring.
 
         Returns:
-
+            dict[FactEvaluation]: A dictionary containing the evaluation of each fact.
         """
 
         decisions: dict[FactEvaluation] = {}
@@ -114,8 +116,11 @@ class FactScorer:
         The debug flag is used to print the details of the classification.
 
         Args:
-
+            facts (list[FactClassification]): The list of atomic facts to be scored.
+            knowledge_source (str): The knowledge source to be used for scoring.
+            debug (bool, optional): If True, print the details of the classification. Defaults to False.
         Returns:
+            FactScoreResult: The result of the scoring process, including the score and the details of the classification.
         """
         result: FactScoreResult = FactScoreResult()
         decisions = await self.evaluate_facts_in_context(facts, knowledge_source)
