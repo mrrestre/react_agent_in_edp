@@ -3,7 +3,7 @@
 from typing import Optional
 from pydantic import BaseModel
 
-from experiments.util.fact_score.model.fact_score_models import FactClassification
+from experiments.fact_score.model.fact_score_models import FactClassification
 from react_agent.src.agents.models.react_agent_models import ToolCall
 from react_agent.src.util.llm_proxy import TokenConsumption
 

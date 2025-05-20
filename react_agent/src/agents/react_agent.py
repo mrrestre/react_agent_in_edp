@@ -200,6 +200,7 @@ class ReActAgent:
         LLM_PROXY.update_llm_usage(self.run_data.final_output)
         self.run_data.llm_call_count = LLM_PROXY.get_call_count()
         self.run_data.tokens_consumed = LLM_PROXY.get_token_usage()
+        LLM_PROXY.reset_usage()
 
     def get_execution_data(self) -> AgentRun:
         """Help function for getting execution metadata"""
