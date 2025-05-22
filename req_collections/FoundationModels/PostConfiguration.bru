@@ -1,0 +1,39 @@
+meta {
+  name: PostConfiguration
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{AI_CORE_API_URL}}/v2/lm/configuration
+  body: json
+  auth: bearer
+}
+
+headers {
+  Content-Type: application/json
+  AI-Resource-Group: default
+}
+
+auth:bearer {
+  token: {{AiToken}}
+}
+
+body:json {
+  {
+    "name": "alejandro_gemini_20_flash",
+    "executableId": "gcp-vertexai",
+    "scenarioId": "foundation-models",
+    "versionId": "0.0.1",
+    "parameterBindings": [
+      {
+        "key": "modelName",
+        "value": "gemini-2.0-flash"
+      },
+      {
+        "key": "modelVersion",
+        "value": "latest"
+      }
+      ]
+  }
+}

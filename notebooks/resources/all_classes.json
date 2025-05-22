@@ -5349,14 +5349,6 @@
             "description": "eDocument Consistency India GSTR1- Check Engine Logic"
         },
         {
-            "name": "CL_EDC_IN_DB",
-            "description": "India DRC : Consistancy DB Handler"
-        },
-        {
-            "name": "CL_EDC_IN_MESSAGE",
-            "description": "Document Consistency: India Message Class"
-        },
-        {
             "name": "CL_EDOC_INTF_CONN_FR_INV",
             "description": "Class for BAdI Impl.: EI_EDOC_INTF_CONN_FR_INV"
         },

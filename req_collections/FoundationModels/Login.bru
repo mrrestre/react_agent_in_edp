@@ -1,0 +1,42 @@
+meta {
+  name: Login
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{AUTH_URL}}/oauth/token?grant_type=client_credentials
+  body: none
+  auth: basic
+}
+
+params:query {
+  grant_type: client_credentials
+}
+
+headers {
+  Content-Type: application/x-www-form-urlencoded
+  Accept: application/json
+}
+
+auth:basic {
+  username: {{CLIENT_ID}}
+  password: {{PASSWORD}}
+}
+
+tests {
+  test("Status code is 200", () => {
+      expect(res.getStatus()).to.equal(200);
+  });
+  
+  if (res.getStatus() != 200) {
+      bru.runner.stopExecution();
+      throw new Error(`Step failed with http status ` + res.getStatus());
+  }
+  
+  test("OAuth token granted", () => {
+      const { access_token } = res.getBody();
+      expect(access_token).to.exist;
+      bru.setEnvVar("AiToken", access_token);
+  })
+}

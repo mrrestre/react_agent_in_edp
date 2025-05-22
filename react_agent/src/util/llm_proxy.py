@@ -29,6 +29,13 @@ class TokenConsumption(BaseModel):
     output_tokens: int = 0
     total_tokens: int = 0
 
+    def pretty_print(self) -> None:
+        """Print the token consumption statistics."""
+        print("Token Consumption Statistics")
+        print(f"  Input Tokens: {self.input_tokens}")
+        print(f"  Output Tokens: {self.output_tokens}")
+        print(f"  Total Tokens: {self.total_tokens}")
+
 
 class LlmProxy:
     """Proxy class for LLM invocation and usage tracking."""

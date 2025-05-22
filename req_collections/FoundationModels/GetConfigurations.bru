@@ -1,0 +1,20 @@
+meta {
+  name: GetConfigurations
+  type: http
+  seq: 5
+}
+
+get {
+  url: {{AI_CORE_API_URL}}/v2/lm/configurations
+  body: none
+  auth: bearer
+}
+
+headers {
+  Content-Type: application/json
+  AI-Resource-Group: default
+}
+
+auth:bearer {
+  token: {{AiToken}}
+}

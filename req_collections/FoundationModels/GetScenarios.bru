@@ -1,0 +1,20 @@
+meta {
+  name: GetScenarios
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{AI_CORE_API_URL}}/v2/lm/scenarios
+  body: none
+  auth: bearer
+}
+
+headers {
+  Content-Type: application/json
+  AI-Resource-Group: default
+}
+
+auth:bearer {
+  token: {{AiToken}}
+}

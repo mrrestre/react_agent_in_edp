@@ -1,9 +1,11 @@
 """Fabric class for instanciating or fetching agent tools based on configuration"""
 
 import os
-from typing import Optional, Union
+from typing import Union
 
 from dotenv import load_dotenv
+
+from react_agent.src.agent_tools.database_entries_retriever import DBEntriesRetriever
 from react_agent.src.agent_tools.documentation_retriever import DocumentationRetriever
 from react_agent.src.agent_tools.sap_help_searcher import SapHelpSearcher
 from react_agent.src.agent_tools.troubleshooting_searcher import TroubleshootingSearcher
@@ -92,5 +94,6 @@ class ToolsFabric:
                 ):
                     tool_list.append(CodebaseSearcher())
                     tool_list.append(SourceCodeRetriever())
+                    tool_list.append(DBEntriesRetriever())
 
             return tool_list

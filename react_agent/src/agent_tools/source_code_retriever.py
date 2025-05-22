@@ -9,7 +9,7 @@ from pydantic import BaseModel, Field
 
 from react_agent.src.config.system_parameters import SourceCodeRetrieverSettings
 from react_agent.src.util.logger import LoggerSingleton
-from react_agent.src.util.sap_system_proxy import SAPSystemProxy
+from react_agent.src.util.sap_system_proxy import SAPSystemProxy, SAPSystemServices
 
 TOOL_SETTINGS = SourceCodeRetrieverSettings()
 LOGGER = LoggerSingleton.get_logger(TOOL_SETTINGS.logger_name)
@@ -44,5 +44,8 @@ class SourceCodeRetriever(BaseTool):
             raise ToolException(error)
 
     def _query_xco2_service(self, class_name: str) -> str:
-        response = SAPSystemProxy.get_endpoint_https(f"classes('{class_name}')")
+        response = SAPSystemProxy.get_endpoint_https(
+            service_endpoint=SAPSystemServices.XCO2,
+            service_parameters=f"classes('{class_name}')",
+        )
         return response.get("code")

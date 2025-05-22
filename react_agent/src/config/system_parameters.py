@@ -138,6 +138,24 @@ Returns the complete class source as plain text."""
     class_name_field_descr: str = "The exact name of an ABAP class"
 
 
+class DBEntriesRetrieverSettings(BaseSettings):
+    """Settings for Database Entries Retriever"""
+
+    logger_name: str = "Database Entries Retriever Tool"
+
+    # Tool Description
+    name: str = "sap_database_entry_lookup"
+    description: str = """Retrieves database entries directly from an SAP system table.
+Requires the exact name of the database table (e.g., BKPF, MARA).
+Returns the matching entries as structured JSON containing database entries."""
+
+    # Input model description
+    class_name_field_descr: str = "The exact name of an SAP-System database name"
+
+    # Tool specifics
+    max_entries: int = 100
+
+
 class CodebaseSearcherSettings(BaseSettings):
     """Settings for Source Code Lookup"""
 
@@ -184,6 +202,7 @@ class AgentSettings(BaseSettings):
         "abap_method_codebase_search": ToolRanking.HIGH,
         "sap_help_lookup": ToolRanking.MID,
         "edp_troubleshooting_search": ToolRanking.MID,
+        "sap_database_entry_lookup": ToolRanking.MID,
         "external_class_code_lookup": ToolRanking.LOW,
     }
 
@@ -248,12 +267,12 @@ You have access to the following tools to gather facts, retrieve relevant data, 
         "   2.3. Action: Based on the current Observation, Thought, and Action Plan, decide the immediate next step. Name the selected tool and parameters. Take no further action until the result is returned.",
         "   2.4. Observation: Record the tool output exactly as received without paraphrasing.",
         "[REASONING CYCLE END]",
-        "   2.5. Validation Step (MANDATORY): Before moving to the Final Answer:",
+        "   2.5. Validation Step (MANDATORY) before moving to the Final Answer:",
         "       - Summarize the distinct tool outputs gathered.",
         "       - Evaluate whether they support or contradict each other.",
         "       - Explicitly state whether the answer has been confirmed, expanded, or corrected based on the second source.",
         "       - If only one source was used due to tool limits or null results, state that clearly and justify.",
-        "3. Final Answer (Only content in this section should be shown to the user as the final agent message):",
+        "3. Final Answer (Only include following points in the final agent message):",
         "    - Summarize key findings based on specific tool outputs.",
         "    - Explain how tools and results supported the answer.",
         "    - If the answer is technical, provide both a technical explanation and a plain-language summary for a broader audience.",
@@ -334,7 +353,7 @@ class MemoryManagerSettings(BaseSettings):
     postgres_conn_string: str = (
         "postgresql://react_agent:react_agent@localhost:5432/troubleshooting"
     )
-    memories_to_retrieve: int = 6
+    memories_to_retrieve: int = 8
 
 
 class TriageSettings(BaseSettings):

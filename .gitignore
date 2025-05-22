@@ -10,6 +10,10 @@ __pycache__/
 logs
 logs/*
 
+# Bruno environments
+req_collections/DRC AI Assistant API Collection/environments/online.bru
+req_collections/FoundationModels/environments/online.bru
+
 # AI Core
 .aicore
 .aicore/*
