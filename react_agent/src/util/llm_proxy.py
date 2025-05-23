@@ -4,11 +4,16 @@ from typing import Optional, Type
 
 import redis
 
-from gen_ai_hub.proxy.langchain import init_llm
+from gen_ai_hub.proxy.langchain.init_models import init_llm
+from gen_ai_hub.proxy.langchain.google_vertexai import (
+    init_chat_model as google_vertexai_init_chat_model,
+)
+
 from langchain_core.runnables import RunnableConfig
 from langchain_core.messages import AIMessage
 from pydantic import BaseModel
 from tiktoken import encoding_for_model
+import tiktoken
 
 from react_agent.src.config.system_parameters import LlmProxySettings
 from react_agent.src.util.logger import LoggerSingleton
@@ -35,6 +40,17 @@ class TokenConsumption(BaseModel):
         print(f"  Input Tokens: {self.input_tokens}")
         print(f"  Output Tokens: {self.output_tokens}")
         print(f"  Total Tokens: {self.total_tokens}")
+
+
+class SupportedModels(BaseModel):
+    """Supported models for LLM invocation."""
+
+    open_ai: list[str] = ["gpt-4o", "gpt-4o-mini"]
+    gemini: list[str] = ["gemini-2.0-flash"]
+
+    def get_all_models(self) -> list[str]:
+        """Get all supported models."""
+        return self.open_ai + self.gemini
 
 
 class LlmProxy:
@@ -82,7 +98,12 @@ class LlmProxy:
 
     def _num_tokens_from_string(self, text: str) -> int:
         """Calculate the number of tokens in a string using the model's encoding."""
-        encoding = encoding_for_model(self._used_model)
+        if self._used_model in SupportedModels().open_ai:
+            encoding = encoding_for_model(self._used_model)
+        else:
+            # Other model don't have public tokenizer, so we use OpenAI's cl100k_base as an approximation
+            encoding = tiktoken.get_encoding("cl100k_base")
+
         return len(encoding.encode(text))
 
     def update_llm_usage(self, result: AIMessage) -> None:
@@ -128,12 +149,21 @@ class LlmProxy:
 
     def set_new_model(self, model: str) -> None:
         """Set the model to be used."""
+        init_function = None
+        if model not in SupportedModels().get_all_models():
+            raise ValueError(
+                f"Model {model} is not supported. Supported models are: {SupportedModels().get_all_models()}"
+            )
+        if model in SupportedModels().gemini:
+            init_function = google_vertexai_init_chat_model
+
         self._used_model = model
         self.reset_usage()
         self._llm = init_llm(
             self._used_model,
             max_tokens=LLM_PROXY_SETTINGS.max_output_tokens,
             temperature=LLM_PROXY_SETTINGS.temperature,
+            init_func=init_function,
         )
 
 
