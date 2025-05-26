@@ -6,13 +6,15 @@ from pydantic import BaseModel
 
 from experiments.fact_score.model.fact_score_models import FactClassification
 from react_agent.src.agents.models.react_agent_models import ToolCall
+from react_agent.src.config.system_parameters import TriageSettings
 from react_agent.src.util.llm_proxy import TokenConsumption
 
 
 class LLMJudgeOutcome(StrEnum):
     """Enum for trial outcomes."""
 
-    HELPFUL = "Helpful"
+    FULLY_HELPFUL = "Fully Helpful"
+    PARTIALLY_HELPFUL = "Partially Helpful"
     NOT_HELPFUL = "Not Helpful"
 
 
@@ -43,6 +45,8 @@ class ExperimentResult(LabeledQAPairFacts):
     bert_score: float = 0.0
     llm_judge_outcome: LLMJudgeOutcome = LLMJudgeOutcome.NOT_HELPFUL
     llm_judge_model: str = ""
+    llm_judge_call_count: int = 0
+    llm_judge_tokens_consumed: TokenConsumption = TokenConsumption()
 
     # Result
     generated_answer: str = ""
@@ -51,6 +55,7 @@ class ExperimentResult(LabeledQAPairFacts):
     model_used: str = ""
 
     # Runtime details
+    triage_category: TriageSettings.Categories = TriageSettings.Categories.ALL
     tools_used: list[ToolCall] = []
     tool_calls_count: int = 0
     excecution_time_seconds: float = 0.0

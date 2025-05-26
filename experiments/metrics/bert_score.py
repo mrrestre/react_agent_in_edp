@@ -24,4 +24,4 @@ class BertScore:
             rescale_with_baseline=True,
             # Reasoning: https://github.com/Tiiiger/bert_score/blob/master/journal/rescale_baseline.md
         )
-        return cast(float, recall.mean().item())
+        return cast(float, f1.mean().item())

@@ -58,13 +58,29 @@ class LlmProxy:
 
     def __init__(self):
         self._redis_key = "llm_usage"
-        self._used_model = LLM_PROXY_SETTINGS.model
         self.reset_usage()
-        self._llm = init_llm(
-            self._used_model,
-            max_tokens=LLM_PROXY_SETTINGS.max_output_tokens,
-            temperature=LLM_PROXY_SETTINGS.temperature,
-        )
+
+        if LLM_PROXY_SETTINGS.model not in SupportedModels().get_all_models():
+            raise ValueError(
+                f"Model {LLM_PROXY_SETTINGS.model} is not supported. Supported models are: {SupportedModels().get_all_models()}"
+            )
+        else:
+            self._used_model = LLM_PROXY_SETTINGS.model
+
+        # For Google Vertex AI models, we need to use a specific initialization function
+        if self._used_model in SupportedModels().gemini:
+            self._llm = init_llm(
+                self._used_model,
+                max_tokens=LLM_PROXY_SETTINGS.max_output_tokens,
+                temperature=LLM_PROXY_SETTINGS.temperature,
+                init_func=google_vertexai_init_chat_model,
+            )
+        else:
+            self._llm = init_llm(
+                self._used_model,
+                max_tokens=LLM_PROXY_SETTINGS.max_output_tokens,
+                temperature=LLM_PROXY_SETTINGS.temperature,
+            )
 
     def invoke(self, input: str, config: Optional[RunnableConfig] = None) -> str:
         """Invoke the LLM with the given input and configuration."""

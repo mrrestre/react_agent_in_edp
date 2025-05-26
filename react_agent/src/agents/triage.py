@@ -66,6 +66,13 @@ class Triage:
             result.orchestration_result.choices[0].message.content
         )
 
+        # Ensure the response contains the expected keys
+        if not response_object.get("category") or not response_object.get("user_query"):
+            return {
+                "user_query": user_message,
+                "category": TriageSettings.Categories.ALL,
+            }
+
         return response_object
 
     def _prepare_template(self) -> Template:
