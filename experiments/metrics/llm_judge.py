@@ -59,10 +59,14 @@ class LLMAsJudgeEvaluator:
         if model_changed:
             LLM_PROXY.set_new_model(current_model)
 
+        response = response.strip() if isinstance(response, str) else response
+
         # Parse the response
         if response == 1 or response == "1":
             return LLMJudgeOutcome.HELPFUL
         elif response == 0 or response == "0":
             return LLMJudgeOutcome.NOT_HELPFUL
         else:
-            raise ValueError(f"Unexpected response: {response}")
+            raise ValueError(
+                f"Unexpected response: {response}, datatype {type(response)}"
+            )
