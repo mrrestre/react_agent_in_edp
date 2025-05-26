@@ -146,6 +146,9 @@ class ReActAgent:
         config_object = {"recursion_limit": AGENT_SETTINGS.max_iterations}
 
         run_start_time = time.perf_counter()
+
+        message_list: list[BaseMessage] = []
+
         if debug:
             async for message_list in self.agent.astream(
                 input=input_object, stream_mode="values", config=config_object
@@ -181,23 +184,23 @@ class ReActAgent:
         self.run_data.excecution_time_seconds = round(run_time, 3)
 
         for message in execution_messages:
-            if isinstance(message, AIMessage) and message.additional_kwargs.get(
-                "tool_calls"
-            ):
-                for tool_call in message.additional_kwargs.get("tool_calls"):
-                    if tool_call.get("function"):
-                        self.run_data.tools_used.append(
-                            ToolCall(
-                                tool_name=tool_call["function"]["name"],
-                                arguments=json.loads(
-                                    tool_call["function"]["arguments"]
-                                ),
+            if isinstance(message, AIMessage):
+                LLM_PROXY.increment_call_count()
+                if message.additional_kwargs.get("tool_calls"):
+                    for tool_call in message.additional_kwargs.get("tool_calls"):
+                        if tool_call.get("function"):
+                            self.run_data.tools_used.append(
+                                ToolCall(
+                                    tool_name=tool_call["function"]["name"],
+                                    arguments=json.loads(
+                                        tool_call["function"]["arguments"]
+                                    ),
+                                )
                             )
-                        )
-                    else:
-                        continue
+                        else:
+                            continue
 
-        LLM_PROXY.update_llm_usage(self.run_data.final_output)
+        LLM_PROXY.update_llm_usage(execution_messages[-1])
         self.run_data.llm_call_count = LLM_PROXY.get_call_count()
         self.run_data.tokens_consumed = LLM_PROXY.get_token_usage()
         LLM_PROXY.reset_usage()

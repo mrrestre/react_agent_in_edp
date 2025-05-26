@@ -57,6 +57,7 @@ class LlmProxy:
     """Proxy class for LLM invocation and usage tracking."""
 
     def __init__(self):
+        self._redis_key = "llm_usage"
         self._used_model = LLM_PROXY_SETTINGS.model
         self.reset_usage()
         self._llm = init_llm(
@@ -74,6 +75,7 @@ class LlmProxy:
                 f"Too many input tokens: {input_tokens} > {LLM_PROXY_SETTINGS.max_input_tokens}"
             )
         result = self._llm.invoke(input, config=config)
+        self.increment_call_count()
         self.update_llm_usage(result)
         return result.content
 
@@ -93,6 +95,7 @@ class LlmProxy:
         result = self._llm.invoke_with_structured_output(
             input, output_type, config=config
         )
+        self.increment_call_count()
         self.update_llm_usage(result)
         return result.content
 
@@ -112,23 +115,23 @@ class LlmProxy:
             return
 
         meta = result.usage_metadata
-        key = f"llm_usage:{self._used_model}"
 
         # Increment counters in Redis
-        _redis.hincrby(key, "call_count", 1)
-        _redis.hincrby(key, "input_tokens", meta.get("input_tokens", 0))
-        _redis.hincrby(key, "output_tokens", meta.get("output_tokens", 0))
-        _redis.hincrby(key, "total_tokens", meta.get("total_tokens", 0))
+        _redis.hincrby(self._redis_key, "input_tokens", meta.get("input_tokens", 0))
+        _redis.hincrby(self._redis_key, "output_tokens", meta.get("output_tokens", 0))
+        _redis.hincrby(self._redis_key, "total_tokens", meta.get("total_tokens", 0))
+
+    def increment_call_count(self) -> None:
+        """Increment the call count for the LLM."""
+        _redis.hincrby(self._redis_key, "call_count", 1)
 
     def get_call_count(self) -> int:
         """Get the number of times the LLM has been called."""
-        key = f"llm_usage:{self._used_model}"
-        return int(_redis.hget(key, "call_count") or 0)
+        return int(_redis.hget(self._redis_key, "call_count") or 0)
 
     def get_token_usage(self) -> TokenConsumption:
         """Get the token usage statistics."""
-        key = f"llm_usage:{self._used_model}"
-        data = _redis.hgetall(key)
+        data = _redis.hgetall(self._redis_key)
         return TokenConsumption(
             input_tokens=int(data.get("input_tokens", 0)),
             output_tokens=int(data.get("output_tokens", 0)),
@@ -140,8 +143,7 @@ class LlmProxy:
         Clears all usage counters for this model from Redis.
         Call this whenever you want to start counting from zero again.
         """
-        key = f"llm_usage:{self._used_model}"
-        _redis.delete(key)
+        _redis.delete(self._redis_key)
 
     def get_used_model(self) -> str:
         """Get the model currently in use."""

@@ -268,7 +268,7 @@ You have access to the following tools to gather facts, retrieve relevant data, 
         "   2.3. Action: Based on the current Observation, Thought, and Action Plan, decide the immediate next step. Name the selected tool and parameters. Take no further action until the result is returned.",
         "   2.4. Observation: Record the tool output exactly as received without paraphrasing.",
         "[REASONING CYCLE END]",
-        "   2.5. Validation Step (MANDATORY) before moving to the Final Answer:",
+        "   2.5. Validation Step (MANDATORY) before moving to the Final Answer (NOT CONTAINED IN FINAL ANSWER):",
         "       - Summarize the distinct tool outputs gathered.",
         "       - Evaluate whether they support or contradict each other.",
         "       - Explicitly state whether the answer has been confirmed, expanded, or corrected based on the second source.",
@@ -451,7 +451,7 @@ class ToolsFabricSettings(BaseSettings):
     duckduckgo_config: str = "b'e30='"
 
     # MCP Sequential Thinking Settings
-    include_sequential_thinking: bool = True
+    include_sequential_thinking: bool = False
     sequential_thinking_url: str = (
         """https://server.smithery.ai/@smithery-ai/server-sequential-thinking/mcp?config={config_b64}&api_key={smithery_api_key}"""
     )
