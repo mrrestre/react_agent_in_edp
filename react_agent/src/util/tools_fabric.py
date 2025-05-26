@@ -52,6 +52,14 @@ class ToolsFabric:
                     ),
                     "transport": TOOLS_FABRIC_SETTINGS.duckduckgo_protocol,
                 }
+            if TOOLS_FABRIC_SETTINGS.include_sequential_thinking:
+                multi_server_client_config["SequentialThinking"] = {
+                    "url": TOOLS_FABRIC_SETTINGS.sequential_thinking_url.format(
+                        config_b64=TOOLS_FABRIC_SETTINGS.sequential_thinking_config,
+                        smithery_api_key=SMITHERY_API_KEY,
+                    ),
+                    "transport": TOOLS_FABRIC_SETTINGS.sequential_thinking_protocol,
+                }
 
             match configuration:
                 case (

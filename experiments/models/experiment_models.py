@@ -52,6 +52,7 @@ class ExperimentResult(LabeledQAPairFacts):
 
     # Runtime details
     tools_used: list[ToolCall] = []
+    tool_calls_count: int = 0
     excecution_time_seconds: float = 0.0
 
     # LLM usage statistics

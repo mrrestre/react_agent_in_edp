@@ -193,7 +193,7 @@ class AgentSettings(BaseSettings):
     """Settings for the Main Agent"""
 
     logger_name: str = "ReAct Agent"
-    max_iterations: int = 10
+    max_iterations: int = 20
 
     use_tool_rankings: bool = True
 
@@ -209,6 +209,7 @@ class AgentSettings(BaseSettings):
     mcp_tool_ranking: dict[str, ToolRanking] = {
         "search": ToolRanking.MID,
         "fetch_content": ToolRanking.MID,
+        "sequentialthinking": ToolRanking.HIGH,
     }
 
     system_prompt: str = """## Role
@@ -441,9 +442,18 @@ class ToolsFabricSettings(BaseSettings):
 
     logger_name: str = "Tools Fabric"
 
+    # MCP DuckDuckGo Settings
     include_duckduckgo: bool = True
     duckduckgo_url: str = (
-        """wss://server.smithery.ai/@nickclyde/duckduckgo-mcp-server/ws?config={config_b64}&api_key={smithery_api_key}"""
+        """https://server.smithery.ai/@nickclyde/duckduckgo-mcp-server/mcp?config={config_b64}&api_key={smithery_api_key}"""
     )
     duckduckgo_protocol: str = "streamable_http"
     duckduckgo_config: str = "b'e30='"
+
+    # MCP Sequential Thinking Settings
+    include_sequential_thinking: bool = True
+    sequential_thinking_url: str = (
+        """https://server.smithery.ai/@smithery-ai/server-sequential-thinking/mcp?config={config_b64}&api_key={smithery_api_key}"""
+    )
+    sequential_thinking_protocol: str = "streamable_http"
+    sequential_thinking_config: str = "b'e30='"
