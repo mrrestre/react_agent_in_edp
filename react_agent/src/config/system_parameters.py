@@ -451,7 +451,7 @@ class ToolsFabricSettings(BaseSettings):
     duckduckgo_config: str = "b'e30='"
 
     # MCP Sequential Thinking Settings
-    include_sequential_thinking: bool = False
+    include_sequential_thinking: bool = True
     sequential_thinking_url: str = (
         """https://server.smithery.ai/@smithery-ai/server-sequential-thinking/mcp?config={config_b64}&api_key={smithery_api_key}"""
     )

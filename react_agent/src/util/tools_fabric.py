@@ -61,47 +61,45 @@ class ToolsFabric:
                     "transport": TOOLS_FABRIC_SETTINGS.sequential_thinking_protocol,
                 }
 
-            match configuration:
-                case (
-                    TRIAGE_SETTINGS.Categories.KNOWLEDGE_QA
-                    | TRIAGE_SETTINGS.Categories.ALL
-                ):
-                    qa_server_settings = QAToolsServerSettings()
+            if (
+                configuration == TRIAGE_SETTINGS.Categories.KNOWLEDGE_QA
+                or configuration == TRIAGE_SETTINGS.Categories.ALL
+            ):
+                qa_server_settings = QAToolsServerSettings()
 
-                    multi_server_client_config["QuestionAnsweringTools"] = {
-                        "url": f"http://{qa_server_settings.host}:{qa_server_settings.port}/{qa_server_settings.transport}",
-                        "transport": qa_server_settings.transport,
-                    }
-                case (
-                    TRIAGE_SETTINGS.Categories.CONFIG_RCA
-                    | TRIAGE_SETTINGS.Categories.ALL
-                ):
-                    rca_server_settings = CodingToolsServerSettings()
+                multi_server_client_config["QuestionAnsweringTools"] = {
+                    "url": f"http://{qa_server_settings.host}:{qa_server_settings.port}/{qa_server_settings.transport}",
+                    "transport": qa_server_settings.transport,
+                }
 
-                    multi_server_client_config["CodingTools"] = {
-                        "url": f"http://{rca_server_settings.host}:{rca_server_settings.port}/{rca_server_settings.transport}",
-                        "transport": rca_server_settings.transport,
-                    }
+            if (
+                configuration == TRIAGE_SETTINGS.Categories.CONFIG_RCA
+                or configuration == TRIAGE_SETTINGS.Categories.ALL
+            ):
+                rca_server_settings = CodingToolsServerSettings()
+
+                multi_server_client_config["CodingTools"] = {
+                    "url": f"http://{rca_server_settings.host}:{rca_server_settings.port}/{rca_server_settings.transport}",
+                    "transport": rca_server_settings.transport,
+                }
 
             return multi_server_client_config
         else:
             tool_list = []
+            if (
+                configuration == TRIAGE_SETTINGS.Categories.KNOWLEDGE_QA
+                or configuration == TRIAGE_SETTINGS.Categories.ALL
+            ):
+                tool_list.append(DocumentationRetriever())
+                tool_list.append(TroubleshootingSearcher())
+                tool_list.append(SapHelpSearcher())
 
-            match configuration:
-                case (
-                    TRIAGE_SETTINGS.Categories.KNOWLEDGE_QA
-                    | TRIAGE_SETTINGS.Categories.ALL
-                ):
-                    tool_list.append(DocumentationRetriever())
-                    tool_list.append(TroubleshootingSearcher())
-                    tool_list.append(SapHelpSearcher())
-
-                case (
-                    TRIAGE_SETTINGS.Categories.CONFIG_RCA
-                    | TRIAGE_SETTINGS.Categories.ALL
-                ):
-                    tool_list.append(CodebaseSearcher())
-                    tool_list.append(SourceCodeRetriever())
-                    tool_list.append(DBEntriesRetriever())
+            if (
+                configuration == TRIAGE_SETTINGS.Categories.CONFIG_RCA
+                or configuration == TRIAGE_SETTINGS.Categories.ALL
+            ):
+                tool_list.append(CodebaseSearcher())
+                tool_list.append(SourceCodeRetriever())
+                tool_list.append(DBEntriesRetriever())
 
             return tool_list
