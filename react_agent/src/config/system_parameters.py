@@ -114,11 +114,11 @@ class DocumentationRetrieverSettings(BaseSettings):
 
     # Model parameters
     prompt_introduction: str = (
-        "You are a Support Engineer working in the context of Document Reporting and Compliance, cloud edition (DRCce).\nYou are given information and troubleshooting guides to help solve issues.\n"
+        "You are a helpful assistant. You are given information on a product named Document and Reporting Compliance, cloud edition. The product is also known as\n- DRC\n- DRCce\n- Foundation Layer\n- Communication Layer\n"
     )
     default_cloud_type: ChatSlotCloudType = ChatSlotCloudType.PUBLIC_CLOUD
     collection_id: str = "70386ab8-eeac-452c-b2e6-cac902ca451c"
-    max_chunk_count_collection: int = 3
+    max_chunk_count_collection: int = 5
     max_chunk_count_sap_help: int = 3
 
 
