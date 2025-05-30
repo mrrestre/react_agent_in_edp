@@ -23,5 +23,13 @@ class BertScore:
             lang="en",
             rescale_with_baseline=True,
             # Reasoning: https://github.com/Tiiiger/bert_score/blob/master/journal/rescale_baseline.md
+            # Rescaling to make score easier to interpret since "regular" BERT  tends to be around 0.85.
         )
-        return cast(float, f1.mean().item())
+        return cast(float, recall.mean().item())
+
+
+# BERTScore (2019): BERTScore matches tokens via contextual embeddings and reports precision/recall/F1.
+# It does correlate with semantic similarity (better than BLEU/ROUGE), but it is highly sensitive to length mismatch.
+# In a short-ref/long-cand scenario, recall can be high (reference covered) but precision will be low (many extra words), so the F1 score drops.
+# Thus BERTScore by itself underestimates semantic overlap when the candidate is much longer.
+# One workaround is to examine recall only, or to compute F1 in a way that downweights precision but out-of-the-box it penalizes extra content.

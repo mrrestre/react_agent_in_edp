@@ -1,0 +1,809 @@
+[
+  {
+    "id": "EA-1",
+    "question": "How can I attach additional files to standard XML in Public Cloud?",
+    "answer": "To attach additional files to the standard XML in Public Cloud, you can use the Business Add-In (BAdI) EDOC_ADAPTOR_CLOUD and enhance the XML file generated for an electronic document.\nBy enhancing the XML file, you can include additional information that may be relevant for your business processes .\nTo implement this enhancement, you can follow these steps in ABAP Development Tools (ADT):\n1. In your ABAP project, go to the enhancement spot ES_EDOCUMENT_CLOUD and select 'New BAdI Enhancement Implementation'.\n2. Enter a package, name, and description for the implementation.\n3. Choose 'Add BAdI Implementation' and select EDOC_ADAPTOR_CLOUD .\n4. (Optional) Create a BAdI filter for Country and/or Generic Filter.\n5. Choose 'Implementing Class' to create a new implementation class.\n6. Activate your BAdI implementation .\nOnce you have implemented the BAdI, you can fill the XML tag <BuyersItemIdentification> with the desired additional information.\nThis can be done by reading the relevant data from the source documents and filling the appropriate XML tags.\nPlease note that the specific implementation details may vary depending on your system setup and requirements.\nIt is recommended to refer to the provided sources for more detailed instructions and examples.",
+    "product": "ERP (only SAP S/4HANA Cloud Public Edition)",
+    "category": "How to Develop (Maintenance - Customer case support)",
+    "persona": "Developer (Customer side)",
+    "activity": "Custom Development",
+    "country": "Cross",
+    "facts": [
+      {
+        "fact": "You can attach additional files to standard XML in Public Cloud by using the Business Add-In (BAdI) EDOC_ADAPTOR_CLOUD.",
+        "classification": "direct",
+        "id": "EA-1-1"
+      },
+      {
+        "fact": "Enhancing the XML file generated for an electronic document allows inclusion of additional information.",
+        "classification": "direct",
+        "id": "EA-1-2"
+      },
+      {
+        "fact": "The enhancement is implemented in ABAP Development Tools (ADT) via the enhancement spot ES_EDOCUMENT_CLOUD.",
+        "classification": "supporting",
+        "id": "EA-1-3"
+      },
+      {
+        "fact": "You need to create a new BAdI Enhancement Implementation in your ABAP project.",
+        "classification": "supporting",
+        "id": "EA-1-4"
+      },
+      {
+        "fact": "You must select EDOC_ADAPTOR_CLOUD when adding the BAdI Implementation.",
+        "classification": "supporting",
+        "id": "EA-1-5"
+      },
+      {
+        "fact": "You can optionally create a BAdI filter for Country and/or Generic Filter.",
+        "classification": "supporting",
+        "id": "EA-1-6"
+      },
+      {
+        "fact": "After implementing the BAdI, you can fill the XML tag <BuyersItemIdentification> with additional information.",
+        "classification": "direct",
+        "id": "EA-1-7"
+      },
+      {
+        "fact": "Filling the XML tag can be done by reading relevant data from source documents.",
+        "classification": "supporting",
+        "id": "EA-1-8"
+      }
+    ],
+    "bert_score": 0.25389328598976135,
+    "llm_judge_outcome": "Fully Helpful",
+    "llm_judge_model": "gemini-2.0-flash",
+    "llm_judge_call_count": 1,
+    "generated_answer": "To attach additional files to standard XML in SAP Document and Reporting Compliance, Cloud Edition (DRCce), you can follow these steps:\n\n1. Prerequisites:\n   - Ensure that the legal format and the authority's platforms support handling attachments.\n   - Create your attachment and add it to the attachment list of the relevant source document.\n\n2. Implementation:\n   Use the Business Add-In (BAdI) EDOC_ADAPTOR_CLOUD and its method SET_OUTPUT_DATA to add attachments to the XML file. Here's how:\n\n   a. In the SAP S/4HANA Cloud, ABAP environment, implement the BAdI EDOC_ADAPTOR_CLOUD.\n   b. In the SET_OUTPUT_DATA method, add the attachment data to the ADDITIONAL_DOCUMENT_REFERENCE table of the XML_FILE_MODIFIED parameter.\n\n3. Procedure:\n   a. Go to transaction SE18 and search for BAdI EDOC_ADAPTOR.\n   b. Set the GENERIC_FILTER parameter for the BAdI implementation as INVOICE.\n   c. Configure the COUNTRY filter with your specific country code.\n   d. Implement the SET_OUTPUT_DATA method to read attachments from the attachment list of a source document and add them to the XML file.\n\nExample code snippet (pseudo-code based on the documentation):\n\n```abap\nMETHOD if_edoc_adaptor_cloud~set_output_data.\n  DATA: ls_attachment TYPE ty_attachment.\n  \n  \" Read attachment from source document\n  ls_attachment = read_attachment_from_source( is_source ).\n  \n  \" Add attachment to XML file\n  APPEND VALUE #( \n    attachment_id = ls_attachment-id\n    file_name     = ls_attachment-file_name\n    mime_code     = ls_attachment-mime_type\n    encoding_code = 'base64'\n    description   = ls_attachment-description\n    content       = ls_attachment-content\n  ) TO xml_file_modified-additional_document_reference.\nENDMETHOD.\n```\n\nThis process allows you to include one or more attachments in the XML file generated for an electronic document in the eDocument Cockpit (EDOC_COCKPIT).\n\nKey points to remember:\n- This feature is specific to SAP Document and Reporting Compliance, Cloud Edition.\n- The ability to attach files depends on the legal format and authority platform support.\n- You need to implement the BAdI EDOC_ADAPTOR_CLOUD and its SET_OUTPUT_DATA method.\n- Attachments are added to the ADDITIONAL_DOCUMENT_REFERENCE table in the XML structure.\n\nBy following these steps, you can successfully attach additional files to standard XML in your SAP Public Cloud environment, enhancing your electronic documents with relevant attachments for your business processes.",
+    "model_used": "anthropic--claude-3.5-sonnet",
+    "triage_category": "All Tools",
+    "tools_used": [],
+    "tool_calls_count": 0,
+    "excecution_time_seconds": 53.877,
+    "llm_call_count": 3,
+    "fact_score.direct_fact_score": 0.6666666666666666,
+    "fact_score.supporting_fact_score": 0.8,
+    "fact_score.combined_fact_score": 0.75,
+    "fact_score.direct_facts": [
+      {
+        "fact": "You can attach additional files to standard XML in Public Cloud by using the Business Add-In (BAdI) EDOC_ADAPTOR_CLOUD.",
+        "is_contained": true,
+        "reason": "The context explicitly states that the Business Add-In (BAdI) EDOC_ADAPTOR_CLOUD and its method SET_OUTPUT_DATA can be used to add attachments to the XML file in SAP Document and Reporting Compliance, Cloud Edition."
+      },
+      {
+        "fact": "Enhancing the XML file generated for an electronic document allows inclusion of additional information.",
+        "is_contained": true,
+        "reason": "The context explicitly describes a process to attach additional files to standard XML in SAP Document and Reporting Compliance, Cloud Edition (DRCce), which directly supports the fact that XML files for electronic documents can be enhanced to include additional information."
+      },
+      {
+        "fact": "After implementing the BAdI, you can fill the XML tag <BuyersItemIdentification> with additional information.",
+        "is_contained": false,
+        "reason": "The context does not mention filling the <BuyersItemIdentification> XML tag. It describes implementing the BAdI EDOC_ADAPTOR_CLOUD to add attachments to the ADDITIONAL_DOCUMENT_REFERENCE table in the XML structure, but does not specifically mention the <BuyersItemIdentification> tag."
+      }
+    ],
+    "fact_score.supporting_facts": [
+      {
+        "fact": "The enhancement is implemented in ABAP Development Tools (ADT) via the enhancement spot ES_EDOCUMENT_CLOUD.",
+        "is_contained": false,
+        "reason": "The context does not mention ABAP Development Tools (ADT) or the enhancement spot ES_EDOCUMENT_CLOUD. Instead, it describes implementing a Business Add-In (BAdI) EDOC_ADAPTOR_CLOUD in SAP S/4HANA Cloud, ABAP environment."
+      },
+      {
+        "fact": "You need to create a new BAdI Enhancement Implementation in your ABAP project.",
+        "is_contained": true,
+        "reason": "The context explicitly states that to add attachments to XML files in SAP Document and Reporting Compliance, Cloud Edition, you need to implement the Business Add-In (BAdI) EDOC_ADAPTOR_CLOUD. This involves creating a new BAdI Enhancement Implementation in the ABAP project."
+      },
+      {
+        "fact": "You must select EDOC_ADAPTOR_CLOUD when adding the BAdI Implementation.",
+        "is_contained": true,
+        "reason": "The context explicitly states 'Use the Business Add-In (BAdI) EDOC_ADAPTOR_CLOUD' and provides instructions on how to implement it, confirming that EDOC_ADAPTOR_CLOUD must be selected when adding the BAdI Implementation."
+      },
+      {
+        "fact": "You can optionally create a BAdI filter for Country and/or Generic Filter.",
+        "is_contained": true,
+        "reason": "The context explicitly mentions configuring the COUNTRY filter with a specific country code and setting the GENERIC_FILTER parameter for the BAdI implementation as INVOICE, which supports the fact that BAdI filters can be created for Country and Generic Filter."
+      },
+      {
+        "fact": "Filling the XML tag can be done by reading relevant data from source documents.",
+        "is_contained": true,
+        "reason": "The context explicitly mentions reading attachments from source documents and adding them to the XML file. It provides a code snippet demonstrating how to read attachment data from a source document and add it to the XML structure."
+      }
+    ],
+    "llm_judge_tokens_consumed.input_tokens": 1102,
+    "llm_judge_tokens_consumed.output_tokens": 2,
+    "llm_judge_tokens_consumed.total_tokens": 1104,
+    "tokens_consumed.input_tokens": 15021,
+    "tokens_consumed.output_tokens": 977,
+    "tokens_consumed.total_tokens": 15998
+  },
+  {
+    "id": "EA-2",
+    "question": "For a Greece customer in Public Cloud, what are the steps to enhance the generated XML before sending it to the Tax Authorities using ADT?",
+    "answer": "To enhance the generated XML file for a Greece customer in Public Cloud before sending it to the Tax Authorities using ABAP Development Tools (ADT), you can follow these steps:\n1. In your ABAP project, go to the enhancement spot ES_EDOCUMENT_CLOUD (path: package GLO-EDO > Enhancements > Enhancement Spots).\n2. Right-click ES_EDOCUMENT_CLOUD and select New BAdI Enhancement Implementation .\n3. Enter a package, name, and description for the implementation.\n4. Choose Add BAdI Implementation and select EDOC_ADAPTOR_CLOUD.\n5. (Optional) Create a BAdI filter for Country and/or Generic Filter.\n6. Choose Implementing Class to create a new implementation class. The new implementation class automatically implements the interfaces if_badi_interfaces and if_edoc_adaptor_cloud.7. After generating the class, open the interface method and press F3 to view its parameters. To display the documentation, press F2.\n8. Implement the necessary logic in the method to modify the XML tags and fill optional XML tags with values such as customer material number or delivery number.9. Activate your BAdI implementation.When you display the XML file of the electronic document in the eDocument Cockpit or Manage Electronic Documents app, you will see that the relevant XML tags are now filled with the desired values.Please note that the provided steps are specific to enhancing the XML file for a German customer in Public Cloud using ADT. The exact implementation may vary depending on the specific requirements and configurations of your system.",
+    "product": "ERP (only SAP S/4HANA Cloud Public Edition)",
+    "category": "How to Develop (Maintenance - Customer case support)",
+    "persona": "Developer (Customer side)",
+    "activity": "Custom Development",
+    "country": "GR",
+    "facts": [
+      {
+        "fact": "To enhance the generated XML for a Greece customer in Public Cloud before sending it to the Tax Authorities, you use ABAP Development Tools (ADT).",
+        "classification": "direct",
+        "id": "EA-2-1"
+      },
+      {
+        "fact": "You should go to the enhancement spot ES_EDOCUMENT_CLOUD in your ABAP project.",
+        "classification": "direct",
+        "id": "EA-2-2"
+      },
+      {
+        "fact": "You need to create a new BAdI Enhancement Implementation for ES_EDOCUMENT_CLOUD.",
+        "classification": "direct",
+        "id": "EA-2-3"
+      },
+      {
+        "fact": "You select EDOC_ADAPTOR_CLOUD when adding the BAdI Implementation.",
+        "classification": "direct",
+        "id": "EA-2-4"
+      },
+      {
+        "fact": "You can optionally create a BAdI filter for Country and/or Generic Filter.",
+        "classification": "supporting",
+        "id": "EA-2-5"
+      },
+      {
+        "fact": "You create an implementing class that automatically implements the interfaces if_badi_interfaces and if_edoc_adaptor_cloud.",
+        "classification": "supporting",
+        "id": "EA-2-6"
+      },
+      {
+        "fact": "You implement logic in the method to modify XML tags and fill optional XML tags with values such as customer material number or delivery number.",
+        "classification": "direct",
+        "id": "EA-2-7"
+      },
+      {
+        "fact": "You must activate your BAdI implementation after making changes.",
+        "classification": "direct",
+        "id": "EA-2-8"
+      },
+      {
+        "fact": "After enhancement, the relevant XML tags in the electronic document will be filled with the desired values when viewed in the eDocument Cockpit or Manage Electronic Documents app.",
+        "classification": "supporting",
+        "id": "EA-2-9"
+      }
+    ],
+    "bert_score": 0.16072863340377808,
+    "llm_judge_outcome": "Fully Helpful",
+    "llm_judge_model": "gemini-2.0-flash",
+    "llm_judge_call_count": 1,
+    "generated_answer": "To enhance the generated XML for a Greece customer in SAP Public Cloud before sending it to the Tax Authorities using ADT (ABAP Development Tools), follow these general steps:\n\n1. Prerequisites:\n   - Ensure you have the license for S/4HANA Cloud Public Edition and Developer Extensibility capabilities.\n   - Verify that the proxy objects are released for developer extensibility. Check the API State in the properties view of the object in ADT, where the contract should be set to C0 or C1.\n\n2. Implementation Steps in ADT:\n   a. Open your ABAP project in ADT.\n   b. Navigate to the enhancement spot ES_EDOCUMENT_CLOUD in your project. The path is typically: package GLO-EDO > Enhancements > Enhancement Spots.\n   c. Right-click on ES_EDOCUMENT_CLOUD and select \"New BAdI Enhancement Implementation\".\n   d. Enter a package, name, and description for your enhancement. Make sure to use a naming convention that indicates it's for Greece (e.g., \"Z_GREECE_XML_ENHANCEMENT\").\n\n3. Implement the BAdI:\n   a. In the generated class, implement the method `FILL_XML_FILE` of the BAdI interface.\n   b. This method allows you to modify the final invoice XML. You can:\n      - Fill XML fields that are not filled in the standard mapping.\n      - Make changes to the values of existing XML fields.\n      - Add Greece-specific fields or modify existing ones to comply with Greek tax authority requirements.\n   c. Use the provided parameters to access the source data and the current XML structure.\n\n4. Enhance the XML:\n   a. In your implementation, add logic to include any additional fields required by Greek tax authorities.\n   b. Modify existing fields if necessary to comply with Greek standards.\n   c. Implement any Greece-specific validation rules.\n\n5. Error Handling:\n   a. Use the BAdI to check the XML content and stop processing with an error message if a check fails.\n   b. Error messages will be viewable in the log of the eDocument Cockpit.\n\n6. Testing:\n   a. After implementing the BAdI, test the enhancement thoroughly with sample data.\n   b. Verify that the generated XML meets Greek tax authority requirements.\n\n7. Activation and Transport:\n   a. Activate your enhancement implementation.\n   b. Create a transport request to move your changes to the quality and production systems.\n\nExample snippet for the BAdI implementation (adapt as needed for Greece):\n\n```abap\nMETHOD if_edoc_badi_xml_file~fill_xml_file.\n  DATA ls_greece_specific_data TYPE ty_greece_data.\n\n  \" Fetch or calculate Greece-specific data\n  ls_greece_specific_data = get_greece_specific_data( source_data ).\n\n  \" Modify or add XML fields\n  xml_file_modified-GreeceTaxIdentifier = ls_greece_specific_data-tax_id.\n  xml_file_modified-GreeceMYDATA = ls_greece_specific_data-mydata_info.\n\n  \" Implement Greece-specific validations\n  IF NOT is_valid_for_greece( xml_file_modified ).\n    RAISE EXCEPTION TYPE cx_edoc_exception\n      EXPORTING\n        textid = cx_edoc_exception=>greece_validation_failed.\n  ENDIF.\nENDMETHOD.\n```\n\nKey points to remember:\n- Adapt the enhancement to include all necessary fields and validations required by Greek tax authorities.\n- Ensure compliance with the latest myDATA (my Digital Accounting and Tax Application) requirements for Greece.\n- Regularly check for updates to Greek e-invoicing regulations and adjust your enhancement accordingly.\n- Test thoroughly with various scenarios to ensure all Greece-specific requirements are met.\n\nBy following these steps and adapting them to Greece-specific requirements, you can enhance the generated XML for your Greece customer in SAP Public Cloud before sending it to the Tax Authorities. Always consult with a local SAP representative or tax expert to ensure full compliance with the latest Greek e-invoicing regulations.",
+    "model_used": "anthropic--claude-3.5-sonnet",
+    "triage_category": "All Tools",
+    "tools_used": [],
+    "tool_calls_count": 0,
+    "excecution_time_seconds": 72.234,
+    "llm_call_count": 5,
+    "fact_score.direct_fact_score": 0.8333333333333334,
+    "fact_score.supporting_fact_score": 0.0,
+    "fact_score.combined_fact_score": 0.5555555555555556,
+    "fact_score.direct_facts": [
+      {
+        "fact": "To enhance the generated XML for a Greece customer in Public Cloud before sending it to the Tax Authorities, you use ABAP Development Tools (ADT).",
+        "is_contained": true,
+        "reason": "The context explicitly states that ABAP Development Tools (ADT) is used to enhance the generated XML for a Greece customer in SAP Public Cloud before sending it to the Tax Authorities. This is mentioned in the first sentence of the context."
+      },
+      {
+        "fact": "You should go to the enhancement spot ES_EDOCUMENT_CLOUD in your ABAP project.",
+        "is_contained": true,
+        "reason": "The context explicitly states in step 2b to 'Navigate to the enhancement spot ES_EDOCUMENT_CLOUD in your project.'"
+      },
+      {
+        "fact": "You need to create a new BAdI Enhancement Implementation for ES_EDOCUMENT_CLOUD.",
+        "is_contained": true,
+        "reason": "The context explicitly states in step 2c to 'Right-click on ES_EDOCUMENT_CLOUD and select \"New BAdI Enhancement Implementation\"', which directly supports the fact."
+      },
+      {
+        "fact": "You select EDOC_ADAPTOR_CLOUD when adding the BAdI Implementation.",
+        "is_contained": false,
+        "reason": "The context does not mention selecting EDOC_ADAPTOR_CLOUD when adding the BAdI Implementation. Instead, it describes navigating to the enhancement spot ES_EDOCUMENT_CLOUD and selecting 'New BAdI Enhancement Implementation'."
+      },
+      {
+        "fact": "You implement logic in the method to modify XML tags and fill optional XML tags with values such as customer material number or delivery number.",
+        "is_contained": true,
+        "reason": "The context explicitly states that in the BAdI implementation, you can 'modify the final invoice XML' and 'Fill XML fields that are not filled in the standard mapping'. This directly supports the fact that logic is implemented to modify and fill XML tags."
+      },
+      {
+        "fact": "You must activate your BAdI implementation after making changes.",
+        "is_contained": true,
+        "reason": "The context explicitly states in step 7a: 'Activate your enhancement implementation.', which directly supports the fact that the BAdI implementation must be activated after making changes."
+      }
+    ],
+    "fact_score.supporting_facts": [
+      {
+        "fact": "You can optionally create a BAdI filter for Country and/or Generic Filter.",
+        "is_contained": false,
+        "reason": "The context does not mention creating a BAdI filter for Country or Generic Filter. It provides steps for implementing a BAdI enhancement for Greece-specific XML modifications, but does not discuss optional filters."
+      },
+      {
+        "fact": "You create an implementing class that automatically implements the interfaces if_badi_interfaces and if_edoc_adaptor_cloud.",
+        "is_contained": false,
+        "reason": "The context does not mention creating a class that automatically implements these specific interfaces. It describes implementing a BAdI and mentions implementing the method FILL_XML_FILE of the BAdI interface, but does not refer to if_badi_interfaces or if_edoc_adaptor_cloud."
+      },
+      {
+        "fact": "After enhancement, the relevant XML tags in the electronic document will be filled with the desired values when viewed in the eDocument Cockpit or Manage Electronic Documents app.",
+        "is_contained": false,
+        "reason": "The context provides information on how to enhance XML for Greece customers in SAP Public Cloud, but it does not explicitly state that the enhanced XML tags will be filled with desired values when viewed in specific apps. The text focuses on implementation steps and does not mention the result of viewing the document in the eDocument Cockpit or Manage Electronic Documents app."
+      }
+    ],
+    "llm_judge_tokens_consumed.input_tokens": 1403,
+    "llm_judge_tokens_consumed.output_tokens": 2,
+    "llm_judge_tokens_consumed.total_tokens": 1405,
+    "tokens_consumed.input_tokens": 10159,
+    "tokens_consumed.output_tokens": 1300,
+    "tokens_consumed.total_tokens": 11459
+  },
+  {
+    "id": "EA-3",
+    "question": "For a Greece customer invoice process in Public Cloud, can I enhance or extend the generated XML before it is sent to the authorities?",
+    "answer": "Yes, you can enhance or extend the generated XML before it is sent to the authorities by the use of method SET_OUTPUT_DATA of BAdI EDOC_ADAPTOR_CLOUD.",
+    "product": "ERP (only SAP S/4HANA Cloud Public Edition)",
+    "category": "How to Develop (Maintenance - Customer case support)",
+    "persona": "Developer (Customer side)",
+    "activity": "Custom Development",
+    "country": "GR",
+    "facts": [
+      {
+        "fact": "You can enhance or extend the generated XML before it is sent to the authorities.",
+        "classification": "direct",
+        "id": "EA-3-1"
+      },
+      {
+        "fact": "Enhancement or extension is possible by using the method SET_OUTPUT_DATA.",
+        "classification": "direct",
+        "id": "EA-3-2"
+      },
+      {
+        "fact": "The method SET_OUTPUT_DATA belongs to BAdI EDOC_ADAPTOR_CLOUD.",
+        "classification": "supporting",
+        "id": "EA-3-3"
+      }
+    ],
+    "bert_score": 0.19229383766651154,
+    "llm_judge_outcome": "Partially Helpful",
+    "llm_judge_model": "gemini-2.0-flash",
+    "llm_judge_call_count": 1,
+    "generated_answer": "Based on the information gathered from SAP documentation and help resources, it is possible to enhance or extend the XML for Greece customer invoices in SAP Public Cloud. However, the exact timing of these enhancements in relation to the submission to authorities is not explicitly stated.\n\nKey findings:\n\n1. XML Enhancement: SAP provides mechanisms to customize XML files for electronic documents, primarily through Business Add-Ins (BAdIs) such as EDOC_ADAPTOR_CLOUD. This allows users to modify XML tags and fill optional tags with relevant values like customer material numbers or delivery numbers.\n\n2. Process Flow: The electronic document process for Greece involves several steps, including XML generation, processing through SAP Application Interface Framework for mapping, and submission via SAP Cloud Integration or SAP Integration Suite.\n\n3. Customization Options: The system allows for configuration and integration settings that affect the creation and submission of electronic documents, including self-billing invoices.\n\n4. XML Processing: SAP Application Interface Framework maps the XML files to the format required by the Greek tax authorities (myDATA platform).\n\nWhile it's clear that XML enhancement is possible, the specific window for making these enhancements between generation and submission is not explicitly defined in the provided information. It appears that most customizations are set up as part of the overall configuration and integration process, rather than as a separate step after XML generation but before submission.\n\nFor a definitive answer on whether you can enhance or extend the generated XML immediately before it is sent to the authorities, you may need to:\n\n1. Consult with an SAP implementation specialist who has experience with the Greece-specific electronic invoicing process.\n2. Review the technical documentation for the EDOC_ADAPTOR_CLOUD BAdI to see if it allows for last-minute modifications.\n3. Contact SAP support for clarification on the exact process flow and potential intervention points in the XML lifecycle.\n\nIt's important to note that any modifications to the XML must comply with the requirements of the Greek tax authorities and the myDATA platform. Ensure that any enhancements you make do not violate the legal and technical specifications for electronic invoicing in Greece.",
+    "model_used": "anthropic--claude-3.5-sonnet",
+    "triage_category": "All Tools",
+    "tools_used": [],
+    "tool_calls_count": 0,
+    "excecution_time_seconds": 73.768,
+    "llm_call_count": 6,
+    "fact_score.direct_fact_score": 0.0,
+    "fact_score.supporting_fact_score": 0.0,
+    "fact_score.combined_fact_score": 0.0,
+    "fact_score.direct_facts": [
+      {
+        "fact": "You can enhance or extend the generated XML before it is sent to the authorities.",
+        "is_contained": false,
+        "reason": "While the context mentions that XML enhancement is possible, it does not explicitly state that this can be done before the XML is sent to the authorities. The timing of enhancements in relation to submission is not clearly specified in the given information."
+      },
+      {
+        "fact": "Enhancement or extension is possible by using the method SET_OUTPUT_DATA.",
+        "is_contained": false,
+        "reason": "The context does not mention any specific method called SET_OUTPUT_DATA. While it discusses XML enhancement possibilities, it does not provide information about this particular method."
+      }
+    ],
+    "fact_score.supporting_facts": [
+      {
+        "fact": "The method SET_OUTPUT_DATA belongs to BAdI EDOC_ADAPTOR_CLOUD.",
+        "is_contained": false,
+        "reason": "The context does not explicitly mention the method SET_OUTPUT_DATA or its association with BAdI EDOC_ADAPTOR_CLOUD. While the BAdI EDOC_ADAPTOR_CLOUD is mentioned, there is no specific information about its methods."
+      }
+    ],
+    "llm_judge_tokens_consumed.input_tokens": 939,
+    "llm_judge_tokens_consumed.output_tokens": 2,
+    "llm_judge_tokens_consumed.total_tokens": 941,
+    "tokens_consumed.input_tokens": 10599,
+    "tokens_consumed.output_tokens": 1410,
+    "tokens_consumed.total_tokens": 12009
+  },
+  {
+    "id": "EA-4",
+    "question": "As a Public Cloud customer in Spain, can I extend an existing eDocument customer invoice Process? ",
+    "answer": "Yes, as a Public Cloud customer in Spain, you can extend an existing eDocument process according to your business needs. For example: 1. You want to define that for some types of source documents the system doesn't create electronic documents. 2. You want to enhance the standard XML mapping by editing existing fields or adding new ones. ",
+    "product": "ERP (only SAP S/4HANA Cloud Public Edition)",
+    "category": "Documentation (Maintenance - Customer case support)",
+    "persona": "Developer (Customer side)",
+    "activity": "Custom Development",
+    "country": "ES",
+    "facts": [
+      {
+        "fact": "A Public Cloud customer in Spain can extend an existing eDocument process.",
+        "classification": "direct",
+        "id": "EA-4-1"
+      },
+      {
+        "fact": "The extension can be done according to business needs.",
+        "classification": "direct",
+        "id": "EA-4-2"
+      },
+      {
+        "fact": "It is possible to define that for some types of source documents the system does not create electronic documents.",
+        "classification": "supporting",
+        "id": "EA-4-3"
+      },
+      {
+        "fact": "It is possible to enhance the standard XML mapping by editing existing fields or adding new ones.",
+        "classification": "supporting",
+        "id": "EA-4-4"
+      }
+    ],
+    "bert_score": 0.291239857673645,
+    "llm_judge_outcome": "Fully Helpful",
+    "llm_judge_model": "gemini-2.0-flash",
+    "llm_judge_call_count": 1,
+    "generated_answer": "Yes, as a Public Cloud customer in Spain, you can extend an existing eDocument customer invoice process. Here's a summary of the key findings based on the SAP documentation and troubleshooting information:\n\n1. Extension Capabilities:\n   - You can extend the process using the eDocument Cockpit or Manage Electronic Documents app.\n   - Customization is possible through Business Add-Ins (BAdIs) implemented via the Custom Logic app.\n   - BAdIs allow you to define custom logic for various fields in the XML document related to eInvoices, such as bank account data, delivery note fields, discounts and charges reasons, and partner reference fields.\n\n2. Available Processes:\n   - Two main business processes are available for Spain: Spain eInvoice (Webservice) and Spain eInvoice (Download).\n   - The Webservice process allows automatic submission of eDocuments to public entities through the FACe (General Point of Entry of Electronic Invoices of the General State Administration).\n   - The Download process involves manual downloading and uploading of eDocuments to public entities' web services.\n\n3. Considerations:\n   - While there are no specific limitations mentioned for Spain, it's important to stay updated with the latest SAP Notes for any required corrections or improvements in the eDocument processes.\n   - If you need to handle cross-border scenarios, you can use the Peppol network and BIS 3 format for exchanging invoices with companies in other countries.\n   - Some processes, like handling proforma invoices, may require additional customization or have specific restrictions.\n\nTo implement extensions:\n1. Use the Custom Logic app to implement the required BAdIs for your specific business needs.\n2. Customize fields in the XML document as needed, such as bank account data, delivery note fields, or partner reference fields.\n3. Choose between the Webservice and Download processes based on your requirements for automation and interaction with public entities.\n\nIt's recommended to thoroughly test any extensions in a non-production environment before implementing them in your live system. Additionally, keep an eye on SAP's Customer Influence program for potential future improvements in the eDocument processes for Spain.\n\nIf you encounter any issues during the extension process or have specific requirements not covered by the standard functionality, it's advisable to consult with SAP support or a certified SAP consultant specializing in Electronic Document Processing for the Spanish market.",
+    "model_used": "anthropic--claude-3.5-sonnet",
+    "triage_category": "All Tools",
+    "tools_used": [],
+    "tool_calls_count": 0,
+    "excecution_time_seconds": 44.614,
+    "llm_call_count": 3,
+    "fact_score.direct_fact_score": 1.0,
+    "fact_score.supporting_fact_score": 0.5,
+    "fact_score.combined_fact_score": 0.75,
+    "fact_score.direct_facts": [
+      {
+        "fact": "A Public Cloud customer in Spain can extend an existing eDocument process.",
+        "is_contained": true,
+        "reason": "The context explicitly states that Public Cloud customers in Spain can extend existing eDocument processes, specifically mentioning the ability to extend customer invoice processes using the eDocument Cockpit or Manage Electronic Documents app, and customize through Business Add-Ins (BAdIs) implemented via the Custom Logic app."
+      },
+      {
+        "fact": "The extension can be done according to business needs.",
+        "is_contained": true,
+        "reason": "The context explicitly states that customization is possible through Business Add-Ins (BAdIs) implemented via the Custom Logic app, and that these BAdIs allow defining custom logic for various fields in the XML document related to eInvoices. This directly supports the fact that extensions can be done according to business needs."
+      }
+    ],
+    "fact_score.supporting_facts": [
+      {
+        "fact": "It is possible to define that for some types of source documents the system does not create electronic documents.",
+        "is_contained": false,
+        "reason": "The context does not mention any capability to define exclusions for certain types of source documents from electronic document creation. The information provided focuses on extension capabilities, available processes, and considerations for eDocument processing in Spain, but does not address the specific functionality mentioned in the fact."
+      },
+      {
+        "fact": "It is possible to enhance the standard XML mapping by editing existing fields or adding new ones.",
+        "is_contained": true,
+        "reason": "The context explicitly states that customization is possible through Business Add-Ins (BAdIs), which allow defining custom logic for various fields in the XML document related to eInvoices. This includes the ability to edit existing fields and add new ones, such as bank account data, delivery note fields, discounts and charges reasons, and partner reference fields."
+      }
+    ],
+    "llm_judge_tokens_consumed.input_tokens": 989,
+    "llm_judge_tokens_consumed.output_tokens": 2,
+    "llm_judge_tokens_consumed.total_tokens": 991,
+    "tokens_consumed.input_tokens": 5101,
+    "tokens_consumed.output_tokens": 864,
+    "tokens_consumed.total_tokens": 5965
+  },
+  {
+    "id": "EA-5",
+    "question": "As a Public Cloud customer in Italy, can I extend an existing eDocument customer invoice Process? ",
+    "answer": " Yes, as a Public Cloud customer in Italy, you can extend an existing eDocument process according to your business needs. For example: 1. You want to define that for some types of source documents the system doesn't create electronic documents. 2. You want to enhance the standard XML mapping by editing existing fields or adding new ones. ",
+    "product": "ERP (only SAP S/4HANA Cloud Public Edition)",
+    "category": "Documentation (Maintenance - Customer case support)",
+    "persona": "Developer (Customer side)",
+    "activity": "Custom Development",
+    "country": "IT",
+    "facts": [
+      {
+        "fact": "As a Public Cloud customer in Italy, you can extend an existing eDocument process.",
+        "classification": "direct",
+        "id": "EA-5-1"
+      },
+      {
+        "fact": "The extension can be done according to your business needs.",
+        "classification": "direct",
+        "id": "EA-5-2"
+      },
+      {
+        "fact": "You can define that for some types of source documents the system doesn't create electronic documents.",
+        "classification": "supporting",
+        "id": "EA-5-3"
+      },
+      {
+        "fact": "You can enhance the standard XML mapping by editing existing fields.",
+        "classification": "supporting",
+        "id": "EA-5-4"
+      },
+      {
+        "fact": "You can enhance the standard XML mapping by adding new fields.",
+        "classification": "supporting",
+        "id": "EA-5-5"
+      }
+    ],
+    "bert_score": 0.1245269626379013,
+    "llm_judge_outcome": "Partially Helpful",
+    "llm_judge_model": "gemini-2.0-flash",
+    "llm_judge_call_count": 1,
+    "generated_answer": "Based on the information gathered from SAP documentation and troubleshooting resources, here's what we can conclude about extending an existing eDocument customer invoice process for a Public Cloud customer in Italy:\n\n1. Limited Customization: SAP's Public Cloud solutions generally offer limited customization options compared to on-premise or private cloud deployments. This is to ensure standardization and easier maintenance across all customers.\n\n2. Standard Process: The eDocument customer invoice process for Italy in SAP Public Cloud follows a standardized workflow, including invoice posting, submission to tax authorities, and handling various statuses returned by the authorities. This process is designed to comply with Italian tax regulations.\n\n3. No Direct Extension Confirmation: There is no explicit confirmation that you can extend the existing eDocument customer invoice process for Italy in the Public Cloud. SAP typically restricts extensive modifications to core processes in cloud environments to maintain consistency and supportability.\n\n4. Potential Workarounds:\n   a. Customer Influence Program: If you need specific extensions or improvements, you can submit your ideas through SAP's Customer Influence program. This allows customers to influence future development decisions for the Electronic Document Processing solution.\n   b. Partner Solutions: For some countries (e.g., Egypt), SAP mentions partner-developed extensions to the Document and Reporting Compliance solution. While not directly applicable to Italy, this suggests that partner solutions might be an option if standard functionality doesn't meet your needs.\n\n5. Technical Limitations: The solution is designed to work with separate invoices rather than invoice lists for countries using Peppol (which includes Italy for certain scenarios). This limitation might affect your ability to extend the process in some ways.\n\n6. Compliance Focus: Any extensions or modifications must still comply with Italian tax regulations and electronic invoicing requirements.\n\nIn summary, while it may be challenging to directly extend the existing eDocument customer invoice process in SAP Public Cloud for Italy, you have the following options:\n1. Utilize the standard process as provided by SAP, which is designed to meet Italian regulatory requirements.\n2. Submit enhancement requests through the Customer Influence program for future consideration by SAP.\n3. Explore potential partner solutions if significant customizations are required, keeping in mind that these may not be officially supported by SAP.\n4. Consider whether your specific requirements can be met through configuration options within the standard solution, rather than extensions.\n\nIt's important to note that any modifications or extensions in a Public Cloud environment are subject to SAP's cloud solution policies and may be limited compared to on-premise or private cloud deployments. For specific extension possibilities, it's recommended to consult directly with SAP support or your SAP account representative, as they can provide the most up-to-date information on what's feasible within your specific Public Cloud environment.",
+    "model_used": "anthropic--claude-3.5-sonnet",
+    "triage_category": "All Tools",
+    "tools_used": [],
+    "tool_calls_count": 0,
+    "excecution_time_seconds": 59.496,
+    "llm_call_count": 6,
+    "fact_score.direct_fact_score": 0.0,
+    "fact_score.supporting_fact_score": 0.0,
+    "fact_score.combined_fact_score": 0.0,
+    "fact_score.direct_facts": [
+      {
+        "fact": "As a Public Cloud customer in Italy, you can extend an existing eDocument process.",
+        "is_contained": false,
+        "reason": "The context does not explicitly confirm that Public Cloud customers in Italy can extend an existing eDocument process. It states that SAP's Public Cloud solutions generally offer limited customization options and there is no direct confirmation of the ability to extend the eDocument process. The text suggests that modifications to core processes are typically restricted in cloud environments."
+      },
+      {
+        "fact": "The extension can be done according to your business needs.",
+        "is_contained": false,
+        "reason": "The context does not explicitly state that extensions can be done according to business needs. Instead, it emphasizes limited customization options in SAP Public Cloud and suggests alternatives like using the standard process, submitting enhancement requests, or exploring partner solutions. The text indicates that direct extensions may be challenging or restricted in the Public Cloud environment."
+      }
+    ],
+    "fact_score.supporting_facts": [
+      {
+        "fact": "You can define that for some types of source documents the system doesn't create electronic documents.",
+        "is_contained": false,
+        "reason": "The context does not provide any information about defining specific types of source documents for which the system doesn't create electronic documents. The text focuses on the limitations of customization in SAP Public Cloud for Italy's eDocument customer invoice process, but does not mention this specific capability."
+      },
+      {
+        "fact": "You can enhance the standard XML mapping by editing existing fields.",
+        "is_contained": false,
+        "reason": "The context does not mention anything about enhancing standard XML mapping or editing existing fields. The information provided focuses on the limitations of customization in SAP Public Cloud for eDocument customer invoice processes in Italy, and does not discuss XML mapping or field editing."
+      },
+      {
+        "fact": "You can enhance the standard XML mapping by adding new fields.",
+        "is_contained": false,
+        "reason": "The context does not mention anything about enhancing XML mapping or adding new fields. The text focuses on the limitations of customization in SAP Public Cloud for eDocument customer invoice processes in Italy, and does not provide any information about XML mapping enhancements."
+      }
+    ],
+    "llm_judge_tokens_consumed.input_tokens": 1061,
+    "llm_judge_tokens_consumed.output_tokens": 2,
+    "llm_judge_tokens_consumed.total_tokens": 1063,
+    "tokens_consumed.input_tokens": 6385,
+    "tokens_consumed.output_tokens": 913,
+    "tokens_consumed.total_tokens": 7298
+  },
+  {
+    "id": "EA-6",
+    "question": "As a Public Cloud customer in Turkey, can I extend an action for a custom-developed process?.",
+    "answer": "No. In Public Cloud, eDocument Actions can not be extended.",
+    "product": "ERP (only SAP S/4HANA Cloud Public Edition)",
+    "category": "Documentation (Maintenance - Customer case support)",
+    "persona": "Developer (Customer side)",
+    "activity": "Custom Development",
+    "country": "TR",
+    "facts": [
+      {
+        "fact": "In Public Cloud, eDocument Actions cannot be extended.",
+        "classification": "direct",
+        "id": "EA-6-1"
+      },
+      {
+        "fact": "As a Public Cloud customer in Turkey, you cannot extend an action for a custom-developed process.",
+        "classification": "direct",
+        "id": "EA-6-2"
+      }
+    ],
+    "bert_score": 0.0903419628739357,
+    "llm_judge_outcome": "Fully Helpful",
+    "llm_judge_model": "gemini-2.0-flash",
+    "llm_judge_call_count": 1,
+    "generated_answer": "Yes, as a Public Cloud customer in Turkey, you can extend an action for a custom-developed process in the Electronic Document Processing (EDP) system. Here's a summary of the key findings based on the SAP documentation and troubleshooting information:\n\n1. Customization Capabilities: The eDocument Cockpit app allows for customization of electronic document processing in the Public Cloud for Turkey. This app supports various business processes, including electronic invoices for customers and suppliers, consumer eInvoices, export invoices, and processing of outgoing and incoming delivery notes for registered users.\n\n2. Extension Mechanism: Key users can extend the eDocument Cockpit app using the Custom Logic app. This involves implementing specific Business Add-Ins (BAdIs) to adapt processes to meet local requirements and business needs.\n\n3. Supported Customizations: Some examples of supported customizations include:\n   - Changing the email sent to customers\n   - Determining the relevancy of materials for export\n   - Filling invoice headers and lines in XML files\n   - Generating electronic invoice IDs\n\n4. Compliance and Flexibility: These extensions allow you to define custom logic that can overwrite standard solutions or those provided by service providers, ensuring compliance with local regulations and addressing specific business requirements.\n\n5. No Specific Limitations: Our search for troubleshooting information did not reveal any specific limitations or issues related to extending custom processes for Public Cloud customers in Turkey, suggesting that the extension capabilities are generally available and supported.\n\nTechnical Explanation:\nThe extension of custom processes is achieved through the implementation of Business Add-Ins (BAdIs) using the Custom Logic app. This approach allows for the injection of custom code at specific points in the standard SAP processes, enabling you to modify or extend the default behavior of the EDP system.\n\nPlain Language Summary:\nIn simpler terms, SAP's cloud solution for Turkey allows you to customize and extend the electronic document processing system to fit your specific needs. You can add your own rules, change how certain processes work, and adapt the system to meet local Turkish requirements or your company's unique business processes.\n\nExample:\nLet's say you need to add a custom validation step for invoices before they are submitted to the Turkish tax authority. You could use the Custom Logic app to implement a BAdI that performs this validation, checking for specific criteria that are important for your business but not covered by the standard SAP solution.\n\nRemaining Uncertainties:\nWhile the capability to extend custom processes is confirmed, the exact scope of what can be customized may vary. It's always recommended to consult with SAP support or your implementation partner for specific requirements to ensure they fall within the supported customization framework.\n\nThe task is now complete. If you have any further questions or need more specific information about extending custom processes in Turkey, please feel free to ask.",
+    "model_used": "anthropic--claude-3.5-sonnet",
+    "triage_category": "All Tools",
+    "tools_used": [],
+    "tool_calls_count": 0,
+    "excecution_time_seconds": 47.67,
+    "llm_call_count": 3,
+    "fact_score.direct_fact_score": 0.0,
+    "fact_score.supporting_fact_score": 0.0,
+    "fact_score.combined_fact_score": 0.0,
+    "fact_score.direct_facts": [
+      {
+        "fact": "In Public Cloud, eDocument Actions cannot be extended.",
+        "is_contained": false,
+        "reason": "The context explicitly states that Public Cloud customers in Turkey can extend actions for custom-developed processes in the Electronic Document Processing (EDP) system. It mentions that the eDocument Cockpit app allows for customization and extension using the Custom Logic app and Business Add-Ins (BAdIs)."
+      },
+      {
+        "fact": "As a Public Cloud customer in Turkey, you cannot extend an action for a custom-developed process.",
+        "is_contained": false,
+        "reason": "The context explicitly contradicts this fact, stating that Public Cloud customers in Turkey can extend actions for custom-developed processes using the Custom Logic app and Business Add-Ins (BAdIs)."
+      }
+    ],
+    "fact_score.supporting_facts": [],
+    "llm_judge_tokens_consumed.input_tokens": 1068,
+    "llm_judge_tokens_consumed.output_tokens": 2,
+    "llm_judge_tokens_consumed.total_tokens": 1070,
+    "tokens_consumed.input_tokens": 5593,
+    "tokens_consumed.output_tokens": 880,
+    "tokens_consumed.total_tokens": 6473
+  },
+  {
+    "id": "EA-7",
+    "question": "Can I extend an Action in eDocument Cockpit for a custom developed Process in Public Cloud?",
+    "answer": "No, Actions can not be extended in Public Cloud",
+    "product": "ERP (only SAP S/4HANA Cloud Public Edition)",
+    "category": "Documentation (Maintenance - Customer case support)",
+    "persona": "Developer (Customer side)",
+    "activity": "Custom Development",
+    "country": "Cross",
+    "facts": [
+      {
+        "fact": "Actions cannot be extended in Public Cloud.",
+        "classification": "direct",
+        "id": "EA-7-1"
+      }
+    ],
+    "bert_score": 0.035984840244054794,
+    "llm_judge_outcome": "Fully Helpful",
+    "llm_judge_model": "gemini-2.0-flash",
+    "llm_judge_call_count": 1,
+    "generated_answer": "Based on the information gathered from SAP documentation and troubleshooting resources, it appears that extending an Action in the eDocument Cockpit for a custom developed Process in SAP Public Cloud may not be directly supported. Here's a summary of the key findings:\n\n1. Customization Options: The eDocument Cockpit does offer some customization capabilities, primarily through:\n   - Adding custom fields\n   - Enhancing authorization checks\n   - Configuring value mappings for XML file population\n\n2. Limitations:\n   - Actions in the eDocument Cockpit are often country-specific and tied to predefined processes.\n   - The available actions (such as Submit, Cancel, Resubmit) are typically designed for standard eDocument processes.\n\n3. No Direct Support for Custom Processes: There is no explicit mention of the ability to extend Actions for custom developed Processes in the Public Cloud environment.\n\n4. Standard Process Focus: The eDocument Cockpit seems to be designed primarily for handling standard eDocument processes related to finance, sales, and country-specific requirements.\n\nGiven these findings, it's unlikely that you can directly extend an Action in the eDocument Cockpit for a custom developed Process in Public Cloud. Instead, you may need to work within the constraints of the existing actions and processes provided by SAP.\n\nAlternative Approaches:\n1. Utilize existing customization options: Make use of custom fields and enhanced authorization to adapt the standard processes to your needs as much as possible.\n2. Integration: Consider integrating your custom process with the standard eDocument processes using SAP's APIs or integration tools.\n3. SAP Support: For specific requirements that cannot be met through standard customization, it's advisable to contact SAP support or your SAP implementation partner to explore potential solutions or workarounds.\n\nLimitations and Uncertainties:\n- The information available doesn't cover all possible scenarios in the Public Cloud environment.\n- SAP may introduce new features or customization options in future releases that could change this situation.\n\nIt's important to note that while direct extension of Actions for custom Processes may not be supported, SAP continuously evolves its cloud offerings. Always check the latest SAP documentation or consult with SAP directly for the most up-to-date information on customization capabilities in the Public Cloud environment.",
+    "model_used": "anthropic--claude-3.5-sonnet",
+    "triage_category": "All Tools",
+    "tools_used": [],
+    "tool_calls_count": 0,
+    "excecution_time_seconds": 71.847,
+    "llm_call_count": 5,
+    "fact_score.direct_fact_score": 1.0,
+    "fact_score.supporting_fact_score": 0.0,
+    "fact_score.combined_fact_score": 1.0,
+    "fact_score.direct_facts": [
+      {
+        "fact": "Actions cannot be extended in Public Cloud.",
+        "is_contained": true,
+        "reason": "The context states that there is no explicit mention of the ability to extend Actions for custom developed Processes in the Public Cloud environment, and it's unlikely that you can directly extend an Action in the eDocument Cockpit for a custom developed Process in Public Cloud."
+      }
+    ],
+    "fact_score.supporting_facts": [],
+    "llm_judge_tokens_consumed.input_tokens": 952,
+    "llm_judge_tokens_consumed.output_tokens": 2,
+    "llm_judge_tokens_consumed.total_tokens": 954,
+    "tokens_consumed.input_tokens": 10518,
+    "tokens_consumed.output_tokens": 1385,
+    "tokens_consumed.total_tokens": 11903
+  },
+  {
+    "id": "EA-8",
+    "question": "Can I extend an Action in eDocument Cockpit for a custom developed Process in Private Cloud?",
+    "answer": "Yes, you can extend an action in the eDocument Cockpit for a custom-developed process. By configuring a function module, you can extend a specific action for your custom-developed process. The function module is executed immediately after the action in a separate session using tRFC (transactional Remote Function Call). You can trigger additional actions within the framework or outside the framework. For example, you can trigger the automatic submission of an electronic document after it has been created [7].",
+    "product": "ERP (excluding SAP S/4HANA Cloud Public Edition)",
+    "category": "Documentation (Maintenance - Customer case support)",
+    "persona": "Developer (Customer side)",
+    "activity": "Custom Development",
+    "country": "Cross",
+    "facts": [
+      {
+        "fact": "You can extend an action in the eDocument Cockpit for a custom-developed process.",
+        "classification": "direct",
+        "id": "EA-8-1"
+      },
+      {
+        "fact": "Extending an action is done by configuring a function module.",
+        "classification": "direct",
+        "id": "EA-8-2"
+      },
+      {
+        "fact": "The function module is executed immediately after the action.",
+        "classification": "supporting",
+        "id": "EA-8-3"
+      },
+      {
+        "fact": "The function module runs in a separate session using tRFC (transactional Remote Function Call).",
+        "classification": "supporting",
+        "id": "EA-8-4"
+      },
+      {
+        "fact": "You can trigger additional actions within or outside the framework.",
+        "classification": "supporting",
+        "id": "EA-8-5"
+      },
+      {
+        "fact": "For example, you can trigger the automatic submission of an electronic document after it has been created.",
+        "classification": "supporting",
+        "id": "EA-8-6"
+      }
+    ],
+    "bert_score": 0.19678641855716705,
+    "llm_judge_outcome": "Fully Helpful",
+    "llm_judge_model": "gemini-2.0-flash",
+    "llm_judge_call_count": 1,
+    "generated_answer": "Yes, you can extend an Action in the eDocument Cockpit for a custom developed Process in the Private Cloud environment. Here's a summary of the key points and considerations:\n\n1. Customization Capabilities:\n   - The eDocument Cockpit can be extended using Business Add-Ins (BAdIs), specifically the EDOC_CUSTOM_FIELDS_CLOUD BAdI.\n   - You can add custom fields to enhance functionality and display data from various source documents such as billing, accounting, and delivery.\n   - Actions in the eDocument Cockpit can be customized, and the available actions depend on the specific process being used.\n\n2. Implementation Steps:\n   - Create custom fields using the Custom Fields app.\n   - Implement custom logic to populate these fields with data from source documents.\n   - Utilize app extensibility features to add custom fields and enhance authorization checks.\n\n3. Private Cloud Considerations:\n   - While the tools didn't provide specific limitations for Private Cloud environments, ensure that you have the necessary access rights and that your Private Cloud setup supports the required customizations.\n   - Be aware that some features may require specific configurations or activations, such as enabling \"Allow screen with details pane in edocument cockpit\" in the EDOGENCUSTV view.\n\n4. Limitations and Considerations:\n   - Not all actions are available for all countries/regions. For example, the Status action is not available for countries using the Peppol network.\n   - Some functionalities have been updated or replaced (e.g., EDOC_RESUBMIT replaced by EDOC_COCKPIT).\n   - Be mindful of country-specific processes and requirements, especially for countries like Mexico and Turkey.\n\n5. Technical Implementation:\n   - Customizations likely involve configuration within the SAP system.\n   - Integration with external systems and tax authorities may be required, implying the use of APIs or other integration methods.\n   - Consider automating repetitive tasks using the job scheduling functionality available in the eDocument Cockpit.\n\n6. Best Practices:\n   - Always test your customizations thoroughly in a non-production environment before implementing them in your production system.\n   - Keep up to date with SAP Notes and documentation, as some issues may be resolved through system updates or patches.\n   - Ensure that your customizations comply with any relevant regulatory requirements for electronic document processing in your region.\n\nIn summary, while you can extend Actions in the eDocument Cockpit for custom developed Processes in the Private Cloud, it's crucial to carefully consider the specific requirements of your custom process, any country-specific regulations, and the technical limitations of your Private Cloud environment. Always follow SAP's best practices for customization and thoroughly test your extensions before deploying them to production.",
+    "model_used": "anthropic--claude-3.5-sonnet",
+    "triage_category": "All Tools",
+    "tools_used": [],
+    "tool_calls_count": 0,
+    "excecution_time_seconds": 78.909,
+    "llm_call_count": 5,
+    "fact_score.direct_fact_score": 0.5,
+    "fact_score.supporting_fact_score": 0.0,
+    "fact_score.combined_fact_score": 0.16666666666666666,
+    "fact_score.direct_facts": [
+      {
+        "fact": "You can extend an action in the eDocument Cockpit for a custom-developed process.",
+        "is_contained": true,
+        "reason": "The context explicitly states 'Yes, you can extend an Action in the eDocument Cockpit for a custom developed Process in the Private Cloud environment.' It also provides details on customization capabilities and implementation steps."
+      },
+      {
+        "fact": "Extending an action is done by configuring a function module.",
+        "is_contained": false,
+        "reason": "The context does not mention configuring function modules to extend actions. Instead, it describes extending actions in the eDocument Cockpit using Business Add-Ins (BAdIs), custom fields, and app extensibility features."
+      }
+    ],
+    "fact_score.supporting_facts": [
+      {
+        "fact": "The function module is executed immediately after the action.",
+        "is_contained": false,
+        "reason": "The context does not mention any specific function module or its execution timing in relation to actions. The text focuses on customization capabilities, implementation steps, and considerations for extending the eDocument Cockpit, but does not provide information about the execution order of function modules and actions."
+      },
+      {
+        "fact": "The function module runs in a separate session using tRFC (transactional Remote Function Call).",
+        "is_contained": false,
+        "reason": "The given context does not mention anything about function modules, separate sessions, or tRFC. The text focuses on customizing the eDocument Cockpit in a Private Cloud environment and does not contain information related to the stated fact."
+      },
+      {
+        "fact": "You can trigger additional actions within or outside the framework.",
+        "is_contained": false,
+        "reason": "The context does not explicitly mention triggering additional actions within or outside the framework. While it discusses customization capabilities and extending actions in the eDocument Cockpit, it does not specifically state that you can trigger additional actions as described in the fact."
+      },
+      {
+        "fact": "For example, you can trigger the automatic submission of an electronic document after it has been created.",
+        "is_contained": false,
+        "reason": "The context does not explicitly mention the ability to trigger automatic submission of electronic documents after creation. While it discusses customization capabilities and actions in the eDocument Cockpit, it does not specifically address this automated submission feature."
+      }
+    ],
+    "llm_judge_tokens_consumed.input_tokens": 1059,
+    "llm_judge_tokens_consumed.output_tokens": 2,
+    "llm_judge_tokens_consumed.total_tokens": 1061,
+    "tokens_consumed.input_tokens": 11457,
+    "tokens_consumed.output_tokens": 1461,
+    "tokens_consumed.total_tokens": 12918
+  },
+  {
+    "id": "EA-9",
+    "question": "Can I extend the Manage Electronic Documents app or the eDocument Cockpit App by adding custom field in Public Cloud?",
+    "answer": "Yes, you can extend the Manage Electronic Documents app and the eDocument Cockpit app in the Public Cloud by adding custom fields. This can be done by using Business Add-Ins (BAdIs): 1. EDOC_CUSTOM_FIELDS_CLOUD 2. EDOC_CUSTOM_FIELDS_UI_CLOUD",
+    "product": "ERP (only SAP S/4HANA Cloud Public Edition)",
+    "category": "Documentation (Maintenance - Customer case support)",
+    "persona": "Developer (Customer side)",
+    "activity": "Custom Development",
+    "country": "Cross",
+    "facts": [
+      {
+        "fact": "You can extend the Manage Electronic Documents app in the Public Cloud by adding custom fields.",
+        "classification": "direct",
+        "id": "EA-9-1"
+      },
+      {
+        "fact": "You can extend the eDocument Cockpit app in the Public Cloud by adding custom fields.",
+        "classification": "direct",
+        "id": "EA-9-2"
+      },
+      {
+        "fact": "Extension is possible by using Business Add-Ins (BAdIs).",
+        "classification": "supporting",
+        "id": "EA-9-3"
+      },
+      {
+        "fact": "The BAdI EDOC_CUSTOM_FIELDS_CLOUD can be used for this extension.",
+        "classification": "supporting",
+        "id": "EA-9-4"
+      },
+      {
+        "fact": "The BAdI EDOC_CUSTOM_FIELDS_UI_CLOUD can be used for this extension.",
+        "classification": "supporting",
+        "id": "EA-9-5"
+      }
+    ],
+    "bert_score": 0.332481324672699,
+    "llm_judge_outcome": "Fully Helpful",
+    "llm_judge_model": "gemini-2.0-flash",
+    "llm_judge_call_count": 1,
+    "generated_answer": "Yes, you can extend the Manage Electronic Documents app and the eDocument Cockpit App by adding custom fields in the SAP Public Cloud environment. Here's a summary of the key points:\n\n1. Extensibility Options:\n   - Both apps support extensibility through Custom Fields and Custom Logic apps in the Public Cloud.\n   - Extensions can be implemented using Developer Extensibility and Key User Extensibility.\n\n2. Implementation Process:\n   a. Create custom fields using the Custom Fields app.\n   b. Implement custom logic using the Custom Logic app and specific Business Add-Ins (BAdIs).\n\n3. Key Technical Components:\n   - Enhancement spot: ES_EDOCUMENT_CLOUD\n   - BAdIs: EDOC_CUSTOM_FIELDS_CLOUD (for filling custom fields) and EDOC_CUSTOM_FIELDS_UI_CLOUD (for field visibility in eDocument Cockpit)\n   - Structure: CUSTOM_FIELDS (for defining custom fields)\n\n4. Development Environment:\n   - Use ADT (Eclipse-based ABAP development tools) to create enhancement BAdI implementation ABAP classes.\n\n5. Use Cases:\n   - Store additional organizational unit information from source documents.\n   - Enable additional authorization checks based on custom fields.\n   - Customize outgoing emails related to electronic documents.\n\nExample implementation steps:\n1. Create a custom field (e.g., \"Total Weight\") using the Custom Fields app.\n2. Implement the EDOC_CUSTOM_FIELDS_CLOUD BAdI to populate the custom field with data from source documents.\n3. Use the EDOC_CUSTOM_FIELDS_UI_CLOUD BAdI to control the visibility of the custom field in the UI.\n\nIt's important to note that while these extensibility options provide flexibility, they should be implemented carefully to ensure compatibility with future updates and to maintain system performance.\n\nLimitations and Considerations:\n- Extensions are limited to the capabilities provided by the Custom Fields and Custom Logic apps.\n- Careful planning is required to ensure that custom fields align with business processes and reporting requirements.\n- Regular testing is recommended, especially after system updates, to ensure that custom extensions continue to function as expected.\n\nBy leveraging these extensibility features, you can tailor the Manage Electronic Documents app and eDocument Cockpit App to better fit your specific business needs within the SAP Public Cloud environment.",
+    "model_used": "anthropic--claude-3.5-sonnet",
+    "triage_category": "All Tools",
+    "tools_used": [],
+    "tool_calls_count": 0,
+    "excecution_time_seconds": 68.616,
+    "llm_call_count": 5,
+    "fact_score.direct_fact_score": 1.0,
+    "fact_score.supporting_fact_score": 1.0,
+    "fact_score.combined_fact_score": 1.0,
+    "fact_score.direct_facts": [
+      {
+        "fact": "You can extend the Manage Electronic Documents app in the Public Cloud by adding custom fields.",
+        "is_contained": true,
+        "reason": "The context explicitly states that the Manage Electronic Documents app can be extended by adding custom fields in the SAP Public Cloud environment. It mentions 'Yes, you can extend the Manage Electronic Documents app and the eDocument Cockpit App by adding custom fields in the Public Cloud environment.'"
+      },
+      {
+        "fact": "You can extend the eDocument Cockpit app in the Public Cloud by adding custom fields.",
+        "is_contained": true,
+        "reason": "The context explicitly states that the eDocument Cockpit App can be extended by adding custom fields in the SAP Public Cloud environment. It provides details on how to implement this using the Custom Fields app and Custom Logic app."
+      }
+    ],
+    "fact_score.supporting_facts": [
+      {
+        "fact": "Extension is possible by using Business Add-Ins (BAdIs).",
+        "is_contained": true,
+        "reason": "The context explicitly mentions that extensions can be implemented using Business Add-Ins (BAdIs). It specifically lists two BAdIs: EDOC_CUSTOM_FIELDS_CLOUD and EDOC_CUSTOM_FIELDS_UI_CLOUD for implementing custom logic and controlling field visibility."
+      },
+      {
+        "fact": "The BAdI EDOC_CUSTOM_FIELDS_CLOUD can be used for this extension.",
+        "is_contained": true,
+        "reason": "The context explicitly mentions the BAdI EDOC_CUSTOM_FIELDS_CLOUD as one of the key technical components for implementing custom fields in the Manage Electronic Documents app and eDocument Cockpit App."
+      },
+      {
+        "fact": "The BAdI EDOC_CUSTOM_FIELDS_UI_CLOUD can be used for this extension.",
+        "is_contained": true,
+        "reason": "The context explicitly mentions the BAdI EDOC_CUSTOM_FIELDS_UI_CLOUD as one of the key technical components for extending the eDocument Cockpit, specifically for controlling field visibility."
+      }
+    ],
+    "llm_judge_tokens_consumed.input_tokens": 992,
+    "llm_judge_tokens_consumed.output_tokens": 2,
+    "llm_judge_tokens_consumed.total_tokens": 994,
+    "tokens_consumed.input_tokens": 11346,
+    "tokens_consumed.output_tokens": 1358,
+    "tokens_consumed.total_tokens": 12704
+  },
+  {
+    "id": "EA-10",
+    "question": "What BAdIs can be used to extend the Manage Electronic Documents by adding custom field in Public Cloud?",
+    "answer": "The BAdIs EDOC_CUSTOM_FIELDS_CLOUD and EDOC_CUSTOM_FIELDS_UI_CLOUD can be used to extend the Manage Electronic Documents by adding custom fields in the Public Cloud.",
+    "product": "ERP (only SAP S/4HANA Cloud Public Edition)",
+    "category": "How to Develop (Maintenance - Customer case support)",
+    "persona": "Developer (Customer side)",
+    "activity": "Custom Development",
+    "country": "Cross",
+    "facts": [
+      {
+        "fact": "The BAdI EDOC_CUSTOM_FIELDS_CLOUD can be used to extend Manage Electronic Documents by adding custom fields in Public Cloud.",
+        "classification": "direct",
+        "id": "EA-10-1"
+      },
+      {
+        "fact": "The BAdI EDOC_CUSTOM_FIELDS_UI_CLOUD can be used to extend Manage Electronic Documents by adding custom fields in Public Cloud.",
+        "classification": "direct",
+        "id": "EA-10-2"
+      }
+    ],
+    "bert_score": 0.1471501886844635,
+    "llm_judge_outcome": "Partially Helpful",
+    "llm_judge_model": "gemini-2.0-flash",
+    "llm_judge_call_count": 1,
+    "generated_answer": "Based on the information gathered from SAP documentation and troubleshooting resources, here's what we know about extending the Manage Electronic Documents app with custom fields in SAP S/4HANA Public Cloud:\n\n1. Extensibility Options:\n   SAP S/4HANA Public Cloud allows key users to extend the Manage Electronic Documents app using Business Add-Ins (BAdIs). These BAdIs enable users to add custom fields and implement custom logic to enhance the functionality of electronic document processing.\n\n2. Custom Fields:\n   Users can extend the eDocument Cockpit with their own custom fields, which can then be displayed in the app. This allows for tailoring the application to specific business needs.\n\n3. Implementation Process:\n   The process involves using the Custom Logic app to implement specific BAdIs. While we don't have an exhaustive list of BAdIs specifically for adding custom fields, we know that these BAdIs generally allow users to:\n   - Define custom logic for filling fields in invoice and credit note XML files\n   - Adapt email communications\n   - Handle attachments and document references within the XML file modification process\n\n4. Related BAdI and Customizations:\n   - One relevant BAdI mentioned is EDOC_ADAPTOR, which can be used for additional mapping information. However, its specific use for adding custom fields needs to be verified.\n   - Some related customizations that might be relevant include:\n     * Activating Source Type Documents for Company Code (EDOCOMPANYACTIV)\n     * Defining Interface Type for eDocument (EDOINTTYPEV)\n     * Assigning eDocument Type to Accounting Document Type (T003EDOC)\n     * Assigning eDocument Type to Billing Document Type (TVFKEDOCV)\n     * Assigning Party ID Types to Business Partner (EDOEUBUPAV)\n\n5. Custom Electronic Document Processes:\n   Users can develop and use custom electronic document processes when standard SAP-delivered processes don't fully meet their business requirements or are not available in the app.\n\nTo get the specific BAdI names for adding custom fields, you may need to:\n1. Consult the latest SAP S/4HANA Cloud documentation for Electronic Document Processing.\n2. Use the Custom Logic app in your SAP S/4HANA Cloud system to explore available BAdIs for the Manage Electronic Documents app.\n3. Contact SAP support for the most up-to-date information on BAdIs specific to adding custom fields in the Manage Electronic Documents app.\n\nRemember that while SAP provides these extensibility options, any customizations should be carefully implemented and tested to ensure they don't interfere with standard functionality or future updates.",
+    "model_used": "anthropic--claude-3.5-sonnet",
+    "triage_category": "All Tools",
+    "tools_used": [],
+    "tool_calls_count": 0,
+    "excecution_time_seconds": 43.667,
+    "llm_call_count": 3,
+    "fact_score.direct_fact_score": 0.0,
+    "fact_score.supporting_fact_score": 0.0,
+    "fact_score.combined_fact_score": 0.0,
+    "fact_score.direct_facts": [
+      {
+        "fact": "The BAdI EDOC_CUSTOM_FIELDS_CLOUD can be used to extend Manage Electronic Documents by adding custom fields in Public Cloud.",
+        "is_contained": false,
+        "reason": "The context mentions that BAdIs can be used to extend the Manage Electronic Documents app with custom fields in SAP S/4HANA Public Cloud, but it does not specifically mention the BAdI EDOC_CUSTOM_FIELDS_CLOUD. The text states that users can add custom fields, but it does not provide the exact name of the BAdI used for this purpose."
+      },
+      {
+        "fact": "The BAdI EDOC_CUSTOM_FIELDS_UI_CLOUD can be used to extend Manage Electronic Documents by adding custom fields in Public Cloud.",
+        "is_contained": false,
+        "reason": "The context mentions that BAdIs can be used to extend the Manage Electronic Documents app with custom fields in SAP S/4HANA Public Cloud, but it does not specifically mention the BAdI EDOC_CUSTOM_FIELDS_UI_CLOUD. The text states that the exact BAdI names for adding custom fields are not provided and suggests consulting SAP documentation or support for specific BAdI information."
+      }
+    ],
+    "fact_score.supporting_facts": [],
+    "llm_judge_tokens_consumed.input_tokens": 1060,
+    "llm_judge_tokens_consumed.output_tokens": 2,
+    "llm_judge_tokens_consumed.total_tokens": 1062,
+    "tokens_consumed.input_tokens": 5770,
+    "tokens_consumed.output_tokens": 867,
+    "tokens_consumed.total_tokens": 6637
+  }
+]
