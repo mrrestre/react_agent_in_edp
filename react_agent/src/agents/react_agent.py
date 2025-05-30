@@ -54,7 +54,11 @@ class ReActAgent:
                     tool_rankings += f"Tool name: {tool.name}, Ranking: {AGENT_SETTINGS.mcp_tool_ranking.get(tool.name)}\n"
 
             return sys_prompt_template.format(
-                react_instructions=("\n").join(AGENT_SETTINGS.instructions),
+                react_instructions=("\n").join(
+                    AGENT_SETTINGS.reasoning_model_instructions
+                    if LLM_PROXY_SETTINGS.is_reasoning_model
+                    else AGENT_SETTINGS.react_instructions
+                ),
                 tools=self.generate_tool_info_string(),
                 rules=("\n").join(AGENT_SETTINGS.rules_tool_rankings),
                 tool_rankings=tool_rankings,
@@ -65,7 +69,11 @@ class ReActAgent:
             )
 
             return sys_prompt_template.format(
-                react_instructions=("\n").join(AGENT_SETTINGS.instructions),
+                react_instructions=("\n").join(
+                    AGENT_SETTINGS.reasoning_model_instructions
+                    if LLM_PROXY_SETTINGS.is_reasoning_model
+                    else AGENT_SETTINGS.react_instructions
+                ),
                 tools=self.generate_tool_info_string(),
                 rules=("\n").join(AGENT_SETTINGS.rules_tool_memory),
             )
@@ -106,7 +114,11 @@ class ReActAgent:
         input_object = {"messages": [("user", user_message)]}
 
         config_object = {
-            "recursion_limit": AGENT_SETTINGS.max_iterations,
+            "recursion_limit": (
+                AGENT_SETTINGS.max_iterations_reasoning_model
+                if LLM_PROXY_SETTINGS.is_reasoning_model
+                else AGENT_SETTINGS.max_iterations
+            ),
         }
 
         run_start_time = time.perf_counter()
@@ -144,7 +156,13 @@ class ReActAgent:
 
         input_object = {"messages": [("user", user_message)]}
 
-        config_object = {"recursion_limit": AGENT_SETTINGS.max_iterations}
+        config_object = {
+            "recursion_limit": (
+                AGENT_SETTINGS.max_iterations_reasoning_model
+                if LLM_PROXY_SETTINGS.is_reasoning_model
+                else AGENT_SETTINGS.max_iterations
+            ),
+        }
 
         run_start_time = time.perf_counter()
 

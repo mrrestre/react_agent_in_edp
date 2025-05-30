@@ -193,8 +193,10 @@ class AgentSettings(BaseSettings):
     """Settings for the Main Agent"""
 
     logger_name: str = "ReAct Agent"
-    max_iterations: int = 20
-
+    max_iterations: int = 10
+    max_iterations_reasoning_model: int = (
+        40  # For reasoning models more steps are needed
+    )
     use_tool_rankings: bool = True
 
     tool_rankings: dict[str, ToolRanking] = {
@@ -219,11 +221,9 @@ You are an expert in Electronic Document Processing, with deep domain knowledge 
 Use a reason-and-act (ReAct) approach to answer user questions with clear, well-supported reasoning chains, and tool-validated outputs. Final answers must reflect insights derived from specific tool calls.
 
 ## Instructions
-**You will operate in a strict step-by-step loop. After a tool is called and you receive its output, your response MUST follow the sequence below and then STOP, waiting for the next instruction or tool result from the system.**
 {react_instructions}
 
 Always follow these behavioral standards:
-
 - Replace biased or inappropriate language with inclusive, respectful phrasing.
 - If a respectful response cannot be generated, politely decline the request.
 - Focus only on the specific sub-task at each step. Do not unnecessarily restate all rules each cycle.
@@ -238,6 +238,7 @@ You have access to the following tools to gather facts, retrieve relevant data, 
     system_prompt_tool_rankings: str = (
         system_prompt
         + """
+        
 ## Tool Rankings
 {tool_rankings}"""
     )
@@ -259,7 +260,9 @@ You have access to the following tools to gather facts, retrieve relevant data, 
         "- Follow the ranking of the tools to decided which tools are more relevant and be prefered",
     ]
 
-    instructions: list[str] = [
+    react_instructions: list[str] = [
+        "**You will operate in a strict step-by-step loop. After a tool is called and you receive its output, your response MUST follow the sequence below and then STOP, waiting for the next instruction or tool result from the system.**",
+        "",
         "1. Initial Observation: This is the first thing you should always do after a user message: Restate the user's request or define the sub-task being addressed. Clearly establish the current focus.",
         "2. Agentic Loop: Loop through the following reasoning cycle, until an answer to the user query has been created. The answer **must** be supported by information coming from the provided tools",
         "[REASONING CYCLE BEGIN]",
@@ -267,16 +270,14 @@ You have access to the following tools to gather facts, retrieve relevant data, 
         "   2.2. Action Plan: Generate a high-level sequence outlining how you intend to solve the user's entire request. Revise the Action Plan only if new observations reveal significant changes.",
         "   2.3. Action: Based on the current Observation, Thought, and Action Plan, decide the immediate next step. Name the selected tool and parameters. Take no further action until the result is returned.",
         "   2.4. Observation: Record the tool output exactly as received without paraphrasing.",
-        "[REASONING CYCLE END]",
-        "[AGENTIC LOOP EXIT CONDITION BEGIN]",
+        "   [LOOP EXIT CONDITION]",
         "   2.5. Validation Step (MANDATORY) as a condition for moving to the Final Answer:",
-        "       - Should be considered as a reasoning cycle step.",
         "       - Summarize the distinct tool outputs gathered.",
         "       - Evaluate whether they support or contradict each other.",
         "       - Explicitly state whether the answer has been confirmed, expanded, or corrected based on the second source.",
         "       - If only one source was used due to tool limits or null results, state that clearly and justify.",
         "       - If the answer is confirmed, proceed to the Final Answer.",
-        "[AGENTIC LOOP EXIT CONDITION END]",
+        "[REASONING CYCLE END]",
         "3. Final Answer (Only include following points in the final agent message):",
         "    - Summarize key findings based on specific tool outputs.",
         "    - Explain how tools and results supported the answer.",
@@ -286,6 +287,29 @@ You have access to the following tools to gather facts, retrieve relevant data, 
         "    - This section should be the sole content of the final message. Omit previous sections (Observations, Thoughts, Action Plans, etc.).",
         "    - After generating this Final Answer, signal that the task is complete.",
     ]
+
+    reasoning_model_instructions: list[str] = [
+        "1. PLAN:",
+        "   - Restate the user's request in your own words.",
+        "   - Sketch a high-level approach: which tools you'll call and why.",
+        "2. EXECUTE:",
+        "   - Call the highest-ranked relevant tool first.",
+        "   - Wait for the tool to return its output, then immediately proceed to either VERIFY or SUMMARIZE.",
+        "   - Use strict sequential execution: only one tool call per reasoning cycle.",
+        "   - Record the tool's raw output (no paraphrase).",
+        "3. VERIFY:",
+        "   - If the output is ambiguous or high-impact (e.g. compliance rules), call a second, independent tool.",
+        "   - Compare both results. If they conflict, prefer the output from the tool with the highest ranking.",
+        "   - **If only one tool call was needed and there’s no conflict, skip directly to SUMMARIZE.**",
+        "4. SUMMARIZE:",
+        "   - Produce your final answer using only these tool results.",
+        "   - Include a concise technical explanation.",
+        "   - Include a one-sentence plain-language summary.",
+        "   - Include short examples or snippets where helpful.",
+        "   - **Once SUMMARIZE is done, terminate the response—no further planning or pauses.**",
+    ]
+
+    empty_instructions: list[str] = []
 
 
 # --------------- MCP Servers --------------- #
@@ -342,10 +366,11 @@ class LlmProxySettings(BaseSettings):
     """Settings for the LLM Proxy"""
 
     logger_name: str = "LLM Proxy"
-    model: str = "gpt-4.1"  # gemini-2.0-flash / gpt-4o / gpt-4.1
-    max_output_tokens: int = 1024
+    model: str = "gpt-4.1"  # gemini-2.0-flash / gpt-4o / gpt-4.1 / o3
+    is_reasoning_model: bool = False
+    max_output_tokens: int = 5000
     temperature: float = 0.05
-    max_input_tokens: int = 20000
+    max_input_tokens: int = 50000 if is_reasoning_model else 20000
 
 
 class MemoryManagerSettings(BaseSettings):

@@ -47,7 +47,7 @@ class SupportedModels(BaseModel):
     """Supported models for LLM invocation."""
 
     open_ai: list[str] = ["gpt-4o", "gpt-4o-mini"]
-    open_ai_not_in_sdk: list[str] = ["gpt-4.1"]
+    open_ai_not_in_sdk: list[str] = ["gpt-4.1", "o3"]
 
     gemini_not_in_sdk: list[str] = ["gemini-2.0-flash"]
 
