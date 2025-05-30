@@ -1,6 +1,7 @@
 """Description: ReAct Agent class to manage the React Agent and its tools."""
 
 import json
+import re
 import time
 from typing import Optional
 from langchain_core.tools import StructuredTool
@@ -180,7 +181,9 @@ class ReActAgent:
         The return parameter contains the execution trail"""
 
         # Set the final agent message as the response from the run
-        self.run_data.final_output = execution_messages[-1].content
+        self.run_data.final_output = self._extract_after_final_answer(
+            execution_messages[-1].content
+        )
         self.run_data.excecution_time_seconds = round(run_time, 3)
 
         for message in execution_messages:
@@ -208,3 +211,20 @@ class ReActAgent:
     def get_execution_data(self) -> AgentRun:
         """Help function for getting execution metadata"""
         return self.run_data
+
+    def _extract_after_final_answer(self, text: str) -> str:
+        """Extracts the final answer from the text after 'Final Answer:'."""
+        match = re.search(
+            r"(?:^|\n)\s*(?:#{1,6}\s*)?(?:\*\*)?\s*final answer\s*:?\s*(.*)",
+            text,
+            re.IGNORECASE | re.DOTALL,
+        )
+
+        final_answer = match.group(1).strip() if match else text.strip()
+
+        # Remove trailing indicator for task completion
+        final_answer = re.sub(
+            r"\s*Task (?:done|complete)\.?\s*$", "", final_answer, flags=re.IGNORECASE
+        ).strip()
+
+        return final_answer

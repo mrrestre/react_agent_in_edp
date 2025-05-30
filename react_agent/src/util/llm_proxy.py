@@ -181,22 +181,16 @@ class LlmProxy:
 
     def set_new_model(self, model: str) -> None:
         """Set the model to be used."""
-        init_function = None
         if model not in SupportedModels().get_all_models():
             raise ValueError(
                 f"Model {model} is not supported. Supported models are: {SupportedModels().get_all_models()}"
             )
-        if model in SupportedModels().gemini_not_in_sdk:
-            init_function = google_vertexai_init_chat_model
+        else:
+            self._used_model = model
 
-        self._used_model = model
         self.reset_usage()
-        self._llm = init_llm(
-            self._used_model,
-            max_tokens=LLM_PROXY_SETTINGS.max_output_tokens,
-            temperature=LLM_PROXY_SETTINGS.temperature,
-            init_func=init_function,
-        )
+
+        self._initiliaze_llm()
 
 
 # module‑level singleton
