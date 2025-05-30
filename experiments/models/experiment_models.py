@@ -4,7 +4,7 @@ from enum import StrEnum
 from typing import Optional
 from pydantic import BaseModel
 
-from experiments.fact_score.model.fact_score_models import FactClassification
+from experiments.metrics.fact_score.model.fact_score_models import FactClassification
 from react_agent.src.agents.models.react_agent_models import ToolCall
 from react_agent.src.config.system_parameters import TriageSettings
 from react_agent.src.util.llm_proxy import TokenConsumption

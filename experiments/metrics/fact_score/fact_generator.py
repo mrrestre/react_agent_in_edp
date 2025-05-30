@@ -2,12 +2,12 @@
 
 import json
 
-from experiments.fact_score.model.fact_score_models import (
+from experiments.metrics.fact_score.model.fact_score_models import (
     FactClassification,
     FactGeneratorExample,
 )
-from experiments.fact_score.settings import FactScoreSettings
-from experiments.fact_score.util import Util
+from experiments.metrics.fact_score.settings import FactScoreSettings
+from experiments.metrics.fact_score.util import Util
 from react_agent.src.util.llm_proxy import LLM_PROXY
 
 FACT_GENERATOR_SETTINGS = FactScoreSettings()

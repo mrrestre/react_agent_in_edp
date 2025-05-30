@@ -24,6 +24,7 @@ Given a question and an answer, extract at most {n} **atomic facts** from the an
 - Do not include opinions, assumptions, or irrelevant information.
 - Each fact must be concise and independently meaningful.
 - Do not fabricate or infer facts not found in the answer.
+- Examples and code snippets are considered as supporting facts, not direct answers.
 - If there are fewer than {n} relevant facts, extract only the meaningful ones.
 
 ## Output Format
