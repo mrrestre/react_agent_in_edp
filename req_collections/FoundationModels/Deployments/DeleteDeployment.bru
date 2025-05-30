@@ -1,0 +1,31 @@
+meta {
+  name: DeleteDeployment
+  type: http
+  seq: 3
+}
+
+delete {
+  url: {{AI_CORE_API_URL}}/v2/lm/deployments/d8834926c2b1325c
+  body: json
+  auth: oauth2
+}
+
+headers {
+  AI-Resource-Group: default
+  Content-Type: application/json
+}
+
+auth:oauth2 {
+  grant_type: client_credentials
+  access_token_url: https://llm-sandbox-mwyoqo2v.authentication.eu12.hana.ondemand.com/oauth/token
+  refresh_token_url: 
+  client_id: sb-c511aa1b-4d8d-4260-aa3f-e34aac3682e7!b352783|xsuaa_std!b318061
+  client_secret: 11a8b680-6dba-4836-a352-fca689671ac7$kdmKY5yqy-tNKJUv5U5hpz7Xm7fEh9q68Bil3J4Xo4I=
+  scope: 
+  credentials_placement: basic_auth_header
+  credentials_id: credentials
+  token_placement: header
+  token_header_prefix: Bearer
+  auto_fetch_token: true
+  auto_refresh_token: false
+}

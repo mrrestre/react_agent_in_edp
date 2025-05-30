@@ -1,7 +1,7 @@
 meta {
   name: PostConfiguration
   type: http
-  seq: 6
+  seq: 4
 }
 
 post {
@@ -21,14 +21,14 @@ auth:bearer {
 
 body:json {
   {
-    "name": "alejandro_gpt-4.1",
-    "executableId": "azure-openai",
+    "name": "alejandro_claude-3.5",
+    "executableId": "aws-bedrock",
     "scenarioId": "foundation-models",
     "versionId": "0.0.1",
     "parameterBindings": [
       {
         "key": "modelName",
-        "value": "gpt-4.1"
+        "value": "anthropic--claude-3.5-sonnet"
       },
       {
         "key": "modelVersion",

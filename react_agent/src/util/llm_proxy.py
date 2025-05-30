@@ -51,9 +51,16 @@ class SupportedModels(BaseModel):
 
     gemini_not_in_sdk: list[str] = ["gemini-2.0-flash"]
 
+    anthropic: list[str] = ["anthropic--claude-3.5-sonnet"]
+
     def get_all_models(self) -> list[str]:
         """Get all supported models."""
-        return self.open_ai + self.open_ai_not_in_sdk + self.gemini_not_in_sdk
+        return (
+            self.open_ai
+            + self.open_ai_not_in_sdk
+            + self.gemini_not_in_sdk
+            + self.anthropic
+        )
 
 
 class LlmProxy:
