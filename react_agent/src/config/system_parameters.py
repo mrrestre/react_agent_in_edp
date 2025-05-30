@@ -339,7 +339,7 @@ class LlmProxySettings(BaseSettings):
     """Settings for the LLM Proxy"""
 
     logger_name: str = "LLM Proxy"
-    model: str = "gpt-4o"  # gemini-2.0-flash / gpt-4o
+    model: str = "gpt-4.1"  # gemini-2.0-flash / gpt-4o / gpt-4.1
     max_output_tokens: int = 1024
     temperature: float = 0.05
     max_input_tokens: int = 20000

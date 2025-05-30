@@ -8,6 +8,7 @@ from gen_ai_hub.proxy.langchain.init_models import init_llm
 from gen_ai_hub.proxy.langchain.google_vertexai import (
     init_chat_model as google_vertexai_init_chat_model,
 )
+from gen_ai_hub.proxy.langchain.openai import init_chat_model as openai_init_chat_model
 
 from langchain_core.runnables import RunnableConfig
 from langchain_core.messages import AIMessage
@@ -46,11 +47,13 @@ class SupportedModels(BaseModel):
     """Supported models for LLM invocation."""
 
     open_ai: list[str] = ["gpt-4o", "gpt-4o-mini"]
-    gemini: list[str] = ["gemini-2.0-flash"]
+    open_ai_not_in_sdk: list[str] = ["gpt-4.1"]
+
+    gemini_not_in_sdk: list[str] = ["gemini-2.0-flash"]
 
     def get_all_models(self) -> list[str]:
         """Get all supported models."""
-        return self.open_ai + self.gemini
+        return self.open_ai + self.open_ai_not_in_sdk + self.gemini_not_in_sdk
 
 
 class LlmProxy:
@@ -67,13 +70,24 @@ class LlmProxy:
         else:
             self._used_model = LLM_PROXY_SETTINGS.model
 
-        # For Google Vertex AI models, we need to use a specific initialization function
-        if self._used_model in SupportedModels().gemini:
+        self._initiliaze_llm()
+
+    def _initiliaze_llm(self) -> None:
+        # For models from Google Vertex AI not yet supported by the sdk, a specific initialization function is needed
+        if self._used_model in SupportedModels().gemini_not_in_sdk:
             self._llm = init_llm(
                 self._used_model,
                 max_tokens=LLM_PROXY_SETTINGS.max_output_tokens,
                 temperature=LLM_PROXY_SETTINGS.temperature,
                 init_func=google_vertexai_init_chat_model,
+            )
+        # For models from OpenAI not yet supported by the sdk, a specific initialization function is needed
+        elif self._used_model in SupportedModels().open_ai_not_in_sdk:
+            self._llm = init_llm(
+                self._used_model,
+                max_tokens=LLM_PROXY_SETTINGS.max_output_tokens,
+                temperature=LLM_PROXY_SETTINGS.temperature,
+                init_func=openai_init_chat_model,
             )
         else:
             self._llm = init_llm(
@@ -172,7 +186,7 @@ class LlmProxy:
             raise ValueError(
                 f"Model {model} is not supported. Supported models are: {SupportedModels().get_all_models()}"
             )
-        if model in SupportedModels().gemini:
+        if model in SupportedModels().gemini_not_in_sdk:
             init_function = google_vertexai_init_chat_model
 
         self._used_model = model
