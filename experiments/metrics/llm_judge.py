@@ -43,7 +43,7 @@ Answer: The capital of France is Madrid.
 
 Example 4  
 Question: How does photosynthesis work?  
-Answer: It’s something plants do to grow.  
+Answer: It's something plants do to grow.  
 → Classification: 1  
 (Reason: Too vague and incomplete, but somewhat relevant)
 
@@ -59,7 +59,7 @@ Answer: The stock market fluctuates based on investor behavior.
 (Reason: Completely unrelated)
 
 ## Output Format
-Respond with a single value: `2`, `1`, or `0` corresponding to the classification.
+Respond with a single number: 2, 1, or 0 corresponding to the classification.
 """
 
 

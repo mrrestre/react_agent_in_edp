@@ -26,10 +26,13 @@ class ReActAgent:
     def __init__(
         self,
         tool_list: list[BaseTool],
+        custom_judge_prompt: Optional[str] = None,
     ):
         self.run_data: AgentRun = AgentRun(
             model_used=LLM_PROXY_SETTINGS.model,
         )
+
+        self.custom_judge_prompt: Optional[str] = custom_judge_prompt
 
         self.available_tools: list[BaseTool] = tool_list
 
@@ -41,10 +44,16 @@ class ReActAgent:
 
     def create_sys_prompt(self) -> str:
         """Create the prompt for the agent based on AGENT_SYSTEM_PROMPT."""
+
         if AGENT_SETTINGS.use_tool_rankings:
-            sys_prompt_template = PromptTemplate.from_template(
-                AGENT_SETTINGS.system_prompt_tool_rankings
-            )
+            if self.custom_judge_prompt:
+                sys_prompt_template = PromptTemplate.from_template(
+                    self.custom_judge_prompt
+                )
+            else:
+                sys_prompt_template = PromptTemplate.from_template(
+                    AGENT_SETTINGS.system_prompt_tool_rankings
+                )
 
             tool_rankings = ""
             for tool in self.available_tools:
