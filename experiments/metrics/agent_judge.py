@@ -10,9 +10,10 @@ from react_agent.src.util.tools_fabric import ToolsFabric
 
 from react_agent.src.util.llm_proxy import LLM_PROXY, TokenConsumption
 
-USER_MESSAGE_TEMPLATE = """## Input
+JUDGE_USER_MESSAGE_TEMPLATE = """## Input
 Question: {question}
-Generated Answer: {answer}"""
+Expert Answer: {expert_answer}
+Generated Answer: {generated_answer}"""
 
 
 class JudgementResponseFormat(BaseModel):
@@ -44,11 +45,15 @@ class AgentJudgeEvaluator:
         tools.append(JudgementResponseFormat)
         self.agent = ReActAgent(tool_list=tools, is_judge_agent=True)
 
-    def evaluate(self, question: str, generated_answer: str) -> JudgementResponseFormat:
+    def evaluate(
+        self, question: str, expert_answer: str, generated_answer: str
+    ) -> JudgementResponseFormat:
         """Evaluate the agent's response to a question using the ReActAgent."""
 
-        user_message = USER_MESSAGE_TEMPLATE.format(
-            question=question, answer=generated_answer
+        user_message = JUDGE_USER_MESSAGE_TEMPLATE.format(
+            question=question,
+            expert_answer=expert_answer,
+            generated_answer=generated_answer,
         )
         execution_trail = self.agent.run_agent_with_input(user_message=user_message)
 

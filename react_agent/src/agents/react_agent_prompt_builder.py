@@ -1,9 +1,7 @@
 """Configuration for the React Agent prompts and instructions"""
 
-from langchain.prompts import PromptTemplate
 from langchain.tools.base import BaseTool
-from langchain_core.tools import StructuredTool
-
+from langchain_core.tools.structured import StructuredTool
 from react_agent.src.config.agent_prompts import ReactAgentPrompts, ToolRankingSettings
 from react_agent.src.config.system_parameters import LlmProxySettings
 
@@ -22,7 +20,7 @@ def create_sys_prompt(
     if use_tool_rankings:
         tool_rankings = ""
         for tool in available_tools:
-            if tool is not isinstance(tool, StructuredTool):
+            if not isinstance(tool, BaseTool):
                 continue
             if RANKING_SETTINGS.tool_rankings.get(tool.name):
                 tool_rankings += f"Tool name: {tool.name}, Ranking: {RANKING_SETTINGS.tool_rankings.get(tool.name)}\n"
@@ -61,8 +59,8 @@ def generate_tool_info_string(available_tools: list[BaseTool]) -> str:
     """Generates a string containing tool names, arg schemas, and descriptions."""
     tool_strings = []
     for tool in available_tools:
-        if isinstance(tool, StructuredTool):
-            schema_props = tool.args_schema.get("properties")
+        if isinstance(tool, BaseTool):
+            schema_props = tool.args
         else:
             continue
 
