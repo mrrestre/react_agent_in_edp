@@ -3,7 +3,7 @@
 from typing import Optional
 from langchain_core.prompts import PromptTemplate
 
-from experiments.models.experiment_models import LLMJudgeOutcome
+from experiments.models.experiment_models import AgentJudgeOutcome
 from react_agent.src.util.llm_proxy import LLM_PROXY, TokenConsumption
 
 PROMPT_TEMPLATE = """## Role
@@ -77,7 +77,7 @@ class LLMAsJudgeEvaluator:
 
         self.prompt_template = PromptTemplate.from_template(PROMPT_TEMPLATE)
 
-    def evaluate(self, question: str, generated_answer: str) -> LLMJudgeOutcome:
+    def evaluate(self, question: str, generated_answer: str) -> AgentJudgeOutcome:
         """Evaluate the helpfulness of a generated answer using an LLM.
         Args:
             question (str): The question to evaluate.
@@ -114,11 +114,11 @@ class LLMAsJudgeEvaluator:
 
         # Parse the response
         if response == 2 or response == "2":
-            return LLMJudgeOutcome.FULLY_HELPFUL
+            return AgentJudgeOutcome.FULLY_HELPFUL
         elif response == 1 or response == "1":
-            return LLMJudgeOutcome.PARTIALLY_HELPFUL
+            return AgentJudgeOutcome.PARTIALLY_HELPFUL
         elif response == 0 or response == "0":
-            return LLMJudgeOutcome.NOT_HELPFUL
+            return AgentJudgeOutcome.NOT_HELPFUL
         else:
             raise ValueError(
                 f"Unexpected response: {response}, datatype {type(response)}"

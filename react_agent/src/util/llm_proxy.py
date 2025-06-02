@@ -1,6 +1,7 @@
 """LLM proxy for invoking language models and tracking usage."""
 
 from typing import Optional, Type
+import warnings
 
 import redis
 
@@ -96,6 +97,16 @@ class LlmProxy:
                 temperature=LLM_PROXY_SETTINGS.temperature,
                 init_func=openai_init_chat_model,
             )
+        elif self._used_model in SupportedModels().anthropic:
+            with warnings.catch_warnings():
+                # Suppress only RuntimeWarnings from unawaited coroutines
+                warnings.simplefilter("ignore", category=RuntimeWarning)
+
+                self._llm = init_llm(
+                    self._used_model,
+                    max_tokens=LLM_PROXY_SETTINGS.max_output_tokens,
+                    temperature=LLM_PROXY_SETTINGS.temperature,
+                )
         else:
             self._llm = init_llm(
                 self._used_model,

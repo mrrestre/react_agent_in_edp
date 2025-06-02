@@ -1,112 +1,93 @@
 """Agent Judge Evaluator for assessing agent responses."""
 
-from experiments.models.experiment_models import LLMJudgeOutcome
+from pydantic import BaseModel, Field
+from langchain_core.messages import AIMessage
+
+from experiments.models.experiment_models import AgentJudgeOutcome
 from react_agent.src.agents.react_agent import ReActAgent
 from react_agent.src.config.system_parameters import TriageSettings
 from react_agent.src.util.tools_fabric import ToolsFabric
 
-JUDGE_SYS_PROMPT_TEMPLATE = """## Role
-You are a strict and fair evaluator of answer quality. Your job is to assess whether a generated answer adequately addresses a given question. Be conservative in your judgments — an answer must be clearly complete and correct to be rated as fully helpful.
-
-## Task
-Given a question and a generated answer, classify the answer into one of three categories:
-
-- 2 = Fully Helpful: The answer directly, accurately, and completely addresses the question. No major information is missing.
-- 1 = Partially Helpful: The answer is somewhat relevant and may include some correct information, but is incomplete, vague, or partially incorrect.
-- 0 = Not Helpful: The answer is irrelevant, incorrect, off-topic, or otherwise fails to help the user meaningfully.
-
-You must focus on the **quality of the response relative to the question** — not on how plausible it sounds.
-
-## Instructions
-{react_instructions}
-
-## Tools
-You have access to the following tools to gather facts, retrieve relevant data, and answer technical or compliance-related queries:
-{tools}
-
-## Rules
-{rules}
-
-## Tool Rankings
-{tool_rankings}
-
-## Examples
-
-Example 1  
-Question: What is the capital of France?  
-Answer: The capital of France is Paris.  
-→ Classification: 2
-
-Example 2  
-Question: What is the capital of France?  
-Answer: France is a country in Western Europe with a rich history.  
-→ Classification: 1  
-(Reason: Vaguely related, but doesn’t answer the specific question)
-
-Example 3  
-Question: What is the capital of France?  
-Answer: The capital of France is Madrid.  
-→ Classification: 0  
-(Reason: Incorrect information)
-
-Example 4  
-Question: How does photosynthesis work?  
-Answer: It's something plants do to grow.  
-→ Classification: 1  
-(Reason: Too vague and incomplete, but somewhat relevant)
-
-Example 5  
-Question: How does photosynthesis work?  
-Answer: Photosynthesis is the process by which green plants use sunlight to synthesize food from carbon dioxide and water.  
-→ Classification: 2
-
-Example 6  
-Question: How does photosynthesis work?  
-Answer: The stock market fluctuates based on investor behavior.  
-→ Classification: 0  
-(Reason: Completely unrelated)
-
-## Output Format
-Respond with a single number: 2, 1, or 0 corresponding to the classification.
-"""
+from react_agent.src.util.llm_proxy import LLM_PROXY, TokenConsumption
 
 USER_MESSAGE_TEMPLATE = """## Input
 Question: {question}
 Generated Answer: {answer}"""
 
 
+class JudgementResponseFormat(BaseModel):
+    """Always without execptions use this tool to structure your response to the user."""
+
+    answer: AgentJudgeOutcome = Field(
+        description="The judgement of the agent's response"
+    )
+    reasoning: str = Field(description="The reasoning behind the judgement")
+
+
 class AgentJudgeEvaluator:
     """Class to evaluate the helpfulness of an agent's response using a ReActAgent."""
 
-    def __init__(self):
+    def __init__(self, model: str = None):
         """Initialize the Agent Judge Evaluator with a ReActAgent."""
+        self.default_llm_proxy_model = LLM_PROXY.get_used_model()
+
+        self._token_consumption: TokenConsumption
+        self._llm_call_count: int = 0
+        self.llm_model_changed: bool = False
+
+        self.set_llm_proxy_model(model)
+
         fabric = ToolsFabric()
         tools = fabric.get_tools_for_category(
             use_mcp=False, configuration=TriageSettings().Categories.ALL
         )
-        self.agent = ReActAgent(
-            tool_list=tools, custom_judge_prompt=JUDGE_SYS_PROMPT_TEMPLATE
-        )
+        tools.append(JudgementResponseFormat)
+        self.agent = ReActAgent(tool_list=tools, is_judge_agent=True)
 
-    def evaluate(self, question: str, agent_response: str) -> str:
+    def evaluate(self, question: str, generated_answer: str) -> JudgementResponseFormat:
         """Evaluate the agent's response to a question using the ReActAgent."""
+
         user_message = USER_MESSAGE_TEMPLATE.format(
-            question=question, answer=agent_response
+            question=question, answer=generated_answer
         )
-        self.agent.run_agent_with_input(user_message=user_message)
+        execution_trail = self.agent.run_agent_with_input(user_message=user_message)
 
-        agent_response = self.agent.run_data.final_output
+        run_data = self.agent.run_data
+        self._token_consumption = run_data.tokens_consumed
+        self._llm_call_count = run_data.llm_call_count
 
-        response = (
-            response.strip() if isinstance(agent_response, str) else agent_response
+        # Last is agent final response, secont to last is tool call (formater) and third to last is ai message containing the tool call
+        ai_message_tool_call = execution_trail["messages"][-3]
+
+        if isinstance(ai_message_tool_call, AIMessage):
+            return JudgementResponseFormat.model_validate(
+                ai_message_tool_call.tool_calls[0]["args"]
+            )
+
+        raise ValueError(
+            f"Unexpected response: {ai_message_tool_call["content"]}, datatype {type(ai_message_tool_call["content"])}"
         )
 
-        # Parse the response
-        if response == 2 or response == "2":
-            return LLMJudgeOutcome.FULLY_HELPFUL
-        if response == 1 or response == "1":
-            return LLMJudgeOutcome.PARTIALLY_HELPFUL
-        if response == 0 or response == "0":
-            return LLMJudgeOutcome.NOT_HELPFUL
+    def set_llm_proxy_model(self, model: str) -> None:
+        """Set the model used by the agent."""
+        # Set the model in the LLMProxy if differs from the current one
+        if model != self.default_llm_proxy_model:
+            LLM_PROXY.set_new_model(model)
+            self.llm_model_changed = True
 
-        raise ValueError(f"Unexpected response: {response}, datatype {type(response)}")
+    def get_token_consumption(self) -> TokenConsumption:
+        """Get the token consumption statistics."""
+        return self._token_consumption
+
+    def get_llm_call_count(self) -> int:
+        """Get the number of LLM calls made."""
+        return self._llm_call_count
+
+    def reset_llm_proxy_model(self) -> None:
+        """Reset the model used by the agent to the original one."""
+        if self.llm_model_changed:
+            LLM_PROXY.set_new_model(self.default_llm_proxy_model)
+
+    def __del__(self):
+        """Reset the LLM model when the evaluator is deleted."""
+        self.reset_llm_proxy_model()

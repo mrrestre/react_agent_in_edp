@@ -10,7 +10,7 @@ from react_agent.src.config.system_parameters import TriageSettings
 from react_agent.src.util.llm_proxy import TokenConsumption
 
 
-class LLMJudgeOutcome(StrEnum):
+class AgentJudgeOutcome(StrEnum):
     """Enum for trial outcomes."""
 
     FULLY_HELPFUL = "Fully Helpful"
@@ -43,10 +43,11 @@ class ExperimentResult(LabeledQAPairFacts):
     # Evaluation scores
     fact_score: float = 0.0
     bert_score: float = 0.0
-    llm_judge_outcome: LLMJudgeOutcome = LLMJudgeOutcome.NOT_HELPFUL
-    llm_judge_model: str = ""
-    llm_judge_call_count: int = 0
-    llm_judge_tokens_consumed: TokenConsumption = TokenConsumption()
+    agent_judge_outcome: AgentJudgeOutcome = AgentJudgeOutcome.NOT_HELPFUL
+    agent_judge_reasoning: str = ""
+    agent_judge_model: str = ""
+    agent_judge_call_count: int = 0
+    agent_judge_tokens_consumed: TokenConsumption = TokenConsumption()
 
     # Result
     generated_answer: str = ""
