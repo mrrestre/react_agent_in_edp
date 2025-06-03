@@ -56,6 +56,8 @@ Your goal is to classify the generated answer into one of three categories based
 You must focus on the **quality of the generated anwer relative to the question and the expert answer** — not on how plausible it sounds.
 
 ## Instructions
+- You should allways and without expections use the tool for structuring your response to the user.
+- The tool call for structuring your response must be the last tall call.
 {react_instructions}
 
 ## Tools
