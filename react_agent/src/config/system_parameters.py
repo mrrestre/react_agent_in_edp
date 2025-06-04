@@ -353,7 +353,7 @@ class ToolsFabricSettings(BaseSettings):
     logger_name: str = "Tools Fabric"
 
     # MCP DuckDuckGo Settings
-    include_duckduckgo: bool = False
+    include_duckduckgo: bool = True
     duckduckgo_url: str = (
         """https://server.smithery.ai/@nickclyde/duckduckgo-mcp-server/mcp?config={config_b64}&api_key={smithery_api_key}"""
     )
