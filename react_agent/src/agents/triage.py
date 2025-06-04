@@ -27,7 +27,7 @@ class Triage:
 
     def __init__(self):
         self.llm = LLM(
-            name=LLM_PROXY_SETTINGS.model,
+            name="gpt-4.1",
             version="latest",
             parameters={
                 "max_tokens": LLM_PROXY_SETTINGS.max_output_tokens,
