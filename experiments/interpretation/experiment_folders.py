@@ -23,3 +23,6 @@ class ExperimentFiles(StrEnum):
     ALL_TOOLS_MCP_WEBSEARCH = "all_tools_mcp_websearch.json"
     ALL_TOOLS_MCP_SEQ = "all_tools_mcp_seq.json"
     ALL_TOOLS_MCP_SEQ_WEBSEARCH = "all_tools_mcp_seq_websearch.json"
+    ALL_TOOLS_MCP_SEQ_WEBSEARCH_NO_RANKING = (
+        "all_tools_mcp_seq_websearch_no_ranking.json"
+    )
