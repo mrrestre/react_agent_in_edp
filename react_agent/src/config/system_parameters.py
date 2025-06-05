@@ -189,7 +189,7 @@ class AgentSettings(BaseSettings):
     max_iterations_reasoning_model: int = (
         40  # For reasoning models more steps are needed
     )
-    use_tool_rankings: bool = False
+    use_tool_rankings: bool = True
 
 
 # --------------- MCP Servers --------------- #
@@ -247,7 +247,7 @@ class LlmProxySettings(BaseSettings):
 
     logger_name: str = "LLM Proxy"
     model: str = (
-        "gpt-4.1"  # gemini-2.0-flash / gpt-4o / gpt-4.1 / o3 / anthropic--claude-3.5-sonnet
+        "o3"  # gemini-2.0-flash / gpt-4o / gpt-4.1 / o3 / anthropic--claude-3.5-sonnet
     )
     is_reasoning_model: bool = True if model in ["o3"] else False
     max_output_tokens: int = 6000
