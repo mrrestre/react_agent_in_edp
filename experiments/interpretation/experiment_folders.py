@@ -15,6 +15,7 @@ class ExperimentFiles(StrEnum):
     TRIAGE_LOCAL = "triage_local.json"
 
     ALL_TOOLS_LOCAL = "all_tools_local.json"
+    ALL_TOOLS_LOCAL_NO_RANKING = "all_tools_local_no_ranking.json"
 
     TRIAGE_MCP = "triage_mcp.json"
     TRIAGE_MCP_SEQ_WEBSEARCH = "triage_mcp_seq_websearch.json"

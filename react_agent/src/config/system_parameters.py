@@ -189,7 +189,7 @@ class AgentSettings(BaseSettings):
     max_iterations_reasoning_model: int = (
         40  # For reasoning models more steps are needed
     )
-    use_tool_rankings: bool = True
+    use_tool_rankings: bool = False
 
 
 # --------------- MCP Servers --------------- #
@@ -361,7 +361,7 @@ class ToolsFabricSettings(BaseSettings):
     duckduckgo_config: str = "b'e30='"
 
     # MCP Sequential Thinking Settings
-    include_sequential_thinking: bool = True
+    include_sequential_thinking: bool = False
     sequential_thinking_url: str = (
         """https://server.smithery.ai/@smithery-ai/server-sequential-thinking/mcp?config={config_b64}&api_key={smithery_api_key}"""
     )

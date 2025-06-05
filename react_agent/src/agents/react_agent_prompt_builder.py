@@ -1,7 +1,6 @@
 """Configuration for the React Agent prompts and instructions"""
 
 from langchain.tools.base import BaseTool
-from langchain_core.tools.structured import StructuredTool
 from react_agent.src.config.agent_prompts import ReactAgentPrompts, ToolRankingSettings
 from react_agent.src.config.system_parameters import LlmProxySettings
 
