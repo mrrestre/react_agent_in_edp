@@ -189,7 +189,7 @@ class AgentSettings(BaseSettings):
     max_iterations_reasoning_model: int = (
         40  # For reasoning models more steps are needed
     )
-    use_tool_rankings: bool = True
+    use_tool_rankings: bool = False
 
 
 # --------------- MCP Servers --------------- #
@@ -251,7 +251,7 @@ class LlmProxySettings(BaseSettings):
     )
     is_reasoning_model: bool = True if model in ["o3"] else False
     max_output_tokens: int = 6000
-    temperature: float = 0.05
+    temperature: float = 0.05 if not is_reasoning_model else 1
     max_input_tokens: int = 60000 if is_reasoning_model else 20000
 
 

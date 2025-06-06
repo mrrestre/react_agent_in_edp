@@ -7,6 +7,7 @@ class ExperimentFolders(StrEnum):
     """Defines the folders used for experiments."""
 
     GPT_41 = "gpt-4.1"
+    O3 = "o3"
 
 
 class ExperimentFiles(StrEnum):
@@ -26,3 +27,12 @@ class ExperimentFiles(StrEnum):
     ALL_TOOLS_MCP_SEQ_WEBSEARCH_NO_RANKING = (
         "all_tools_mcp_seq_websearch_no_ranking.json"
     )
+
+
+# Price for 1,000 Model Tokens
+ModelPricing = {
+    "gpt-4.1": {"input": 0.00129, "output": 0.00494},
+    "o3": {"input": 0.00610, "output": 0.02436},
+    "anthropic--claude-3.5-sonnet": {"input": 0.00204, "output": 0.00988},
+    # add other models as needed
+}
