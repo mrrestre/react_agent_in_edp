@@ -28,7 +28,7 @@ class ExperimentFiles(StrEnum):
         "all_tools_mcp_seq_websearch_no_ranking.json"
     )
 
-    NON_AGENTIC = "gpt_41_no_agent.json"
+    NON_AGENTIC = "no_agent_no_tools.json"
 
 
 # Price for 1,000 Model Tokens
