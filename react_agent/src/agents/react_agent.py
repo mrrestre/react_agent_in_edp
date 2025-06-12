@@ -63,6 +63,9 @@ class ReActAgent:
             user_message.replace("\n", ""),
         )
 
+        # In order to ensure that the LLM Proxy is reset and using the wanted model
+        LLM_PROXY.set_new_model(LLM_PROXY_SETTINGS.model)
+
         input_object = {"messages": [("user", user_message)]}
 
         config_object = {
@@ -107,6 +110,9 @@ class ReActAgent:
             "Running agent asynchronously with user message: %s",
             user_message.replace("\n", ""),
         )
+
+        # In order to ensure that the LLM Proxy is reset and using the wanted model
+        LLM_PROXY.set_new_model(LLM_PROXY_SETTINGS.model)
 
         input_object = {"messages": [("user", user_message)]}
 
@@ -172,6 +178,15 @@ class ReActAgent:
                             )
                         else:
                             continue
+                # This is needed for vertex ai models
+                elif message.additional_kwargs.get("function_call"):
+                    function_call = message.additional_kwargs.get("function_call")
+                    self.run_data.tools_used.append(
+                        ToolCall(
+                            tool_name=function_call.get("name"),
+                            arguments=json.loads(function_call.get("arguments")),
+                        )
+                    )
 
         LLM_PROXY.update_llm_usage(execution_messages[-1])
         self.run_data.llm_call_count = LLM_PROXY.get_call_count()

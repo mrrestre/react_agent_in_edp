@@ -8,6 +8,7 @@ class ExperimentFolders(StrEnum):
 
     GPT_41 = "gpt-4.1"
     O3 = "o3"
+    GEMINI_20_FLASH = "gemini-20-flash"
 
 
 class ExperimentFiles(StrEnum):
@@ -27,8 +28,6 @@ class ExperimentFiles(StrEnum):
     ALL_TOOLS_MCP_SEQ_WEBSEARCH_NO_RANKING = (
         "all_tools_mcp_seq_websearch_no_ranking.json"
     )
-
-    NON_AGENTIC = "no_agent_no_tools.json"
 
 
 # Price for 1,000 Model Tokens
