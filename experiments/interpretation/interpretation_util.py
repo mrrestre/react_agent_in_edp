@@ -35,5 +35,6 @@ ModelPricing = {
     "gpt-4.1": {"input": 0.00129, "output": 0.00494},
     "o3": {"input": 0.00610, "output": 0.02436},
     "anthropic--claude-3.5-sonnet": {"input": 0.00204, "output": 0.00988},
+    "gemini-2.0-flash": {"input": 0.00012, "output": 0.00040},
     # add other models as needed
 }
