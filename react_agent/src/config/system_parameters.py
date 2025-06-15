@@ -247,7 +247,7 @@ class LlmProxySettings(BaseSettings):
 
     logger_name: str = "LLM Proxy"
     model: str = (
-        "gemini-2.0-flash"  # gemini-2.0-flash / gpt-4o / gpt-4.1 / o3 / anthropic--claude-3.5-sonnet
+        "gpt-4.1"  # gemini-2.0-flash / gpt-4o / gpt-4.1 / o3 / anthropic--claude-3.5-sonnet
     )
     is_reasoning_model: bool = True if model in ["o3"] else False
     max_output_tokens: int = 6000
@@ -353,7 +353,7 @@ class ToolsFabricSettings(BaseSettings):
     logger_name: str = "Tools Fabric"
 
     # MCP DuckDuckGo Settings
-    include_duckduckgo: bool = True
+    include_duckduckgo: bool = False
     duckduckgo_url: str = (
         """https://server.smithery.ai/@nickclyde/duckduckgo-mcp-server/mcp?config={config_b64}&api_key={smithery_api_key}"""
     )
@@ -361,7 +361,7 @@ class ToolsFabricSettings(BaseSettings):
     duckduckgo_config: str = "b'e30='"
 
     # MCP Sequential Thinking Settings
-    include_sequential_thinking: bool = True
+    include_sequential_thinking: bool = False
     sequential_thinking_url: str = (
         """https://server.smithery.ai/@smithery-ai/server-sequential-thinking/mcp?config={config_b64}&api_key={smithery_api_key}"""
     )
