@@ -1,6 +1,6 @@
 """Configuration parameters for agent, tools and proxies"""
 
-from enum import Enum, StrEnum
+from enum import Enum
 import logging
 from typing import Any, Dict, List, Tuple
 
@@ -247,7 +247,7 @@ class LlmProxySettings(BaseSettings):
 
     logger_name: str = "LLM Proxy"
     model: str = (
-        "o3"  # gemini-2.0-flash / gpt-4o / gpt-4.1 / o3 / anthropic--claude-3.5-sonnet
+        "gemini-2.0-flash"  # gemini-2.0-flash / gpt-4o / gpt-4.1 / o3 / anthropic--claude-3.5-sonnet
     )
     is_reasoning_model: bool = True if model in ["o3"] else False
     max_output_tokens: int = 6000
