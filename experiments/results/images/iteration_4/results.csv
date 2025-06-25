@@ -1,0 +1,5 @@
+ablation_type,fact_score.direct_fact_score,excecution_time_seconds,tokens_consumed.input_tokens,tokens_consumed.output_tokens,bert_score,tool_calls_count,Fully Helpful,Not Helpful,Partially Helpful
+Baseline,0.57,140.14,17201.74,2445.11,0.18,3.71,69.23,0.0,30.77
+No Code,0.5,84.46,18866.26,2936.98,0.11,4.84,61.54,7.69,30.77
+No Docu,0.35,60.63,18191.43,1052.3,0.14,4.41,53.85,8.79,37.36
+No ReAct,0.53,119.25,23757.43,3306.77,0.17,5.46,62.64,3.3,34.07
