@@ -1,0 +1,53 @@
+@startuml RAG-Pipeline
+'----------------- Styles -------------------
+skinparam defaultFontSize 14
+
+'----------------- Nodes --------------------
+actor User
+
+rectangle "Knowledge Prepation" as KnowledgePrep {
+    file "Knowledge\n Articles" as Doc
+    rectangle "Chunk 1" as Chunk1
+    rectangle "Chunk 2" as Chunk2
+    rectangle "Chunk 3" as Chunk3
+    cloud "Chunk 1\nEmbedding" as Chunk1_emb
+    cloud "Chunk 2\nEmbedding" as Chunk2_emb
+    cloud "Chunk 3\nEmbedding" as Chunk3_emb
+
+    database "Vector\nDatabase" as VDB
+}
+
+rectangle "Information Retrieval" as Retrieval {
+    cloud "Query embedding" as QueryEmb
+    collections "Relevant Chunks" as Hits
+    file "User Query" as QueryPrompt
+}
+
+rectangle "Response Generation" as ResponseGen {
+    process "LLM" as LLM
+    file "Response" as Response
+}
+
+
+'----------------- Connections --------------
+User -down-> QueryPrompt : ask
+QueryPrompt -down-> QueryEmb : embed
+QueryEmb -down-> VDB : search
+
+Doc -down-> Chunk1 
+Doc -down-> Chunk2 : split
+Doc -down-> Chunk3
+Chunk1 -down-> Chunk1_emb 
+Chunk2 -down-> Chunk2_emb : embed
+Chunk3 -down-> Chunk3_emb 
+Chunk1_emb -down-> VDB 
+Chunk2_emb -down-> VDB : store
+Chunk3_emb -down-> VDB 
+
+VDB -up-> Hits : retrieve
+Hits -up-> LLM
+QueryPrompt -up-> LLM
+LLM -up-> Response
+Response -right-> User : reply
+
+@enduml

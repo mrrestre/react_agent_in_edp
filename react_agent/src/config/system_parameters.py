@@ -247,7 +247,7 @@ class LlmProxySettings(BaseSettings):
 
     logger_name: str = "LLM Proxy"
     model: str = (
-        "o3"  # gemini-2.0-flash / gpt-4o / gpt-4.1 / o3 / anthropic--claude-3.5-sonnet
+        "gpt-4.1"  # gemini-2.0-flash / gpt-4o / gpt-4.1 / o3 / anthropic--claude-3.5-sonnet
     )
     is_reasoning_model: bool = True if model in ["o3"] else False
     max_output_tokens: int = 6000
