@@ -1,8 +1,0 @@
-services:
-  code-server:
-    build:
-      context: .
-      dockerfile: docker/code_server.dockerfile
-    ports:
-      - "8000:8000"
-
