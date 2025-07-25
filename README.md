@@ -54,7 +54,7 @@ For the management of memories a local postgres docker image is needed. This can
 ### Script
 Run the script located here: 
 - [Unix Script](./react_agent/src/scripts/setup_vector_db.sh) (only for unix based systems)
-- [Windows Script](./react_agent/src/scripts/setup_vector_db.sh) (only for windows systems)
+- [Windows Script](./react_agent/src/scripts/setup_vector_db.ps1) (only for windows systems)
 
 ### Manual configuration of docker image
 
