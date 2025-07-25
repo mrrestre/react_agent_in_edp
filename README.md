@@ -100,12 +100,16 @@ Caution: for running any of these scripts, a connection to Gen AI Hub musst be a
 
 # Running the agent
 
-For running the agent the jupyter notebook in [Link](./notebooks/agent_single_question.ipynb) can be used. Be aware that this contains the code for using MCP for the communication with the tools and the intergration of the triage agent. Both of this can be configured with the boolean variables at the begining of the notebook
+For running the agent the jupyter notebook in [Link](./notebooks/agent_single_question.ipynb) can be used. Be aware that this contains the code for using MCP for the communication with the tools and the intergration of the triage agent. Both of this can be configured with the boolean variables at the begining of the notebook.
 
 By default, if no triage agent is used, all the developed tools are going to be provided to agent. If this should be changed, either a list containing the subset of tools can be prepared (See how this is done in the fabric class as an example [ToolFabric](./react_agent/src/util/tools_fabric.py) - lines 88-105).
 
 The question to be asked should be assigned to the QUERY variable.
 The DEBUG boolean adds debugging information such as system prompt and agent reasoning steps to the output.
+
+## Running the agent (simplified)
+
+Simplified versions (without triage, mcp and tool fabric) from an agent run can be found here: [as Jupyter notebook](./notebooks/agent_single_question_simpified.ipynb) and [as Python script](./react_agent/src/scripts/run_agent_simplified.py).
 
 # Additional components
 
