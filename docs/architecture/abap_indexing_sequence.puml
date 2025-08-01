@@ -1,0 +1,34 @@
+@startuml ABAPRepositoryPreparationStep
+
+actor User
+
+participant "ABAP Repository" as Repo
+participant "Source Code Summarizer" as Summarizer
+participant "LLM" as LLM
+participant "Memory Manager" as Manager
+participant "Vector Database" as DB
+
+== Source Code Input ==
+User -> Repo: ABAP Source Code
+
+== Source Code Processing ==
+loop for each Class in ABAP Source Code
+    Repo -> Repo: Parse Class Metadata
+    Repo -> Repo: Parse Class Implementation \ninto Methods
+end
+
+== Summary Creation ==
+loop for each Method in each Class
+    Repo -> Summarizer: Request Method Summary 
+    Summarizer -> LLM: Generate Summary\nfor Method
+    LLM -> Summarizer: Return Method\nSummary
+    Summarizer -> Repo: Return Method Summary
+end
+
+== Insertion of Methods to Vector Database ==
+loop for each Method Summary
+    Repo -> Manager: Provide Method Summary with Metadata
+    Manager -> DB: Insert Method Summary\nwith Metadata
+end
+
+@enduml

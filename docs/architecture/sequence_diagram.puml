@@ -4,30 +4,32 @@ actor User
 
 participant "Triage Agent" as Triage
 participant "Tool Factory" as Factory
-participant "ReAct Agent" as ReAct
+participant "Main Agent" as ReAct
+participant "Prompt Builder" as Builder
 control "Tools-Pool" as Tools
 
 == Message Intake ==
 User -> Triage: User Message
 
 == Categorization ==
-Triage -> Triage: Categorize message
-Triage -> Factory: Category Info + User Message
+Triage -> Triage: Categorize Message
+Triage -> Factory: Category + User Message
 
 == Tool Preparation ==
-Factory -> Factory: Load/Create Tools
-Factory -> Tools: Initialize tools-pool for category
+Factory -> Factory: Create Local Tools / Configure MCP Servers
+Factory -> Tools: Register Tools to be Used
 
 == Agent Preparation ==
-Tools -> ReAct: Load tools
+Tools -> ReAct: Load Local Tools / Connect to MCP Servers
+ReAct -> Builder: Ask for System Prompt
+Builder -> ReAct: Provide System Prompt
 
 == Reasoning ==
-ReAct -> ReAct: Analyze user message message
 ReAct -> ReAct: Generate Action Plan
 
 loop Thought/Action/Observation
     ReAct -> ReAct: Generate Thought
-    ReAct -> Tools: Perform Action using Tool
+    ReAct -> Tools: Perform Action Using Tool
     Tools -> ReAct: Return Observation
 end
 

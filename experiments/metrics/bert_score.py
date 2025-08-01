@@ -2,13 +2,22 @@
 
 from typing import cast
 from bert_score import score
+from pydantic import BaseModel
+
+
+class BertScoreValues(BaseModel):
+    """Values for BERTScore."""
+
+    PRECISION: float
+    RECALL: float
+    F1: float
 
 
 class BertScore:
     """Compute BERTScore for a given expected and actual response."""
 
     @staticmethod
-    def compute_score(expected_response: str, actual_response: str) -> float:
+    def compute_score(expected_response: str, actual_response: str) -> BertScoreValues:
         """Compute BERTScore for a given expected and actual response.
         Args:
             expected_response (str): The expected response.
@@ -21,11 +30,15 @@ class BertScore:
             refs=[expected_response],
             model_type="microsoft/deberta-xlarge-mnli",
             lang="en",
-            rescale_with_baseline=True,
+            # rescale_with_baseline=True,
             # Reasoning: https://github.com/Tiiiger/bert_score/blob/master/journal/rescale_baseline.md
             # Rescaling to make score easier to interpret since "regular" BERT  tends to be around 0.85.
         )
-        return cast(float, recall.mean().item())
+        return BertScoreValues(
+            PRECISION=cast(float, precision.mean().item()),
+            RECALL=cast(float, recall.mean().item()),
+            F1=cast(float, f1.mean().item()),
+        )
 
 
 # BERTScore (2019): BERTScore matches tokens via contextual embeddings and reports precision/recall/F1.
