@@ -1,0 +1,17 @@
+ablation_type,case_type,Fully Helpful,Not Helpful,Partially Helpful
+Baseline,Extensibility Assistance,77.0,0.0,23.0
+Baseline,Malaysia Support,40.0,0.0,60.0
+Baseline,Peppol Support,75.0,0.0,25.0
+Baseline,Settlement Cases,55.0,0.0,45.0
+No Code,Extensibility Assistance,68.0,4.0,29.0
+No Code,Malaysia Support,80.0,0.0,20.0
+No Code,Peppol Support,75.0,0.0,25.0
+No Code,Settlement Cases,36.0,23.0,41.0
+No Docu,Extensibility Assistance,52.0,14.0,34.0
+No Docu,Malaysia Support,40.0,0.0,60.0
+No Docu,Peppol Support,62.0,0.0,38.0
+No Docu,Settlement Cases,59.0,0.0,41.0
+No ReAct,Extensibility Assistance,71.0,2.0,27.0
+No ReAct,Malaysia Support,40.0,20.0,40.0
+No ReAct,Peppol Support,50.0,0.0,50.0
+No ReAct,Settlement Cases,50.0,5.0,45.0

@@ -30,7 +30,7 @@ class BertScore:
             refs=[expected_response],
             model_type="microsoft/deberta-xlarge-mnli",
             lang="en",
-            # rescale_with_baseline=True,
+            rescale_with_baseline=True,
             # Reasoning: https://github.com/Tiiiger/bert_score/blob/master/journal/rescale_baseline.md
             # Rescaling to make score easier to interpret since "regular" BERT  tends to be around 0.85.
         )
