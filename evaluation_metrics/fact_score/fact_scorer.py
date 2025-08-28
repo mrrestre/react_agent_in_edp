@@ -4,15 +4,15 @@ import json
 import os
 from typing import Optional
 
-from experiments.metrics.fact_score.model.fact_score_models import (
+from evaluation_metrics.fact_score.model.fact_score_models import (
     FactCategory,
     FactClassification,
     FactEvaluation,
     FactEvaluationExample,
     FactScoreResult,
 )
-from experiments.metrics.fact_score.settings import FactScoreSettings
-from experiments.metrics.fact_score.util import Util
+from evaluation_metrics.fact_score.settings import FactScoreSettings
+from evaluation_metrics.fact_score.util import Util
 from react_agent.src.util.llm_proxy import LLM_PROXY
 
 FACT_SCORE_SETTINGS = FactScoreSettings()
