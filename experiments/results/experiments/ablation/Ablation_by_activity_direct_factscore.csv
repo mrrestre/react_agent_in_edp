@@ -1,0 +1,5 @@
+ablation_type,Business Configuration,Custom Development,Design,Development,Maintenance
+Baseline,0.26,0.63,0.25,0.82,0.57
+No Code,0.26,0.56,0.32,0.53,0.61
+No Docu,0.13,0.3,0.24,0.71,0.41
+No ReAct,0.08,0.56,0.31,0.73,0.65

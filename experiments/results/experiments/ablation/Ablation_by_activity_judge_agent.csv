@@ -1,0 +1,21 @@
+ablation_type,activity,Fully Helpful,Not Helpful,Partially Helpful
+Baseline,Business Configuration,25.0,0.0,75.0
+Baseline,Custom Development,77.0,0.0,23.0
+Baseline,Design,47.0,0.0,53.0
+Baseline,Development,77.0,0.0,23.0
+Baseline,Maintenance,78.0,0.0,22.0
+No Code,Business Configuration,25.0,0.0,75.0
+No Code,Custom Development,71.0,2.0,27.0
+No Code,Design,41.0,24.0,35.0
+No Code,Development,46.0,15.0,38.0
+No Code,Maintenance,89.0,0.0,11.0
+No Docu,Business Configuration,50.0,0.0,50.0
+No Docu,Custom Development,50.0,15.0,35.0
+No Docu,Design,53.0,6.0,41.0
+No Docu,Development,69.0,0.0,31.0
+No Docu,Maintenance,56.0,0.0,44.0
+No ReAct,Business Configuration,50.0,25.0,25.0
+No ReAct,Custom Development,71.0,0.0,29.0
+No ReAct,Design,41.0,12.0,47.0
+No ReAct,Development,69.0,0.0,31.0
+No ReAct,Maintenance,56.0,0.0,44.0
