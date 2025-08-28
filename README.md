@@ -1,3 +1,21 @@
+# Repository Structure
+- evaluation_metrics: Contains the developed evaluators.
+- experiments: Contains the data set, the results of the experiments and a Jupyter notebook to run an experiment.
+- notebooks: Collection of Jupyter Notebook for testing purposes of different components of the developed agent.
+- react_agent: Contains the implementation of both the agent, the tools and several utilities and extra components.
+- req_collections: Contains both .rest request as well as .bruno request for communicating with SAP Gen AI Hub and testing endpoints.
+- thesis_docs: Contains architecture diagrams and results figures used for purposes of the master thesis.
+
+# Overview of used models and versions
+| Model                         | Version | Hosting / Provider        |
+| ----------------------------- | ------- | ------------------------- |
+| GPT-4o                        | 2024-08 | Gen AI Hub - azure-openai |
+| o3                            | 2025-04 | Gen AI Hub - azure-openai |
+| Google Gemini 2.0-Flash       | 001     | Gen AI Hub - gcp-vertexai |
+| Claude 3.5 Sonnet             | 1       | Gen AI Hub - aws-bedrock  |
+| text-embedding-ada-002        | 2       | Gen AI Hub - azure-openai |
+| microsoft/deberta-xlarge-mnli | latest  | Hugging Face              |
+
 # Setup
 In order for the agent to run following steps should be fulfilled:
 - Connection to Gen AI Core in a BTP subaccount for the comunication with an LLM
@@ -5,8 +23,8 @@ In order for the agent to run following steps should be fulfilled:
 - Environment variables should be set using a .env file (see bellow)
 - If the local ABAP database want to be used, a docker container should be prepared and the wanted clases pre-indexed (see bellow)
 
-## Connection with Gen AI Hub
-(TODO: explain how to do this)
+## Connection with SAP Gen AI Hub
+This is only possible for SAP employees and people with access to a SAP BTP account with the SAP AI Core service activated. Otherwise the LLM Proxy should be reconfigured to connect to model hosted outside of this service.
 
 ## Project dependencies
 For intalling the dependencies of the project poetry is used and therefor should be installed. Python 3.13 is required.
